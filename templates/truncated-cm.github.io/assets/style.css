@@ -1,0 +1,449 @@
+/*
+@font-face{font-family:"NVIDIA";src:url("https://images.nvidia.com/etc/designs/nvidiaGDC/clientlibs_base/fonts/nvidia-sans/GLOBAL/NVIDIASans_W_Lt.woff") format("woff"),url("https://images.nvidia.com/etc/designs/nvidiaGDC/clientlibs_base/fonts/nvidia-sans/GLOBAL/NVIDIASans_W_Lt.woff2") format("woff2");font-weight:300;font-style:normal}
+@font-face{font-family:"NVIDIA";src:url("https://images.nvidia.com/etc/designs/nvidiaGDC/clientlibs_base/fonts/nvidia-sans/GLOBAL/NVIDIASans_W_Rg.woff") format("woff"),url("https://images.nvidia.com/etc/designs/nvidiaGDC/clientlibs_base/fonts/nvidia-sans/GLOBAL/NVIDIASans_W_Rg.woff2") format("woff2");font-weight:400;font-style:normal}
+@font-face{font-family:"NVIDIA";src:url("https://images.nvidia.com/etc/designs/nvidiaGDC/clientlibs_base/fonts/nvidia-sans/GLOBAL/NVIDIASans_W_Md.woff") format("woff"),url("https://images.nvidia.com/etc/designs/nvidiaGDC/clientlibs_base/fonts/nvidia-sans/GLOBAL/NVIDIASans_W_Md.woff2") format("woff2");font-weight:500;font-style:normal}
+@font-face{font-family:"NVIDIA";src:url("https://images.nvidia.com/etc/designs/nvidiaGDC/clientlibs_base/fonts/nvidia-sans/GLOBAL/NVIDIASans_W_Bd.woff") format("woff"),url("https://images.nvidia.com/etc/designs/nvidiaGDC/clientlibs_base/fonts/nvidia-sans/GLOBAL/NVIDIASans_W_Bd.woff2") format("woff2");font-weight:700;font-style:normal}
+*/
+
+body {
+    font-family: IBM Plex Sans, sans-serif;
+    padding-bottom: 50px;
+    font-size: 100%;
+    line-height: 1.3em;
+    letter-spacing: -0.15pt;
+}
+
+a {
+    color: #3889d9;
+    font-weight: 500;
+}
+a:hover {
+    color: #105090;
+    font-style: normal;
+}
+
+#banner {
+    padding: 2%;
+    padding-bottom: 0%;
+    /* color: black;
+    background-color: white; */
+    background-image: linear-gradient(#1b220c, #60703b);
+    box-shadow: 0 0 15px 30px #60703b;
+    /* background-image: linear-gradient(#252d14, #60703b);
+    box-shadow: 0 0 15px 30px #60703b; */
+    /* background-image: linear-gradient(#f9ffeb, #f9ffeb); */
+    /* padding-top: 60px; */
+}
+
+.paper {
+	height: 300px;
+}
+
+.paper_pic {
+	/*text-align: center;*/
+	padding: 0 20px 0 20px;
+	float: left;
+	width: 31%;
+}
+
+.paper_content {
+	/* font: 400 100% IBM Plex Sans; */
+	float: left;
+    width: 69%;
+	/* width: 650px; */
+	padding: 0 0 0 10px;
+}
+
+h4 {
+	font: 400 105% IBM Plex Sans;
+	margin: 0 0 5px 0;
+}
+
+.jumbotron {
+    /* color: #dddddd; */
+    color: white;
+    /* font-size: 110%; */
+   /* margin-bottom: 0; */
+}
+.jumbotron a {
+    /* color: #41c793; */
+    color: #dddddd;
+}
+.jumbotron sup {
+    /* color: #41c793; */
+    color: #dddddd;
+}
+.jumbotron a:hover {
+    color: #56db31;
+}
+
+.jumbotron .jumbotron-heading {
+    font-size: 180%;
+}
+
+.jumbotron .jumbotron-heading sup {
+    color: white;
+}
+
+#main a:hover {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+p {
+    text-align: justify;
+    hyphens: auto;
+    -ms-hyphens: auto;
+    -webkit-hyphens: auto;
+}
+
+hr {
+    background: #80808083;
+    margin: 30px 0 20px 0;
+    padding: 1px 0 0 0;
+    max-width: 900px;
+}
+
+.jumbotron .btn-primary {
+    font-size: 110%;
+    color: #fff;
+    background-color: #4a6a0c;
+    border-color: #7b953b;
+    border-width: 3px;
+    margin: 0 5px 0 0;
+}
+.jumbotron .btn-primary:hover {
+    color: #fff;
+    background-color: #5c7f17;
+    border-color: #c7dc94;
+    font-weight: 500;
+}
+.jumbotron .btn-primary:active:hover {
+    background-color: #78a130;
+    border-color: #caff6e;
+}
+
+h2 {
+    font-size: 170%;
+    font-weight: 600;
+}
+#name {
+    font-size: 130%;
+    font-weight: 700;
+    /* background: linear-gradient(to right, #ef5350, #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047, #eeff41, #f9a825, #ff5722); */
+    background: linear-gradient(to right, #ef5350, #43a047);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+h5 {
+    text-align: center;
+    font-size: 150%;
+    font-weight: 600;
+    padding: 10px 0 10px 0;
+}
+.author {
+    font-size: 110%;
+    font-weight: 500;
+    margin: 0 0 3px 0;
+    padding: 0 0 0 0;
+}
+.row-author {
+    margin: 0 20px 0 20px;
+}
+.reconstruction {
+    text-align: center;
+    padding: 0 0 0 0;
+    width: 33%;
+}
+h9 {
+    font-size: 95%;
+    color: #b2b2b2;
+}
+
+.container {
+    max-width: 900px;
+    padding: 0 10px 0 10px;
+}
+
+#title {
+    font-size: 105%;
+    padding: 0 0 10px 0;
+}
+#affiliation {
+    font-weight: 500;
+    font-size: 120%;
+    color: #96d428;
+    padding: 20px 0 5px 0;
+}
+#pitch {
+    font-weight: 500;
+    font-size: 105%;
+    max-width: 820px;
+    margin: auto;
+    padding: 20px 0 0 0;
+}
+
+.buttons {
+    padding: 10px 0 0 0;
+}
+.column-method-left {
+    position: relative;
+    float: left;
+    width: 54%;
+}
+.column-method-right {
+    position: relative;
+    float: left;
+    width: 46%;
+}
+.column-a {
+    position: relative;
+    float: left;
+    width: 56%;
+}
+.column-b {
+    position: relative;
+    float: left;
+    width: 44%;
+}
+.row-method {
+    margin: 0 0 0 0;
+}
+.row-nfe {
+    margin: 0 0 20px 0;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.tab {
+    overflow: hidden;
+    /* border: 1px solid #ccc; */
+    /* background-color: #f1f1f1; */
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Style the buttons that are used to open the tab content */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: 1px solid #ccc;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 10px 5px 10px;
+    transition: 0.0s;
+    /* border-width: 3px; */
+    width: 25%;
+    /* border-radius: 4px; */
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+  }
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    font-weight: 500;
+    background-color: #c7dc94;
+    /* background-color: #c7dc94; */
+  }
+
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #5c7f17;
+    color:white;
+    font-weight: 500;
+  }
+
+  /* Style the tab content */
+  .tabcontent {
+    background-color: rgb(240, 240, 240);
+    display: none;
+    padding: 6px 12px;
+    /* border: 1px solid #60703b; */
+    /* border-top: none; */
+  }
+  .tabcontent {
+    animation: fadeEffect 0.5s; /* Fading effect takes 1 second */
+  }
+
+  /* Go from zero to full opacity */
+  @keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+.affil {
+    /* font: 400 110% IBM Plex Sans; */
+    /* color: #260; */
+    /* text-shadow: 0px 0px 0.5px #8f0; */
+    text-align: center;
+    padding: 5px 0 10px 0;
+    color: #b2b2b2;
+}
+.affil sup {
+    color: #b2b2b2;
+}
+
+#citation {
+    line-height: 1.1em;
+    max-width: 750px;
+    letter-spacing: 0pt;
+    font: 95% "Inconsolata";
+    border: 2px solid #666;
+    /* margin: 20px auto 20px auto; */
+    padding: 10px 10px 10px 10px;
+}
+/* https://opensource.apple.com/source/WebCore/WebCore-7602.2.14.0.5/css/mediaControls.css.auto.html */
+/* https://stackoverflow.com/questions/17678302/how-to-hide-full-screen-button-of-the-video-tag-in-html5 */
+video::-webkit-media-controls-fullscreen-button {
+    display: none;
+}
+video::-webkit-media-controls-current-time-display{
+    display: none;
+}
+video::-webkit-media-controls-time-remaining-display {
+    display: none;
+}
+video::-webkit-media-controls-toggle-closed-captions-button {
+    display: none;
+}
+video::-webkit-media-controls-volume-slider {
+    display: none;
+}
+/* video::-webkit-media-controls-mute-button {
+    display: none;
+} */
+video::-webkit-media-controls-panel {
+    /* background-image: none; */
+    background-image: linear-gradient(#ffffff00, #3f3f3f8d);
+}
+/* video::-webkit-media-controls-timeline { */
+    /* background-color: initial; */
+    /* border: initial; */
+    /* color: red; */
+/* } */
+
+/* --------------------------------------- */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    padding: 2px;
+}
+
+.grid-container-video {
+    display: grid;
+    grid-template-columns: 100%;
+    padding: 2px;
+}
+
+.grid-item {
+    padding: 2px;
+    font-size: 30px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+/*input[type="checkbox"] {*/
+/*    display: none;*/
+/*}*/
+img {
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+}
+
+label {
+    border: 1px solid #000;
+    padding: 0;
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.embed-responsive-2by1 {
+    padding-bottom: 50%;
+}
+
+.embed-responsive-4by1 {
+    padding-bottom: 25%;
+}
+
+.embed-responsive-6by1 {
+    padding-bottom: 16.67%;
+}
+
+.embed-responsive-8by1 {
+    padding-bottom: 12.50%;
+}
+
+.embed-responsive-teaser {
+    padding-bottom: 29%;
+}
+
+.float-button {
+    position: fixed;
+    right: 1%;
+    z-index: 9999;
+}
+
+.vert {
+    transform-origin: 50% 50%;
+    transform: rotate(180deg);
+    writing-mode: vertical-rl;
+    margin: 0;
+}
+
+.caption {
+    font-size: 0.9rem;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.row {
+/*    display: grid;*/
+    grid-auto-flow: row;
+/*    margin: 0 20px 0 20px;*/
+/*    gap: 5%;*/
+/*    align-items: center;*/
+    justify-content: center;
+}
+
+
+/* deprecated */
+.column-2 {
+    position: relative;
+    float: left;
+    width: 50%;
+}
+.column-3 {
+    position: relative;
+    float: left;
+    width: 32%;
+/*    height: 330px;*/
+    margin: 0 0 15px 0;
+}
+.column-4 {
+    position: relative;
+    float: left;
+    width: 25%;
+    height: 220px;
+}
+
+.large_video {
+    margin: 10px 0 0 0;
+    border: 1px solid #BBB;
+    box-shadow: 0 0 30px #792;
+}

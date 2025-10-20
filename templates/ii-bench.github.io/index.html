@@ -1,0 +1,2852 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>II-Bench</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://kit.fontawesome.com/f8ddf9854a.js" crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <meta name="description" content="An Image Implication Understanding Benchmark for Multimodal Large Language Models">
+  <meta name="keywords" content="II-Bench, LMM, LMM Evaluation,MLLM, MLLM Evaluation, Multimodal large language model, Vision Language Model, Large Language Model, Large Multimodal Model, artificial intelligence, AI, AGI, artificial general intelligence">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> II-Bench: An Image Implication Understanding Benchmark for Multimodal Large Language Models</title>
+
+  <link rel="icon" href="images/icon.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/leaderboard.css">
+
+  <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+  <script type="text/javascript" src="static/js/sort-table.js" defer=""></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer="" src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="static/js/question_card.js"></script>
+<!--  <script src="./data/results/data_setting.js" defer></script>-->
+<!--  <script src="./data/results/model_scores.js" defer></script>-->
+<!--  <script src="./visualizer/data/data_public.js" defer></script>-->
+</head>
+<body class="II-Bench-container">
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <!-- <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://tiger-ai-lab.github.io/MAmmoTH/">
+            <b>MAmmoTH</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="https://osu-nlp-group.github.io/TableLlama/">
+            TableLlama
+            <a class="navbar-item" href="https://osu-nlp-group.github.io/MagicBrush/">
+              MagicBrush
+            </a>
+            <a class="navbar-item" href="https://osu-nlp-group.github.io/Mind2Web/">
+              Mind2Web
+            </a>
+          </a>
+
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div> -->
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold">
+            <img src="images/logo.png" style="width:1em;vertical-align: middle" alt="Logo">
+            <span class="II-Bench" style="vertical-align: middle">II-Bench</span>
+            </h1>
+          <h2 class="subtitle is-3 publication-subtitle">
+            An Image Implication Understanding Benchmark for Multimodal Large Language Models
+          </h2>
+          <p style="color: red; font-size: 1.5em; font-weight: bold;">NeurIPS 2024 D&B Track</p>
+          <!-- 
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://xiangyue9607.github.io/" style="text-decoration: none; color: inherit;">Xiang Yue*<sup style="color:#6fbf73;">†,1</sup></a>,
+            </span>
+            <span class="author-block">
+              <a href="https://yuanshengni.github.io/" style="text-decoration: none; color: inherit;">Yuansheng Ni*<sup style="color:#ffac33;">2</sup></a>
+              ,
+            </span>
+            <span class="author-block">
+              <a href="https://drogozhang.github.io/" style="text-decoration: none; color: inherit;">Kai Zhang*<sup style="color:#ed4b82;">3</sup></a>
+              ,
+            </span>
+            <span class="author-block">Tianyu Zheng*<sup style="color:#007bff;">4</sup>,</span><br>
+            <span class="author-block">Ruoqi Liu<sup style="color:#ed4b82;">3</sup>,</span>
+            <span class="author-block">Ge Zhang<sup style="color:#ffac33;">2</sup>,</span>
+            <span class="author-block">Samuel Stevens<sup style="color:#ed4b82;">3</sup>,</span>
+            <span class="author-block">Dongfu Jiang<sup style="color:#ffac33;">2</sup>,</span>
+            <span class="author-block">Weiming Ren<sup style="color:#ffac33;">2</sup>,</span>
+            <span class="author-block">Yuxuan Sun<sup style="color:#007bff;">4</sup>,</span>
+            <span class="author-block">Cong Wei<sup style="color:#ffac33;">2</sup>,</span>
+            <span class="author-block">Botao Yu<sup style="color:#ed4b82;">3</sup>,</span>
+            <span class="author-block">Ruibin Yuan<sup style="color:#ffac33;">5</sup>,</span>
+            <span class="author-block">Renliang Sun<sup style="color:#ffac33;">2</sup>,</span>
+            <span class="author-block">Ming Yin<sup style="color:#9b51e0;">7</sup>,</span>
+            <span class="author-block">Boyuan Zheng<sup style="color:#ed4b82;">3</sup>,</span>
+            <span class="author-block">Zhenzhu Yang<sup style="color:#007bff;">4</sup>,</span>
+            <span class="author-block">Yibo Liu<sup style="color:#ed4b82;">6</sup>,</span>
+            <span class="author-block">Wenhao Huang<sup style="color:#007bff;">4</sup>,</span><br>
+            <span class="author-block">
+              <a href="https://web.cse.ohio-state.edu/~sun.397/" style="text-decoration: none; color: inherit;">Huan Sun*<sup style="color:#ed4b82;">3</sup></a>
+              ,
+          </span>
+          <span class="author-block">
+              <a href="https://ysu1989.github.io/" style="text-decoration: none; color: inherit;">Yu Su*<sup style="color:#ed4b82;">†,3</sup></a>
+              ,
+          </span>
+          <span class="author-block">
+              <a href="https://wenhuchen.github.io/" style="text-decoration: none; color: inherit;">Wenhu Chen*<sup style="color:#ffac33;">†,2</sup></a>
+
+          </span>
+
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup style="color:#6fbf73;">1</sup>IN.AI Research,</span>
+            <span class="author-block"><sup style="color:#ffac33;">2</sup>University of Waterloo,</span>
+            <span class="author-block"><sup style="color:#ed4b82;">3</sup>The Ohio State University,</span>
+            <span class="author-block"><sup style="color:#007bff;">4</sup>Independent,</span></br>
+            <span class="author-block"><sup style="color:#ffac33;">5</sup>Carnegie Mellon University,</span>
+            <span class="author-block"><sup style="color:#ed4b82;">6</sup>University of Victoria,</span>
+            <span class="author-block"><sup style="color:#9b51e0;">7</sup>Princeton University</span>
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">*Core Contributors</span><br>
+            <span class="author-block">†Corresponding to:</span>
+            <span class="author-block"><a href="mailto:xiangyue.work@gmail.com">xiangyue.work@gmail.com</a>,</span>
+            <span class="author-block"><a href="mailto:su.809@osu.edu">su.809@osu.edu</a>,</span>
+            <span class="author-block"><a href="mailto:wenhuchen@uwaterloo.ca">wenhuchen@uwaterloo.ca</a></span>
+          </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <!-- @PAN TODO: change links -->
+                <a href="https://arxiv.org/pdf/2406.05862" class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+<!--              <span class="link-block">-->
+<!--                &lt;!&ndash; @PAN TODO: change links &ndash;&gt;-->
+<!--                <a href="https://zenodo.org/records/10546498"-->
+<!--                   class="external-link button is-normal is-rounded">-->
+<!--                  <span class="icon">-->
+<!--                      <i class="fas fa-file-pdf"></i>-->
+<!--                  </span>-->
+<!--                  <span>zenodo</span>-->
+<!--                </a>-->
+<!--              </span>-->
+              <span class="link-block">
+                <a href="https://huggingface.co/papers/2406.05862" class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                    <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>HF Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/m-a-p/II-Bench" class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <p style="font-size:18px">🤗</p>
+                      <!-- 🔗 -->
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/II-Bench/II-Bench" class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                      <i class="fab fa-github" aria-hidden="true"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+
+              <!-- Leaderboard Link. -->
+              <span class="link-block">
+                <a href="index.html#leaderboard"
+                   class="external-link button is-normal is-rounded">
+                  <span class="icon has-text-white">
+<!--                    <i class="fa-solid fa-trophy"></i>-->
+                    <p style="font-size:18px">🏆</p>
+                  </span>
+                  <span>Leaderboard</span>
+                </a>
+              </span>
+
+
+              <!-- Visualization Link. -->
+              <span class="link-block">
+                <a href="https://eval.ai/web/challenges/challenge-page/2334/overview"
+                   class="external-link button is-normal is-rounded">
+                  <span class="icon has-text-white">
+                       <p style="font-size:18px">📖</p>
+<!--                      <i class="fa-solid fa-medal"></i>-->
+                  </span>
+                  <span>EvalAI</span>
+                </a>
+              </span>
+              <!-- Twitter Link. -->
+<!--              <span class="link-block">-->
+<!--                <a href="https://twitter.com/GeZhang86038849/status/1749660947223044325"-->
+<!--                   class="external-link button is-normal is-rounded">-->
+<!--                  <span class="icon has-text-white">-->
+<!--                    <i class="fa-brands fa-x-twitter"></i>-->
+<!--                      &lt;!&ndash; <p style="font-size:18px">🌐</p> &ndash;&gt;-->
+<!--                  </span>-->
+<!--                  <span>Twitter</span>-->
+<!--                </a>-->
+<!--              </span>-->
+              <!-- EvalAI Link. -->
+<!--              <span class="link-block">-->
+<!--                <a href="#examples"-->
+<!--                   class="external-link button is-normal is-rounded">-->
+<!--                  <span class="icon has-text-white">-->
+<!--                    <i class="fa-solid fa-book"></i>-->
+<!--                  </span>-->
+<!--                  <span>Examples</span>-->
+<!--                </a>-->
+<!--              </span>-->
+            </div>
+
+          </div>
+        </h2></div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+  </style>
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <!-- <div class="hero-body">
+      <img src="static/images/tease_scores.png" alt="Examples from the dataset"/>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+        free-viewpoint
+        portraits.
+      </h2>
+    </div> -->
+      <!-- <div class="box m-5"> -->
+        <div class="content has-text-centered">
+          <img src="images/composition.jpg" alt="geometric reasoning" width="40%">
+          <p> Overview of II-Bench: II-Bench comprises 1,222 images, spanning six domains: life, art, society, psychology, environment and others.</p>
+        </div>
+      <!-- </div> -->
+    </div>
+
+</section>
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+       <h2 class="title ">🔔News</h2>
+       <div class="content has-text-justified">
+         <p>
+             <b>🔥[2024-09-26]: II-Bench has been accepted to the NeurIPS 2024 Datasets and Benchmarks.</b>
+         </p>
+         <p>
+             <b>🔥[2024-06-26]: We released <a href="https://eval.ai/web/challenges/challenge-page/2334/overview">II-Bench</a> challenge on <a href="https://eval.ai/">EvalAI</a>. You can submit your results and evaluate them there.😆</b>
+         </p>
+         <p>
+             <b>🌟[2024-06-25]: We added the results of latest Claude 3.5 Sonnet, which achieved the SOTA performance among all models so far.</b>
+         </p>
+     </div>     
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+            The rapid advancements in the development of multimodal large language models (MLLMs) have consistently led to new breakthroughs on various benchmarks.
+            In response, numerous challenging and comprehensive benchmarks have been proposed to more accurately assess the capabilities of MLLMs.
+
+            However, there is a dearth of exploration of the higher-order perceptual capabilities of MLLMs.
+            To fill this gap, we propose the <b>I</b>mage <b>I</b>mplication understanding <b>Bench</b>mark, <b>II-Bench</b>, which aims to evaluate the model's higher-order perception of images.
+
+            Our extensive experiments on 20 MLLMs reveal significant performance gaps between models and humans, particularly in abstract domains like Art and Psychology.
+            Our findings highlight the need for improved emotional understanding in MLLMs and suggest that incorporating emotional polarity information can enhance model performance.
+            II-Bench aims to inspire advancements in multimodal AI research and foster the development of more sophisticated artificial general intelligence (AGI).
+
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+<!-- DATASET SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+  <h1 class="title is-1 mmmu">
+    <img src="images/logo.png" style="width:1em;vertical-align: middle" alt="Logo">
+    <span class="mmmu" style="vertical-align: middle">II-Benchmark</span>
+  </h1>
+  </div>
+</section>
+
+<!-- <section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p> -->
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-full-width has-text-centered"> -->
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            We introduce the <b>I</b>mage <b>I</b>mplication Understanding <b>Bench</b>mark <b>II-Bench</b>, a new benchmark measuring the higher-order perceptual, reasoning and comprehension abilities of MLLMs when presented with complex implication images.
+            These images, including abstract artworks, comics and posters, possess visual implications that require an understanding of visual details and reasoning ability.
+            II-Bench reveals whether current MLLMs, leveraging their inherent comprehension abilities, can accurately decode the metaphors embedded within the complex and abstract information presented in these images.
+            <img src="images/II-bench-sample.jpg" alt="algebraic reasoning" class="center">
+          <br>
+          </p><p>
+            II-Bench contains a total of 1,222 various images.
+            These images are manually collected and annotated by 50 undergraduate students from various disciplines and institutions, with sources from multiple renowned illustration websites.
+            Each image is manually designed with one to three multiple-choice questions, each with six options and only one correct answer.
+            The questions cover the metaphors, symbolism, and detailed understanding of the images.
+            The benchmark includes a total of 1,434 multiple-choice questions, with 1,399 questions used to construct the test set and 35 questions used to construct the development and validation set for few-shot tasks.
+
+        </p></div>
+    </div>
+    </div>
+
+<!--    <div class="columns is-centered has-text-centered">-->
+<!--      &lt;!&ndash; <div class="column is-full-width has-text-centered"> &ndash;&gt;-->
+<!--      <div class="column is-four-fifths">-->
+<!--        <h2 class="title is-3">Comparisons with Existing Benchmarks</h2>-->
+<!--        <div class="content has-text-justified">-->
+<!--          <p>-->
+<!--            To further distinguish the difference between <i>dataset</i> and other existing ones, we elaborate the benchmark details in Figure. -->
+<!--            From the <i>breadth</i> perspective, the prior benchmarks are heavily focused on daily knowledge and common sense. -->
+<!--            The covered image format is also limited. Our benchmark aims to cover college-level knowledge with 30 image formats including diagrams, -->
+<!--            tables, charts, chemical structures, photos, paintings, geometric shapes, music sheets, medical images, etc. -->
+<!--            In the <i>depth</i> aspect, the previous benchmarks normally require commonsense knowledge or simple physical or temporal reasoning. -->
+<!--            In contrast, our benchmark requires deliberate reasoning with college-level subject knowledge.-->
+<!--        </p>-->
+<!--        <div class="content has-text-centered">-->
+<!--          <img src="c_static/images/table1.jpg" alt="algebraic reasoning" class="center">-->
+<!--          <p> Sampled II-Bench examples from each discipline. The questions and images need expert-level knowledge to understand and reason.</p>-->
+<!--        </div>-->
+
+
+<!--        </div>-->
+<!--    </div>-->
+<!--    </div>-->
+
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Statistics</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="images/II-bench-type.png" alt="algebraic reasoning" width="90%">
+              <p> II-Bench specific image type and domain statistics.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="images/statics.png" alt="arithmetic reasoning" width="90%">
+              <p> Key statistics of the II-Bench benchmark</p>
+            </div>
+          </div>
+<!--          <div class="box m-5">-->
+<!--            <div class="content has-text-centered">-->
+<!--              <img src="c_static/images/image_type_count.jpg" alt="arithmetic reasoning" width="95%"/>-->
+<!--              <p> Distribution of image types in the II-Bench dataset</p>-->
+<!--            </div>-->
+<!--          </div>-->
+        </div>
+      </div>
+    </div>
+    <!-- <div class="columns is-centered m-6">
+      <div class="column is-max-desktop has-text-centered">
+        <h2 class="title is-3" id="visualization">Visualization</h2>
+        <iframe src="visualizer/explore.html" style="width: 100%;min-height: 100vh; border-radius: 20px;"></iframe>
+      </div>
+    </div> -->
+  </div>
+</section>
+
+<!-- RESULTS SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 mmmu">Experiment Results</h1>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+
+
+
+<!-------------------------------------------------------------------- RESULTS SECTION -------------------------------------------------------------------->
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
+        <div class="content">
+          <div class="content has-text-justified">
+            <p>
+              We conduct experiments on II-Bench using both open-source and closed-source MLLMs. For
+              each model, we employ eight different settings: 1-shot, 2-shot, 3-shot, zero-shot (None), CoT,
+              Domain, Emotion and Rhetoric. "Emotion" denotes prompts where the model is informed about the
+              emotional polarity of the images(e.g., positive, negative), "Domain" involves adding information
+              about the image’s domain (e.g., life, environment) to the prompt, and "Rhetoric" signifies prompt
+              with information about the rhetorical devices used in the image (e.g., metaphor, personification),
+              while "None" indicates the use of standard prompts without any additional information. Uniform
+              prompts are applied across all MLLMs.
+            </p>
+          </div>
+
+          <div class="model-labels-container">
+<!--            <span class="leaderboard-label" style="background-color: #f8fffe;">Open-Source</span>-->
+<!--            <span class="leaderboard-label" style="background-color: #f9f2f8;">Closed</span>-->
+
+            <span class="leaderboard-label" style="background-color: #e4efdc;">Open-Source</span>
+            <span class="leaderboard-label" style="background-color: #e0ebf3;">Human</span>
+            <span class="leaderboard-label" style="background-color: #def9cb;">Proprietary</span>
+
+          </div>
+          <table id="table1" class="js-sort-table">
+            <tbody><tr>
+              <td class="js-sort-number"><strong>Reset</strong></td>
+              <td class="js-sort-number"><strong>Overall</strong></td>
+              <td class="js-sort-number"><strong>Life</strong></td>
+              <td class="js-sort-number"><strong>Art</strong></td>
+              <td class="js-sort-number"><strong>Society</strong></td>
+              <td class="js-sort-number"><strong>Psychology</strong></td>
+              <td class="js-sort-number"><strong>Environment</strong></td>
+              <td class="js-sort-number"><strong>Others</strong></td>
+              <td class="js-sort-number"><strong>Positive</strong></td>
+              <td class="js-sort-number"><strong>Neutral</strong></td>
+              <td class="js-sort-number"><strong>Negative</strong></td>
+            </tr>
+
+            <tr style="background-color: #def9cb;">
+                <td style="text-align: left;">
+                    <b> Claude 3.5 sonnet </b>
+                </td>
+                <td> <b>80.9</b> </td>
+                <td> <b>81.4</b> </td>
+
+                <td> <b>77.6</b>  </td>
+                <td> <b>80.9</b> </td>
+                <td> <b>78.3</b> </td>
+                <td> <b>86.3</b>  </td>
+                <td style="text-decoration: underline;"> 83.1 </td>
+                <td> <b>81.1</b> </td>
+                <td> <b>80.9</b> </td>
+                <td > <b>80.9</b>  </td>
+              </tr>
+
+              <tr style="background-color: #def9cb;">
+                <td style="text-align: left;">
+                    <b> Qwen-VL-MAX </b>
+                </td>
+                <td style="text-decoration: underline;"> 74.8 </td>
+                <td style="text-decoration: underline;"> 74.7 </td>
+
+                <td> 71.8 </td>
+                <td style="text-decoration: underline;"> 74.6 </td>
+                <td style="text-decoration: underline;"> 73.0 </td>
+                <td> 76.5 </td>
+                <td> <b>84.6</b> </td>
+                <td style="text-decoration: underline;"> 80.1</td>
+                <td style="text-decoration: underline;"> 74.5 </td>
+                <td> 72.9 </td>
+              </tr>
+
+              <tr style="background-color: #def9cb;">
+                <td style="text-align: left;">
+                      <b> Gemini-1.5 Pro </b>
+                </td>
+                <td> 73.9 </td>
+                <td> 73.7 </td>
+
+                <td style="text-decoration: underline;"> 74.1 </td>
+                <td> 74.4 </td>
+                <td> 63.2 </td>
+                <td style="text-decoration: underline;"> 80.4 </td>
+                <td style="text-decoration: underline;"> 83.1 </td>
+                <td style="text-decoration: underline;"> 80.1 </td>
+                <td> 70.8 </td>
+                <td style="text-decoration: underline;"> 75.4</td>
+              </tr>
+
+              <tr style="background-color: #def9cb;">
+                <td style="text-align: left;">
+                        <b> GPT-4o </b>
+                </td>
+                <td> 72.6 </td>
+                <td> 72.5 </td>
+
+                <td> 72.9 </td>
+                <td> 73.3 </td>
+                <td > 68.4 </td>
+                <td> 76.5 </td>
+                <td> 75.4 </td>
+                <td> 78.6 </td>
+                <td> 71.2 </td>
+                <td> 72.5 </td>
+              </tr>
+
+              <tr style="background-color: #def9cb;">
+                <td style="text-align: left;">
+                        <b> GPT-4V </b>
+                  </td>
+                <td> 65.9 </td>
+                <td> 65.0 </td>
+
+                <td> 69.4 </td>
+                <td> 65.3 </td>
+                <td> 59.9 </td>
+                <td> 76.5 </td>
+                <td> 80.0 </td>
+                <td> 69.4 </td>
+                <td> 66.0 </td>
+                <td> 64.0 </td>
+              </tr>
+
+              <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                    <b> LLaVA-1.6-34B </b>
+                </td>
+                <td> <b>73.8</b> </td>
+                <td> <b>73.8</b> </td>
+
+                <td style="text-decoration: underline;"> 71.8 </td>
+                <td> <b>73.3</b> </td>
+                <td> <b>71.1</b> </td>
+                <td style="text-decoration: underline;"> 78.4 </td>
+                <td style="text-decoration: underline;"> 81.5 </td>
+                <td> <b>79.1</b> </td>
+                <td> <b>72.9</b> </td>
+                <td> <b>72.9</b> </td>
+              </tr>
+
+              <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                        <b> CogVLM2-Llama3-Chat </b>
+                </td>
+              <td style="text-decoration: underline;"> 70.3 </td>
+                <td style="text-decoration: underline;"> 68.9 </td>
+
+              <td> 68.2 </td>
+              <td style="text-decoration: underline;"> 70.9 </td>
+              <td style="text-decoration: underline;"> 67.8 </td>
+              <td> 72.5 </td>
+              <td> <b>86.2</b> </td>
+              <td> 69.9 </td>
+                <td style="text-decoration: underline;"> 71.1 </td>
+                <td style="text-decoration: underline;"> 69.1 </td>
+              </tr>
+
+              <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b> MiniCPM-Llama3-2.5 </b>
+                </td>
+                <td>69.4</td>
+                <td>68.4</td>
+
+                <td style="text-decoration: underline;"> 71.8 </td>
+                <td>69.4</td>
+                <td>64.5</td>
+                <td><b>80.4</b></td>
+                <td>78.5</td>
+                <td style="text-decoration: underline;"> 75.0 </td>
+                <td>69.3</td>
+                <td>66.9</td>
+              </tr>
+              <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b>Yi-VL-34B-Chat</b>
+                </td>
+                <td>67.9</td>
+                <td>67.5</td>
+
+                <td>70.6</td>
+                <td>67.7</td>
+                <td>63.8</td>
+                <td>70.6</td>
+                <td>76.9</td>
+                <td>74.0</td>
+                <td>68.2</td>
+                <td>64.5</td>
+              </tr>
+              <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b>Idefics2-8B</b>
+                </td>
+                <td>67.7</td>
+                <td>67.2</td>
+
+                <td><b>74.1</b></td>
+                <td>67.7</td>
+                <td>62.5</td>
+                <td>74.5</td>
+                <td>70.8</td>
+                <td>68.9</td>
+                <td>67.0</td>
+                <td>68.4</td>
+              </tr>
+              <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b>InternVL-Chat-1.5</b>
+                </td>
+                <td>66.3</td>
+                <td>63.6</td>
+
+                <td>65.9</td>
+                <td>68.5</td>
+                <td>65.8</td>
+                <td>64.7</td>
+                <td>76.9</td>
+                <td>73.5</td>
+                <td>65.4</td>
+                <td>64.5</td>
+              </tr>
+              <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b>InternLM-XComposer2-VL</b>
+                </td>
+                <td>62.1</td>
+                <td>61.7</td>
+
+                <td>62.4</td>
+                <td>62.3</td>
+                <td>58.6</td>
+                <td>70.6</td>
+                <td>66.2</td>
+                <td>65.8</td>
+                <td>63.0</td>
+                <td>58.7</td>
+              </tr>
+              <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b>Yi-VL-6B-Chat</b>
+                </td>
+                <td>61.3</td>
+                <td>60.9</td>
+
+                <td>63.5</td>
+                <td>60.7</td>
+                <td>56.6</td>
+                <td>66.7</td>
+                <td>72.3</td>
+                <td>61.7</td>
+                <td>61.7</td>
+                <td>61.1</td>
+              </tr>
+              <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b>DeepSeek-VL-Chat-7B</b>
+                </td>
+                <td>60.3</td>
+                <td>59.0</td>
+
+                <td>58.8</td>
+                <td>58.4</td>
+                <td>61.8</td>
+                <td>68.6</td>
+                <td>76.9</td>
+                <td>65.8</td>
+                <td>60.1</td>
+                <td>58.0</td>
+              </tr>
+              <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b>BLIP-2 FLAN-T5-XXL</b>
+                </td>
+                <td>57.8</td>
+                <td>57.1</td>
+
+                <td>63.5</td>
+                <td>57.0</td>
+                <td>53.3</td>
+                <td>66.7</td>
+                <td>66.2</td>
+                <td>67.9</td>
+                <td>57.2</td>
+                <td>54.3</td>
+              </tr>
+              <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b>Mantis-8B-siglip-Llama3</b>
+                </td>
+                <td>57.5</td>
+                <td>56.8</td>
+
+                <td>61.2</td>
+                <td>57.5</td>
+                <td>53.9</td>
+                <td>64.7</td>
+                <td>61.5</td>
+                <td>59.2</td>
+                <td>58.0</td>
+                <td>55.6</td>
+              </tr>
+              <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b>InstructBLIP-T5-XXL</b>
+                </td>
+                <td>56.7</td>
+                <td>56.2</td>
+
+                <td>58.8</td>
+                <td>58.6</td>
+                <td>45.4</td>
+                <td>64.7</td>
+                <td>64.6</td>
+                <td>63.3</td>
+                <td>56.1</td>
+                <td>54.6</td>
+              </tr>
+            <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b>Qwen-VL-Chat</b>
+                </td>
+                <td>53.4</td>
+                <td>53.2</td>
+
+                <td>49.4</td>
+                <td>52.1</td>
+                <td>50.0</td>
+                <td>60.8</td>
+                <td>72.3</td>
+                <td>56.1</td>
+                <td>52.6</td>
+                <td>53.6</td>
+              </tr>
+            <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b>mPLUGw-OWL2</b>
+                </td>
+                <td>53.2</td>
+                <td>54.0</td>
+
+                <td>56.5</td>
+                <td>50.5</td>
+                <td>52.0</td>
+                <td>60.8</td>
+                <td>56.9</td>
+                <td>55.6</td>
+                <td>52.6</td>
+                <td>53.1</td>
+              </tr>
+            <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b>BLIP-2 FLAN-T5-XL</b>
+                </td>
+                <td>52.8</td>
+                <td>53.0</td>
+
+                <td>58.8</td>
+                <td>52.5</td>
+                <td>42.8</td>
+                <td>64.7</td>
+                <td>58.5</td>
+                <td>56.1</td>
+                <td>52.9</td>
+                <td>51.0</td>
+              </tr>
+            <tr style="background-color: #e4efdc;">
+                <td style="text-align: left;">
+                      <b>InstructBLIP-T5-XL</b>
+                </td>
+                <td>47.3</td>
+                <td>45.6</td>
+
+                <td>48.2</td>
+                <td>48.8</td>
+                <td>44.7</td>
+                <td>52.9</td>
+                <td>50.8</td>
+                <td>46.9</td>
+                <td>48.3</td>
+                <td>45.4</td>
+              </tr>
+
+
+              <tr style="background-color: #e0ebf3;">
+                <td style="text-align: left;">
+                        <b> Human_avg </b>
+                </td>
+              <td> 90.3 </td>
+                <td> 90.0 </td>
+
+              <td> 88.2 </td>
+              <td> 91.4 </td>
+              <td> 86.6 </td>
+              <td> 96.1 </td>
+              <td> 92.3 </td>
+              <td> 84.7 </td>
+                <td> 89.1 </td>
+                <td> 92.2 </td>
+              </tr>
+              <tr style="background-color: #e0ebf3;">
+                  <td style="text-align: left;">
+                          <b> Human_best </b>
+                  </td>
+              <td> <b>98.2</b> </td>
+                  <td> <b>97.9</b> </td>
+
+              <td> <b>98.8</b> </td>
+              <td> <b>98.3</b> </td>
+              <td> <b>97.4</b> </td>
+              <td> <b>100.0</b> </td>
+              <td> <b>100.0</b> </td>
+              <td> <b>98.0</b> </td>
+                <td> <b>98.0</b> </td>
+                <td> <b>98.8</b> </td>
+              </tr>
+            <!-- <tr>
+              <td colspan="8" style="font-size: 18px;"><b>Large Language Models (LLMs): Only Text as Input</b></td>
+            </tr>               -->
+            <!-- <tr style="background-color: #f8fffe;">
+              <td style="text-align: left;"><b>Llama2 7B</b></td>
+              <td>28.7</td>
+              <td>30.7</td>
+              <td>27.2</td>
+              <td>26.7</td>
+              <td>27.7</td>
+              <td>32.6</td>
+              <td>29.8</td>
+            </tr>
+            <tr style="background-color: #f4fdf5;">
+              <td style="text-align: left;"><b>FLAN-T5-XXL</b></td>
+              <td><b>31.2</b></td>
+              <td>36.8</td>
+              <td><b>28.9</b></td>
+              <td>26.7</td>
+              <td>32.8</td>
+              <td><b>44.8</b></td>
+              <td><b>28.3</b></td>
+            </tr>
+            <tr style="background-color: #f4fdf5;">
+              <td style="text-align: left;"><b>FLAN-T5-XXL + OCR</b></td>
+              <td><b>31.9</b></td>
+              <td>36.2</td>
+              <td>28.8</td>
+              <td>26.2</td>
+              <td>32.6</td>
+              <td><b>50.5</b></td>
+              <td><b>29.7</b></td>
+            </tr>
+            <tr style="background-color: #f4fdf5;">
+              <td style="text-align: left;"><b>FLAN-T5-XXL + LLaVA Caption</b></td>
+              <td><b>31.9</b></td>
+              <td><b>38.4</b></td>
+              <td>27.8</td>
+              <td><b>27.0</b></td>
+              <td><b>33.2</b></td>
+              <td>49.9</td>
+              <td>28.7</td>
+            </tr>
+            <tr style="background-color: #e7fde9;">
+              <td style="text-align: left;"><b>Vicuna-13B</b></td>
+              <td>31.0</td>
+              <td>35.1</td>
+              <td><b>30.1</b></td>
+              <td>24.7</td>
+              <td>31.4</td>
+              <td>44.8</td>
+              <td>30.1</td>
+            </tr>
+            <tr style="background-color: #e7fde9;">
+              <td style="text-align: left;"><b>Vicuna-13B + OCR</b></td>
+              <td>31.9</td>
+              <td>37.1</td>
+              <td>28.6</td>
+              <td><b>26.5</b></td>
+              <td>32.0</td>
+              <td>49.3</td>
+              <td>30.0</td>
+            </tr>
+            <tr style="background-color: #e7fde9;">
+              <td style="text-align: left;"><b>Vicuna-13B + LLaVA Caption</b></td>
+              <td><b>32.7</b></td>
+              <td><b>42.0</b></td>
+              <td>26.8</td>
+              <td>26.2</td>
+              <td><b>33.4</b></td>
+              <td><b>49.4</b></td>
+              <td><b>31.4</b></td>
+            </tr> -->
+            <!-- <tr style="background-color: #f8fffe;">
+              <td style="text-align: left;"><b>GPT-4 Text</b></td>
+              <td>33.8</td>
+              <td>32.9</td>
+              <td>28.5</td>
+              <td>30.6</td>
+              <td>41.3</td>
+              <td>53.0</td>
+              <td>28.4</td>
+            </tr> -->
+          </tbody></table>
+
+            <p> Overall results of different MLLMs and humans on different domains and emotions. The
+                best-performing model in each category is <b>in-bold</b>, and the second best is <u>underlined</u>.
+            </p>
+        </div>
+      </div>
+    </div>
+<!-------------------------------------------------------------------- prompt skills -------------------------------------------------------------------->
+<div class="columns is-centered m-6">
+  <div class="column is-full has-text-centered content">
+    <h2 class="title is-3">Different Prompt Skills</h2>
+    <div class="content has-text-justified">
+      <p>
+      <b>Analysis of Chain-of-Thought (CoT)</b>. The results indicate that CoT had no significant effect on improving accuracy.
+        In some cases, particularly with smaller open-source models, the accuracy even declined when CoT was used.
+        For example, CogVLM2-Llama3-Chat-19B scores 70.3% without CoT and drops to 69.3% with CoT, InternVL-Chat-1.5 scores 66.3% and 63.3% as the same.
+        These findings align with other benchmarks, which show that CoT is not particularly effective for image understanding tasks.
+      </p>
+      <p>
+      <b>Analysis of Different Types and Domains</b>. To evaluate the impact of different label information on model accuracy, we conduct an ablation study by providing corresponding label information (Emotion, Domain, Rhetoric) for the images in the prompt.
+         This outcome is consistent with the human perspective of image metaphor comprehension.
+        Emotion labels likely provide more intuitive and salient cues that align closely with human interpretative processes, thereby facilitating better model performance.
+        In contrast, Domain and Rhetoric labels, while still beneficial, are not as immediately intuitive or universally applicable, thus resulting in slightly lower effectiveness in improving model accuracy.
+        At the same time, from the perspective of model training, the model has a normal understanding of emotion, unlike the specific nouns we define ourselves in the Rhetoric and Domain labels.
+        The model does not see many descriptions of such specific nouns during pre-training, which does not help improve accuracy.
+      </p>
+      <div class="content has-text-centered">
+        <img src="images/prompt.png" width="75%">
+      <p>Overall results of different prompts on II-Bench.The label(Emotion, Domain, Rhetoric) means providing corresponding information for the images in the prompt.
+        The best-performing model in each category is <b>in-bold</b>, and the second best is <u>underlined</u> .</p>
+      </div>
+
+      <p>
+      <b>Analysis of Few-shot Examples.</b>. Specifically, the performance tends to drop as more examples are provided.
+        This can be attributed to the models’ inferior multi-image capabilities compared to their single-image capabilities, leading to a decline in accuracy with an increasing number of shots.
+        Additionally, as the number of shots increases, the input length becomes longer, and the model’s long text ability is insufficient, resulting in poor long context performance.
+        An example is Qwen-VL-Max, where inputs exceeding 6,000 tokens cause errors.
+        Moreover, chat models generally exhibit good instruction following ability, reducing the necessity for few-shot examples.
+      </p>
+    </div>
+    <div class="content has-text-centered">
+      <img src="images/shot.png" width="73%">
+      <p>Few-shot results of different models on the II-Bench. * means exceeds the context length.</p>
+    </div>
+
+  </div>
+</div>
+<!-------------------------------------------------------------------- Difficulty Levels SECTION -------------------------------------------------------------------->
+<!--<div class="columns is-centered m-6">-->
+<!--  <div class="column is-full has-text-centered content">-->
+<!--    <h2 class="title is-3">Different Difficulty Levels</h2>-->
+<!--    <div class="content has-text-justified">-->
+<!--      <p>-->
+<!--        We conduct result decomposition across question difficulties, as shown in table below.-->
+<!--        Notably, there is a larger gap between the best open-source LMM, i.e. Yi-VL-34B, and GPT-4V when facing the medium and hard questions.-->
+<!--        It is another strong evidence of the observation that the key disparity between Open-source LMMs and GPT-4V is the capacity to calculate and reason given complex conditions.-->
+<!--      </p>-->
+<!--    </div>-->
+<!--    <div class="content has-text-centered">-->
+<!--      <img src="c_static/images/table5.jpg" width="75%">-->
+<!--      <p> Result decomposition across question difficulty levels. <b>bold results</b> in LMMs indicate the best results for all models, and the <b>blue results</b> indicate the best results among the open-source models.</p>-->
+<!--    </div>   -->
+
+<!--  </div>-->
+<!--</div>-->
+<!-------------------------------------------------------------------- Error Analysis SECTION -------------------------------------------------------------------->
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Error Analysis</h2>
+        <div class="content has-text-justified">
+          <p>
+            In order to perform a comprehensive error analysis of GPT-4V’s performance on II-Bench, we randomly select 100 erroneous samples from each domain, in proportion to their representation in the dataset.
+            These samples are meticulously analyzed by expert annotators.
+            GPT-4V’s errors can be categorized into the following types: Metaphorical Misunderstanding, Detail Misunderstanding, Detail Ignorance, Surface-Level Interpretation, Reasoning Error, Reject to Answer and Answer Extraction Error.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="images/error.png" alt="error distribution" width="50%">
+          <p>GPT-4V error response distribution.</p>
+        </div>
+
+        <!-- <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/error_distribution_1.Jpeg" alt="algebraic reasoning" width="45%"/>
+              <p> Error distribution over 150 annotated GPT-4V errors.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/error_case_main_text_1_1.Jpeg" alt="arithmetic reasoning" width="45%"/>
+              <p> A basic perceptual error, easy for humans but challenging for GPT-4V.</p>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+
+<!-------------------------------------------------------------------- Error Example  -------------------------------------------------------------------->
+
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3" id="examples">Error Examples</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/7.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/8.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/9.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/10.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/11.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/12.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/13.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/14.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/15.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/16.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/17.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/18.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/19.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/20.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/28.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/29.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/30.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/31.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/32.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/33.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/34.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/35.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/36.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/37.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/38.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/39.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/40.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/45.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/46.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/47.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/48.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/49.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/54.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/55.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/56.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/57.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/61.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/62.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/63.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/64.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/65.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/66.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/67.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/68.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/69.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/74.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/75.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/76.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="error/77.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+<!-------------------------------------------------------------------- Correct Example -------------------------------------------------------------------->
+
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Correct Examples</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/1.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/2.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/3.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/4.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/5.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/6.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/21.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/22.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/23.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/24.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/25.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/26.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/27.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/41.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/42.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/43.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/44.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/50.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/51.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/52.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/53.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/58.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/59.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/60.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/70.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/71.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/72.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="right/73.png" alt="grade-lv" width="60%">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+<!-------------------------------------------------------------------- RESULTS SECTION -------------------------------------------------------------------->
+
+
+  </div>
+</section>
+
+
+<!-- @PAN TODO: bibtex -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">BibTeX</h2>
+    <pre><code>@article{liu2024ii,
+  title={II-Bench: An Image Implication Understanding Benchmark for Multimodal Large Language Models},
+  author={Liu, Ziqiang and Fang, Feiteng and Feng, Xi and Du, Xinrun and Zhang, Chenhao and Wang, Zekun and Bai, Yuelin and Zhao, Qixuan and Fan, Liyang and Gan, Chengguang and others},
+  journal={arXiv preprint arXiv:2406.05862},
+  year={2024}
+}
+</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is website adapted from <a href="https://mmmu-benchmark.github.io/&quot;">MMMU</a>, licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+
+</footer>
+
+<script>
+  // function changeButtonText() {
+  //   var button = document.getElementById('toggleButton');
+  //   if (button.innerHTML.includes("Test Set Leaderboard")) {
+  //     button.innerHTML = "<b style='font-size: larger;'>Validation Set Leaderboard</b> (Click to Switch)";
+  //   } else {
+  //     button.innerHTML = "<b style='font-size: larger;'>Test Set Leaderboard</b> (Click to Switch)";
+  //   }
+  // }
+  document.addEventListener('DOMContentLoaded', function() {
+    var tables = document.querySelectorAll('table');
+
+    tables.forEach(function(table) {
+        if (!table) return;
+
+        var initialRows = Array.from(table.rows).slice(1);
+        table.addEventListener('click', function(event) {
+            var clickedCell = event.target.closest('td, th');
+            if (!clickedCell) return;
+            var headerRow = clickedCell.parentNode;
+            var columnIndex = Array.from(headerRow.cells).indexOf(clickedCell);
+            var type = clickedCell.getAttribute('data-type');
+
+            if (headerRow.rowIndex === 0) {
+                if (columnIndex === 0) {
+                    table.tBodies[0].innerHTML = '';
+                    initialRows.forEach(row => table.tBodies[0].appendChild(row.cloneNode(true)));
+                }
+            }
+        });
+    });
+});
+
+function sortTable(table, column, type, asc) {
+    var tbody = table.tBodies[0];
+    var rows = Array.from(tbody.rows);
+
+    rows.sort(function(a, b) {
+        var valA = a.cells[column].textContent;
+        var valB = b.cells[column].textContent;
+
+        if (type === 'number') {
+            valA = parseFloat(valA);
+            valB = parseFloat(valB);
+        }
+
+        return asc ? valA - valB : valB - valA;
+    });
+
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+  // 切换表格的函数
+  // function toggleTables () {
+  //     var table1 = document.getElementById('table1');
+  //     var table2 = document.getElementById('table2');
+  //     table1.classList.toggle('hidden');
+  //     table2.classList.toggle('hidden');
+  // }
+
+  document.getElementById('toggleButton').addEventListener('click', toggleTables);
+  const canvas = document.getElementById('difficulty_level_chart');
+  canvas.style.width = '500px';
+  canvas.style.height = '120px';
+  const ctx = document.getElementById('difficulty_level_chart').getContext('2d');
+  const difficulty_level_chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Easy', 'Medium', 'Hard', 'Overall'],
+      datasets: [{
+        label: 'Fuyu-8B',
+        data: [28.9, 27, 26.4, 27.4],
+        backgroundColor: 'rgba(196, 123, 160, 0.6)',
+        borderColor: 'rgba(196, 123, 160, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(196, 123, 160, 1)'
+      },
+      {
+        label: 'Qwen-VL-7B',
+        data: [39.4, 31.9, 27.6, 32.9],
+        backgroundColor: 'rgba(245, 123, 113, 0.6)',
+        borderColor: 'rgba(245, 123, 113, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(245, 123, 113, 1)'
+      },
+      {
+        label: 'LLaVA-1.5-13B',
+        data: [41.3, 32.7, 26.7, 33.6],
+        backgroundColor: 'rgba(255, 208, 80, 0.6)',
+        borderColor: 'rgba(255, 208, 80, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(255, 208, 80, 1)'
+      },
+      {
+        label: 'InstructBLIP-T5-XXL',
+        data: [40.3, 32.3, 29.4, 33.8],
+        backgroundColor: 'rgba(110, 194, 134, 0.6)',
+        borderColor: 'rgba(110, 194, 134, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(110, 194, 134, 1)'
+      },
+      {
+        label: 'BLIP-2 FLAN-T5-XXL',
+        data: [41, 32.7, 28.5, 34],
+        backgroundColor: 'rgba(255, 153, 78, 0.6)',
+        borderColor: 'rgba(255, 153, 78, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(255, 153, 78, 1)'
+      },
+      {
+        label: 'GPT-4V',
+        data: [76.1, 55.6, 31.2, 55.7],
+        backgroundColor: 'rgba(117, 209, 215, 0.6)',
+        borderColor: 'rgba(117, 209, 215, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(117, 209, 215, 1)'
+      }]
+    },
+    options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+        min: 0,
+        max: 100,
+        ticks: {
+          stepSize: 20,
+          font: {
+            size: 16
+          }
+        }
+      },
+      x: {
+        ticks: {
+          font: {
+            size: 16 // 设置X轴字体大小
+          }
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            size: 16 // 设置标签文字大小
+          }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            return context.dataset.label + ': ' + context.parsed.y;
+          }
+        }
+      }
+    },
+      onHover: (event, chartElement) => {
+        event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+      }
+    }
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    // Data for the "Diagrams" chart
+    const data_Diagrams = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [27.6, 30.1, 31.8, 30.0, 32.0, 46.8],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+
+    // "data_Diagrams" chart
+    new Chart(document.getElementById('chart_Diagrams'), {
+        type: 'bar',
+        data: data_Diagrams,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Tables" chart
+    const data_Tables  = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [26.6, 29.0, 29.8, 27.8, 27.8, 61.8],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Tables'), {
+        type: 'bar',
+        data: data_Tables,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_PlotsAndCharts " chart
+    const data_PlotsAndCharts   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [24.8, 31.8, 36.2, 30.4, 35.8, 55.6],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_PlotsAndCharts'), {
+        type: 'bar',
+        data: data_PlotsAndCharts ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_ChemicalStructures " chart
+    const data_ChemicalStructures   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [25.0, 27.2, 27.1, 26.7, 25.5, 50.6],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_ChemicalStructures'), {
+        type: 'bar',
+        data: data_ChemicalStructures ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Photographs " chart
+    const data_Photographs   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [27.6, 40.5, 41.4, 44.4, 42.0, 64.2],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Photographs'), {
+        type: 'bar',
+        data: data_Photographs ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Paintings " chart
+    const data_Paintings   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [28.7, 57.2, 53.6, 56.3, 52.1, 75.9],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Paintings'), {
+        type: 'bar',
+        data: data_Paintings ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_GeometricShapes " chart
+    const data_GeometricShapes   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [21.1, 25.3, 21.4, 25.6, 28.3, 40.2],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_GeometricShapes'), {
+        type: 'bar',
+        data: data_GeometricShapes ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_SheetMusic " chart
+    const data_SheetMusic   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [35.2, 33.4, 34.6, 35.8, 34.9, 38.8],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_SheetMusic'), {
+        type: 'bar',
+        data: data_SheetMusic ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_MedicalImages " chart
+    const data_MedicalImages   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [25.4, 29.8, 31.6, 36.4, 29.8, 59.6],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_MedicalImages'), {
+        type: 'bar',
+        data: data_MedicalImages ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_PathologicalImages " chart
+    const data_PathologicalImages   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [26.5, 27.7, 31.2, 35.2, 35.6, 63.6],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_PathologicalImages'), {
+        type: 'bar',
+        data: data_PathologicalImages ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_MicroscopicImages " chart
+    const data_MicroscopicImages   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [27.0, 37.6, 29.2, 36.3, 32.7, 58.0],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_MicroscopicImages'), {
+        type: 'bar',
+        data: data_MicroscopicImages ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_MRIsCTScansXrays " chart
+    const data_MRIsCTScansXrays   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [21.7, 36.9, 33.3, 39.4, 29.8, 50.0],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_MRIsCTScansXrays'), {
+        type: 'bar',
+        data: data_MRIsCTScansXrays ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_SketchesAndDrafts " chart
+    const data_SketchesAndDrafts   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [37.0, 32.1, 29.9, 38.0, 33.7, 55.4],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_SketchesAndDrafts'), {
+        type: 'bar',
+        data: data_SketchesAndDrafts ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Maps " chart
+    const data_Maps   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [38.2, 36.5, 45.9, 47.6, 43.5, 61.8],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Maps'), {
+        type: 'bar',
+        data: data_Maps ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_TechnicalBlueprints " chart
+    const data_TechnicalBlueprints   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [24.7, 25.9, 28.4, 25.3, 27.8, 38.9],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_TechnicalBlueprints'), {
+        type: 'bar',
+        data: data_TechnicalBlueprints ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_TreesAndGraphs " chart
+    const data_TreesAndGraphs   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [30.1, 28.1, 28.8, 28.8, 34.9, 50.0],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_TreesAndGraphs'), {
+        type: 'bar',
+        data: data_TreesAndGraphs ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_MathematicalNotations " chart
+    const data_MathematicalNotations   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [15.8, 27.1, 22.6, 21.8, 21.1, 45.9],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_MathematicalNotations'), {
+        type: 'bar',
+        data: data_MathematicalNotations ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_ComicsAndCartoons " chart
+    const data_ComicsAndCartoons   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [29.0, 51.9, 49.6, 54.2, 51.1, 68.7],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_ComicsAndCartoons'), {
+        type: 'bar',
+        data: data_ComicsAndCartoons ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Sculpture " chart
+    const data_Sculpture   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [30.8, 46.2, 49.6, 51.3, 53.0, 76.1],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Sculpture'), {
+        type: 'bar',
+        data: data_Sculpture ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Portraits " chart
+    const data_Portraits   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [20.9, 52.7, 46.2, 54.9, 47.3, 70.3],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Portraits'), {
+        type: 'bar',
+        data: data_Portraits ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Screenshots " chart
+    const data_Screenshots   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [38.6, 35.7, 38.6, 34.3, 47.1, 65.7],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Screenshots'), {
+        type: 'bar',
+        data: data_Screenshots ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Other " chart
+    const data_Other   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [28.3, 38.3, 50.0, 51.7, 58.3, 68.3],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Other'), {
+        type: 'bar',
+        data: data_Other ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Poster " chart
+    const data_Poster   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [38.6, 50.9, 52.6, 61.4, 64.9, 80.7],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Poster'), {
+        type: 'bar',
+        data: data_Poster ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_IconsAndSymbols " chart
+    const data_IconsAndSymbols   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [23.8, 66.7, 57.1, 59.5, 59.5, 78.6],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_IconsAndSymbols'), {
+        type: 'bar',
+        data: data_IconsAndSymbols ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_HistoricalTimelines " chart
+    const data_HistoricalTimelines   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [30.0, 36.7, 40.0, 43.3, 43.3, 63.3],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_HistoricalTimelines'), {
+        type: 'bar',
+        data: data_HistoricalTimelines ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_3DRenderings " chart
+    const data_3DRenderings   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [33.3, 28.6, 57.1, 38.1, 47.6, 47.6],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_3DRenderings'), {
+        type: 'bar',
+        data: data_3DRenderings ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_DNASequences " chart
+    const data_DNASequences   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [20.0, 45.0, 25.0, 25.0, 45.0, 55.0],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_DNASequences'), {
+        type: 'bar',
+        data: data_DNASequences ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Landscapes " chart
+    const data_Landscapes   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [43.8, 43.8, 50.0, 31.2, 62.5, 68.8],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Landscapes'), {
+        type: 'bar',
+        data: data_Landscapes ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_LogosAndBranding " chart
+    const data_LogosAndBranding   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [21.4, 57.1, 64.3, 35.7, 50.0, 85.7],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_LogosAndBranding'), {
+        type: 'bar',
+        data: data_LogosAndBranding ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Advertisements " chart
+    const data_Advertisements   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [30.0, 60.0, 50.0, 60.0, 70.0, 100.0],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Advertisements'), {
+        type: 'bar',
+        data: data_Advertisements ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+});
+
+</script>
+
+<style>
+  .hidden {
+      display: none;
+  }
+  .sortable:hover {
+      cursor: pointer;
+  }
+  .asc::after {
+      content: ' ↑';
+  }
+  .desc::after {
+      content: ' ↓';
+  }
+  #toggleButton {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    color: #555555;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition-duration: 0.4s;
+  }
+
+  #toggleButton:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); /* 鼠标悬停时的阴影效果 */
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+
+  th, td {
+      text-align: left;
+      padding: 8px;
+  }
+
+  th {
+      background-color: #f2f2f2;
+      border-bottom: 2px solid #ddd;
+  }
+
+  td:hover {background-color: #ffffff;}
+</style>
+
+
+
+<script>
+(function() {
+  var ws = new WebSocket('ws://' + window.location.host +
+             '/jb-server-page?reloadMode=RELOAD_ON_SAVE&'+
+             'referrer=' + encodeURIComponent(window.location.pathname));
+  ws.onmessage = function (msg) {
+      if (msg.data === 'reload') {
+          window.location.reload();
+      }
+      if (msg.data.startsWith('update-css ')) {
+          var messageId = msg.data.substring(11);
+          var links = document.getElementsByTagName('link');
+          for (var i = 0; i < links.length; i++) {
+              var link = links[i];
+              if (link.rel !== 'stylesheet') continue;
+              var clonedLink = link.cloneNode(true);
+              var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
+              if (newHref !== link.href) {
+                clonedLink.href = newHref;
+              }
+              else {
+                var indexOfQuest = newHref.indexOf('?');
+                if (indexOfQuest >= 0) {
+                  // to support ?foo#hash
+                  clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' +
+                                    newHref.substring(indexOfQuest + 1);
+                }
+                else {
+                  clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
+                }
+              }
+              link.replaceWith(clonedLink);
+          }
+      }
+  };
+})();
+</script></body><div style="all: initial;"><div id="__hcfy__" style="all: initial;"></div></div></html>

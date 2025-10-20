@@ -1,0 +1,94 @@
+body {
+    font-family: 'Open Sans', 'Lato', 'Cabin', Arial, sans-serif;
+    /* Add other backup fonts as needed */
+    /* margin: 20px;
+    margin-left: 20%;
+    margin-right: 20%; */
+    transition: 0.5s;
+    font-size: 20px;
+    color: #333333eb;
+}
+
+  
+/* Laptop Styles */
+@media (min-width: 768px) {
+    body {
+        margin: 20px;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
+
+/* Phone Styles */
+@media (max-width: 767px) {
+    body {
+        margin: 10px;
+    }
+}
+
+body.dark-mode {
+    transition: 0.5s;
+    background-color: #121212;
+    /* Dark background color */
+}
+
+body.dark-mode p {
+    color: #ffffff;
+    /* Light text color */
+}
+body.dark-mode span {
+    color: #ffffff;
+}
+
+/* body.dark-mode h1,h2,h3 {
+    color: black;
+} */
+
+header {
+    text-align: center;
+    /* padding-top: 20px; */
+    /* background-color: #ededed; */
+    /* border-radius: 15px; */
+}
+
+/* header h1{
+    color: black;
+} */
+
+section {
+    margin-top: 20px;
+    padding-bottom: 10px;
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+
+
+
+a {
+    color: rgb(52, 77, 219);
+    text-decoration: none; 
+
+}
+
+body.dark-mode a {
+    color: lightskyblue;
+}
+
+canvas {
+    display: block;
+    border-color: black;
+    image-rendering: pixelated;
+}
+
+section p {
+    text-align: justify;
+}
+
+section span {
+    text-align: justify;
+}

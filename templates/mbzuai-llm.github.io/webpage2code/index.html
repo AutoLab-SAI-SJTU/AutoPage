@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Web2Code</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Web2Code" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="index.html" />
+<meta property="og:url" content="https://mbzuai-llm.github.io/webpage2code/" />
+<meta property="og:site_name" content="Web2Code" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Web2Code" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","headline":"Web2Code","name":"Web2Code","url":"https://mbzuai-llm.github.io/webpage2code/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="assets/css/style.css%3Fv=ced2356eb0c336524b4090758e03d06e6b1206bb.css">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/webpage2code/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <a id="skip-to-content" href="index.html#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Web2Code</h1>
+      <p class="project-tagline" align="center">
+          Sukmin Yun<sup>∗,1,4</sup>, Haokun Lin<sup>∗,1</sup>, Rusiru Thushara<sup>∗,1</sup>, Mohammad Qazim Bhat<sup>∗,1</sup>, Yongxin Wang<sup>∗,1</sup>, Zutao Jiang<sup>1</sup>, Mingkai Deng<sup>2</sup>, Jinhong Wang<sup>1</sup>, Tianhua Tao<sup>1,3</sup>, <br />Junbo Li<sup>1</sup>, Haonan Li<sup>1</sup>, Preslav Nakov<sup>1</sup>, Timothy Baldwin<sup>1</sup>, Zhengzhong Liu<sup>1,5</sup>, Eric P. Xing<sup>1,2,5</sup>, Xiaodan Liang<sup>1</sup>, Zhiqiang Shen<sup>1</sup> 
+      </p>
+      <p class="project-tagline" align="center">
+        <sup>1</sup>MBZUAI, <sup>2</sup>CMU, <sup>3</sup>UIUC, <sup>4</sup>HYU ERICA, <sup>5</sup>Petuum
+      </p>
+      
+      <a href="https://arxiv.org/abs/2406.20098" class="btn"><img src="images/arxiv-logomark-small.svg" alt="arxiv" width="17" height="17">arXiv</a>
+      <a href="https://github.com/MBZUAI-LLM/web2code" class="btn"><img src="images/github.svg" alt="github" width="17" height="17">GitHub</a>
+      <a href="https://huggingface.co/datasets/MBZUAI/Web2Code" class="btn"><img src="images/hf.svg" alt="hf" width="17" height="17">Download</a>
+      <a href="https://huggingface.co/api/datasets/the-Lin/Web2Code/croissant" class="btn">Croissant</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <div class="body-title" align="center">Abstract</div>
+<p>
+    Multimodal large language models (MLLMs) have shown impressive success across modalities such as image, video, and audio in a variety of understanding and generation tasks.we propose Web2Code, a benchmark consisting of a new large-scale webpage-to-code dataset for instruction tuning and an evaluation framework for the webpage understanding and HTML code translation abilities of MLLMs. For dataset construction, we leveraging pretrained LLMs to enhance existing webpage-to-code datasets as well as generate a diverse pool of new webpages rendered into images.To evaluate model performance in these tasks, we develop an evaluation framework for testing MLLMs' abilities in webpage understanding and web-to-code generation.Extensive experiments show that our proposed dataset is beneficial not only to our proposed tasks but also in the general visual domain, while previous datasets result in worse performance. We hope our work will contribute to the development of general MLLMs suitable for web-based content generation and task automation.
+</p>
+
+<p><br />
+<br /></p>
+<div class="body-title" align="center">Webpage Code Generation Data</div>
+<p>
+    Webpage code generation data contains two parts DWCG and DWCG<sub>R</sub>:  
+</p>
+<table>
+    <tr>
+        <td>
+            DWCG Creation of new webpage image-code pair data: We generated high-quality HTML webpage-code pairs following the CodeAlpaca prompt using GPT-3.5 and convert them into instruction-following data.
+        </td>
+    </tr>
+    <tr>
+        <td><img src="images/pix2code.png" width="1000" alt="sample1" /></td>
+    </tr>
+    <tr>
+        <td>
+            DWCG<sub>R</sub> Refinement of existing webpage code generation data: We transform existing datasets including WebSight and Pix2Code into an instruction-following data format similar to LLaVA data.
+        </td>
+    </tr>
+    <tr>
+        <td><img src="images/WebSight.png" width="1000" alt="sample2" /></td>
+    </tr>
+</table>
+<p>
+    Comparison of dataset statistics among webpage code generation datasets: WebSight, Design2Code, Pix2Code, our DWCG, and our DWCG<sub>R</sub>.
+</p>
+<div style="text-align: center;">
+    <img src="images/tb1.png" width="750" alt="tb1" style="margin: 0 auto;" />
+</div>
+<p>
+    The distribution the most common HTML tags in our GPT-3.5 generated HTML data.
+</p>
+<div style="text-align: center;">
+    <img src="images/distribution.png" width="500" alt="distribution" style="margin: 0 auto;" />
+</div>
+
+<p><br />
+<br /></p>
+<div class="body-title" align="center">Webpage Understanding Data</div>
+<p>
+    Webpage understanding data contains two parts DWU and DWU<sub>R</sub>:  
+</p>
+<table>
+    <tr>
+        <td>
+            DWU Creation of a new text question-answer pair data: We generated a new question-answer pair dataset utilizing our new GPT-3.5 generated data from (1) in Webpage Code Generation Data for webpage understanding.
+        </td>
+    </tr>
+    <tr>
+        <td><img src="images/WebSRC.png" width="1000" alt="sample2" /></td>
+    </tr>
+    <tr>
+        <td>
+            DWU<sub>R</sub> Refinement of existing webpage understanding data: We refine the WebSRC question-answer data to improve its quality using the GPT-4.
+        </td>
+    </tr>
+    <tr>
+        <td><img src="images/QA.png" width="1000" alt="sample3" /></td>
+    </tr>
+</table>
+
+<!-- <p>
+    Distribution of DWU and DWUR datasets. Both datasets include high-quality question-answer pairs for webpage understanding.
+</p>
+<div style="text-align: center;">
+    <img src="./images/tb2.png" width = "250" alt="tb2" style="margin: 0 auto;">
+</div>
+<p>
+    Word Cloud for the answer set of the GPT4 based DWU dataset.
+</p>
+<div style="text-align: center;">
+    <img src="./images/cloud.png" width = "250" alt="tb2" style="margin: 0 auto;">
+</div> -->
+
+<div style="text-align: center;">
+    <img src="images/combine.png" width="1000" alt="combine" style="margin: 0 auto;" />
+</div>
+
+<!-- <style>
+    table {
+        font-family:Arial, sans-serif;
+        font-size:14px;
+        margin:auto;
+    }
+</style>
+comparison
+<table>
+    <tr>
+        <th>Dataset</th> <th>WebSight</th> <th>Design2Code</th> <th>Pix2Code</th> <th>DWCG</th> <th>DWCG<sub>R</sub></th>
+    </tr>
+    <tr>
+        <th>Instruction</th> <th>-</th> <th>-</th> <th>-</th> <th>✓</th> <th>✓</th>
+    </tr>
+    <tr>
+        <th>Source</th> <th>Synthetic</th> <th>Real-World</th> <th>Synthetic</th> <th>Synthetic</th> <th>Synthetic</th>
+    </tr>
+    <tr>
+        <th>Size</th> <th>823K</th> <th>484</th> <th>1.7K</th> <th>60K</th> <th>824.7K</th>
+    </tr>
+    <tr>
+        <th>Avg Length (tokens)</th> <th>647±216</th> <th>31216±23902</th> <th>658.7±98.0</th> <th>471.8±162.3</th> <th>652.85±157.0</th>
+    </tr>
+    <tr>
+        <th>Avg Tag Count</th> <th>19±8</th> <th>158±100</th> <th>51.6±8.0</th> <th>28.1±10.6</th> <th>35.3±9.0</th>
+    </tr>
+    <tr>
+        <th>Avg DOM Depth</th> <th>5±1</th> <th>13±5</th> <th>8.0±0.0</th> <th>5.3±1.0</th> <th>6.5±1.0</th>
+    </tr>  
+    <tr>
+        <th>Avg Unique Tags</th> <th>10±3</th> <th>22±6</th> <th>17.0±0.0</th> <th>13.6±2.7</th> <th>13.5±2.5</th>
+    </tr>
+</table> -->
+
+<!-- <table>
+    <tr>
+        <th>Dataset</th> <th>DWU</th> <th>DWU<sub>R</sub></th>
+    </tr>
+    <tr>
+        <th>Instruction</th> <th>✓</th> <th>✓</th>
+    </tr>
+    <tr>
+        <th>Size</th> <th>243.5K</th> <th>51.5K</th>
+    </tr>
+</table> -->
+
+<p><br />
+<br /></p>
+<div class="body-title" align="center">Visualizations for Qualitative Evaluation</div>
+<p>
+    Visualization comparison using different backbones. Using the code-enhanced LLM backbone CrystalChat-7B achieves better quality of generation than Vicuna1.5-7B
+</p>
+<p><img src="images/assert1.png" width="1000" alt="assert1" /></p>
+<p>
+    Visualization comparison between ground-truth code generated image and our result. The style and layout of the generated webpage image are similar to the ground-truth image.
+</p>
+<p><img src="images/assert2.png" width="1000" alt="assert2" /></p>
+<p>
+    Visualization of our CrystalChat-7B generation when the input is hand-drawn webpage.
+</p>
+<p><img src="images/assert3.png" width="1000" alt="assert3" /></p>
+
+<p><br />
+<br /></p>
+<div class="body-title" align="center">Evaluation Framework</div>
+
+<div class="body-title2">Evaluation Metric for HTML Code Generation</div>
+<p>
+    Our proposed evaluation framework includes two schemes: (1) Webpage Understanding Benchmark (WUB): An offline evaluation using ‘yes’/‘no’ questions. (2) Webpage Code Generation Benchmark (WCGB): An online evaluation (using GPT-4 Vision) based on image similarity.
+</p>
+<p><img src="images/evaluation.png" width="1000" alt="distribution" /></p>
+
+<div class="body-title2">Quantitative Evaluation for HTML Code Generation of MLLMs</div>
+
+<p>
+    The accuracy of webpage understanding under various data configurations and LLM backbones. All models are instruction-tuned and evaluated on our WUB benchmark. We note that the general domain data (i.e., LLaVA) is included in all data configuration as default.
+</p>
+<!-- <table>
+    <tr>
+        <th>LLM Backbone</th> <th>DWCG</th> <th>DWU</th> <th>DWCGR</th> <th>DWUR</th> <th>Accuracy (%)</th>
+    </tr>
+    <tr>
+        <th rowspan="2">CrystalCoder-7B</th> <th>✓</th> <th>-</th> <th>-</th> <th>-</th> <th>71.81</th>
+    </tr>
+    <tr>
+        <th>✓</th> <th>✓</th> <th>-</th> <th>-</th> <th>73.74</th>
+    </tr>
+    <tr>
+        <th rowspan="3">CrystalChat-7B</th> <th>-</th> <th>-</th> <th>-</th> <th>-</th> <th>73.94</th>
+    </tr>
+    <tr>
+        <th>✓</th> <th>✓</th> <th>-</th> <th>-</th> <th>73.48</th>
+    </tr>
+    <tr>
+        <th>✓</th> <th>✓</th> <th>✓</th> <th>✓</th> <th>74.14</th>
+    </tr>
+    <tr>
+        <th>LLaMA3-8B</th> <th>✓</th> <th>✓</th> <th>✓</th> <th>✓</th> <th>74.84</th>
+    </tr>
+</table> -->
+<div style="text-align: center;">
+    <img src="images/tb3.png" width="550" alt="tb3" style="margin: 0 auto;" />
+</div>
+<p>
+    The performance of different LLM backbones under various data configurations on our Webpage Code Generation Benchmark (WCGB). "VSA" denotes Visual Structure and Alignment, "CAD" represents Color and Aesthetic Design, "TCC" represents Textual and Content Consistency, and "UII" denotes User Interface and Interactivity
+</p>
+<!-- <table>
+    <tr>
+        <th>LLM Backbone</th> <th>DWCG</th> <th>DWU</th> <th>DWCGR</th> <th>DWUR</th> <th>VSA ↑</th> <th>CAD ↑</th> <th>TCC ↑</th> <th>UII ↑</th> <th>Overall ↑</th>
+    </tr>
+    <tr>
+        <th rowspan="2">CystalCoder-7B</th> <th>✓</th> <th>-</th> <th>-</th> <th>-</th> <th>7.812</th> <th>7.899</th> <th>8.138</th> <th>8.112</th> <th>7.990</th>
+    </tr>
+    <tr>
+        <th>✓</th> <th>✓</th> <th>-</th> <th>-</th> <th>8.010</th> <th>8.102</th> <th>8.266</th> <th>8.124</th> <th>8.126</th>
+    </tr>
+    <tr>
+        <th rowspan="3">CrystalChat-7B</th> <th>-</th> <th>-</th> <th>-</th> <th>-</th> <th>4.714</th> <th>4.572</th> <th>4.865</th> <th>5.147</th> <th>4.825</th>
+    </tr>
+    <tr>
+        <th>✓</th> <th>✓</th> <th>-</th> <th>-</th> <th>7.900</th> <th>8.001</th> <th>8.204</th> <th>8.215</th> <th>8.080</th>
+    </tr>
+    <tr>
+        <th>✓</th> <th>✓</th> <th>✓</th> <th>✓</th> <th>8.384</th> <th>8.287</th> <th>8.417</th> <th>8.488</th> <th>8.394</th>
+    </tr>
+    <tr>
+        <th>LLaMA3-8B</th> <th>✓</th> <th>✓</th> <th>✓</th> <th>✓</th> <th>8.522</th> <th>8.564</th> <th>8.421</th> <th>8.611</th> <th>8.530</th>
+    </tr>
+</table>
+ -->
+<div style="text-align: center;">
+    <img src="images/tb4.png" width="750" alt="tb4" style="margin: 0 auto;" />
+</div>
+
+<h1 id="bibtext">Bibtext</h1>
+
+<div class="language-bib highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">@article</span><span class="p">{</span><span class="nl">yun2024web2code</span><span class="p">,</span>
+  <span class="na">title</span><span class="p">=</span><span class="s">{Web2Code: A Large-scale Webpage-to-Code Dataset and Evaluation Framework for Multimodal LLMs}</span><span class="p">,</span>
+  <span class="na">author</span><span class="p">=</span><span class="s">{Yun, Sukmin and Lin, Haokun and Thushara, Rusiru and Bhat, Mohammad Qazim and Wang, Yongxin and Jiang, Zutao and Deng, Mingkai and Wang, Jinhong and Tao, Tianhua and Li, Junbo and others}</span><span class="p">,</span>
+  <span class="na">journal</span><span class="p">=</span><span class="s">{arXiv preprint arXiv:2406.20098}</span><span class="p">,</span>
+  <span class="na">year</span><span class="p">=</span><span class="s">{2024}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="license">License</h1>
+
+<p><img src="https://img.shields.io/badge/Data%20License-CC%20By%204.0-red.svg" alt="Data License" /> <strong>Usage and License Notices</strong>: Usage and License Notices: The data is intended and licensed for research use only.  The dataset is CC BY 4.0 (allowing only non-commercial use) and models trained using the dataset should not be used outside of research purposes.</p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/MBZUAI-LLM/webpage2code">webpage2code</a> is maintained by <a href="https://github.com/MBZUAI-LLM">MBZUAI-LLM</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </main>
+  </body>
+</html>

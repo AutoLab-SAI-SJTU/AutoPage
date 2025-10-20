@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G6RZ52LK6H"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G6RZ52LK6H');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformer Block Coupling</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin: 3rem 0 1rem 0;
+            color: #2c3e50;
+        }
+
+        .authors {
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 400;
+        }
+
+        .footnote {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        /* Project links */
+        .project-links-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0 3rem 0;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .project-links a {
+            display: inline-block;
+            text-decoration: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .project-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Content sections */
+        .section {
+            margin: 3rem 0;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ddd, transparent);
+            margin: 1.5rem 0;
+            border: none;
+        }
+
+        /* Paragraph styles */
+        p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            line-height: 1.7;
+        }
+
+        /* Lists */
+        ol, ul {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        li ul, li ol {
+            margin: 0.5rem 0;
+        }
+
+        /* Figures */
+        .figure-container {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .figure-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .figure-caption {
+            text-align: left;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 1rem;
+            line-height: 1.5;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Code blocks */
+        .code-example {
+            margin: 2rem 0;
+        }
+
+        .code-example pre,
+        .bibtex-section pre {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        .bibtex-section {
+            margin: 2rem 0;
+        }
+
+        /* Math formulas - ensure proper spacing */
+        .MathJax {
+            font-size: 1.1em !important;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+                font-size: 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                margin: 2rem 0 1rem 0;
+            }
+
+            .project-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .project-links a {
+                width: 200px;
+            }
+        }
+
+        /* Accessibility improvements */
+        a:focus {
+            outline: 2px solid #667eea;
+            outline-offset: 2px;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                max-width: none;
+                font-size: 12pt;
+                line-height: 1.4;
+            }
+            
+            .project-links-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Transformer Block Coupling<br>& its Correlation with Generalization in LLMs</h1>
+        <div class="authors">
+            Murdock Aubry<sup>*</sup>, Haoming Meng<sup>*</sup>, Anton Sugolov<sup>*</sup>, Vardan Papyan
+        </div>
+        <p class="footnote">
+            <sup>*</sup>Equal contribution
+        </p>
+        
+        <div class="project-links-container">
+            <div class="project-links">
+                <a href="https://arxiv.org/abs/2407.07810"><b>arXiv</b></a>
+                <a href="https://sugolov.github.io/coupling/poster.pdf"><b>Poster</b></a>
+                <a href="https://github.com/sugolov/coupling"><b>GitHub</b></a> 
+                <a href="https://iclr.cc/virtual/2025/poster/28555"><b>ICLR 2025</b></a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <h2>Abstract</h2>
+            <hr class="section-divider">
+            <p>
+                Large Language Models (LLMs) have made significant strides in natural language processing, and a precise understanding of the internal mechanisms driving their success is essential. We analyze the trajectories of token embeddings in LLMs as they pass through transformer blocks, linearizing the system along these trajectories through their Jacobian matrices. For two such Jacobians \(J_1, J_2\), and their singular value decompositions \(J_1 = U_1 S_1 V_1^T\), \(J_2 = U_2 S_2 V_2^T\) we measure the agreement of \(U_1, U_2\) and \(V_1, V_2\). We broadly uncover the <b>transformer block coupling</b> phenomenon in a variety of pretrained LLMs, characterized by the coupling of their top singular vectors across tokens and depth. Our findings reveal that coupling positively correlates with model performance, and that this relationship is stronger than with other hyperparameters such as parameter count, model depth, and embedding dimension.
+            </p>
+        
+            <div class="figure-container">
+                <img src="figs/mega.png" alt="Pythia 12-B coupling analysis">
+                <div class="figure-caption">
+                    <b>Figure 1:</b> 
+                    <b>(a)</b> Correlation with HuggingFace Open LLM Leaderboard 
+                    <b>(b)</b> Measurements on Pythia 6.9B, 12B training checkpoints
+                    <b>(c)</b> Coupling between Pythia 12B transformer blocks at varying depths during training
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Coupling Metric</h2>
+            <hr class="section-divider">
+            <p>
+                Transformers may be described as a deep composition of functions that iteratively transform token embeddings. By \(x_i^l \in \mathbb{R}^d\) we denote the embedding of the \(i\)-th token at the \(l\)-th layer, which are transformed by 
+                \[X^{l+1} = F_{\text{block}}^{l+1}(X^l) = X^l + f^{l+1}(X^l)\]
+                The second equality highlights the residual connection present in the transformer block. To analyze the change in embeddings at layer \(l\) we compute the Jacobian of \(f_l\) in order to linearize this system (contribution to residual):
+                \[J_{t_1t_2}^l = \frac{\partial}{\partial x_{t_1}^{l-1}}(f^l(X^{l-1}))_{t_2} \in \mathbb{R}^{d \times d}\]
+                Where \(t_1, t_2\) denote possibly varying input-output tokens of the Jacobian contribution. Given Jacobians \(J_1, J_2\) with singular value decompositions:
+                \[J_1 = U_1S_1V_1^T \quad J_2 = U_2S_2V_2^T\]
+            </p>
+            
+            <p>
+                We quantify coupling of their top-\(K\) singular vectors using:
+                \[m_K(J_1, J_2) = \frac{\|U_{2,K}^TJ_1V_{2,K} - S_{1,K}\|_F}{\|S_{1,K}\|_p} = \frac{\|U_{2,K}^TU_1S_1V_1^TV_{2,K} - S_{1,K}\|_F}{\|S_{1,K}\|_p}\]
+                
+                This measures how strongly the top-\(K\) singular vectors are aligned (diagonalizing \(J_1\) with the top-\(K\) singular vectors of \(J_2\)). Strong coupling suggests that transformer blocks coordinate operations in the same basis across layers.
+            </p>
+            
+            <div class="figure-container">
+                <img src="figs/diagram.png" alt="Coupling measurement diagram">
+                <div class="figure-caption">
+                    <b>Figure 2:</b> Measuring coupling through multiple token interactions throughout the transformer block
+                </div>
+            </div>
+            
+            <p>
+                The coupling metric \(m_K(J_1, J_2)\) may be computed for linearizations \(J_1, J_2\) for multiple interactions between tokens across depths.
+            </p>
+            
+            <ol>
+                <li>
+                    <b>Depth-wise coupling:</b> Fixing a token \(t\), we measure the coupling between \(J_1 = J_{tt}^l\), \(J_2 = J_{tt}^{l'}\) across all layers \(l,l' \in \{1, \ldots, L\}\). This captures the effect of distinct layers on the same token.
+                </li>
+                
+                <li>
+                    <b>Token-wise coupling:</b> We quantify the coupling across tokens in several ways
+                    <ul>
+                        <li><b>Self-coupling:</b> By fixing two layers \(l,l' \in \{1,\ldots,L\}\), we analyze the case where the input and output tokens are the same. Explicitly, we compare \(J_{tt}^l\) and \(J_{t't'}^{l'}\) across \(t,t' \in \{1,\ldots,n\}\), which represents the coupling across tokens for a token's effect on its own trajectory.</li>
+                        
+                        <li><b>Context Coupling:</b> We consider the context tokens' impact on a trajectory by measuring coupling between \(J_{t_1t_2}^l\) and \(J_{t_1t_2'}^{l'}\) across \(t_2,t_2' \geq t_1\) (fixing the input token to be the same) and also between \(J_{t_1t_2}^l\) and \(J_{t_1't_2}^{l'}\) across \(t_1,t_1' \leq t_2\) (fixing the output token to be the same).</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section class="section">
+            <h2>Implementation</h2>
+            <hr class="section-divider">
+            <p>Coupling can be measured on any HuggingFace LLM through a few additional lines of code.</p>
+            
+            <ol>
+                <li><b>Install coupling package</b></li>
+                <div class="code-example">
+                    <pre><code class="language-python">pip install git+https://github.com/sugolov/coupling.git</code></pre>
+                </div>
+
+                <li><b>Add to HuggingFace inference script</b></li>
+                <div class="code-example">
+                    <pre><code class="language-python">import os
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+
+# Coupling imports
+from coupling import run_coupling_hf
+
+model_path = "meta-llama/Meta-Llama-3-8B"
+model_name = os.path.normpath(os.path.basename(model_path))
+bnb_config = BitsAndBytesConfig(load_in_4bit=True)
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_path,
+    device_map="cuda",
+    trust_remote_code=True,
+    quantization_config=bnb_config
+)
+
+tokenizer = AutoTokenizer.from_pretrained(
+    model_path,
+    use_fast=True,
+)
+
+# Run coupling measurements
+prompts = ["What is the capital of France? The capital is"]
+out = run_coupling_hf(model, tokenizer, model_name, prompts, save=True, verbose=True)</code></pre>
+                </div>
+            </ol>
+        </section>
+
+        <section class="section">
+            <h2>BibTeX</h2>
+            <hr class="section-divider">
+            <div class="bibtex-section">
+             <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">
+                If you find this work useful, please consider citing our paper:
+            </p>            
+                <pre><code>@misc{aubry2025transformerblockcouplingcorrelation,
+    title={Transformer Block Coupling and its Correlation with Generalization in LLMs},
+    author={Murdock Aubry and Haoming Meng and Anton Sugolov and Vardan Papyan},
+    year={2025},
+    eprint={2407.07810},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG},
+    url={https://arxiv.org/abs/2407.07810},
+}</code></pre>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

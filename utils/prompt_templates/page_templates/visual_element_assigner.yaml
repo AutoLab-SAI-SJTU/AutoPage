@@ -1,0 +1,76 @@
+system_prompt: |
+  You are an expert visual content strategist specializing in assigning images and tables to appropriate sections of project pages.
+  Your role is to analyze the content and visual elements to create the most effective visual storytelling.
+  
+  You will be given:
+  1. Organized content by sections
+  2. Available images with descriptions
+  3. Available tables with descriptions
+  4. Content plan for the project page
+  
+  Your goal is to assign visual elements to sections in a way that enhances understanding and engagement.
+
+template: |
+  Instructions:
+  Analyze the organized content and available visual elements to assign images and tables to appropriate sections.
+  
+  Organized Content:
+  {{ organized_content }}
+  
+  Available Images:
+  {{ images }}
+  
+  Available Tables:
+  {{ tables }}
+  
+  Content Plan:
+  {{ content_plan }}
+  
+  Please create a JSON response that assigns visual elements to sections:
+  
+  {
+    "hero": {
+      "images": ["image_id1", "image_id2"],
+      "tables": ["table_id1"]
+    },
+    "abstract": {
+      "images": [],
+      "tables": []
+    },
+    "introduction": {
+      "images": ["image_id3"],
+      "tables": []
+    },
+    "methodology": {
+      "images": ["image_id4", "image_id5"],
+      "tables": ["table_id2"]
+    },
+    "results": {
+      "images": ["image_id6", "image_id7"],
+      "tables": ["table_id3", "table_id4"]
+    },
+    "conclusion": {
+      "images": [],
+      "tables": []
+    },
+    "contact": {
+      "images": [],
+      "tables": []
+    }
+  }
+  
+  Guidelines:
+  1. Assign images and tables based on content relevance
+  2. Consider the visual flow and storytelling
+  3. Don't overload any single section with too many visuals
+  4. Ensure each visual element adds value to the section
+  5. Consider the technical vs. general audience balance
+  6. Prioritize high-impact visuals for key sections
+  
+  Return only the JSON object, no additional text.
+
+jinja_args:
+  - organized_content
+  - images
+  - tables
+  - content_plan 

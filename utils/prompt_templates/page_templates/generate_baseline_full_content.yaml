@@ -1,0 +1,119 @@
+system_prompt: |
+  You are a helpful academic expert and web developer, who is specialized in generating a paper project page, from given research paper's contents and figures.
+
+template: |
+  Below is the raw content with markdown text, images, and tables information:
+  <raw_content>
+  {{raw_content}}
+  </raw_content>
+
+  Your task is to analyze the paper content and generate a complete structured full_content JSON that contains ALL the information needed for the final HTML webpage. This JSON will be the single source of truth for generating the project page.
+  
+  You need to:
+  
+  1. **Extract Paper Metadata**:
+     - Paper title
+     - Authors with their affiliations (use <sup> tags for superscripts)
+     - Institution affiliations
+     - Any other relevant metadata (conference, year, links, etc.)
+  
+  2. **Analyze and Plan Paper Sections**:
+     - Identify the main sections from the paper (Abstract, Introduction, Method, Results, Analysis, Conclusion, etc.)
+     - For each section, extract the key content that should appear on the project page
+     - Write clear, concise content summaries that will be displayed
+     - DO NOT just copy raw paper text - synthesize and adapt it for web presentation
+  
+  3. **Select and Place Visual Elements**:
+     - Identify the teaser figure (the most important visualization, usually appears first)
+     - For each section, select the most relevant figures and tables
+     - Use the EXACT paths provided in raw_content for all images and tables
+     - Include the exact width and height values from raw_content
+     - Write descriptive captions for each visual element
+     - Each figure/table should be used at most once
+     - Ensure all important figures are included
+     - For sections with multiple tables, choose only the most relevant one
+  
+  4. **Content Guidelines**:
+     - The teaser figure must be included and should appear early (typically in Overview or after Abstract)
+     - Prioritize pictures and tables based on their relevance and importance
+     - Ensure figures are closely related to their section's content
+     - Match visual elements with their corresponding text discussions
+     - Specify clear placement instructions for each visual element
+     - Write content that flows naturally and is appropriate for a web page (not raw academic text)
+  
+  5. **Path and Dimension Requirements**:
+     - Use EXACTLY the same paths as provided in raw_content (e.g., "assets/paper-picture-8.png")
+     - Include the exact width and height values from raw_content
+     - Maintain the original aspect ratios of all visual elements
+  
+  Please provide your complete full_content structure in the following JSON format:
+  
+  ```json
+  {
+    "title": "Complete paper title",
+    "authors": "Author names with <sup> tags for affiliations, e.g., 'John Doe<sup>1</sup>, Jane Smith<sup>2</sup>*'",
+    "affiliation": "Complete affiliation text with <sup> tags, e.g., '<sup>1</sup>MIT, <sup>2</sup>Stanford University'",
+    "teaser_figure": {
+      "path": "exact path from raw_content",
+      "description": "detailed description of the teaser figure",
+      "width": "width value from raw_content",
+      "height": "height value from raw_content",
+      "caption": "caption text for the teaser"
+    },
+    "Section Name 1": "Complete content text for this section. This should be well-written, web-appropriate content that synthesizes the paper's key points. Include inline references to figures like: [Figure description][path][width=X, height=Y](figure_number) when you want to reference a visual element.\n\n![Detailed caption describing what the figure shows][assets/exact-path.png][width=1234, height=567](1)",
+    "Section Name 2": "Content for the next section with its own flow and structure...\n\n![Another figure caption][assets/another-path.png][width=890, height=456](2)",
+    "Section Name 3": "More content...\n\n![Table caption][assets/table-path.png][width=2000, height=800](3)"
+  }
+  ```
+  
+  CRITICAL Requirements for the JSON structure:
+  
+  1. **Metadata Fields** (required at the top):
+     - "title": The full paper title
+     - "authors": Author names with superscript affiliations
+     - "affiliation": Institution information with superscripts
+     - "teaser_figure": A separate object with path, description, width, height, and caption
+  
+  2. **Section Fields** (one per major paper section):
+     - Use clear section names as keys (e.g., "Overview", "Method", "Experimental Results")
+     - Each section's value should be a string containing:
+       * Well-written, web-appropriate content that explains the section
+       * Embedded figure/table references using the notation: ![caption][path][width=X, height=Y](number)
+       * The figure notation MUST be on a new line (with \n\n before it)
+       * Natural flow and transitions between content and figures
+  
+  3. **Figure/Table Notation Format**:
+     - Use: ![Caption text][exact/path/from/raw_content][width=1234, height=567](figure_number)
+     - The figure_number must be a unique integer (1, 2, 3, ...)
+     - Caption should describe what the visual shows
+     - Path must EXACTLY match raw_content
+     - Width and height must EXACTLY match raw_content
+     - Place figures after the relevant text that discusses them
+  
+  4. **Content Writing Guidelines**:
+     - Write clear, engaging content suitable for a project page (not raw academic prose)
+     - Each section should tell a coherent story
+     - Ensure smooth transitions between text and visuals
+     - Highlight key contributions and findings
+     - Keep the tone professional but accessible
+     - DO NOT just copy-paste from the paper - adapt and synthesize
+  
+  5. **Visual Placement Strategy**:
+     - Teaser figure: Separate field, will be placed prominently at the top
+     - Section figures: Embedded in section text where most relevant
+     - Place figures after the text that introduces or discusses them
+     - Ensure balanced distribution of visuals across sections
+     - Don't overload any single section with too many visuals
+  
+  Important reminders:
+  - All paths must EXACTLY match those in raw_content
+  - All width and height values must EXACTLY match those in raw_content
+  - Figure numbers should be sequential and unique across the entire document
+  - Each visual element should appear only once
+  - The teaser figure should be the most impactful/representative visualization
+  - Section names should be clear and match the paper's structure
+  - Content should be web-friendly, not just copied academic text
+  - Use \n\n before figure notations to ensure they're on new lines in the JSON string
+
+jinja_args:
+  - raw_content

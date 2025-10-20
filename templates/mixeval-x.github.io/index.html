@@ -1,0 +1,3359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MixEval-X</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://kit.fontawesome.com/f8ddf9854a.js" crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Any-to-Any Evaluations from Real-World Data Mixtures">
+  <meta name="keywords" content="MixEval-X, mixeval-x, Any-to-Any, Eval, LLM Evaluation, Human Preference, User Preference, Dynamic Benchmark, Benchmark Mixture, Web Query Detection, LMM, Large Language Model, artificial intelligence, AI, AGI, artificial general intelligence">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> MixEval-X: Any-to-Any Evaluations from Real-World Data Mixtures</title>
+
+  <link rel="icon" href="static/images/mixeval/icons/mixeval-x.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/leaderboard.css">
+
+  <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="static/js/question_card.js"></script>
+  <script src="https://mixeval-x.github.io/data/results/data_setting.js" defer></script>
+  <script src="https://mixeval-x.github.io/data/results/model_scores.js" defer></script>
+  <script src="https://mixeval-x.github.io/visualizer/data/data_public.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://mixeval.github.io/">
+            <b>MixEval</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="index.html">
+            <b>MixEval-X</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>         
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold">
+            <img src="static/images/mixeval/icons/mixeval-x.png" style="width:2em;vertical-align: middle" alt="Logo"/> 
+            <span class="mixeval" style="vertical-align: middle">MixEval-X</span>
+            </h1>
+          <h2 class="subtitle is-3 publication-subtitle">
+            Any-to-Any Evaluations from Real-World Data Mixtures
+          </h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+                <a href="https://jinjie.one/" style="text-decoration: none; color: inherit;">Jinjie Ni<sup style="color:#ed4b82;">†,a</sup></a>,
+            </span>
+            <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=b_HfZhQAAAAJ&hl=en" style="text-decoration: none; color: inherit;">Yifan Song<sup style="color:#82e9da;">c</sup></a>,
+            </span>
+            <span class="author-block">
+                <a href="https://deepanwayx.github.io/" style="text-decoration: none; color: inherit;">Deepanway Ghosal<sup style="color:#ffac33;">*,f</sup></a>,
+            </span>
+            <span class="author-block">
+                <a href="https://brianboli.com/" style="text-decoration: none; color: inherit;">Bo Li<sup style="color:#6fbf73;">b</sup></a>,
+            </span>
+            <span class="author-block">
+                <a href="https://junhaozhang98.github.io/" style="text-decoration: none; color: inherit;">David Junhao Zhang<sup style="color:#6fbf73;">a</sup></a>,
+            </span><br>
+            <span class="author-block">
+                <a href="https://xiangyue9607.github.io/" style="text-decoration: none; color: inherit;">Xiang Yue<sup style="color:#cf79ea;">d</sup></a>,
+            </span>
+            <span class="author-block">
+                <a href="https://xuefuzhao.github.io/" style="text-decoration: none; color: inherit;">Fuzhao Xue<sup style="color:#ed4b82;">a</sup></a>,
+            </span>
+            <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=3j1uWicAAAAJ&hl=en" style="text-decoration: none; color: inherit;">Zian Zheng<sup style="color:#f0e51d;">e</sup></a>,
+            </span>
+            <span class="author-block">
+                <a href="https://kcz358.github.io/" style="text-decoration: none; color: inherit;">Kaichen Zhang<sup style="color:#6fbf73;">b</sup></a>,
+            </span>
+            <span class="author-block">
+                Mahir Shah<sup style="color:#ed4b82;">a</sup>,
+            </span>
+            <span class="author-block">
+                Kabir Jain<sup style="color:#ed4b82;">a</sup>,
+            </span><br>
+            <span class="author-block">
+                <a href="https://www.comp.nus.edu.sg/~youy/" style="text-decoration: none; color: inherit;">Yang You<sup style="color:#ed4b82;">a</sup></a>,
+            </span>
+            <span class="author-block">
+                <a href="https://michaelshieh.com/" style="text-decoration: none; color: inherit;">Michael Shieh<sup style="color:#ed4b82;">a</sup></a>
+            </span>
+        </div>
+        
+          
+          <br>
+          
+          <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup style="color:#6fbf73;">a</sup>National University of Singapore,</span>
+              <span class="author-block"><sup style="color:#6fbf73;">b</sup>Nanyang Technological University,</span>
+              <span class="author-block"><sup style="color:#82e9da;">c</sup>Peking University,</span><br>
+              <span class="author-block"><sup style="color:#cf79ea;">d</sup>Carnegie Mellon University,</span>
+              <span class="author-block"><sup style="color:#f0e51d;">e</sup>University of Waterloo,</span>
+              <span class="author-block"><sup style="color:#ffac33;">f</sup>Independent Researcher</span>
+          </div>
+          
+          <br>
+          
+          <div class="is-size-5 publication-authors">
+              <span class="author-block">†Correspondence to:</span>
+              <span class="author-block">Jinjie Ni <<a href="mailto:jinjieni@nus.edu.sg">jinjieni@nus.edu.sg</a>></span><br>
+              <span class="author-block">*Now at Google DeepMind</span>
+          </div>
+        
+          
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Leaderboard Link. -->
+
+              <!-- PDF Link. -->
+              <span class="link-block" style="margin-right: 5px;">
+                <!-- @PAN TODO: change links -->
+                <a href="https://arxiv.org/abs/2410.13754"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block" style="margin-right: 5px;">
+                <a href="https://huggingface.co/datasets/MixEval/MixEval-X"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <p style="font-size:18px">🤗</p>
+                      <!-- 🔗 -->
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+              <span class="link-block" style="margin-right: 5px;">
+                <a href="https://github.com/Psycoy/MixEval-X/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <span class="link-block" style="margin-right: 5px;">
+                <a href="https://huggingface.co/papers/2410.13754"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>HF Paper</span>
+                </a>
+              </span>
+              <span class="link-block" style="margin-right: 5px;">
+                <a href="index.html#meta-eval"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <!-- <span class="icon has-text-white">
+                    <i class="fa-solid fa-binoculars"></i>
+                  </span> -->
+                  <span class="icon">
+                    <p style="font-size:18px">🔭</p>
+                  </span>
+                  <span>Meta-Evaluation</span>
+                </a>
+              </span>
+              <!-- Dataset Link. -->
+
+              
+              <!-- Visualization Link. -->
+              <!-- <span class="link-block">
+                <a href="https://eval.ai/web/challenges/challenge-page/2179/overview"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon has-text-white">
+                      <i class="fa-solid fa-medal"></i>
+                  </span>
+                  <span>EvalAI</span>
+                </a>
+              </span> -->
+              <!-- Twitter Link. -->
+              <span class="link-block" style="margin-right: 5px;">
+                <a href="https://x.com/NiJinjie/status/1848053078978957707"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <!-- <span class="icon has-text-white">
+                    <i class="fa-brands fa-x-twitter"></i>
+                  </span> -->
+                  <span class="icon">
+                    <p style="font-size:18px">𝕏</p>
+                  </span>
+                  <span>X / Twitter</span>
+                </a>
+              </span>
+
+              <span class="link-block" style="margin-right: 5px;">
+                <!-- @PAN TODO: change links -->
+                <a href="https://beneficial-chips-08e.notion.site/Don-t-Build-Random-Evals-Principles-for-General-Purpose-Model-Evaluation-bd5a85ba10f447bc9ac560050f67270b?pvs=25"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <!-- <i class="fa-solid fa-blog"></i> -->
+                    <p style="font-size:18px">📘</p>
+                  </span>
+                  <span>blog</span>
+                </a>
+              </span>
+
+              <!-- Examples. -->
+              <!-- <span class="link-block">
+                <a href="#examples"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon has-text-white">
+                    <i class="fa-solid fa-book"></i>
+                  </span>
+                  <span>Examples</span>
+                </a>
+              </span> -->
+            </div>
+          </div>
+
+          <div class="column has-text-centered" style="margin-top: 50px; margin-bottom: 50px;">
+            <div class="publication-links">
+              <span class="link-block">
+                <a
+                  class="external-link button is-normal">
+                  <span class="icon has-text-white">
+                    <!-- <i class="fa-solid fa-trophy"></i> -->
+                      <p style="font-size:18px">🏆</p>
+                  </span>
+                  <span>MixEval-X Leaderboards</span>
+                </a>
+              </span>
+            </div>
+
+            <div class="publication-links">
+            <span class="link-block" style="margin-right: 5px;">
+              <a href="index.html#Image2Text"
+                class="external-link button is-normal">
+                <span class="icon has-text-white">
+                  <!-- <i class="fa-solid fa-trophy"></i> -->
+                    <p style="font-size:18px">🌆</p>
+                </span>
+                <span>Image2Text</span>
+              </a>
+            </span>
+            
+            <span class="link-block" style="margin-right: 5px;">
+              <a href="index.html#Video2Text"
+                class="external-link button is-normal">
+                <span class="icon has-text-white">
+                  <!-- <i class="fa-solid fa-trophy"></i> -->
+                    <p style="font-size:18px">📽️</p>
+                </span>
+                <span>Video2Text</span>
+              </a>
+            </span>
+            <span class="link-block" style="margin-right: 5px;">
+              <a href="index.html#Audio2Text"
+                class="external-link button is-normal">
+                <span class="icon has-text-white">
+                  <!-- <i class="fa-solid fa-trophy"></i> -->
+                    <p style="font-size:18px">🎧</p>
+                </span>
+                <span>Audio2Text</span>
+              </a>
+            </span>
+            <span class="link-block" style="margin-right: 5px;">
+              <a href="index.html#Text2Image"
+                class="external-link button is-normal">
+                <span class="icon has-text-white">
+                  <!-- <i class="fa-solid fa-trophy"></i> -->
+                    <p style="font-size:18px">🌆</p>
+                </span>
+                <span>Text2Image</span>
+              </a>
+            </span>
+            <span class="link-block" style="margin-right: 5px;">
+              <a href="index.html#Text2Video"
+                class="external-link button is-normal">
+                <span class="icon has-text-white">
+                  <!-- <i class="fa-solid fa-trophy"></i> -->
+                    <p style="font-size:18px">📽️</p>
+                </span>
+                <span>Text2Video</span>
+              </a>
+            </span>
+            <span class="link-block" style="margin-right: 5px;">
+              <a href="index.html#Text2Audio"
+                class="external-link button is-normal">
+                <span class="icon has-text-white">
+                  <!-- <i class="fa-solid fa-trophy"></i> -->
+                    <p style="font-size:18px">🎧</p>
+                </span>
+                <span>Text2Audio</span>
+              </a>
+            </span>
+            <span class="link-block" style="margin-right: 5px;">
+              <a href="index.html#Text2Action"
+                class="external-link button is-normal">
+                <span class="icon has-text-white">
+                  <!-- <i class="fa-solid fa-trophy"></i> -->
+                    <p style="font-size:18px">🧑‍🦯</p>
+                </span>
+                <span>Text2Action</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="index.html#Image2Action"
+                class="external-link button is-normal">
+                <span class="icon has-text-white">
+                  <!-- <i class="fa-solid fa-trophy"></i> -->
+                    <p style="font-size:18px">🚶</p>
+                </span>
+                <span>Image2Action</span>
+              </a>
+            </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+  </style>
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <!-- <div class="hero-body">
+      <img src="static/images/tease_scores.png" alt="Examples from the dataset"/>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+        free-viewpoint
+        portraits.
+      </h2>
+    </div> -->
+      <!-- <div class="box m-5"> -->
+        <div class="content has-text-centered">
+          <img src="static/images/mixeval/mixeval-x.png" alt="Correlation-Cost Map" width="100%"  style="margin-bottom: 10px;"/>
+          <div class="content has-text-justified" style="width: 100%; margin: auto; margin-bottom: 30px;">
+          <p> 
+            <a style="color: #999999ff;"> 
+            MixEval-X encompasses eight input-output modality combinations and can be further extended. Its data points reflect real-world task distributions. The last grid presents the scores of frontier organizations’ flagship models on MixEval-X, normalized to a 0-100 scale, with MMG tasks using win rates instead of Elo. Section C of the paper presents example data samples and model responses.
+            </a>
+          </p>
+          </div>  
+        </div>
+      <!-- </div> -->
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div style="width: 80%; margin: auto; margin-bottom: 50px;">
+          <h2 class="title is-3">🔔News</h2>
+          <div class="content has-text-justified">
+            <p></p>
+              <b>🚀[2025-02-11]: <a style="color:#6fbf73;"><b>MixEval-X</b></a> is accepted to ICLR 2025 as a Spotlight!🌟</b>
+            </p>
+            <p>
+              <b>🚀[2024-10-20]: <a style="color:#6fbf73;"><b>MixEval-X</b></a> is released! Checkout the <a href="https://arxiv.org/abs/2410.13754">Paper</a> and <a href="index.html#leaderboard">Leaderboard</a> to learn more about this real-world any-to-any benchmark!</b>
+            </p>
+          </div>
+        </div>      
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified" style="width: 80%; margin: auto; margin-bottom: 30px;">
+          <p>
+            Perceiving and generating diverse modalities are crucial for AI models to effec- tively learn from and engage with real-world signals, necessitating reliable eval- uations for their development. We identify two major issues in current evalua- tions: (1) inconsistent standards, shaped by different communities with varying protocols and maturity levels; and (2) significant query, grading, and generaliza- tion biases. To address these, we introduce <b>MixEval-X</b>, the first any-to-any, real-world benchmark designed to optimize and standardize evaluations across di- verse input and output modalities. We propose multi-modal benchmark mixture and adaptation-rectification pipelines to reconstruct real-world task distributions, ensuring evaluations generalize effectively to real-world use cases. Extensive meta-evaluations show our approach effectively aligns benchmark samples with real-world task distributions. Meanwhile, <b>MixEval-X</b>’s model rankings correlate strongly with that of crowd-sourced real-world evaluations (up to 0.98) while being much more efficient. We provide comprehensive leaderboards to rerank ex- isting models and organizations and offer insights to enhance understanding of multi-modal evaluations and inform future research.
+          </p>
+        </div>
+        <div class="content has-text-justified" style="width: 95%; margin: auto; margin-bottom: 0px;">
+          <p>
+            <a style="color:#ed4b82;"><b>TL;DR:</b></a> <b>MixEval-X</b> is the <a style="color:#ed4b82;"><b>first</b></a> any-to-any, real-world benchmark featuring <a style="color:#ed4b82;"><b>diverse input-output modalities</b></a>, <a style="color:#ed4b82;"><b>real-world task distributions</b></a>, <a style="color:#ed4b82;"><b>consistent high standards</b></a> across modalities, <a style="color:#ed4b82;"><b>and dynamism</b></a>. It achieves up to <a style="color:#ed4b82;"><b>0.98</b></a> correlation with arena-like multi-modal evaluations while being way more efficient.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+<!-- DATASET SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+  <h1 class="title is-1 mmmu">
+    <img src="static/images/mixeval/icons/mixeval-x.png" style="width:2em;vertical-align: middle" alt="Logo"/>
+    <span class="mmmu" style="vertical-align: middle">MixEval-X</span>
+  </h1>
+  </div>
+</section>
+
+<!-- <section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p> -->
+            
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-full-width has-text-centered"> -->
+      <div class="column is-four-fifths" style="width: 80%; margin-bottom: 30px;">
+        <h2 class="title is-3">The Pipeline</h2>
+          <div class="content has-text-centered">
+            <img src="static/images/mixeval/overall_pipeline.png" alt="MixEval Pipeline" class="center" style="width: 80%; margin: auto; margin-bottom: 10px; margin-top: 50px;">
+            <div class="content has-text-justified" style="width: 80%; margin: auto; margin-bottom: 30px;">
+            <p> 
+              <a style="color: #999999ff;"> 
+                The overall pipeline for creating MixEval-X. MMU tasks are built with benchmark mixture, while MMG and agent tasks are created with an adaptation-rectification pipeline, both de- signed to align evaluation tasks with real-world distributions.
+              </a> 
+            </p>
+            </div>  
+          </div>
+        <!-- <div class="content has-text-justified">
+          <p>
+            <a style="color:#6fbf73;"><b>MixEval</b></a> is an approach that bridges the gap between real-world user queries and ground-truth-based evaluation by leveraging user queries mined from the web and matching them with similar queries from existing benchmarks. <a style="color:#6fbf73;"><b>MixEval</b></a> is also the proposed benchmark built with this approach.
+          </p>
+          <p>
+            <a style="color:#c56363;"><b>MixEval-Hard</b></a> is the hard version of <a style="color:#6fbf73;"><b>MixEval</b></a>, designed to enhance the benchmark's ability to distinguish strong models. It is sampled from <a style="color:#6fbf73;"><b>MixEval</b></a> based on model evaluation results, with a higher probability of selecting harder queries. To address distribution deviation, we introduce a rejective sampling process to ensure that the distribution of <a style="color:#c56363;"><b>MixEval-Hard</b></a> aligns with that of wild queries.
+          </p>
+          <p>
+            <a style="color:#8a72f5;"><b>Dynamic evaluation</b></a> is introduced to mitigate the contamination issue. We periodically update the data points in <a style="color:#6fbf73;"><b>MixEval</b></a> and <a style="color:#c56363;"><b>MixEval-Hard</b></a> using our fast, stable pipeline, which performs benchmark mixture with a different batch of wild queries from the same distribution, showing low variance (0.36 Std. on a 0-100 scale) and significant version difference (85% unique query ratio).
+          </p>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-full-width has-text-centered"> -->
+      <div class="column is-four-fifths" style="width: 80%; margin-bottom: 30px;">
+        <h2 class="title is-3">Why to Use MixEval-X Benchmarks?</h2>
+        <div class="content has-text-justified">
+          <!-- <div class="content has-text-centered">
+            <img src="static/images/mixeval/linear_with_arena_merged.png" alt="Linear Relationship with Arena Elo" class="center" style="width: 100%; margin: auto; margin-bottom: 10px; margin-top: 50px;">
+            <div class="content has-text-justified" style="width: 80%; margin: auto; margin-bottom: 30px;">
+            <p> 
+              <a style="color: #999999ff;"> 
+              The model scores of MixEval and MixEval-Hard scale linearly with Chatbot Arena Elo. By fitting the data points, the Arena Elo score can be roughly estimated given a model score on MixEval or MixEval-Hard. ρ and e denote the Spearman’s ranking correlation and the root mean square error of the linear fit respectively.
+              </a>
+            </p>
+            </div>  
+          </div> -->
+          
+          <p>🥇 It extends all the benefits of MixEval to multi-modal evaluations, including <a style="color:#ed4b82;"><b>comprehensive and less biased</b></a> query distribution; <a style="color:#ed4b82;"><b>fair</b></a> grading (except open-ended tasks); <a style="color:#ed4b82;"><b>dynamism</b></a>; <a style="color:#ed4b82;"><b>accurate</b></a> model ranking; <a style="color:#ed4b82;"><b>fast, cost-effective, reproducible</b></a> execution; and <a style="color:#ed4b82;"><b>challenging</b></a> nature.</p>
+
+          <p>🥇 It establishes <a style="color:#ed4b82;"><b>unified, high standards across modalities and communities</b></a>. For single-modality models, it ensures its evaluation keeps up with the state-of-the-art standards; for multi-modality models, it ensures consistent, high-standard evaluations across modalities, preventing any from becoming a bottleneck. </p>
+            
+          <p>🥇 Beyond model evaluation, MixEval-X benchmarks different <a style="color:#ed4b82;"><b>organizations</b></a> (as shown in the first Figure) with balanced dimensions (modalities), unlocking a new level of evaluation.</p>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Statistics</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/mixeval/stats.png" alt="MixEval-X Key Stats" class="center" style="width: 80%; margin: auto; margin-bottom: 0px; margin-top: 0px;">
+              <div class="content has-text-justified" style="width: 50%; margin: auto; margin-bottom: 0px;">
+              <p>
+                <a style="color: #999999ff;"> 
+                  The statistics of MixEval-X subsets. All MMU tasks have both free-form and multiple-choice tasks except Audio2Text and Audio2Text-Hard.
+                </a>  
+              </p>
+              </div>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/mixeval/Image2Text&#32;benchmark&#32;pool&#32;distribution.png" alt="MixEval-X Key Stats" class="center" style="width: 80%; margin: auto; margin-bottom: 0px; margin-top: 0px;">
+              <div class="content has-text-justified" style="width: 40%; margin: auto; margin-bottom: 0px;">
+              <p>
+                <a style="color: #999999ff;"> 
+                  Image2Text benchmark pool distribution on benchmark level.
+                </a>  
+              </p>
+              </div>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/mixeval/Image2Text-Hard&#32;benchmark&#32;pool&#32;distribution.png" alt="MixEval-X Key Stats" class="center" style="width: 80%; margin: auto; margin-bottom: 0px; margin-top: 0px;">
+              <div class="content has-text-justified" style="width: 40%; margin: auto; margin-bottom: 0px;">
+              <p>
+                <a style="color: #999999ff;"> 
+                  Image2Text-Hard benchmark pool distribution on benchmark level.
+                </a>  
+              </p>
+              </div>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/mixeval/Video2Text&#32;benchmark&#32;pool&#32;distribution.png" alt="MixEval-X Key Stats" class="center" style="width: 80%; margin: auto; margin-bottom: 0px; margin-top: 0px;">
+              <div class="content has-text-justified" style="width: 40%; margin: auto; margin-bottom: 0px;">
+              <p>
+                <a style="color: #999999ff;"> 
+                  Video2Text benchmark pool distribution on benchmark level.
+                </a>  
+              </p>
+              </div>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/mixeval/Video2Text-Hard&#32;benchmark&#32;pool&#32;distribution.png" alt="MixEval-X Key Stats" class="center" style="width: 80%; margin: auto; margin-bottom: 0px; margin-top: 0px;">
+              <div class="content has-text-justified" style="width: 40%; margin: auto; margin-bottom: 0px;">
+              <p>
+                <a style="color: #999999ff;"> 
+                  Video2Text-Hard benchmark pool distribution on benchmark level.
+                </a>  
+              </p>
+              </div>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/mixeval/Audio2Text&#32;benchmark&#32;pool&#32;distribution&#32;.png" alt="MixEval-X Key Stats" class="center" style="width: 80%; margin: auto; margin-bottom: 0px; margin-top: 0px;">
+              <div class="content has-text-justified" style="width: 40%; margin: auto; margin-bottom: 0px;">
+              <p>
+                <a style="color: #999999ff;"> 
+                  Audio2Text benchmark pool distribution on benchmark level.
+                </a>  
+              </p>
+              </div>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/mixeval/Audio2Text-Hard&#32;benchmark&#32;pool&#32;distribution&#32;.png" alt="MixEval-X Key Stats" class="center" style="width: 80%; margin: auto; margin-bottom: 0px; margin-top: 0px;">
+              <div class="content has-text-justified" style="width: 40%; margin: auto; margin-bottom: 0px;">
+              <p>
+                <a style="color: #999999ff;"> 
+                  Audio2Text-Hard benchmark pool distribution on benchmark level.
+                </a>  
+              </p>
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS SECTION -->
+<section class="hero is-light is-small" style="margin-bottom: 0px; padding-bottom: 0px;">
+  <div class="hero-body has-text-centered" style="margin-bottom: 0px;">
+    <h1 class="title is-1 mmmu" id="leaderboard" style="margin-bottom: 0px;">Leaderboards</h1>
+  </div>
+</section>
+<section class="section" style="margin-top: 10px; padding-top: 0px;">
+  <div class="container" style="margin-top: 10px; padding-top: 0px;">
+    <!-- <div class="columns is-centered has-text-centered">
+      <h2 class="title is-5" id="dynamic-version" style="margin-top: 50px; padding-top: 0px; color: #159d53">Dynamic Benchmark Version: 2024-06-01</h2>
+    </div> -->
+    <div class="columns is-centered m-6" style="margin-top: 0px; padding-top: 0px;">
+      <div class="column is-full has-text-centered content" style="margin-top: 0px; padding-top: 0px;">
+        <div class="content">
+          <!-- <div class="content has-text-justified">
+            <p>
+              We evaluate LLMs of various sizes from various model developpers.
+              We evaluate both chat and base models. In this project, we mainly discuss the chat models because they are more suitable for user-facing evaluations.
+              In chat model evaluation, we consider both open-source and proprietary models.
+              Our evaluation of chat models is conducted under a zero-shot setting to assess the capability of models to generate accurate answers without fine-tuning or few-shot demonstrations on our benchmark, while the base models are evaluated under a 5-shot setting.
+              For all models, we use the default generation settings provided by each model creator. <br><br>
+              <b>MixEval and MixEval-Hard are dynamic benchmarks.</b> To mitigate contamination, we periodically update the data points in MixEval and MixEval-Hard using our fast, stable pipeline, which performs benchmark mixture with a different batch of wild queries from the same distribution, showing low score variance (0.36 Std. on a 0-100 scale) and significant version difference (85% unique query ratio). Most models in this Leaderboard are tested by authors on MixEval-2024-06-01. Due to the low score variance between versions, we will aggregate model scores tested on the later versions in this leaderboard.
+            </p>
+          </div> -->
+          
+          <span class="link-block" style="margin-right: 5px;">
+            <a href="index.html#Image2Text"
+              class="external-link button is-normal">
+              <span class="icon has-text-white">
+                <!-- <i class="fa-solid fa-trophy"></i> -->
+                  <p style="font-size:18px">🌆</p>
+              </span>
+              <span>Image2Text</span>
+            </a>
+          </span>
+          
+          <span class="link-block" style="margin-right: 5px;">
+            <a href="index.html#Video2Text"
+              class="external-link button is-normal">
+              <span class="icon has-text-white">
+                <!-- <i class="fa-solid fa-trophy"></i> -->
+                  <p style="font-size:18px">📽️</p>
+              </span>
+              <span>Video2Text</span>
+            </a>
+          </span>
+          <span class="link-block" style="margin-right: 5px;">
+            <a href="index.html#Audio2Text"
+              class="external-link button is-normal">
+              <span class="icon has-text-white">
+                <!-- <i class="fa-solid fa-trophy"></i> -->
+                  <p style="font-size:18px">🎧</p>
+              </span>
+              <span>Audio2Text</span>
+            </a>
+          </span>
+          <span class="link-block" style="margin-right: 5px;">
+            <a href="index.html#Text2Image"
+              class="external-link button is-normal">
+              <span class="icon has-text-white">
+                <!-- <i class="fa-solid fa-trophy"></i> -->
+                  <p style="font-size:18px">🌆</p>
+              </span>
+              <span>Text2Image</span>
+            </a>
+          </span>
+          <span class="link-block" style="margin-right: 5px;">
+            <a href="index.html#Text2Video"
+              class="external-link button is-normal">
+              <span class="icon has-text-white">
+                <!-- <i class="fa-solid fa-trophy"></i> -->
+                  <p style="font-size:18px">📽️</p>
+              </span>
+              <span>Text2Video</span>
+            </a>
+          </span>
+          <span class="link-block" style="margin-right: 5px;">
+            <a href="index.html#Text2Audio"
+              class="external-link button is-normal">
+              <span class="icon has-text-white">
+                <!-- <i class="fa-solid fa-trophy"></i> -->
+                  <p style="font-size:18px">🎧</p>
+              </span>
+              <span>Text2Audio</span>
+            </a>
+          </span>
+          <span class="link-block" style="margin-right: 5px;">
+            <a href="index.html#Text2Action"
+              class="external-link button is-normal">
+              <span class="icon has-text-white">
+                <!-- <i class="fa-solid fa-trophy"></i> -->
+                  <p style="font-size:18px">🧑‍🦯</p>
+              </span>
+              <span>Text2Action</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="index.html#Image2Action"
+              class="external-link button is-normal">
+              <span class="icon has-text-white">
+                <!-- <i class="fa-solid fa-trophy"></i> -->
+                  <p style="font-size:18px">🚶</p>
+              </span>
+              <span>Image2Action</span>
+            </a>
+          </span>
+          <!-- <button id="toggleButton" onclick="changeButtonText()"><b style='font-size: larger;'>Chat Model Leaderboard</b> (Click to Switch)</button> -->
+          
+          <div class="columns is-centered has-text-centered">
+            <h2 class="title is-5" id="Image2Text" style="margin-top: 50px; padding-top: 0px; color: #ed4b82">MixEval-X Image2Text Leaderboard</h2>
+          </div>
+          <div class="model-labels-container">
+            <span class="leaderboard-label" style="background-color:#fcfcfcff;">Open-Source</span>
+            <span class="leaderboard-label" style="background-color: #ecececff;">Proprietary</span>
+          </div>
+          <table class="js-sort-table" id="tab_image2text" style="border: 2px solid #999999ff;">
+  
+            <tr>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b></b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Image2Text<br>🥇</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Image2Text-Hard<br>🥇</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>SEED<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>MMMU<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>DocVQA<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>TextVQA<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>VisWiz<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>InfographicVQA<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>SEED-Hard<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>MMMU-Hard<br>(Mixed)</b></a></strong></td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://www.anthropic.com/news/claude-3-5-sonnet" target="_blank"><b>Claude 3.5 Sonnet</b></a></td>
+              <td><b>76.9</b></td>
+              <td><b>46.2</b></td>
+              <td><b>76.0</b></td>
+              <td><u>75.1</u></td>
+              <td><b>94.6</b></td>
+              <td>90.3</td>
+              <td>62.5</td>
+              <td>78.8</td>
+              <td>31.0</td>
+              <td><b>48.9</b></td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://openai.com/index/hello-gpt-4o/" target="_blank"><b>GPT-4o</b></a></td>
+              <td><u>76.6</u></td>
+              <td><u>45.8</u></td>
+              <td><u>75.6</u></td>
+              <td>74.1</td>
+              <td>87.4</td>
+              <td><u>90.9</u></td>
+              <td><b>66.9</b></td>
+              <td>79.0</td>
+              <td>29.3</td>
+              <td><u>45.9</u></td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2303.08774" target="_blank"><b>GPT-4V</b></a></td>
+              <td>75.0</td>
+              <td>44.6</td>
+              <td>75.6</td>
+              <td>68.0</td>
+              <td>92.1</td>
+              <td>89.3</td>
+              <td>53.7</td>
+              <td>79.2</td>
+              <td>31.9</td>
+              <td>40.6</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://qwen2.org/vl/" target="_blank"><b>Qwen2-VL-72B</b></a></td>
+              <td>74.8</td>
+              <td>43.4</td>
+              <td>71.5</td>
+              <td>67.5</td>
+              <td>90.6</td>
+              <td>90.3</td>
+              <td><u>66.3</u></td>
+              <td><u>80.4</u></td>
+              <td>25.4</td>
+              <td>27.8</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2403.05530" target="_blank"><b>Gemini 1.5 Pro</b></a></td>
+              <td>74.2</td>
+              <td>42.2</td>
+              <td>72.2</td>
+              <td><b>77.2</b></td>
+              <td>85.6</td>
+              <td>86.8</td>
+              <td>63.7</td>
+              <td>76.7</td>
+              <td>29.7</td>
+              <td>44.4</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/" target="_blank"><b>Llama 3.2 90B</b></a></td>
+              <td>73.0</td>
+              <td>40.6</td>
+              <td>73.3</td>
+              <td>62.9</td>
+              <td><u>92.7</u></td>
+              <td>90.9</td>
+              <td>61.6</td>
+              <td><b>89.8</b></td>
+              <td>28.9</td>
+              <td>30.1</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://internvl.github.io/blog/2024-07-02-InternVL-2.0/" target="_blank"><b>InternVL2-26B</b></a></td>
+              <td>71.5</td>
+              <td>41.5</td>
+              <td>71.5</td>
+              <td>55.8</td>
+              <td>90.3</td>
+              <td><b>91.2</b></td>
+              <td>58.2</td>
+              <td>70.2</td>
+              <td>32.3</td>
+              <td>28.6</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2404.16821" target="_blank"><b>InternVL-Chat-V1.5</b></a></td>
+              <td>70.1</td>
+              <td>37.5</td>
+              <td>70.7</td>
+              <td>56.9</td>
+              <td>83.6</td>
+              <td>83.1</td>
+              <td>55.3</td>
+              <td>61.2</td>
+              <td>22.0</td>
+              <td>18.8</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://www.anthropic.com/news/claude-3-family" target="_blank"><b>Claude 3 Opus</b></a></td>
+              <td>69.5</td>
+              <td>41.1</td>
+              <td>72.0</td>
+              <td>66.5</td>
+              <td>84.2</td>
+              <td>86.7</td>
+              <td>56.9</td>
+              <td>66.9</td>
+              <td><b>34.9</b></td>
+              <td>44.4</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/spaces/Qwen/Qwen-VL-Max" target="_blank"><b>Qwen-VL-MAX</b></a></td>
+              <td>69.2</td>
+              <td>37.5</td>
+              <td>70.0</td>
+              <td>68.5</td>
+              <td>83.1</td>
+              <td>87.2</td>
+              <td>53.1</td>
+              <td>66.1</td>
+              <td>27.6</td>
+              <td>37.6</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/liuhaotian/llava-v1.6-34b" target="_blank"><b>LLaVA-1.6-34B</b></a></td>
+              <td>68.1</td>
+              <td>37.5</td>
+              <td>70.4</td>
+              <td>60.4</td>
+              <td>71.0</td>
+              <td>81.8</td>
+              <td>48.6</td>
+              <td>58.8</td>
+              <td>31.9</td>
+              <td>36.8</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://www.anthropic.com/news/claude-3-family" target="_blank"><b>Claude 3 Sonnet</b></a></td>
+              <td>67.8</td>
+              <td>38.3</td>
+              <td>71.1</td>
+              <td>50.8</td>
+              <td>86.7</td>
+              <td>80.3</td>
+              <td>58.2</td>
+              <td>78.6</td>
+              <td>32.3</td>
+              <td>30.8</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2404.12387" target="_blank"><b>Reka Core</b></a></td>
+              <td>67.4</td>
+              <td>37.3</td>
+              <td>67.5</td>
+              <td>71.1</td>
+              <td>76.5</td>
+              <td>79.9</td>
+              <td>56.9</td>
+              <td>59.6</td>
+              <td>25.0</td>
+              <td>39.1</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2404.12387" target="_blank"><b>Reka Flash</b></a></td>
+              <td>67.4</td>
+              <td>36.6</td>
+              <td>73.6</td>
+              <td>53.8</td>
+              <td>71.3</td>
+              <td>76.8</td>
+              <td>59.6</td>
+              <td>62.5</td>
+              <td><u>32.8</u></td>
+              <td>23.3</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-2" target="_blank"><b>InternVL-Chat-V1.2</b></a></td>
+              <td>67.2</td>
+              <td>36.0</td>
+              <td>70.7</td>
+              <td>54.8</td>
+              <td>51.8</td>
+              <td>76.3</td>
+              <td>60.0</td>
+              <td>59.2</td>
+              <td>25.4</td>
+              <td>33.8</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/spaces/Qwen/Qwen-VL-Plus" target="_blank"><b>Qwen-VL-PLUS</b></a></td>
+              <td>67.0</td>
+              <td>35.9</td>
+              <td>66.2</td>
+              <td>56.9</td>
+              <td>84.1</td>
+              <td>83.1</td>
+              <td>57.5</td>
+              <td>52.7</td>
+              <td>19.8</td>
+              <td>27.1</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://www.anthropic.com/news/claude-3-family" target="_blank"><b>Claude 3 Haiku</b></a></td>
+              <td>66.1</td>
+              <td>37.5</td>
+              <td>67.8</td>
+              <td>58.4</td>
+              <td>88.3</td>
+              <td>83.0</td>
+              <td>59.8</td>
+              <td>59.4</td>
+              <td>32.8</td>
+              <td>45.9</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2312.11805" target="_blank"><b>Gemini 1.0 Pro</b></a></td>
+              <td>66.1</td>
+              <td>35.0</td>
+              <td>67.6</td>
+              <td>60.9</td>
+              <td>70.3</td>
+              <td>81.3</td>
+              <td>55.7</td>
+              <td>51.8</td>
+              <td>29.3</td>
+              <td>39.8</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/internlm/internlm-xcomposer2-vl-7b" target="_blank"><b>InternLM-XComposer2-VL</b></a></td>
+              <td>62.1</td>
+              <td>33.6</td>
+              <td>66.9</td>
+              <td>40.6</td>
+              <td>54.7</td>
+              <td>74.9</td>
+              <td>56.3</td>
+              <td>46.5</td>
+              <td>28.9</td>
+              <td>24.8</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-1" target="_blank"><b>InternVL-Chat-V1.1</b></a></td>
+              <td>58.5</td>
+              <td>30.9</td>
+              <td>68.0</td>
+              <td>46.7</td>
+              <td>38.3</td>
+              <td>64.6</td>
+              <td>52.5</td>
+              <td>37.5</td>
+              <td>28.4</td>
+              <td>30.8</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/01-ai/Yi-VL-34B" target="_blank"><b>Yi-VL-34B</b></a></td>
+              <td>58.5</td>
+              <td>30.6</td>
+              <td>68.0</td>
+              <td>53.8</td>
+              <td>21.5</td>
+              <td>59.7</td>
+              <td>53.3</td>
+              <td>41.4</td>
+              <td>27.6</td>
+              <td>29.3</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/openbmb/OmniLMM-12B" target="_blank"><b>OmniLMM-12B</b></a></td>
+              <td>58.2</td>
+              <td>29.2</td>
+              <td>67.3</td>
+              <td>54.8</td>
+              <td>42.3</td>
+              <td>70.2</td>
+              <td>48.6</td>
+              <td>26.9</td>
+              <td>31.9</td>
+              <td>32.3</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/deepseek-ai/deepseek-vl-7b-chat" target="_blank"><b>DeepSeek-VL-7B-Chat</b></a></td>
+              <td>56.7</td>
+              <td>26.5</td>
+              <td>61.3</td>
+              <td>41.1</td>
+              <td>39.4</td>
+              <td>69.9</td>
+              <td>50.8</td>
+              <td>32.0</td>
+              <td>21.1</td>
+              <td>14.3</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/01-ai/Yi-VL-6B" target="_blank"><b>Yi-VL-6B</b></a></td>
+              <td>55.4</td>
+              <td>30.1</td>
+              <td>65.6</td>
+              <td>45.7</td>
+              <td>23.6</td>
+              <td>62.3</td>
+              <td>52.2</td>
+              <td>28.0</td>
+              <td>27.6</td>
+              <td>19.5</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/Infi-MM/infimm-zephyr" target="_blank"><b>InfiMM-Zephyr-7B</b></a></td>
+              <td>53.7</td>
+              <td>29.4</td>
+              <td>62.5</td>
+              <td>44.2</td>
+              <td>21.9</td>
+              <td>46.1</td>
+              <td>46.1</td>
+              <td>27.6</td>
+              <td>26.7</td>
+              <td>25.6</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/THUDM/cogvlm-chat-hf" target="_blank"><b>CogVLM</b></a></td>
+              <td>51.5</td>
+              <td>23.7</td>
+              <td>54.4</td>
+              <td>25.4</td>
+              <td>46.4</td>
+              <td>70.5</td>
+              <td>46.5</td>
+              <td>56.1</td>
+              <td>21.6</td>
+              <td>11.3</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/openbmb/MiniCPM-V" target="_blank"><b>MiniCPM-V</b></a></td>
+              <td>51.5</td>
+              <td>25.9</td>
+              <td>59.1</td>
+              <td>32.0</td>
+              <td>53.2</td>
+              <td>76.6</td>
+              <td>40.8</td>
+              <td>32.2</td>
+              <td>23.7</td>
+              <td>18.0</td>
+            </tr>
+            <tr>
+              <td style="text-align: center;width: 200px;"><a href="index.html" target="_blank"><b>Marco-VL</b></a></td>
+              <td>50.5</td>
+              <td>24.3</td>
+              <td>56.0</td>
+              <td>37.1</td>
+              <td>48.2</td>
+              <td>58.1</td>
+              <td>37.3</td>
+              <td>40.6</td>
+              <td>19.0</td>
+              <td>27.8</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/liuhaotian/llava-v1.5-13b" target="_blank"><b>LLaVA-1.5-13B</b></a></td>
+              <td>50.2</td>
+              <td>26.0</td>
+              <td>56.9</td>
+              <td>32.5</td>
+              <td>22.4</td>
+              <td>53.7</td>
+              <td>42.9</td>
+              <td>24.3</td>
+              <td>19.0</td>
+              <td>24.8</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2307.04087" target="_blank"><b>SVIT</b></a></td>
+              <td>49.9</td>
+              <td>25.4</td>
+              <td>59.1</td>
+              <td>35.5</td>
+              <td>19.9</td>
+              <td>51.2</td>
+              <td>42.9</td>
+              <td>27.8</td>
+              <td>27.6</td>
+              <td>15.8</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2311.04257" target="_blank"><b>mPLUG-OWL2</b></a></td>
+              <td>48.9</td>
+              <td>22.5</td>
+              <td>57.5</td>
+              <td>28.9</td>
+              <td>26.9</td>
+              <td>59.7</td>
+              <td>39.8</td>
+              <td>29.4</td>
+              <td>28.0</td>
+              <td>10.5</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2311.07575" target="_blank"><b>SPHINX</b></a></td>
+              <td>47.5</td>
+              <td>23.8</td>
+              <td>54.5</td>
+              <td>39.1</td>
+              <td>16.4</td>
+              <td>51.0</td>
+              <td>41.4</td>
+              <td>24.5</td>
+              <td>19.8</td>
+              <td>18.0</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/Salesforce/instructblip-flan-t5-xxl" target="_blank"><b>InstructBLIP-T5-XXL</b></a></td>
+              <td>46.2</td>
+              <td>21.5</td>
+              <td>58.0</td>
+              <td>31.0</td>
+              <td>11.2</td>
+              <td>41.7</td>
+              <td>44.3</td>
+              <td>24.5</td>
+              <td>19.4</td>
+              <td>28.6</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/Salesforce/instructblip-flan-t5-xl" target="_blank"><b>InstructBLIP-T5-XL</b></a></td>
+              <td>45.5</td>
+              <td>22.9</td>
+              <td>53.1</td>
+              <td>32.0</td>
+              <td>14.5</td>
+              <td>44.5</td>
+              <td>44.5</td>
+              <td>12.9</td>
+              <td>21.1</td>
+              <td>18.8</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/Salesforce/blip2-flan-t5-xxl" target="_blank"><b>BLIP-2 FLAN-T5-XXL</b></a></td>
+              <td>45.2</td>
+              <td>21.6</td>
+              <td>55.1</td>
+              <td>33.0</td>
+              <td>13.5</td>
+              <td>46.3</td>
+              <td>42.2</td>
+              <td>29.6</td>
+              <td>22.8</td>
+              <td>17.3</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/Salesforce/blip2-flan-t5-xl" target="_blank"><b>BLIP-2 FLAN-T5-XL</b></a></td>
+              <td>43.0</td>
+              <td>20.0</td>
+              <td>52.5</td>
+              <td>33.5</td>
+              <td>16.3</td>
+              <td>40.9</td>
+              <td>39.2</td>
+              <td>9.4</td>
+              <td>23.3</td>
+              <td>11.3</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://www.adept.ai/blog/adept-fuyu-heavy" target="_blank"><b>Adept Fuyu-Heavy</b></a></td>
+              <td>37.4</td>
+              <td>19.4</td>
+              <td>43.5</td>
+              <td>26.4</td>
+              <td>6.9</td>
+              <td>41.1</td>
+              <td>35.5</td>
+              <td>8.2</td>
+              <td>21.6</td>
+              <td>11.3</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2304.15010" target="_blank"><b>LLaMA-Adapter2-7B</b></a></td>
+              <td>36.6</td>
+              <td>20.4</td>
+              <td>42.5</td>
+              <td>32.5</td>
+              <td>15.6</td>
+              <td>23.7</td>
+              <td>44.5</td>
+              <td>25.1</td>
+              <td>18.1</td>
+              <td>14.3</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2305.03726" target="_blank"><b>Otter</b></a></td>
+              <td>34.1</td>
+              <td>18.5</td>
+              <td>42.5</td>
+              <td>31.5</td>
+              <td>5.3</td>
+              <td>17.9</td>
+              <td>21.2</td>
+              <td>21.4</td>
+              <td>23.3</td>
+              <td>9.8</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://github.com/nelsonjchen/cog-MiniGPT-4-vicuna" target="_blank"><b>MiniGPT4-Vicuna-13B</b></a></td>
+              <td>32.1</td>
+              <td>15.8</td>
+              <td>38.2</td>
+              <td>25.4</td>
+              <td>15.4</td>
+              <td>23.4</td>
+              <td>33.7</td>
+              <td>18.4</td>
+              <td>15.5</td>
+              <td>13.5</td>
+            </tr>
+          
+        </table>
+
+          <div class="columns is-centered has-text-centered">
+            <h2 class="title is-5" id="Video2Text" style="margin-top: 50px; padding-top: 0px; color: #ed4b82">*MixEval-X Video2Text Leaderboard</h2>
+          </div>
+          <div class="columns is-centered has-text-centered">
+            <a style="color:rgb(157, 156, 156);">*In the latest benchmark version, we removed the HowToQA and Social-IQ-2.0 from the Video2Text benchmark pool due to their simple queries and noisy annotations. The below scores are from the original version.</a>
+          </div>
+          <div class="model-labels-container">
+            <span class="leaderboard-label" style="background-color:#fcfcfcff;">Open-Source</span>
+            <span class="leaderboard-label" style="background-color: #ecececff;">Proprietary</span>
+          </div>
+          <table class="js-sort-table" id="tab_video2text" style="border: 2px solid #999999ff;">
+  
+            <tr>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b></b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Video2Text<br>🥇</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Video2Text-Hard<br>🥇</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>ActivityNet-QA<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>HowToQA<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>TVQA<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>MSVD-QA<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>NextQA-freetext<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>TGIF-QA<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>ActivityNet-QA-Hard<br>(Mixed)</b></a></strong></td>
+              <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>TVQA-Hard<br>(Mixed)</b></a></strong></td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://www.anthropic.com/news/claude-3-5-sonnet" target="_blank"><b>Claude 3.5 Sonnet</b></a></td>
+              <td><b>74.2</b></td>
+              <td><b>45.5</b></td>
+              <td><b>73.3</b></td>
+              <td>76.6</td>
+              <td>64.8</td>
+              <td>79.4</td>
+              <td><b>76.4</b></td>
+              <td><b>78.9</b></td>
+              <td><b>60.4</b></td>
+              <td>39.4</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://openai.com/index/hello-gpt-4o/" target="_blank"><b>GPT-4o</b></a></td>
+              <td><u>72.7</u></td>
+              <td>38.9</td>
+              <td>64.6</td>
+              <td><b>78.2</b></td>
+              <td><u>74.6</u></td>
+              <td><u>80.9</u></td>
+              <td>70.1</td>
+              <td>78.2</td>
+              <td>32.4</td>
+              <td>48.0</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2403.05530" target="_blank"><b>Gemini 1.5 Pro</b></a></td>
+              <td>71.8</td>
+              <td>38.1</td>
+              <td><u>65.2</u></td>
+              <td>64.8</td>
+              <td><b>82.6</b></td>
+              <td><b>82.9</b></td>
+              <td><u>74.4</u></td>
+              <td>75.7</td>
+              <td><u>43.2</u></td>
+              <td><b>68.5</b></td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2303.08774" target="_blank"><b>GPT-4V</b></a></td>
+              <td>71.0</td>
+              <td><u>40.0</u></td>
+              <td>63.4</td>
+              <td><u>78.2</u></td>
+              <td>69.5</td>
+              <td>77.9</td>
+              <td>69.5</td>
+              <td><u>78.5</u></td>
+              <td>37.2</td>
+              <td>37.8</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/Qwen/Qwen2-VL-72B-Instruct" target="_blank"><b>Qwen2-VL-72B</b></a></td>
+              <td>66.5</td>
+              <td>32.0</td>
+              <td>55.1</td>
+              <td>76.6</td>
+              <td>58.1</td>
+              <td>74.2</td>
+              <td>65.0</td>
+              <td>78.5</td>
+              <td>27.3</td>
+              <td>17.3</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2403.05530" target="_blank"><b>Gemini 1.5 Flash</b></a></td>
+              <td>66.3</td>
+              <td>33.9</td>
+              <td>59.0</td>
+              <td>67.4</td>
+              <td>70.3</td>
+              <td>73.8</td>
+              <td>61.4</td>
+              <td>72.3</td>
+              <td>26.7</td>
+              <td><u>51.2</u></td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/lmms-lab/llava-onevision-qwen2-72b-ov-sft" target="_blank"><b>LLaVA-OneVision-72B-OV</b></a></td>
+              <td>64.7</td>
+              <td>32.0</td>
+              <td>56.0</td>
+              <td>77.0</td>
+              <td>64.4</td>
+              <td>71.2</td>
+              <td>64.9</td>
+              <td>70.6</td>
+              <td>35.6</td>
+              <td>28.3</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct" target="_blank"><b>Qwen2-VL-7B</b></a></td>
+              <td>64.2</td>
+              <td>31.9</td>
+              <td>54.3</td>
+              <td>74.7</td>
+              <td>52.1</td>
+              <td>74.9</td>
+              <td>62.6</td>
+              <td>68.9</td>
+              <td>27.2</td>
+              <td>26.0</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/lmms-lab/LLaVA-NeXT-Video-34B" target="_blank"><b>LLaVA-Next-Video-34B</b></a></td>
+              <td>63.1</td>
+              <td>28.4</td>
+              <td>56.1</td>
+              <td>68.6</td>
+              <td>62.7</td>
+              <td>74.0</td>
+              <td>62.8</td>
+              <td>68.0</td>
+              <td>26.7</td>
+              <td>38.6</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://www.anthropic.com/news/claude-3-family" target="_blank"><b>Claude 3 Haiku</b></a></td>
+              <td>58.7</td>
+              <td>29.4</td>
+              <td>52.3</td>
+              <td>63.6</td>
+              <td>48.7</td>
+              <td>70.8</td>
+              <td>62.7</td>
+              <td>70.2</td>
+              <td>23.6</td>
+              <td>29.1</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/lmms-lab/LLaVA-NeXT-Video-7B" target="_blank"><b>LLaVA-Next-Video-7B</b></a></td>
+              <td>58.7</td>
+              <td>27.2</td>
+              <td>53.2</td>
+              <td>62.1</td>
+              <td>44.5</td>
+              <td>72.5</td>
+              <td>61.0</td>
+              <td>74.4</td>
+              <td>25.9</td>
+              <td>33.1</td>
+            </tr>
+            <tr style="background-color: #ecececff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2404.12387" target="_blank"><b>Reka-edge</b></a></td>
+              <td>58.7</td>
+              <td>27.3</td>
+              <td>51.7</td>
+              <td>72.4</td>
+              <td>46.6</td>
+              <td>69.1</td>
+              <td>59.3</td>
+              <td>65.2</td>
+              <td>29.0</td>
+              <td>22.8</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2311.17043" target="_blank"><b>LLaMA-VID</b></a></td>
+              <td>55.6</td>
+              <td>23.8</td>
+              <td>52.9</td>
+              <td>60.9</td>
+              <td>36.0</td>
+              <td>72.8</td>
+              <td>61.3</td>
+              <td>67.1</td>
+              <td>19.1</td>
+              <td>17.3</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2311.10122" target="_blank"><b>VideoLLaVA</b></a></td>
+              <td>55.3</td>
+              <td>22.6</td>
+              <td>51.7</td>
+              <td>64.0</td>
+              <td>39.4</td>
+              <td>66.7</td>
+              <td>61.9</td>
+              <td>64.7</td>
+              <td>18.2</td>
+              <td>26.0</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2306.05424" target="_blank"><b>Video-ChatGPT</b></a></td>
+              <td>46.4</td>
+              <td>20.7</td>
+              <td>45.7</td>
+              <td>46.7</td>
+              <td>25.4</td>
+              <td>72.2</td>
+              <td>56.3</td>
+              <td>64.8</td>
+              <td>24.7</td>
+              <td>14.2</td>
+            </tr>
+            <tr style="background-color: #fcfcfcff;">
+              <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2306.04362" target="_blank"><b>mPLUG-video</b></a></td>
+              <td>39.1</td>
+              <td>17.8</td>
+              <td>41.5</td>
+              <td>36.4</td>
+              <td>23.3</td>
+              <td>71.9</td>
+              <td>56.7</td>
+              <td>61.8</td>
+              <td>22.7</td>
+              <td>7.9</td>
+            </tr>
+          
+        </table>
+          
+
+        <div class="columns is-centered has-text-centered">
+          <h2 class="title is-5" id="Audio2Text" style="margin-top: 50px; padding-top: 0px; color: #ed4b82">MixEval-X Audio2Text Leaderboard</h2>
+        </div>
+        <div class="model-labels-container">
+          <span class="leaderboard-label" style="background-color:#fcfcfcff;">Open-Source</span>
+          <span class="leaderboard-label" style="background-color: #ecececff;">Proprietary</span>
+        </div>
+        <table class="js-sort-table" id="tab_audio2text" style="border: 2px solid #999999ff;">
+  
+          <tr>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b></b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Audio2Text<br>🥇</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Audio2Text-Hard<br>🥇</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Clotho-AQA<br>(Mixed)</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>DAQA<br>(Mixed)</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Clotho-AQA-Hard<br>(Mixed)</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>DAQA-Hard<br>(Mixed)</b></a></strong></td>
+          </tr>
+          <tr style="background-color: #ecececff;">
+            <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2403.05530" target="_blank"><b>Gemini 1.5 Pro</b></a></td>
+            <td><b>62.7</b></td>
+            <td><u>24.0</u></td>
+            <td><b>67.4</b></td>
+            <td><b>53.4</b></td>
+            <td>26.8</td>
+            <td>21.7</td>
+          </tr>
+          <tr style="background-color: #ecececff;">
+            <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2403.05530" target="_blank"><b>Gemini 1.5 Flash</b></a></td>
+            <td><u>60.1</u></td>
+            <td>23.0</td>
+            <td><u>67.1</u></td>
+            <td><u>46.9</u></td>
+            <td><u>27.4</u></td>
+            <td>19.7</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/Qwen/Qwen2-Audio-7B-Instruct" target="_blank"><b>Qwen2-Audio-7B-Instruct</b></a></td>
+            <td>58.8</td>
+            <td>23.5</td>
+            <td>64.7</td>
+            <td>46.0</td>
+            <td>22.5</td>
+            <td><u>23.5</u></td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/Qwen/Qwen2-Audio-7B" target="_blank"><b>Qwen2-Audio-7B</b></a></td>
+            <td>56.6</td>
+            <td><b>24.6</b></td>
+            <td>63.1</td>
+            <td>44.0</td>
+            <td><b>29.9</b></td>
+            <td>20.0</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://github.com/bytedance/SALMONN" target="_blank"><b>SALMONN-13B</b></a></td>
+            <td>52.5</td>
+            <td>20.9</td>
+            <td>57.6</td>
+            <td>41.4</td>
+            <td>14.9</td>
+            <td><b>25.4</b></td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/Qwen/Qwen-Audio" target="_blank"><b>Qwen-Audio</b></a></td>
+            <td>52.4</td>
+            <td>16.0</td>
+            <td>61.5</td>
+            <td>33.8</td>
+            <td>19.0</td>
+            <td>12.8</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/Qwen/Qwen-Audio-Chat" target="_blank"><b>Qwen-Audio-Chat</b></a></td>
+            <td>50.2</td>
+            <td>20.0</td>
+            <td>55.7</td>
+            <td>39.4</td>
+            <td>19.8</td>
+            <td>19.7</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://github.com/bytedance/SALMONN" target="_blank"><b>SALMONN-7B</b></a></td>
+            <td>38.9</td>
+            <td>17.1</td>
+            <td>46.6</td>
+            <td>22.2</td>
+            <td>20.6</td>
+            <td>11.6</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://github.com/microsoft/Pengi" target="_blank"><b>Pengi</b></a></td>
+            <td>22.6</td>
+            <td>8.2</td>
+            <td>26.9</td>
+            <td>14.4</td>
+            <td>12.5</td>
+            <td>3.8</td>
+          </tr>
+        
+      </table>
+
+        <div class="columns is-centered has-text-centered">
+          <h2 class="title is-5" id="Text2Image" style="margin-top: 50px; padding-top: 0px; color: #ed4b82">MixEval-X Text2Image Leaderboard</h2>
+        </div>
+        <div class="model-labels-container">
+          <span class="leaderboard-label" style="background-color:#fcfcfcff;">Open-Source</span>
+          <span class="leaderboard-label" style="background-color: #ecececff;">Proprietary</span>
+        </div>
+        <table class="js-sort-table" id="tab_text2image" style="border: 2px solid #999999ff;">
+  
+          <tr>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b></b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Text2Image Elo<br>🥇</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>95% CI</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Text2Image Elo (1st Turn)<br>🥇</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>95% CI (1st Turn)</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Text2Image Elo (2nd Turn)<br>🥇</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>95% CI (2nd Turn)</b></a></strong></td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://flux-ai.io/?gad_source=1&gclid=Cj0KCQjwsc24BhDPARIsAFXqAB3kLEprxA4M3f1o0PeoIzg2zXA-3iN8G-FNTl9rw8CJ02EUi-dD3LAaAidrEALw_wcB" target="_blank"><b>Flux</b></a></td>
+            <td><b>1054</b></td>
+            <td>-11/15</td>
+            <td><u>1054</u></td>
+            <td>-20/20</td>
+            <td><b>1058</b></td>
+            <td>-15/21</td>
+          </tr>
+          <tr style="background-color: #ecececff;">
+            <td style="text-align: center;width: 200px;"><a href="https://openai.com/index/dall-e-3/" target="_blank"><b>DALL·E 3 HD</b></a></td>
+            <td><u>1047</u></td>
+            <td>-11/12</td>
+            <td><b>1062</b></td>
+            <td>-19/19</td>
+            <td>1031</td>
+            <td>-17/24</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://github.com/PixArt-alpha/PixArt-alpha" target="_blank"><b>PixArtAlpha</b></a></td>
+            <td>1037</td>
+            <td>-15/14</td>
+            <td>1031</td>
+            <td>-18/21</td>
+            <td><u>1041</u></td>
+            <td>-17/16</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://playground.com/blog/playground-v2-5" target="_blank"><b>PlayGround V2.5</b></a></td>
+            <td>1027</td>
+            <td>-12/14</td>
+            <td>1027</td>
+            <td>-20/26</td>
+            <td>1030</td>
+            <td>-24/16</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://playground.stream/en" target="_blank"><b>PlayGround V2</b></a></td>
+            <td>1023</td>
+            <td>-13/12</td>
+            <td>1021</td>
+            <td>-22/17</td>
+            <td>1022</td>
+            <td>-16/19</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://stability.ai/news/stable-diffusion-3" target="_blank"><b>SD3</b></a></td>
+            <td>993</td>
+            <td>-18/12</td>
+            <td>986</td>
+            <td>-18/18</td>
+            <td>998</td>
+            <td>-18/17</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/spaces/multimodalart/stable-cascade" target="_blank"><b>Stable Cascade</b></a></td>
+            <td>961</td>
+            <td>-13/15</td>
+            <td>968</td>
+            <td>-24/18</td>
+            <td>956</td>
+            <td>-19/25</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5" target="_blank"><b>SD1.5</b></a></td>
+            <td>936</td>
+            <td>-14/14</td>
+            <td>931</td>
+            <td>-16/21</td>
+            <td>940</td>
+            <td>-22/22</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://huggingface.co/docs/diffusers/en/using-diffusers/sdxl" target="_blank"><b>SDXL</b></a></td>
+            <td>916</td>
+            <td>-13/14</td>
+            <td>918</td>
+            <td>-18/18</td>
+            <td>918</td>
+            <td>-21/20</td>
+          </tr>
+        
+      </table>
+        
+        <div class="columns is-centered has-text-centered">
+          <h2 class="title is-5" id="Text2Video" style="margin-top: 50px; padding-top: 0px; color: #ed4b82">MixEval-X Text2Video Leaderboard</h2>
+        </div>
+        <div class="model-labels-container">
+          <span class="leaderboard-label" style="background-color:#fcfcfcff;">Open-Source</span>
+          <span class="leaderboard-label" style="background-color: #ecececff;">Proprietary</span>
+        </div>
+        <table class="js-sort-table" id="tab_text2video" style="border: 2px solid #999999ff;">
+  
+          <tr>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b></b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Text2Video Elo<br>🥇</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>95% CI</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Text2Video Elo (1st Turn)<br>🥇</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>95% CI (1st Turn)</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Text2Video Elo (2nd Turn)<br>🥇</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>95% CI (2nd Turn)</b></a></strong></td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://github.com/hotshotco/Hotshot-XL" target="_blank"><b>HotShot-XL</b></a></td>
+            <td><b>1024</b></td>
+            <td>-8/10</td>
+            <td><b>1024</b></td>
+            <td>-12/14</td>
+            <td><b>1025</b></td>
+            <td>-12/11</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://github.com/THUDM/CogVideo" target="_blank"><b>CogVideoX-5B</b></a></td>
+            <td><u>1014</u></td>
+            <td>-10/8</td>
+            <td><u>1020</u></td>
+            <td>-14/12</td>
+            <td>1008</td>
+            <td>-11/14</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2309.15103" target="_blank"><b>LaVie</b></a></td>
+            <td>1013</td>
+            <td>-9/10</td>
+            <td>1009</td>
+            <td>-14/12</td>
+            <td><u>1017</u></td>
+            <td>-11/14</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://ailab-cvc.github.io/videocrafter2/" target="_blank"><b>VideoCrafter2</b></a></td>
+            <td>996</td>
+            <td>-9/8</td>
+            <td>1002</td>
+            <td>-14/12</td>
+            <td>990</td>
+            <td>-13/10</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2308.06571" target="_blank"><b>ModelScope</b></a></td>
+            <td>995</td>
+            <td>-9/9</td>
+            <td>987</td>
+            <td>-13/13</td>
+            <td>1004</td>
+            <td>-16/11</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://www.plugger.ai/models/zeroscope-v2" target="_blank"><b>ZeroScope V2</b></a></td>
+            <td>984</td>
+            <td>-10/11</td>
+            <td>972</td>
+            <td>-11/10</td>
+            <td>998</td>
+            <td>-14/14</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2309.15818" target="_blank"><b>Show-1</b></a></td>
+            <td>970</td>
+            <td>-7/8</td>
+            <td>983</td>
+            <td>-12/12</td>
+            <td>955</td>
+            <td>-13/12</td>
+          </tr>
+        
+      </table>
+
+        <div class="columns is-centered has-text-centered">
+          <h2 class="title is-5" id="Text2Audio" style="margin-top: 50px; padding-top: 0px; color: #ed4b82">MixEval-X Text2Audio Leaderboard</h2>
+        </div>
+        <div class="model-labels-container">
+          <span class="leaderboard-label" style="background-color:#fcfcfcff;">Open-Source</span>
+          <span class="leaderboard-label" style="background-color: #ecececff;">Proprietary</span>
+        </div>
+        <table class="js-sort-table" id="tab_text2audio" style="border: 2px solid #999999ff;">
+  
+          <tr>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b></b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Text2Audio Elo<br>🥇</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>95% CI</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Text2Audio Elo (1st Turn)<br>🥇</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>95% CI (1st Turn)</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>Text2Audio Elo (2nd Turn)<br>🥇</b></a></strong></td>
+            <td class="js-sort-number" style="background-color:#b3b3b3ff;"><strong><a  style="color:#000000ff;"><b>95% CI (2nd Turn)</b></a></strong></td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2308.05734" target="_blank"><b>AudioLDM 2</b></a></td>
+            <td><b>1034</b></td>
+            <td>-14/18</td>
+            <td><b>1036</b></td>
+            <td>-19/19</td>
+            <td><b>1036</b></td>
+            <td>-19/19</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2305.18474" target="_blank"><b>Make-An-Audio 2</b></a></td>
+            <td><u>1019</u></td>
+            <td>-14/16</td>
+            <td><u>1023</u></td>
+            <td>-19/23</td>
+            <td>1012</td>
+            <td>-20/32</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://www.stableaudio.com/" target="_blank"><b>Stable Audio</b></a></td>
+            <td>1019</td>
+            <td>-14/14</td>
+            <td>1023</td>
+            <td>-17/22</td>
+            <td>1018</td>
+            <td>-23/19</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2404.09956" target="_blank"><b>Tango 2</b></a></td>
+            <td>1010</td>
+            <td>-16/16</td>
+            <td>995</td>
+            <td>-27/17</td>
+            <td><u>1025</u></td>
+            <td>-27/18</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://consistency-tta.github.io/" target="_blank"><b>ConsistencyTTA</b></a></td>
+            <td>1005</td>
+            <td>-17/15</td>
+            <td>1005</td>
+            <td>-24/24</td>
+            <td>1006</td>
+            <td>-22/26</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2209.15352" target="_blank"><b>AudioGen</b></a></td>
+            <td>982</td>
+            <td>-13/14</td>
+            <td>978</td>
+            <td>-16/23</td>
+            <td>985</td>
+            <td>-22/22</td>
+          </tr>
+          <tr style="background-color: #fcfcfcff;">
+            <td style="text-align: center;width: 200px;"><a href="https://arxiv.org/abs/2401.04577" target="_blank"><b>Magnet</b></a></td>
+            <td>926</td>
+            <td>-14/16</td>
+            <td>939</td>
+            <td>-20/28</td>
+            <td>912</td>
+            <td>-16/23</td>
+          </tr>
+        
+      </table>
+
+      <div class="columns is-centered has-text-centered">
+        <h2 class="title is-5" id="Text2Action" style="margin-top: 50px; padding-top: 0px; color: #ed4b82">MixEval-X Text2Action Leaderboard</h2>
+      </div>
+      <iframe
+        src="static/utils/text2action_scores.html"
+        style="width: 100%; height: 600px; border: none;"
+        scrolling="no"
+        frameborder="0"
+      ></iframe>
+
+
+      <div class="columns is-centered has-text-centered">
+        <h2 class="title is-5" id="Image2Action" style="margin-top: 50px; padding-top: 0px; color: #ed4b82">MixEval-X Image2Action Leaderboard</h2>
+      </div>
+      <iframe
+        src="static/utils/image2action_scores.html"
+        style="width: 100%; height: 600px; border: none;"
+        scrolling="no"
+        frameborder="0"
+      ></iframe>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="hero is-light is-small" style="margin-bottom: 0px; padding-bottom: 0px;">
+  <div class="hero-body has-text-centered" style="margin-bottom: 0px;">
+    <h1 class="title is-1 mmmu" id="meta-eval" style="margin-bottom: 0px;">Meta-Evaluation</h1>
+  </div>
+</section>
+
+
+  <div class="columns is-centered has-text-centered" style="margin-top: 70px;">
+    <!-- <div class="column is-full-width has-text-centered"> -->
+      <div class="column is-four-fifths" style="width: 100%; margin-bottom: 30px; margin: auto; ">
+        <h2 class="title is-3" style="margin-bottom: 50px;">Benchmark Query Distribution</h2>
+        <div class="content has-text-justified">
+          <div class="content has-text-centered">
+            
+            <div class="center-flex"></div>
+              <img src="static/images/mixeval/all_embeddings_distribution.png" alt="Dist Distribution" class="center" style="width: 50%; margin: auto; margin-bottom: 0px; margin-top: 0px;">
+            </div>
+
+            <div class="content has-text-justified" style="width: 50%; margin: auto; margin-bottom: 30px;">
+            <p> 
+              <a style="color: #999999ff;"> 
+                Task distribution of various modality benchmarks, with each modality uniquely color-coded. Benchmark data points (orange dots) are plotted against the detected web queries (blue dots) for the corresponding modality. The sentence embeddings of the queries were dimensionally reduced into a unified 2D space, enabling direct comparison of topic distributions across benchmarks. Benchmarks are sorted by their cluster distance (C-Dist) from the corresponding web queries.</b>. 
+              </a>
+            </p>
+            </div>  
+
+            <div class="center-flex">
+              <img src="static/images/mixeval/Image2Text_queries.png" alt="Dist Distribution" class="center" style="width: 30%; margin: auto; margin-bottom: 0px; margin-top: 0px;">
+            </div>
+
+            <div class="content has-text-justified" style="width: 30%; margin: auto; margin-bottom: 30px;">
+            <p> 
+              <a style="color: #999999ff;"> 
+                Query topic summarization for the Image2Text queries in the above <b>query distribution map</b>. The plot aggregates all queries and divides them into 16 regions. From each region, 100 queries are uniformly sampled and analyzed by GPT-4 for topic summarization.
+              </a>
+            </p>
+            </div>
+            
+            <div class="center-flex">
+              <img src="static/images/mixeval/Video2Text_queries.png" alt="Dist Distribution" class="center" style="width: 30%; margin: auto; margin-bottom: 0px; margin-top: 0px;">
+            </div>
+
+            <div class="content has-text-justified" style="width: 30%; margin: auto; margin-bottom: 30px;">
+            <p> 
+              <a style="color: #999999ff;"> 
+                Query topic summarization for the Video2Text queries in the above <b>query distribution map</b>. The plot aggregates all queries and divides them into 16 regions. From each region, 100 queries are uniformly sampled and analyzed by GPT-4 for topic summarization.
+              </a>
+            </p>
+            </div>
+            
+            <div class="center-flex">
+              <img src="static/images/mixeval/Audio2Text_queries.png" alt="Dist Distribution" class="center" style="width: 30%; margin: auto; margin-bottom: 0px; margin-top: 0px;">
+            </div>
+
+            <div class="content has-text-justified" style="width: 30%; margin: auto; margin-bottom: 30px;">
+            <p> 
+              <a style="color: #999999ff;"> 
+                Query topic summarization for the Audio2Text queries in the above <b>query distribution map</b>. The plot aggregates all queries and divides them into 16 regions. From each region, 100 queries are uniformly sampled and analyzed by GPT-4 for topic summarization.
+              </a>
+            </p>
+            </div>
+            
+            <div class="center-flex">
+              <img src="static/images/mixeval/Text2Action_queries.png" alt="Dist Distribution" class="center" style="width: 30%; margin: auto; margin-bottom: 0px; margin-top: 0px;">
+            </div>
+
+            <div class="content has-text-justified" style="width: 30%; margin: auto; margin-bottom: 30px;">
+            <p> 
+              <a style="color: #999999ff;"> 
+                Query topic summarization for the Text2Action queries in the above <b>query distribution map</b>. The plot aggregates all queries and divides them into 16 regions. From each region, 100 queries are uniformly sampled and analyzed by GPT-4 for topic summarization.
+              </a>
+            </p>
+            </div>
+            
+            <div class="center-flex">
+              <img src="static/images/mixeval/Image2Action_queries.png" alt="Dist Distribution" class="center" style="width: 30%; margin: auto; margin-bottom: 0px; margin-top: 0px;">
+            </div>
+
+            <div class="content has-text-justified" style="width: 30%; margin: auto; margin-bottom: 30px;">
+            <p> 
+              <a style="color: #999999ff;"> 
+                Query topic summarization for the Image2Action queries in the above <b>query distribution map</b>. The plot aggregates all queries and divides them into 16 regions. From each region, 100 queries are uniformly sampled and analyzed by GPT-4 for topic summarization.
+              </a>
+            </p>
+            </div>
+          
+      </div>
+    </div>
+  </div>
+
+  
+</section> -->
+
+
+<!-- @PAN TODO: bibtex -->
+<section class="hero is-light is-small" style="margin-bottom: 0px; padding-bottom: 0px;">
+  <div class="hero-body has-text-centered" style="margin-bottom: 0px;">
+    <h1 class="title is-1 mmmu" id="leaderboard" style="margin-bottom: 0px;">Citation</h1>
+  </div>
+</section>
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <pre><code>
+      @article{ni2024mixevalx,
+        title={MixEval-X: Any-to-Any Evaluations from Real-World Data Mixtures},
+        author={Ni, Jinjie and Song, Yifan and Ghosal, Deepanway and Li, Bo and Zhang, David Junhao and Yue, Xiang and Xue, Fuzhao and Zheng, Zian and Zhang, Kaichen and Shah, Mahir and Jain, Kabir and You, Yang and Shieh, Michael},
+        journal={arXiv preprint arXiv:2410.13754},
+        year={2024}
+      }
+
+      @article{ni2024mixeval,
+        title={MixEval: Deriving Wisdom of the Crowd from LLM Benchmark Mixtures},
+        author={Ni, Jinjie and Xue, Fuzhao and Yue, Xiang and Deng, Yuntian and Shah, Mahir and Jain, Kabir and Neubig, Graham and You, Yang},
+        journal={arXiv preprint arXiv:2406.06565},
+        year={2024}
+      }
+</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is website adapted from <a href="https://mmmu-benchmark.github.io/">MMMU</a> and <a href="https://nerfies.github.io/">Nerfies</a>, licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+
+</footer>
+
+<script>
+  function changeButtonText() {
+    var button = document.getElementById('toggleButton');
+    if (button.innerHTML.includes("Chat Model Leaderboard")) {
+      button.innerHTML = "<b style='font-size: larger;'>Base Model Leaderboard</b> (Click to Switch)";
+    } else {
+      button.innerHTML = "<b style='font-size: larger;'>Chat Model Leaderboard</b> (Click to Switch)";
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    var tables = document.querySelectorAll('table');
+
+    tables.forEach(function(table) {
+        if (!table) return;
+
+        var initialRows = Array.from(table.rows).slice(1);
+        table.addEventListener('click', function(event) {
+            var clickedCell = event.target.closest('td, th');
+            if (!clickedCell) return;
+            var headerRow = clickedCell.parentNode;
+            var columnIndex = Array.from(headerRow.cells).indexOf(clickedCell);
+            var type = clickedCell.getAttribute('data-type');
+
+            if (headerRow.rowIndex === 0) {
+                if (columnIndex === 0) {
+                    table.tBodies[0].innerHTML = '';
+                    initialRows.forEach(row => table.tBodies[0].appendChild(row.cloneNode(true)));
+                }
+            }
+        });
+    });
+});
+
+function sortTable(table, column, type, asc) {
+    var tbody = table.tBodies[0];
+    var rows = Array.from(tbody.rows);
+
+    rows.sort(function(a, b) {
+        var valA = a.cells[column].textContent;
+        var valB = b.cells[column].textContent;
+
+        if (type === 'number') {
+            valA = parseFloat(valA);
+            valB = parseFloat(valB);
+        }
+
+        return asc ? valA - valB : valB - valA;
+    });
+
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+  // 切换表格的函数
+  function toggleTables () {
+      var table1 = document.getElementById('table1');
+      var table2 = document.getElementById('table2');
+      table1.classList.toggle('hidden');
+      table2.classList.toggle('hidden');
+  }
+
+  document.getElementById('toggleButton').addEventListener('click', toggleTables);
+  const canvas = document.getElementById('difficulty_level_chart');
+  canvas.style.width = '500px';
+  canvas.style.height = '120px';
+  const ctx = document.getElementById('difficulty_level_chart').getContext('2d');
+  const difficulty_level_chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Easy', 'Medium', 'Hard', 'Overall'],
+      datasets: [{
+        label: 'Fuyu-8B',
+        data: [28.9, 27, 26.4, 27.4],
+        backgroundColor: 'rgba(196, 123, 160, 0.6)',
+        borderColor: 'rgba(196, 123, 160, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(196, 123, 160, 1)'
+      },
+      {
+        label: 'Qwen-VL-7B',
+        data: [39.4, 31.9, 27.6, 32.9],
+        backgroundColor: 'rgba(245, 123, 113, 0.6)',
+        borderColor: 'rgba(245, 123, 113, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(245, 123, 113, 1)'
+      },
+      {
+        label: 'LLaVA-1.5-13B',
+        data: [41.3, 32.7, 26.7, 33.6],
+        backgroundColor: 'rgba(255, 208, 80, 0.6)',
+        borderColor: 'rgba(255, 208, 80, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(255, 208, 80, 1)'
+      },
+      {
+        label: 'InstructBLIP-T5-XXL',
+        data: [40.3, 32.3, 29.4, 33.8],
+        backgroundColor: 'rgba(110, 194, 134, 0.6)',
+        borderColor: 'rgba(110, 194, 134, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(110, 194, 134, 1)'
+      },
+      {
+        label: 'BLIP-2 FLAN-T5-XXL',
+        data: [41, 32.7, 28.5, 34],
+        backgroundColor: 'rgba(255, 153, 78, 0.6)',
+        borderColor: 'rgba(255, 153, 78, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(255, 153, 78, 1)'
+      },
+      {
+        label: 'GPT-4V',
+        data: [76.1, 55.6, 31.2, 55.7],
+        backgroundColor: 'rgba(117, 209, 215, 0.6)',
+        borderColor: 'rgba(117, 209, 215, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(117, 209, 215, 1)'
+      }]
+    },
+    options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+        min: 0,
+        max: 100,
+        ticks: {
+          stepSize: 20,
+          font: {
+            size: 16
+          }
+        }
+      },
+      x: {
+        ticks: {
+          font: {
+            size: 16 // 设置X轴字体大小
+          }
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            size: 16 // 设置标签文字大小
+          }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            return context.dataset.label + ': ' + context.parsed.y;
+          }
+        }
+      }
+    },
+      onHover: (event, chartElement) => {
+        event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+      }
+    }
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    // Data for the "Diagrams" chart
+    const data_Diagrams = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [27.6, 30.1, 31.8, 30.0, 32.0, 46.8],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+
+    // "data_Diagrams" chart
+    new Chart(document.getElementById('chart_Diagrams'), {
+        type: 'bar',
+        data: data_Diagrams,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Tables" chart
+    const data_Tables  = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [26.6, 29.0, 29.8, 27.8, 27.8, 61.8],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Tables'), {
+        type: 'bar',
+        data: data_Tables,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_PlotsAndCharts " chart
+    const data_PlotsAndCharts   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [24.8, 31.8, 36.2, 30.4, 35.8, 55.6],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_PlotsAndCharts'), {
+        type: 'bar',
+        data: data_PlotsAndCharts ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_ChemicalStructures " chart
+    const data_ChemicalStructures   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [25.0, 27.2, 27.1, 26.7, 25.5, 50.6],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_ChemicalStructures'), {
+        type: 'bar',
+        data: data_ChemicalStructures ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Photographs " chart
+    const data_Photographs   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [27.6, 40.5, 41.4, 44.4, 42.0, 64.2],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Photographs'), {
+        type: 'bar',
+        data: data_Photographs ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Paintings " chart
+    const data_Paintings   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [28.7, 57.2, 53.6, 56.3, 52.1, 75.9],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Paintings'), {
+        type: 'bar',
+        data: data_Paintings ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_GeometricShapes " chart
+    const data_GeometricShapes   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [21.1, 25.3, 21.4, 25.6, 28.3, 40.2],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_GeometricShapes'), {
+        type: 'bar',
+        data: data_GeometricShapes ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_SheetMusic " chart
+    const data_SheetMusic   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [35.2, 33.4, 34.6, 35.8, 34.9, 38.8],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_SheetMusic'), {
+        type: 'bar',
+        data: data_SheetMusic ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_MedicalImages " chart
+    const data_MedicalImages   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [25.4, 29.8, 31.6, 36.4, 29.8, 59.6],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_MedicalImages'), {
+        type: 'bar',
+        data: data_MedicalImages ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_PathologicalImages " chart
+    const data_PathologicalImages   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [26.5, 27.7, 31.2, 35.2, 35.6, 63.6],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_PathologicalImages'), {
+        type: 'bar',
+        data: data_PathologicalImages ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_MicroscopicImages " chart
+    const data_MicroscopicImages   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [27.0, 37.6, 29.2, 36.3, 32.7, 58.0],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_MicroscopicImages'), {
+        type: 'bar',
+        data: data_MicroscopicImages ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_MRIsCTScansXrays " chart
+    const data_MRIsCTScansXrays   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [21.7, 36.9, 33.3, 39.4, 29.8, 50.0],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_MRIsCTScansXrays'), {
+        type: 'bar',
+        data: data_MRIsCTScansXrays ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_SketchesAndDrafts " chart
+    const data_SketchesAndDrafts   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [37.0, 32.1, 29.9, 38.0, 33.7, 55.4],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_SketchesAndDrafts'), {
+        type: 'bar',
+        data: data_SketchesAndDrafts ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Maps " chart
+    const data_Maps   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [38.2, 36.5, 45.9, 47.6, 43.5, 61.8],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Maps'), {
+        type: 'bar',
+        data: data_Maps ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_TechnicalBlueprints " chart
+    const data_TechnicalBlueprints   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [24.7, 25.9, 28.4, 25.3, 27.8, 38.9],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_TechnicalBlueprints'), {
+        type: 'bar',
+        data: data_TechnicalBlueprints ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_TreesAndGraphs " chart
+    const data_TreesAndGraphs   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [30.1, 28.1, 28.8, 28.8, 34.9, 50.0],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_TreesAndGraphs'), {
+        type: 'bar',
+        data: data_TreesAndGraphs ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_MathematicalNotations " chart
+    const data_MathematicalNotations   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [15.8, 27.1, 22.6, 21.8, 21.1, 45.9],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_MathematicalNotations'), {
+        type: 'bar',
+        data: data_MathematicalNotations ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_ComicsAndCartoons " chart
+    const data_ComicsAndCartoons   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [29.0, 51.9, 49.6, 54.2, 51.1, 68.7],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_ComicsAndCartoons'), {
+        type: 'bar',
+        data: data_ComicsAndCartoons ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Sculpture " chart
+    const data_Sculpture   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [30.8, 46.2, 49.6, 51.3, 53.0, 76.1],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Sculpture'), {
+        type: 'bar',
+        data: data_Sculpture ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Portraits " chart
+    const data_Portraits   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [20.9, 52.7, 46.2, 54.9, 47.3, 70.3],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Portraits'), {
+        type: 'bar',
+        data: data_Portraits ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Screenshots " chart
+    const data_Screenshots   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [38.6, 35.7, 38.6, 34.3, 47.1, 65.7],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Screenshots'), {
+        type: 'bar',
+        data: data_Screenshots ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Other " chart
+    const data_Other   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [28.3, 38.3, 50.0, 51.7, 58.3, 68.3],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Other'), {
+        type: 'bar',
+        data: data_Other ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Poster " chart
+    const data_Poster   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [38.6, 50.9, 52.6, 61.4, 64.9, 80.7],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Poster'), {
+        type: 'bar',
+        data: data_Poster ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_IconsAndSymbols " chart
+    const data_IconsAndSymbols   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [23.8, 66.7, 57.1, 59.5, 59.5, 78.6],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_IconsAndSymbols'), {
+        type: 'bar',
+        data: data_IconsAndSymbols ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_HistoricalTimelines " chart
+    const data_HistoricalTimelines   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [30.0, 36.7, 40.0, 43.3, 43.3, 63.3],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_HistoricalTimelines'), {
+        type: 'bar',
+        data: data_HistoricalTimelines ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_3DRenderings " chart
+    const data_3DRenderings   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [33.3, 28.6, 57.1, 38.1, 47.6, 47.6],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_3DRenderings'), {
+        type: 'bar',
+        data: data_3DRenderings ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_DNASequences " chart
+    const data_DNASequences   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [20.0, 45.0, 25.0, 25.0, 45.0, 55.0],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_DNASequences'), {
+        type: 'bar',
+        data: data_DNASequences ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Landscapes " chart
+    const data_Landscapes   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [43.8, 43.8, 50.0, 31.2, 62.5, 68.8],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Landscapes'), {
+        type: 'bar',
+        data: data_Landscapes ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_LogosAndBranding " chart
+    const data_LogosAndBranding   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [21.4, 57.1, 64.3, 35.7, 50.0, 85.7],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_LogosAndBranding'), {
+        type: 'bar',
+        data: data_LogosAndBranding ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 20
+            }
+          },
+          x: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+
+    // "data_Advertisements " chart
+    const data_Advertisements   = {
+        labels: ['Fuyu-8B', 'Qwen-VL-7B', 'InstructBLIP-T5-XXL', 'LLaVA-1.5-13B', 'BLIP-2 FLAN-T5-XXL', 'GPT-4V'],
+        datasets: [{
+            data: [30.0, 60.0, 50.0, 60.0, 70.0, 100.0],
+            backgroundColor: ['rgba(196, 123, 160, 0.6)', 'rgba(245, 123, 113, 0.6)', 'rgba(255, 208, 80, 0.6)', 'rgba(110, 194, 134, 0.6)', 'rgba(255, 153, 78, 0.6)', 'rgba(117, 209, 215, 0.6)'],
+            borderColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,0.4)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)'],
+            hoverBackgroundColor: ['rgba(196, 123, 160, 1)', 'rgba(245, 123, 113,1)', 'rgba(255, 208, 80, 1)', 'rgba(110, 194, 134, 1)', 'rgba(255, 153, 78, 1)', 'rgba(117, 209, 215, 1)']
+        }]
+    };
+    new Chart(document.getElementById('chart_Advertisements'), {
+        type: 'bar',
+        data: data_Advertisements ,
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,     
+            max: 100,   
+            ticks: {
+              stepSize: 20 
+            }
+          },
+          x: {
+            display: false 
+          }
+        },
+        plugins: {
+          legend: {
+            display: false 
+          },
+          tooltip: {
+          }
+        }
+      }
+    });
+});
+
+</script>
+
+<style>
+  .hidden {
+      display: none;
+  }
+  .sortable:hover {
+      cursor: pointer;
+  }
+  .asc::after {
+      content: ' ↑';
+  }
+  .desc::after {
+      content: ' ↓';
+  }
+  #toggleButton {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    color: #555555;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px; 
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition-duration: 0.4s;
+  }
+
+  #toggleButton:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); /* 鼠标悬停时的阴影效果 */
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+
+  th, td {
+      text-align: left;
+      padding: 8px;
+  }
+
+  th {
+      background-color: #f2f2f2;
+      border-bottom: 2px solid #ddd;
+  }
+
+  td:hover {background-color: #ffffff;}
+</style>
+
+</body>
+</html>

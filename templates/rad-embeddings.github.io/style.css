@@ -1,0 +1,121 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+img#splash {
+    max-height: 20em;
+    padding: 1em;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+body header p {
+    font-size: 0.8em;
+    color: #888;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: #888;
+}
+
+header h2 { color: #ffffff91 }
+header h3 { color: #bc6f4e9e }
+
+nav li, header ol li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav a img {
+    height: 1em;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+section {
+    margin: 40px 0;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 70px;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+h3 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+section#abstract p {
+  text-align: justify; 
+  text-justify: distribute;
+  word-break: break-word;
+}
+
+img#logo { 
+  max-height: 2em;
+  padding: 0.05em 1em;
+} 
+
+::backdrop, :root, main, section {
+    --bg:#212121;
+    --accent-bg:#2b2b2b;
+    --text:#dcdcdc;
+    --text-light:#ababab;
+    --accent:#ffb300;
+    --accent-hover:#ffe099;
+    --accent-text:var(--bg);
+    --code:#f06292;
+    --preformatted:#ccc;
+    --disabled:#111
+  }
+  img, video {
+    opacity:.8
+  }
+}

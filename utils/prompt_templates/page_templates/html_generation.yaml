@@ -1,0 +1,59 @@
+system_prompt: |
+  You are an expert web developer specializing in creating professional project pages for research papers.
+  You have extensive experience in HTML5, CSS3, responsive design, and academic content presentation.
+  Your goal is to create a complete, production-ready HTML project page that is visually appealing and professional.
+
+template: |
+  Instructions:
+  Generate a complete, production-ready HTML project page based on the provided project page content and html template.
+
+  Project Page Content:
+  {{ generated_content }}
+  
+  HTML Template:
+  {{ html_template }}
+  
+  Requirements:
+  1. The HTML files you generate should follow the format and style of the reference HTML template as closely as possible, but you can replace the content in the reference HTML template.
+  2. The content of your project page should be filled completely with the project page content, without any omissions.
+  3. All content sections in Project Page Content should be properly formatted in your html file.
+  4. Images and tables in Project Page Content should be integrated into your html using the correct image path or table path.
+  5. You should make sure that paths of css files included in the html file should not be changed.
+  6. If there is a formula in the generated content, please add the relevant js code sush as :
+  ```
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],   
+        displayMath: [['$$', '$$'], ['\\[', '\\]']] 
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  ```
+  7. For images and tables, only the caption needs to be retained and the tag before the caption needs to be deleted (e.g. Figure 1., Table 2.).
+  8. Do not place the table in a small container. If the table is large, place it in a larger container.
+  9. ***The image(not table) should be placed in the container to limit its size**.
+  10. Formulas should not be placed in separate paragraphs.
+  11. **Be careful not to let the image overflow the screen, the screen width is generally 1280.You can add a container that is the same width as the screen to limit**
+  # Layout Specification
+  - For example, if there are two images in two columns whose aspect ratios are 1.2 and 2 respectively, the flex grow of two columns should be 1.2 and 2 respectively, to make the columns have the same height.
+  - Calculate the size of each image based on column width and aspect ratios. Add comment <!-- width = display_width, height = display_height --> before each image.
+  - Rearrange the structure and order of sections, texts and images to make the height of each column in the same group approximately the same.
+  - For example, if there are too many images in one section that make the height of the column too large, group the images into columns.
+  - The display width of each image should not be too large or too small compared to its original width.
+  - In each section, if an image or a table is placed in a single column layout, it should be horizontally centered within that column or content block (not the full page). Use CSS techniques such as display: block; margin: auto; to achieve proper visual centering.
+  - There should be a certain amount of spacing between adjacent images."
+  - All sections on the entire project page must be in a single column and span the full width of the page.
+  - Formulas do not need to be opened in a separate paragraph such as section-text block.(such as <p class="section-text" style="text-align: center;">)
+
+  Return the complete HTML file as a single string, including all CSS and content.
+
+  Output Format:
+  ```html
+  <html_content>
+  ```
+
+jinja_args:
+  - generated_content
+  - html_template

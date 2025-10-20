@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>neurips2024udga</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+	<meta property="og:title" content="Unified Domain Generalization and Adaptation for Multi-View 3D Object Detection">
+    <!-- <meta property="og:url" content="https://anonymousbmvc193.github.io/"> -->
+	<meta name="description" content="neurips2024-udga">
+	<meta name="keywords" content="neurips2024-udga">
+	<meta name="author" content="....">
+    
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" href="fontawesome.all.min.css">
+    <!-- <link rel="stylesheet" href="./bulma.min.css"> -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" href="../assets/kuaicv_logo.ico">
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/d4c0a5ef49.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+<body>
+<div class="title">
+    <h1>Unified Domain Generalization and Adaptation for Multi-View 3D Object Detection</h1>
+    <br>
+    <center>
+    <p style="font-size: 25px;" style="color: rgb(102, 106, 110);"><b>The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)</b></p>
+    <center>
+        <div class="authors">
+            <div class="author">
+                <a>Gyusam Chang*</a><sup>1</sup> &emsp;
+                <a>Jiwon Lee*</a><sup>2</sup> &emsp; 
+                <a>Donghyun Kim</a><sup>1</sup> &emsp; 
+                <a>Jinkyu Kim</a><sup>1</sup> &emsp; 
+                <a>Dongwook Lee</a><sup>2</sup> &emsp; 
+                <a>Daehyun Ji</a><sup>2</sup> &emsp; 
+                <a>Sujin Jang&dagger;</a><sup>2</sup> &emsp;
+                <a>Sangpil Kim&dagger;</a><sup>1</sup>
+            </div>
+        </div>
+    <div class="affiliations">
+        <p class="affiliation" style="color: rgb(102, 106, 110);">
+            <sup>1</sup>Korea University &emsp;
+            <sup>2</sup>Samsung Advanced Institute of Technology &emsp;
+        </p>
+    </div>
+</div>
+<div class="byline">
+    <div class="links">
+    <h2 style="font-size: 1.35em;">
+        <a href="https://arxiv.org/pdf/2410.22461" target="_blank" style="text-decoration: none; color: palevioletred;"> Paper <i class="fa fa-file-pdf"></i></a>
+        &nbsp;&nbsp;
+        <a href="index.html" target="_blank" style="text-decoration: none; color: royalblue;"> Poster <i class="fa fa-chalkboard-user"></i></a>
+        &nbsp;&nbsp;
+        <a href="https://github.com/SAITPublic/UDGA/tree/master" target="_blank" style="text-decoration: none; color: cadetblue;"> Code <i class="fa fa-github"></i></a>
+    </h2>
+    </div>
+<!--     <div class="links">
+        <h2 style="font-weight: normal; font-size: 1.35em;">
+            &#128640; Code will be released soon! &#128640;
+        </h2>
+    </div> -->
+</div>
+<div class="container">
+<div class="sections-container">
+    <div class="section">
+        <h2 class="section-title">Poster</h2>
+        <div class="center-img">
+            <img class="content" src="image/udga_poster.png"/>
+        </div>
+    </div>
+    <div class="section">
+        <h2 class="section-title">Presentation Video</h2>
+        <div class="center-img">
+            <iframe width="840" height="472" src="https://drive.google.com/file/d/1O2w3lvygLgJvNp2VU4uwfTTHfKQbYt4s/view?usp=sharing" title="UDGA, NeurIPS2024" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="section">
+        <h2 class="section-title">Abstract</h2>
+        <p style="margin-top: 30px; font-size: 23px;">
+            Recent advances in 3D object detection leveraging multi-view cameras have demonstrated their practical and economical value in various challenging vision tasks.
+            However, typical supervised learning approaches face challenges in achieving satisfactory adaptation toward unseen and unlabeled target datasets (i.e., direct transfer) due to the inevitable geometric misalignment between the source and target domains.
+            In practice, we also encounter constraints on resources for training models and collecting annotations for the successful deployment of 3D object detectors.
+            In this paper, we propose Unified Domain Generalization and Adaptation (UDGA), a practical solution to mitigate those drawbacks.
+            We first propose Multi-view Overlap Depth Constraint that leverages the strong association between multi-view, significantly alleviating geometric gaps due to perspective view changes.
+            Then, we present a Label-Efficient Domain Adaptation approach to handle unfamiliar targets with significantly fewer amounts of labels (i.e., 1% and 5%, while preserving well-defined source knowledge for training efficiency.
+            Overall, UDGA framework enables stable detection performance in both source and target domains, effectively bridging inevitable domain gaps, while demanding fewer annotations.
+            We demonstrate the robustness of UDGA with large-scale benchmarks: nuScenes, Lyft, and Waymo, where our framework outperforms the current state-of-the-art methods. 
+        </p>
+    </div>
+    <div class="section">
+        <h2 class="section-title">Method</h2>
+        <h2 class="section-subtitle">Overview</h2>
+        <div class="center-img">
+            <img class="content" src="image/overview.png"/>
+        </div>
+        <p style="margin-top: 30px; font-size: 23px;">
+            To successfully develop and deploy Multi-view 3DOD models, we need to solve two practical problems:
+            (1) the geometric distributional shift across different sensor configurations, and 
+            (2) the limited amount of resources (e.g., insufficient computing resources, expensive data annotations).
+            The first problem poses a challenge in learning transferable knowledge for robust generalization in novel domains.
+            The second issue inevitably requires efficient utilization of computing resources for training and inference, as well as label-efficient development of 3DOD models in practice.
+            To tackle these practical problems, we introduce a <strong>U</strong>nified <strong>D</strong>omain <strong>G</strong>eneralization and <strong>A</strong>daptation (UDGA) strategy, which addresses a series of domain shift problems (i.e., learning domain generalizable features significantly improves the quality of parameter- and label-efficient few-shot domain adaptation).
+        </p>
+    </div>
+    <div class="section">
+        <h2 class="section-title">BibTeX</h2>
+        <pre>
+        <code>
+        @misc{chang2024unifieddomaingeneralizationadaptation,
+            title={Unified Domain Generalization and Adaptation for Multi-View 3D Object Detection}, 
+            author={Gyusam Chang and Jiwon Lee and Donghyun Kim and Jinkyu Kim and Dongwook Lee and Daehyun Ji and Sujin Jang and Sangpil Kim},
+            year={2024},
+            eprint={2410.22461},
+            archivePrefix={arXiv},
+            primaryClass={cs.CV},
+            url={https://arxiv.org/abs/2410.22461},}
+        </code>
+        </pre>
+    </div>
+</div>
+</body>
+<script></script>
+</html>

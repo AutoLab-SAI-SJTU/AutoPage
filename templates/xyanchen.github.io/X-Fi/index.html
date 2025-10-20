@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<meta property='og:title' content='X-Fi: A Modality-Invariant Foundation Model for Multimodal Human Sensing'/>
+<meta property='og:description' content='X-Fi: A Modality-Invariant Foundation Model for Multimodal Human Sensing'/>
+<meta property='og:url' content='https://xyanchen.github.io/X-Fi/'/>
+<meta property='og:image:width' content='1200' />
+<meta property='og:image:height' content='663' />
+<!-- TYPE BELOW IS PROBABLY: 'website' or 'article' or look on https://ogp.me/#types -->
+<meta property="og:type" content='website'/>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="X-Fi: A Modality-Invariant Foundation Model for Multimodal Human Sensing">
+  <meta name="keywords" content="X-Fi: A Modality-Invariant Foundation Model for Multimodal Human Sensing">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>X-Fi: A Modality-Invariant Foundation Model for Multimodal Human Sensing</title>
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/tab_gallery.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="icon" href="https://xyanchen.github.io/X-Fi/static/images/favicon.svg">
+  <link rel="stylesheet" href="juxtapose/css/juxtapose.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="static/js/magnifier.js"></script>
+  <link href="https://fonts.cdnfonts.com/css/menlo" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/image_card_fader.css">
+  <link rel="stylesheet" href="static/css/image_card_slider.css">
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Patrick+Hand|Google+Sans|Noto+Sans|Castoro|Lato|Open+Sans&effect=shadow-multiple|emboss|3d"> 
+  <!-- <link rel="icon" href="./static/images/pyramid.png" type="image/x-icon">
+  <link rel="shortcut icon" href="./static/images/pyramid.png" type="image/x-icon"> -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<style>
+  @import url('https://fonts.cdnfonts.com/css/menlo');
+
+  .video-table td, .video-table th {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-weight: normal;
+  }
+  .first-col {
+    width: 7%;
+    vertical-align: middle;
+  }
+  .other-col {
+    width: 31%;
+  }
+  body {
+    font-family: "Lato", sans-serif;
+    font-size: 1.1em;
+  }
+  .title.is-3 {
+    font-weight: 900;
+    font-size: 2.0rem;
+  }
+  .title.is-4 {
+    font-weight: 700;
+    font-size: 1.7rem;
+  }
+  .custom-emoji {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    background-image: url('static/images/pyramid.png');
+    background-size: cover;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+</style>
+
+
+<body>
+  <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <br><br>
+          <h1 class="title is-2 publication-title" style="font-size: 2.7rem">
+            <!-- modify in index.css/.publication-title to change the color-->
+            </a><span style="color: #FF4500;"><b>X</b></span><span style="color: #FF6347;"><b>-</b></span><span style="color: #FF8C00;"><b>F</b></span><span style="color: #FF2400;"><b>i</b></span>: A Modality-Invariant Foundation Model for Multimodal Human Sensing
+          </h1>
+        
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://xyanchen.github.io/" target="_blank">Xinyan Chen</a>,&nbsp;</span>
+            <span class="author-block">
+              <a href="https://marsyang.site/" target="_blank">Jianfei Yang</a></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <a href="https://marslab.tech"><span class="author-block"><span style="color: #FF4500;">M</span><span style="color: #FF6347;">A</span><span style="color: #FF8C00;">R</span><span style="color: #FF2400;">S</span> <span style="color: #f64125;">L</span><span style="color: #f88000;">a</span><span style="color: #FFA500;">b</span></a>, Nanyang Technological University</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            {chen1909, jianfei.yang}@ntu.edu.sg
+          </div>
+
+          <!-- <div class="is-size-5 publication-venue">
+            in XXX
+          </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/xyanchen/X-Fi" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- paper -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2410.10167" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- doc -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2410.10167"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- twitter -->
+              <!-- <span class="link-block">
+                <a href="https://x.com/oahzxl/status/1805939975420330298" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-twitter"></i>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+              </span> -->
+              <!-- bibtex -->
+              <span class="link-block">
+                <a href="index.html#bibtex"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-obp"></i>
+                  </span>
+                  <span>BibTex</span>
+                </a>
+              </span>
+            </div>
+          </div>
+          <br />
+          <br />
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><b>Accepted by ICLR 2025</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="content has-text-justified">
+        <p>
+          <b>Real-Time Video Generation: Achieved <span style="font-size: 1.3em">🥳</span>!</b> We introduce <span class="custom-emoji"></span><b><span style="color: #ff0000;">P</span><span style="color: #f80007;">y</span><span style="color: #f1000e;">r</span><span style="color: #ea0015;">a</span><span style="color: #e4001c;">m</span><span style="color: #dd0022;">i</span><span style="color: #d60029;">d</span> <span style="color: #cf0030;">A</span><span style="color: #c80037;">t</span><span style="color: #c1003e;">t</span><span style="color: #ba0045;">e</span><span style="color: #b3004c;">n</span><span style="color: #ad0053;">t</span><span style="color: #a60059;">i</span><span style="color: #9f0060;">o</span><span style="color: #980067;">n</span> <span style="color: #91006e;">B</span><span style="color: #8a0075;">r</span><span style="color: #83007c;">o</span><span style="color: #7c0083;">a</span><span style="color: #76008a;">d</span><span style="color: #6f0090;">c</span><span style="color: #680097;">a</span><span style="color: #61009e;">s</span><span style="color: #5a00a5;">t</span></b> (<span style="color: #e2001d;">P</span><span style="color: #a80057;">A</span><span style="color: #6d0092;">B</span>), the first approach that achieves <b>real-time</b> DiT-based video generation. By mitigating redundant attention computation, <span style="color: #e2001d;">P</span><span style="color: #a80057;">A</span><span style="color: #6d0092;">B</span> achieves up to <b>21.6</b> FPS with <b>10.6x</b> acceleration, <b>without sacrificing quality</b> across popular DiT-based video generation models including <a href="https://github.com/hpcaitech/Open-Sora" style="color: blue;">Open-Sora</a>, <a href="https://github.com/PKU-YuanGroup/Open-Sora-Plan" style="color: blue;">Open-Sora-Plan</a>, and <a href="https://github.com/Vchitect/Latte" style="color: blue;">Latte</a>. Notably, as a <b>training-free</b> approach,  <span style="color: #e2001d;">P</span><span style="color: #a80057;">A</span><span style="color: #6d0092;">B</span> can enpower <b>any</b> future DiT-based video generation models with real-time capabilities.
+          <br>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop">
+    <video class="video" autoplay controls muted loop playsinline>
+      <source src="./static/videos/compare.mp4" type="video/mp4">
+    </video>
+    <div class="columns is-centered">
+      <div class="content has-text-centered">
+        <span style="font-size: 0.8em; width: 80%; display: inline-block;"><br>Video 1: Comparison of video generation speeds between original method and ours. We test on Open-Sora with 5 videos of 4s (96 frames) 480p resolution. Baseline and ours use 1 and 8 NVIDIA H100 GPUs respectively.</span>
+        <br>
+      </div>
+    </div>
+  </div>
+</section> -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width"> 
+        <!-- <h2 class="title is-3">Method</h2> -->
+        <!-- <h2 class="title is-4">Modality-Invariant Foundation Model for Human Sensing</h2> -->
+        <div class="content has-text-justified">
+          We introduce <span style="color: #FF4500;"><b>X</b></span><span style="color: #FF6347;"><b>-</b></span><span style="color: #FF8C00;"><b>F</b></span><span style="color: #FF2400;"><b>i</b></span>, the first foundation model that achieves modality-invariant multimodal human sensing. This  model would require <mark>training only once</mark>, allowing <mark>all sensor modalities</mark> that participated in the training process to <mark>be utilized independently or in any combination</mark> for a wide range of potential applications. We evaluated <span style="color: #FF4500;"><b>X</b></span><span style="color: #FF6347;"><b>-</b></span><span style="color: #FF8C00;"><b>F</b></span><span style="color: #FF2400;"><b>i</b></span> on HPE and HAR tasks in MM-Fi <a href="https://openreview.net/pdf?id=1uAsASS1th" target="_blank">[1]</a> and XRF55 <a href="https://dl.acm.org/doi/10.1145/3643543" target="_blank">[2]</a>, demonstrated that <span style="color: #FF4500;"><b>X</b></span><span style="color: #FF6347;"><b>-</b></span><span style="color: #FF8C00;"><b>F</b></span><span style="color: #FF2400;"><b>i</b></span> surpasses previous methods by MPJPE <strong>24.8%</strong> and PA-MPJPE <strong>21.4%</strong> on HPE task, accuracy <strong>2.8%</strong> on HAR task.
+          <div class="content has-text-centered">
+            <br>
+            <img src="static/images/concept.png"><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Human sensing, which employs various sensors and advanced deep learning technologies to accurately capture and interpret human body information, has significantly impacted fields like public security and robotics.
+            However, current human sensing primarily depends on modalities such as cameras and LiDAR, each of which has its own strengths and limitations.
+            Furthermore, existing multimodal fusion solutions are typically designed for fixed modality combinations, requiring extensive retraining when modalities are added or removed for diverse scenarios.
+            In this paper, we propose a modality-invariant foundation model for all modalities, <em>X-Fi</em>, to address this issue. <em>X-Fi</em> enables the independent or combinatory use of sensor modalities without additional training by utilizing a transformer structure to accommodate variable input sizes and incorporating a novel "X-fusion" mechanism to preserve modality-specific features during multimodal integration. This approach not only enhances adaptability but also facilitates the learning of complementary features across modalities. Extensive experiments conducted on the MM-Fi and XRF55 datasets, employing six distinct modalities, demonstrate that <em>X-Fi</em> achieves state-of-the-art performance in human pose estimation (HPE) and human activity recognition (HAR) tasks. The findings indicate that our proposed model can efficiently support a wide range of human sensing applications, ultimately contributing to the evolution of scalable, multimodal sensing technologies.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">        
+        <h2 class="title is-3">Motivation</h2>
+        <div class="content has-text-justified">
+          <p>
+            Currently, human sensing tasks mainly rely on vision-based modalities like cameras, which face inherent limitations such as reliance on illumination and privacy concerns. Alternatives like LiDAR, mmWave radar, and WiFi address these challenges, each offering distinct advantages but also having limitations. Therefore, a multi-modal approach that leverages strengths from each modality is essential for advancing human sensing. 
+            <br>
+            Numerous methods have been proposed for multi-modal perception based on sensor fusion. They usually predefine a fixed set of modalities for a specific scenario. Nevertheless, in any given scenario, once the model is trained, adding or removing even one modality requires a huge effort: adjusting the network and retraining it from scratch. In the real world, we may require versatile combinations of sensor modalities according to different scenarios. 
+            <br>
+            Hence, we contemplate whether it is possible to design <em class=method-text>a one-for-all solution for modality-invariant human sensing</em>. Such a model would require training only once, allowing all sensor modalities that participated in the training process to be utilized independently or in any combination for a wide range of potential applications.
+          </p>
+          <div class="container is-max-desktop">
+            <video class="video" autoplay controls muted loop playsinline>
+              <source src="static/videos/concept.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+<!-- 
+        <h2 class="title is-4">Parallelism</h2>
+        <div class="content has-text-centered">
+          <div class="content has-text-centered">
+            <img src="./static/images/parallel.png" style="width: 70%;"><br>
+            <span style="font-size: 0.8em; width: 80%; display: inline-block;">Figure 3: Comparison between original Dynamic Sequence Parallel (DSP) and ours. When temporal attention is broadcasted, we can avoid all communication.</span>
+          </div>
+          <div class="content has-text-justified">
+            To further enhance video generation speed, we improve sequence parallel based on <a href="https://arxiv.org/abs/2403.10266" target="_blank">Dynamic Sequence Parallelism</a> (DSP). Sequence parallelism segments videos into different parts across multiple GPUs, reducing the workload on each GPU and decreasing generation latency. However, DSP introduces significant communication overhead, requiring two all-to-all communications for temporal attention. By broadcasting temporal attention in <span style="color: #e2001d;">P</span><span style="color: #a80057;">A</span><span style="color: #6d0092;">B</span>, we eliminate these communications, as temporal attention no longer needs to be computed. This results in a significant reduction in communication overhead by over 50%, enabling more efficient distributed inference for real-time video generation.
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width"> 
+        <h2 class="title is-3">Method</h2>
+        <!-- <h2 class="title is-4">Modality-Invariant Foundation Model for Human Sensing</h2> -->
+        <div class="content has-text-justified">
+          <p>
+            We propose a novel <em class=method-text>modality-invariant foundation model,</em> <span style="color: #FF4500;"><b>X</b></span><span style="color: #FF6347;"><b>-</b></span><span style="color: #FF8C00;"><b>F</b></span><span style="color: #FF2400;"><b>i</b></span>, for versatile human sensing. 
+          </p>
+          <p>
+            <span style="color: #FF4500;"><b>X</b></span><span style="color: #FF6347;"><b>-</b></span><span style="color: #FF8C00;"><b>F</b></span><span style="color: #FF2400;"><b>i</b></span> can take in any combination of modalities and activate corresponding parts to extract modality-specific features. A cross-modal transformer is designed to learn a cross-modal feature and each modality information is then preserved in the representation by executing cross-attention multi-modal fusion processes to preserve distinctive modal features.
+          </p>
+          <div class="content has-text-centered">
+            <img src="static/images/main_fig.png"><br>
+            <span style="font-size: 0.8em; width: 100%; display: inline-block;">The architecture of the proposed modality-invariant foundation model, X-Fi. X-Fi consists modality feature encoders and an X-Fusion module, which includes a cross-modal transformer and modality-specified cross-attention modules. The modalities with dotted lines represent inactivate modalities in the given scenario. The \(N\) in X-Fusion block represents the number of iterations.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Evaluations</h2>
+        <h2 class="title is-4">Qualitative Results</h2>
+        <div class="container is-max-desktop">
+          <h2 class="title is-5">Huamn Pose Estimation Qualitative Results</h2>
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column interpolation-video-column">
+                <div id="interpolation-image-wrapper">
+                Loading...
+                </div>
+                <input class="slider is-fullwidth is-large is-info"
+                    id="interpolation-slider"
+                    step="1" min="0" max="8" value="0" type="range">
+            </div>
+          </div>
+          <br>
+          <div class="content has-text-justified">
+            <p>
+              The visualization results for HPE comprise two actions, 'picking up things' and 'throwing', each depicted through a sequence of four images.
+              To facilitate a clearer comparison between the fused results and the single-modal inputs results, we incorporated blue and orange dashed lines in the fused result images to represent the results of the rgb and depth single-modality inputs, respectively.
+            </p>
+          </div>
+        </div>
+        <br>
+        <div class="container is-max-desktop">
+          <h2 class="title is-5">
+            Huamn Activity Recognition Qualitative Results
+          </h2>
+          <div class="content has-text-justified">
+            <img src="static/images/HAR_result.png"><br>
+            <br>
+            <p>
+              Comparison of multi-modal embedding distribution for HAR. To more closely analyze the distribution of sample points, we zoomed in on a small region containing points from two distinct categories. To quantify the distribution, we used the Silhouette score and Calinski–Harabasz index as indicators of clustering quality.
+            </p>
+          </div>
+          <!-- defined the interpolated image path in index.js function -->
+        </div>
+
+        
+        <!-- <h2 class="title is-4">Speedups</h2>
+        <div class="content has-text-centered">
+          <img src="./static/images/speedup.png">
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Measured total latency of <span style="color: #e2001d;">P</span><span style="color: #a80057;">A</span><span style="color: #6d0092;">B</span> for different models for generating a single video on 8 NVIDIA H100 GPUs. When utilizing a single GPU, we achieve a speedup ranging from 1.26x to 1.32x, which remains stable across different schedulers. Scaling to multiple GPUs, our method achieves a speedup of up to 10.6x, which almost linearly scales with the number of GPUs due to our efficient improvement of sequence parallel.
+          </p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">        
+        <div class="content has-text-justified">
+          <h2 class="title is-4">Quantitive Results</h2>
+          <p>
+            We train and evaluate our proposed <span style="color: #FF4500;"><b>X</b></span><span style="color: #FF6347;"><b>-</b></span><span style="color: #FF8C00;"><b>F</b></span><span style="color: #FF2400;"><b>i</b></span> on the two largest human sensing multimodal public datasets, MM-Fi <a href="https://openreview.net/pdf?id=1uAsASS1th" target="_blank">[1]</a> and XRF55 <a href="https://dl.acm.org/doi/10.1145/3643543" target="_blank">[2]</a>, to assess its efficiency as a unified modality-invariant foundation model across diverse human sensing tasks, including Human Pose Estimation (HPE) and Human Activity Recognition (HAR).
+            <br>
+            <br>
+            MM-Fi includes 5 sensing modalities: RGB images (<b>I</b>), Depth images (<b>D</b>), LiDAR point clouds (<b>L</b>), mmWave point clouds (<b>R</b>), and WiFi-CSI (<b>W</b>).
+            <br>
+            XRF55 includes 3 sensing modalities: mmWave Range-Doppler & Range-Angle Heatmaps (<b>R</b>), WiFi-CSI (<b>W</b>), and RFID phase series data (<b>RF</b>)
+          </p>
+          <div class="title is-5">Huamn Pose Estimation Quantitive Results</div>
+          <div class="content has-text-centered">
+            <img src="static/images/hpe_quantitive.png" style="width: 100%;"><br>
+            <span style="font-size: 0.8em; width: 100%; display: inline-block;">Performance comparisons of X-Fi with baseline methods on the MM-Fi dataset for HPE task. <br>'Baseline1' denotes the decision-level fusion results and 'Baseline2' denotes the feature-level fusion results. <br>Imp denotes the improvement achieved over baseline in percentage level.</span>
+          </div>
+          <div class="title is-5">Huamn Activity Recognition Quantitive Results</div>
+          <div class="content has-text-centered">
+            <img src="static/images/har_quantitive.png" style="width: 35%;"><br>
+            <span style="font-size: 0.8em; width: 100%; display: inline-block;">HAR accuracy (%) on the MM-Fi and XRF55 datasets.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Related works</h2>
+        <div class="content has-text-justified">
+          <p>
+            <li>
+              Jianfei Yang, He Huang, Yunjiao Zhou, Xinyan Chen, Yuecong Xu, Shenghai Yuan, Han Zou, Chris Xiaoxuan Lu, and Lihua Xie. <a href="https://openreview.net/pdf?id=1uAsASS1th">Mm-fi: Multi-modal non-intrusive 4d human dataset for versatile wireless sensing</a>. Advances in Neural Information Processing Systems, 36, 2024.
+            </li>
+            <li>
+              Fei Wang, Yizhe Lv, Mengdie Zhu, Han Ding, and Jinsong Han. <a href="https://dl.acm.org/doi/10.1145/3643543">Xrf55: A radio frequency dataset for human indoor action analysis</a>. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 8(1):1–34, 2024.
+            </li>
+          </p>
+        </div>
+
+        <!-- <h2 class="title is-3">Acknowledgments</h2>
+        <div class="content has-text-justified">
+          <p>
+            Xuanlei, Xiaolong, and Kai contribute equally to this work. Kai and Yang are equal advising.
+          </p>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title"><a id="bibtex">BibTeX</a></h2>
+    <pre><code>@misc{chen2024xfimodalityinvariantfoundationmodel,
+      title={X-Fi: A Modality-Invariant Foundation Model for Multimodal Human Sensing}, 
+      author={Xinyan Chen and Jianfei Yang},
+      year={2024},
+      eprint={2410.10167},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2410.10167}, 
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website adapted from the following <a href="https://nerfies.github.io">source code</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="juxtapose/js/juxtapose.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>    
+
+</body>
+</html>

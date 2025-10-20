@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMBROSIA</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="https://ambrosia-benchmark.github.io/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#paper">Paper</a></li>
+                <li><a href="index.html#data-code">Data and Code</a></li>
+                <li><a href="index.html#results">Results</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="container"> 
+            <div class="main-container"> 
+                <div class="logo-container">
+                    <img src="logo.svg" alt="Logo" class="logo">
+                </div>
+                <div class="title-container">
+                    <div class="title-text">
+                        <h1>
+                            <strong>𝔸𝕄𝔹ℝ𝕆𝕊𝕀𝔸</strong>: A Benchmark for Parsing <br> Ambiguous Questions into Database Queries
+                        </h1>
+                    </div>
+                </div>
+            </div>
+                <div class="authors-container">
+                        <p class="authors"><a href="https://saparina.github.io/"  class="author-link">Irina Saparina</a> and <a href="https://homepages.inf.ed.ac.uk/mlap/"  class="author-link">Mirella Lapata</a></p>
+                        <p class="affiliation">University of Edinburgh</p>
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+            <div class="container" id="about">
+                <h2>About</h2>
+                <p>Practical semantic parsers are expected to understand user utterances and map them to executable programs, even when these are ambiguous. We introduce a new benchmark, <strong>𝔸𝕄𝔹ℝ𝕆𝕊𝕀𝔸</strong>, which we hope will inform and inspire the development of text-to-SQL parsers capable of recognizing and interpreting ambiguous requests. Our dataset contains questions showcasing three different types of ambiguity (scope ambiguity, attachment ambiguity, and vagueness), their interpretations, and corresponding SQL queries. In each case, the ambiguity persists even when the database context is provided.
+                </p>
+                <figure>
+                    <img src="example.svg" alt="Types of ambiguous questions (highlighted in blue), their interpretations (highlighted in green), and corresponding SQL queries. Database elements that could lead to ambiguity are highlighted in orange"  class="custom-width">
+                    <figcaption>Types of ambiguous questions (highlighted in blue), their interpretations (highlighted in green), and corresponding SQL queries. Database elements that could lead to ambiguity are highlighted in orange.</figcaption>
+                </figure>
+            </div>
+
+            <div class="container" id="paper">
+                <h2>Paper</h2>
+                <p>More details on data collection and evaluation results are provided in the paper:</p>
+                <blockquote>
+                    <p><a href="https://arxiv.org/abs/2406.19073" class="paper-title">𝔸𝕄𝔹ℝ𝕆𝕊𝕀𝔸: A Benchmark for Parsing Ambiguous Questions into Database Queries</a></p>
+                    <p class="paper-authors">Irina Saparina and Mirella Lapata</p>
+                    <p class="paper-conference">NeurIPS 2024 Datasets and Benchmarks Track</p>
+                </blockquote>
+            </div>
+
+            <div class="container" id="data-code">
+                <h2>Data and Code</h2>
+                <p><a href="https://datasync.ed.ac.uk/index.php/s/pOk0Kfrn1oq96UR" class="btn">Download Dataset</a><a href="https://github.com/saparina/ambrosia" class="btn">Code Repository</a></p>
+                <p>We aim to use our dataset for a fair evaluation of LLMs in text-to-SQL semantic parsing with ambiguous questions. To this end, we are providing access through a password-protected link. Once you enter the password, you will be able to download the data using a web interface or any command line utility like wget.</p> 
+                <p class="no-copy">
+                Password: <strong>AM8R0S1A</strong></p>
+
+                <p><strong style="color: #D50032;">We kindly request that you do not upload our dataset to GitHub or Transformers Hub to ensure it is not used for training any LLMs.</strong></p>
+
+            </div>
+
+            <div class="container" id="results">
+                <h2>Results</h2>
+                                    
+                <!-- Recall Table -->
+                <table class="results-table">
+                    <caption>% Recall</caption>
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Ambig</th>
+                                <th>Unambig</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Llama3-70B (Prompt)</td>
+                                <td><strong>30.7</strong></td>
+                                <td>64.5</td>
+                            </tr>
+                            <tr>
+                                <td>Llama3-70B (Beam)</td>
+                                <td>28.0</td>
+                                <td><strong>65.5</strong></td>
+                            </tr>
+                            <tr>
+                                <td>GPT-4o (Prompt)</td>
+                                <td>27.1</td>
+                                <td>63.4</td>
+                            </tr>
+                            <tr>
+                                <td>GPT-3.5 Turbo (Prompt)</td>
+                                <td>26.7</td>
+                                <td>61.6</td>
+                            </tr>
+                            <tr>
+                                <td>CodeLlama-70B (Beam)</td>
+                                <td>25.4</td>
+                                <td>56.2</td>
+                            </tr>
+                            <tr>
+                                <td>Llama3-8B (Beam)</td>
+                                <td>19.9</td>
+                                <td>48.6</td>
+                            </tr>
+                            <tr>
+                                <td>Llama3-8B (Prompt)</td>
+                                <td>18.0</td>
+                                <td>45.4</td>
+                            </tr>
+                            <tr>
+                                <td>CodeLlama-70B (Prompt)</td>
+                                <td>17.9</td>
+                                <td>44.1</td>
+                            </tr>
+                            <tr>
+                                <td>OpenChat-7B (Prompt)</td>
+                                <td>15.5</td>
+                                <td>36.8</td>
+                            </tr>
+                            <tr>
+                                <td>OpenChat-7B (Beam)</td>
+                                <td>14.7</td>
+                                <td>37.9</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            
+                    <!-- Precision Table -->
+                    <table class="results-table">
+                        <caption>% Precision</caption>
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Ambig</th>
+                                <th>Unambig</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>GPT-4o (Prompt)</td>
+                                <td><strong>51.1</strong></td>
+                                <td><strong>59.6</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Llama3-70B (Prompt)</td>
+                                <td>42.7</td>
+                                <td>49.4</td>
+                            </tr>
+                            <tr>
+                                <td>GPT-3.5 Turbo (Prompt)</td>
+                                <td>40.2</td>
+                                <td>52.1</td>
+                            </tr>
+                            <tr>
+                                <td>CodeLlama-70B (Prompt)</td>
+                                <td>34.3</td>
+                                <td>40.9</td>
+                            </tr>
+                            <tr>
+                                <td>Llama3-8B (Prompt)</td>
+                                <td>30.2</td>
+                                <td>37.9</td>
+                            </tr>
+                            <tr>
+                                <td>OpenChat-7B (Prompt)</td>
+                                <td>24.7</td>
+                                <td>28.2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            
+                    <!-- AllFound Table -->
+                    <table class="results-table">
+                        <caption>% AllFound</caption>
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Ambig</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Llama3-70B (Prompt)</td>
+                                <td><strong>1.9</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Llama3-8B (Beam)</td>
+                                <td>1.7</td>
+                            </tr>
+                            <tr>
+                                <td>Llama3-70B (Beam)</td>
+                                <td>1.4</td>
+                            </tr>
+                            <tr>
+                                <td>OpenChat-7B (Beam)</td>
+                                <td>1.1</td>
+                            </tr>
+                            <tr>
+                                <td>GPT-3.5 Turbo (Prompt)</td>
+                                <td>0.5</td>
+                            </tr>
+                            <tr>
+                                <td>GPT-4o (Prompt)</td>
+                                <td>0.4</td>
+                            </tr>
+                            <tr>
+                                <td>OpenChat-7B (Prompt)</td>
+                                <td>0.2</td>
+                            </tr>
+                            <tr>
+                                <td>Llama3-8B (Prompt)</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>CodeLlama-70B (Prompt)</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>CodeLlama-70B (Beam)</td>
+                                <td>0.1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>            
+
+            </div>
+            <div class="container" id="contact">
+                <h2>Contact</h2>
+                <p>If you need help accessing data or have questions, please contact <a href="https://saparina.github.io/" class="link">Irina Saparina</a>.</p>
+            </div>
+
+    </main>
+
+    <footer>
+            <p>&copy; 2024 Irina Saparina. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Head -->
+  <head>
+  <meta charset="utf-8">
+  <title>rsbench A Neuro-Symbolic Benchmark Suite for Concept Quality and Reasoning Shortcuts</title>
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="author" content="Samuele Bortolotti">
+
+  <link rel="stylesheet" type="text/css" href="assets/css/benchmark_style.css">
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico"/>
+
+  <!-- MathJAX JS for rendering formulas -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/javascript" src="assets/mathjax/mathjax_config.js"></script>  
+
+  <!-- Change to dark theme -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const themeToggleButton = document.getElementById('theme-toggle');
+      const themeIcon = document.getElementById('theme-icon');
+      const currentTheme = localStorage.getItem('theme');
+      const isDarkModePreferred = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+      // Set theme on page load based on localStorage or system preference
+      if (currentTheme) {
+        document.body.classList.toggle('dark-mode', currentTheme === 'dark');
+        document.body.classList.toggle('light-mode', currentTheme === 'light');
+        themeIcon.textContent = currentTheme === 'dark' ?  '☀️': '🌙' ;
+      } else {
+        const isDarkMode = isDarkModePreferred;
+        document.body.classList.toggle('dark-mode', isDarkMode);
+        document.body.classList.toggle('light-mode', !isDarkMode);
+        themeIcon.textContent = isDarkMode ? '☀️': '🌙';
+      }
+    
+      // Toggle between light and dark mode on button click
+      themeToggleButton.addEventListener('click', () => {
+        const isDarkMode = document.body.classList.toggle('dark-mode');
+        document.body.classList.toggle('light-mode', !isDarkMode);
+        themeIcon.textContent = isDarkMode ? '☀️': '🌙' ;
+    
+        // Save the user's theme preference in localStorage
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+      });
+    });
+    </script><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>rsbench A Neuro-Symbolic Benchmark Suite for Concept Quality and Reasoning Shortcuts | A Neuro-Symbolic Benchmark Suite for Concept Quality and Reasoning Shortcuts</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="rsbench A Neuro-Symbolic Benchmark Suite for Concept Quality and Reasoning Shortcuts" />
+<meta name="author" content="Samuele Bortolotti" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="“A Neuro-Symbolic Benchmark Suite for Concept Quality and Reasoning Shortcuts” benchmark paper" />
+<meta property="og:description" content="“A Neuro-Symbolic Benchmark Suite for Concept Quality and Reasoning Shortcuts” benchmark paper" />
+<link rel="canonical" href="index.html" />
+<meta property="og:url" content="https://unitn-sml.github.io/rsbench/" />
+<meta property="og:site_name" content="A Neuro-Symbolic Benchmark Suite for Concept Quality and Reasoning Shortcuts" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="rsbench A Neuro-Symbolic Benchmark Suite for Concept Quality and Reasoning Shortcuts" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Samuele Bortolotti"},"description":"“A Neuro-Symbolic Benchmark Suite for Concept Quality and Reasoning Shortcuts” benchmark paper","headline":"rsbench A Neuro-Symbolic Benchmark Suite for Concept Quality and Reasoning Shortcuts","name":"A Neuro-Symbolic Benchmark Suite for Concept Quality and Reasoning Shortcuts","url":"https://unitn-sml.github.io/rsbench/"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+
+  <body>
+    <!-- Page Content -->
+    <div class="main">
+      <!-- Content -->
+      <main class="content">
+        <div class="navbar">
+    <a href="index.html#downloads">Downloads</a>
+    <a href="index.html#background">Background</a>
+    <a href="index.html#overview">Overview</a>
+    <a href="index.html#usage">Usage</a>
+    <a href="index.html#evaluation">Evaluation</a>
+    <a href="index.html#verification">Verification</a>
+    <a href="index.html#relevant">Relevant Publications</a>
+    <a href="index.html#license">License</a>
+    <button id="theme-toggle" class="theme-button">
+        <span id="theme-icon" class="moon-icon">🌙</span>
+    </button>
+</div>
+
+<div class="header">
+    <div class="logoleft">
+        <img src="assets/images/logo-unitn.jpg" height="100" alt="University of Trento Logo" />
+        <br />
+        <img src="assets/images/logo-sml.png" height="100" alt="Structured Machine Learning Group Logo" />
+    </div>
+
+    <div class="title">
+        <h1 style="color:rgb(0, 123, 167)">rsbench: A Neuro-Symbolic Benchmark Suite for Concept Quality and Reasoning Shortcuts</h1>
+        <div class="author">
+            <p>
+                Samuele Bortolotti<sup>1</sup>,
+                Emanuele Marconato<sup>2,1</sup>,
+                Tommaso Carraro<sup>3,6</sup>,
+                Paolo Morettin<sup>1</sup>,<br />
+                Emile van Krieken<sup>4</sup>,
+                Antonio Vergari<sup>4</sup>,
+                Stefano Teso<sup>5,1</sup>,
+                Andrea Passerini<sup>1</sup>
+            </p>
+            <p><small>
+                <sup>1</sup>DISI, University of Trento,
+                <sup>2</sup>University of Pisa,
+                <sup>3</sup>Fondazione Bruno Kessler,
+                <sup>4</sup>University of Edinburgh,<br />
+                <sup>5</sup>CIMeC, University of Trento,
+                <sup>6</sup>University of Padova
+            </small></p>
+        </div>
+    </div>
+
+    <div class="logoright">
+        <img src="assets/images/logo-unipi.png" height="100" alt="University of Pisa Logo" />
+        <br />
+        <img src="assets/images/logo-uniedin.png" height="100" alt="University of Edinburgh Logo" />
+    </div>
+</div>
+
+<h1 id="abstract">Abstract</h1>
+
+<p>The advent of powerful neural classifiers has increased interest in problems
+that require both learning and reasoning. These problems are critical for
+understanding important properties of models, such as trustworthiness,
+generalization, interpretability, and compliance to safety and structural
+constraints. However, recent research observed that tasks requiring both
+learning and reasoning on background knowledge often suffer from reasoning
+shortcuts (RSs): predictors can solve the downstream reasoning task without
+associating the correct concepts to the high-dimensional data. To address this
+issue, we introduce <code class="language-plaintext highlighter-rouge">rsbench</code>, a comprehensive benchmark suite designed to
+systematically evaluate the impact of RSs on models by providing easy access to
+highly customizable tasks affected by RSs. Furthermore, <code class="language-plaintext highlighter-rouge">rsbench</code>implements
+common metrics for evaluating concept quality and introduces novel formal
+verification procedures for assessing the presence of RSs in learning tasks.
+Using <code class="language-plaintext highlighter-rouge">rsbench</code>, we highlight that obtaining high quality concepts in both purely
+neural and neuro-symbolic models is a far-from-solved problem.</p>
+
+<h1><a name="downloads">Downloads</a></h1>
+
+<h3 id="data-gdrive-zenodo"><strong>Data</strong>: <a href="https://drive.google.com/drive/folders/1PB4FZrZ_iZ_XH28u-nAykkVqMLDYqACB">GDrive</a>, <a href="https://zenodo.org/doi/10.5281/zenodo.11612555">Zenodo</a></h3>
+
+<h3 id="codebase-github"><strong>Codebase</strong>: <a href="https://github.com/unitn-sml/rsbench-code">GitHub</a></h3>
+
+<h3 id="paper-openreview"><strong>Paper</strong>: <a href="https://openreview.net/pdf?id=5VtI484yVy">OpenReview</a></h3>
+
+<h1><a name="background">What is a Reasoning Shortcut?</a></h1>
+
+<p><img src="assets/images/reasoning-shortcut.png" alt="a reasoning shortcut" width="100%" height="auto" /></p>
+
+<p><strong>What are L&amp;R tasks?</strong>  In learning and reasoning tasks, machine learning
+models should predict labels that comply with prior knowledge.  For instance,
+in autonomous vehicle scenario, the model should predict <code class="language-plaintext highlighter-rouge">stop</code> or <code class="language-plaintext highlighter-rouge">go</code> based
+on what obstacles are visible in front of the vehicle, and the prior knowledge
+encodes the rule that if a <code class="language-plaintext highlighter-rouge">pedestrian</code> or a <code class="language-plaintext highlighter-rouge">red_light</code> is visible then it
+should definitely predict <code class="language-plaintext highlighter-rouge">stop</code>.</p>
+
+<p><strong>What is a reasoning shortcut?</strong>  A RS occurs when the model predicts the
+right label by inferring the wrong concepts.  For instance, it might confuse
+<code class="language-plaintext highlighter-rouge">pedestrian</code>s for <code class="language-plaintext highlighter-rouge">red_light</code>s as both entail the same (correct) <code class="language-plaintext highlighter-rouge">stop</code> action.</p>
+
+<p><strong>What are the consequences?</strong> RSs can compromise the <em>interpretability</em> of
+model explanations (e.g., these might show that a prediction depends on the
+<code class="language-plaintext highlighter-rouge">red_light</code>s present in the image, while in reality it depends on
+<code class="language-plaintext highlighter-rouge">pedestrian</code>s!) and <em>generalization</em> to out-of-distribution tasks (e.g., if a
+vehicle is authorized to cross over <code class="language-plaintext highlighter-rouge">red_light</code>s in the case of an emergency,
+and it confuses these with <code class="language-plaintext highlighter-rouge">pedestrian</code>s, this might lead to harmful
+decisions).</p>
+
+<p><span style="font-size:0.7em;">Image taken with permission from: Marconato <em>et
+al.</em> “Not all neuro-symbolic concepts are created equal: Analysis and
+mitigation of reasoning shortcuts.” NeurIPS 2023.</span></p>
+
+<h1><a name="overview">Overview</a></h1>
+
+<ul>
+  <li>
+    <p><em>A Variety of L&amp;R Tasks</em>: <code class="language-plaintext highlighter-rouge">rsbench</code>offers five L&amp;R tasks and at least one data
+set each.  The tasks come in different flavors – <em>arithmetic</em>, <em>logic</em>, and
+<em>high-stakes</em> – and with a formal specification of the corresponding prior
+knowledge.  <code class="language-plaintext highlighter-rouge">rsbench</code>also provides data generators for creating new OOD splits
+useful for testing the down-stream consequences of RSs.</p>
+  </li>
+  <li>
+    <p><em>Evaluation</em>: <code class="language-plaintext highlighter-rouge">rsbench</code>comes with implementations for several metrics for
+evaluating the quality of <em>label</em> and <em>concept</em> predictions, as well as
+visualization code for them.</p>
+  </li>
+  <li>
+    <p><em>Verification</em>: <code class="language-plaintext highlighter-rouge">rsbench</code>implements a new algorithm, <code class="language-plaintext highlighter-rouge">countrss</code>, that makes
+use of automated reasoning packages for formally veryfing whether a L&amp;R task
+allows for RSs without training any model!  This tool works with any prior
+knowledge encoded in CNF format, the de-facto standard in automated
+reasoning.</p>
+  </li>
+  <li>
+    <p><em>Example code</em>: our repository comes with example code for training and
+evaluating a selection of state-of-the-art machine learning architectures,
+including Neuro-Symbolic models, Concept-bottleneck models, and regular
+neural networks.</p>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">L&amp;R Task</th>
+      <th style="text-align: center">Images</th>
+      <th style="text-align: center">Concepts</th>
+      <th style="text-align: center">Labels</th>
+      <th style="text-align: center">#Train</th>
+      <th style="text-align: center">#Valid</th>
+      <th style="text-align: center">#Test</th>
+      <th style="text-align: center">#OOD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">MNMath</code></td>
+      <td style="text-align: center">$28k \times 28$</td>
+      <td style="text-align: center">$k$ digits, $10$ values each</td>
+      <td style="text-align: center">categorical multilabel</td>
+      <td style="text-align: center">custom</td>
+      <td style="text-align: center">custom</td>
+      <td style="text-align: center">custom</td>
+      <td style="text-align: center">custom</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">MNAdd-Half</code></td>
+      <td style="text-align: center">$56 \times 28$</td>
+      <td style="text-align: center">$2$ digits, $10$ values each</td>
+      <td style="text-align: center">categorical $0 \dots 18$</td>
+      <td style="text-align: center">$2,940$</td>
+      <td style="text-align: center">$840$</td>
+      <td style="text-align: center">$420$</td>
+      <td style="text-align: center">$1,080$</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">MNAdd-EvenOdd</code></td>
+      <td style="text-align: center">$56 \times 28$</td>
+      <td style="text-align: center">$2$ digits, $10$ values each</td>
+      <td style="text-align: center">categorical $0 \dots 18$</td>
+      <td style="text-align: center">$6,720$</td>
+      <td style="text-align: center">$1,920$</td>
+      <td style="text-align: center">$960$</td>
+      <td style="text-align: center">$5,040$</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">MNLogic</code></td>
+      <td style="text-align: center">$28k \times 28$</td>
+      <td style="text-align: center">$k$ digits, $10$ values each</td>
+      <td style="text-align: center">binary</td>
+      <td style="text-align: center">custom</td>
+      <td style="text-align: center">custom</td>
+      <td style="text-align: center">custom</td>
+      <td style="text-align: center">custom</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Kand-Logic</code></td>
+      <td style="text-align: center">$3 \times 192 \times 64$</td>
+      <td style="text-align: center">$3$ objects per image, $3$ shapes, $3$ colors</td>
+      <td style="text-align: center">binary</td>
+      <td style="text-align: center">$4,000$</td>
+      <td style="text-align: center">$1,000$</td>
+      <td style="text-align: center">$1,000$</td>
+      <td style="text-align: center">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">CLE4EVR</code></td>
+      <td style="text-align: center">$320 \times 240$</td>
+      <td style="text-align: center">$n$ to $m$ objects per image, $10$ shapes, $10$ colors, $2$ materials, $3$ sizes</td>
+      <td style="text-align: center">binary</td>
+      <td style="text-align: center">custom</td>
+      <td style="text-align: center">custom</td>
+      <td style="text-align: center">custom</td>
+      <td style="text-align: center">custom</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">BDD-OIA</code></td>
+      <td style="text-align: center">$1280 \times 720$</td>
+      <td style="text-align: center">$21$ binary concepts</td>
+      <td style="text-align: center">binary multilabel, $4$ labels</td>
+      <td style="text-align: center">$16,082$</td>
+      <td style="text-align: center">$2,270$</td>
+      <td style="text-align: center">$4,572$</td>
+      <td style="text-align: center">–</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">SDD-OIA</code></td>
+      <td style="text-align: center">$469 \times 387$</td>
+      <td style="text-align: center">$21$ binary concepts</td>
+      <td style="text-align: center">binary multilabel, $4$ labels</td>
+      <td style="text-align: center">6,820</td>
+      <td style="text-align: center">$1,464$</td>
+      <td style="text-align: center">$1,464$</td>
+      <td style="text-align: center">$1,000$</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1><a name="usage">Usage</a></h1>
+
+<p>In this section we provide useful infromation to get started with <code class="language-plaintext highlighter-rouge">rsbench</code>.</p>
+
+<h2>Configure and run the data generators</h2>
+
+<p>The data generators are available at the following <a href="https://github.com/unitn-sml/rsbench-code/tree/main/rssgen">GitHub link</a>.</p>
+
+<p>The datasets included are:</p>
+
+<ul>
+  <li><a href="index.html#MNMath"><code class="language-plaintext highlighter-rouge">MNMath</code></a></li>
+  <li><a href="index.html#MNLogic"><code class="language-plaintext highlighter-rouge">MNLogic</code></a></li>
+  <li><a href="index.html#Kand-Logic"><code class="language-plaintext highlighter-rouge">Kand-Logic</code></a></li>
+  <li><a href="index.html#CLE4EVR"><code class="language-plaintext highlighter-rouge">CLE4EVR</code></a></li>
+  <li><a href="index.html#SDD-OIA"><code class="language-plaintext highlighter-rouge">SDD-OIA</code></a></li>
+</ul>
+
+<p>Each generator is highly customizable through configuration files. For <code class="language-plaintext highlighter-rouge">MNMath</code>, <code class="language-plaintext highlighter-rouge">MNLogic</code>, and <code class="language-plaintext highlighter-rouge">Kand-Logic</code>, you need to edit a <code class="language-plaintext highlighter-rouge">.yml</code> file, with examples and instructions available in the <code class="language-plaintext highlighter-rouge">examples_config</code> folder. On the other hand, <code class="language-plaintext highlighter-rouge">CLE4EVR</code> and <code class="language-plaintext highlighter-rouge">SDD-OIA</code> use <code class="language-plaintext highlighter-rouge">.json</code> configuration files. For further details, please refer to the respective GitHub page for each generator.</p>
+
+<h2>Load rsbench data and train your model</h2>
+
+<p>To load and use <code class="language-plaintext highlighter-rouge">rsbench</code>data, you can use the provided suite that comprises data loading, model training, and evaluation. This ready-to-use toolkit is available at this <a href="https://github.com/unitn-sml/rsbench-code/tree/main/rsseval">GitHub link</a>. Alternatively, you can create your own dataset class by writing just a few lines of code</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">rss.datasets.xor</span> <span class="kn">import</span> <span class="n">MNLOGIC</span>
+
+<span class="k">class</span> <span class="nc">required_args</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="bp">self</span><span class="p">.</span><span class="n">c_sup</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># specifies % supervision available on concepts
+</span>      <span class="bp">self</span><span class="p">.</span><span class="n">which_c</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># specifies which concepts to supervise, -1=all
+</span>      <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">64</span> <span class="c1"># batch size of the loaders
+</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">required_args</span><span class="p">()</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">MNLOGIC</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+<span class="n">train_loader</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">,</span> <span class="n">test_loader</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">.</span><span class="n">get_data_loaders</span><span class="p">()</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="c1">#define your model here
+</span><span class="n">optimizer</span> <span class="o">=</span> <span class="c1">#define optimizer here
+</span><span class="n">criterion</span> <span class="o">=</span> <span class="c1">#define loss function here
+</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">concepts</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+        <span class="n">optimizer</span><span class="p">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">concepts</span><span class="p">)</span>
+        <span class="n">loss</span><span class="p">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optimizer</span><span class="p">.</span><span class="n">step</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2> Quickstart </h2>
+
+<p>We provide a simple tutorial designed to demonstrate how to load and use the data generated by <code class="language-plaintext highlighter-rouge">rsbench</code>. This tutorial is meant to give a quick overview and get you started with the data we provide. You can access the Google Colab tutorial using the following link:</p>
+
+<p><a href="https://colab.research.google.com/drive/1QYizKR1yS9dT7pI7dRITdw0HrvIOGjEP#scrollTo=rHrAvZnU-fWe">MNIST Math Google Colab</a></p>
+
+<p>The example data used in the tutorial is <code class="language-plaintext highlighter-rouge">MNISTMath</code>. You can easily create and customize the task you want using our data generator. Once you have created your dataset, you can upload the <code class="language-plaintext highlighter-rouge">zip</code> file to your Google Drive and follow the tutorial to try it out.</p>
+
+<h2><a name="evaluation">Evaluation</a></h2>
+
+<p>For a more thorough evaluation of the model, we recommend exploring the <code class="language-plaintext highlighter-rouge">rsseval</code> folder in our code repository, which you can find here:</p>
+
+<p><a href="https://github.com/unitn-sml/rsbench-code/tree/main/rsseval"><code class="language-plaintext highlighter-rouge">rsseval</code></a></p>
+
+<p>Within this folder, you’ll find a <a href="https://github.com/unitn-sml/rsbench-code/blob/main/rsseval/rss/notebooks/evaluate.ipynb">notebook</a> dedicated to evaluating concept quality using the metrics discussed in our paper. This will help you assess the performance and quality of the models more comprehensively.</p>
+
+<h1><a name="MNMath">MNMath</a></h1>
+
+<p><img src="assets/images/rsbench-mnmath.png" alt="mnmath" width="80%" height="auto" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">MNMath</code> is a novel multi-label extension of <code class="language-plaintext highlighter-rouge">MNIST-Addition</code> <a href="https://proceedings.neurips.cc/paper_files/paper/2018/hash/dc5d637ed5e62c36ecb73b654b05ba2a-Abstract.html">Manhaeve et al.,
+2018</a>
+in which the goal is to predict the result of a system of equations of
+<a href="http://yann.lecun.com/exdb/mnist/">MNIST</a> digits.  The input image is the
+concatentation of all MNIST digits appearing in the system, and the output is a
+vector with as many elements as equations. Models trained on this task can
+learn to systematically extract the wrong digits from the input image.</p>
+
+<p><strong>An example RS</strong>:  For the (linear) system in the example above, a model can
+confuse 3’s with 4’s and still perfectly predict the output of the system.
+However, for a new, out-of-distribution task like $2 + 4$, it will wrongly
+output $5$.</p>
+
+<p><strong>Ready-made</strong>: <code class="language-plaintext highlighter-rouge">MNAdd-Half</code> is a modified version of <code class="language-plaintext highlighter-rouge">MNIST-Addition</code> that focuses on only half of the digits, specifically those from 0 to 4. It was introduced for the first time in <a href="https://openreview.net/pdf?id=pDcM1k7mgZ">Marconato et al., 2024b</a>.</p>
+
+<p>The dataset includes the following combinations of digits:</p>
+
+<table>
+  <tr>
+    <td> <img class="digit" src="assets/images/mnist-0.png" alt="0" width="25" /> + <img class="digit" src="assets/images/mnist-0.png" alt="0" width="25" /> = 0 </td>
+  </tr>
+  <tr>
+    <td> <img class="digit" src="assets/images/mnist-0.png" alt="0" width="25" /> + <img class="digit" src="assets/images/mnist-1.png" alt="1" width="25" /> = 1 </td>
+  </tr>
+  <tr>
+    <td> <img class="digit" src="assets/images/mnist-2.png" alt="2" width="25" /> + <img class="digit" src="assets/images/mnist-3.png" alt="3" width="25" /> = 5 </td>
+  </tr>
+  <tr>
+    <td> <img class="digit" src="assets/images/mnist-2.png" alt="2" width="25" /> + <img class="digit" src="assets/images/mnist-4.png" alt="4" width="25" /> = 6 </td>
+  </tr>
+</table>
+
+<p>The digits 0 and 1 are unaffected by reasoning shortcuts, while digits 2, 3, and 4 can be predicted in various ways, as illustrated below.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">MNAdd-Half</code> dataset contains a total of 2940 fully annotated training samples, 840 validation samples, 420 test samples, and an additional 1080 out-of-distribution test samples. These samples exclusively consist of sums involving these digits, such as 1 + 3 = 4.</p>
+
+<p>There are three potential optimal solutions, two of which are reasoning shortcuts. Specifically:</p>
+
+<p><img class="digit" src="assets/images/mnist-0.png" alt="0" width="20" /> → 0, 
+<img class="digit" src="assets/images/mnist-1.png" alt="1" width="20" /> → 1, 
+<img class="digit" src="assets/images/mnist-2.png" alt="2" width="20" /> → 2, 
+<img class="digit" src="assets/images/mnist-3.png" alt="3" width="20" /> → 3, 
+<img class="digit" src="assets/images/mnist-4.png" alt="4" width="20" /> → 4</p>
+
+<p><img class="digit" src="assets/images/mnist-0.png" alt="0" width="20" /> → 0, 
+<img class="digit" src="assets/images/mnist-1.png" alt="1" width="20" /> → 1, 
+<img class="digit" src="assets/images/mnist-2.png" alt="2" width="20" /> → 3, 
+<img class="digit" src="assets/images/mnist-3.png" alt="3" width="20" /> → 2, 
+<img class="digit" src="assets/images/mnist-4.png" alt="4" width="20" /> → 3</p>
+
+<p><img class="digit" src="assets/images/mnist-0.png" alt="0" width="20" /> → 0, 
+<img class="digit" src="assets/images/mnist-1.png" alt="1" width="20" /> → 1, 
+<img class="digit" src="assets/images/mnist-2.png" alt="2" width="20" /> → 4, 
+<img class="digit" src="assets/images/mnist-3.png" alt="3" width="20" /> → 1, 
+<img class="digit" src="assets/images/mnist-4.png" alt="4" width="20" /> → 2</p>
+
+<p><strong>Ready-made</strong>: <code class="language-plaintext highlighter-rouge">MNAdd-EvenOdd</code> is yet another modified version of <code class="language-plaintext highlighter-rouge">MNIST-Addition</code> that focuses on only some digit combinations, specifically combinations of either even or odd digits. It was first introduced in <a href="https://openreview.net/pdf?id=QEHU2o2Q7h">Marconato et al., 2023</a>.</p>
+
+<table>
+  <tr>
+    <td> <img class="digit" src="assets/images/mnist-0.png" alt="0" width="25" /> + <img class="digit" src="assets/images/mnist-6.png" alt="6" width="25" /> = 6 </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td> <img class="digit" src="assets/images/mnist-2.png" alt="2" width="25" /> + <img class="digit" src="assets/images/mnist-8.png" alt="8" width="25" /> = 10 </td>
+  </tr>
+  <tr>
+    <td> <img class="digit" src="assets/images/mnist-4.png" alt="4" width="25" /> + <img class="digit" src="assets/images/mnist-6.png" alt="6" width="25" /> = 10 </td>
+  </tr>
+  <tr>
+    <td> <img class="digit" src="assets/images/mnist-4.png" alt="4" width="25" /> + <img class="digit" src="assets/images/mnist-8.png" alt="8" width="25" /> = 12 </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td> <img class="digit" src="assets/images/mnist-1.png" alt="1" width="25" /> + <img class="digit" src="assets/images/mnist-5.png" alt="5" width="25" /> = 6 </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td> <img class="digit" src="assets/images/mnist-3.png" alt="3" width="25" /> + <img class="digit" src="assets/images/mnist-7.png" alt="7" width="25" /> = 10 </td>
+  </tr>
+  <tr>
+    <td> <img class="digit" src="assets/images/mnist-1.png" alt="1" width="25" /> + <img class="digit" src="assets/images/mnist-9.png" alt="9" width="25" /> = 10 </td>
+  </tr>
+  <tr>
+    <td> <img class="digit" src="assets/images/mnist-3.png" alt="3" width="25" /> + <img class="digit" src="assets/images/mnist-9.png" alt="9" width="25" /> = 12 </td>
+  </tr>
+
+</table>
+
+<p>It contains 6720 fully annotated training samples, 1920 validation samples, and 960 in-distribution test samples, along with 5040 out-of-distribution test samples representing all other sums not seen during training.</p>
+
+<p>As described in <a href="https://openreview.net/pdf?id=tLTtqySDFb">Marconato et al., 2024a</a>, the number of deterministic reasoning shortcuts is determined by finding integer solutions for the digits in the linear system, totaling 49.</p>
+
+<p>An example of RS in this setting is the following:</p>
+
+<p><img class="digit" src="assets/images/mnist-0.png" alt="0" width="20" /> → 5, 
+<img class="digit" src="assets/images/mnist-1.png" alt="1" width="20" /> → 5, 
+<img class="digit" src="assets/images/mnist-2.png" alt="2" width="20" /> → 7, 
+<img class="digit" src="assets/images/mnist-3.png" alt="3" width="20" /> → 7, 
+<img class="digit" src="assets/images/mnist-4.png" alt="4" width="20" /> → 9,
+<img class="digit" src="assets/images/mnist-5.png" alt="5" width="20" /> → 1,
+<img class="digit" src="assets/images/mnist-6.png" alt="6" width="20" /> → 1,
+<img class="digit" src="assets/images/mnist-7.png" alt="7" width="20" /> → 3,
+<img class="digit" src="assets/images/mnist-8.png" alt="8" width="20" /> → 3,
+<img class="digit" src="assets/images/mnist-9.png" alt="9" width="20" /> → 5</p>
+
+<h1><a name="MNLogic">MNLogic</a></h1>
+
+<p><img src="assets/images/rsbench-mnlogic.png" alt="mnlogic" width="80%" height="auto" /></p>
+
+<p>RSs arise whenever the knowledge $\mathsf K$ allows deducing the right label from
+multiple configurations of concepts. This form of non-injectivity is a standard
+feature of most logic formulas, and in fact formulas as simple as the XOR are
+riddled by RSs. <code class="language-plaintext highlighter-rouge">MNLogic</code> allows to probe the pervasiveness of RSs in random
+logic formulas. Specifically, the input image is the concatenation of $k$ MNIST
+images of zeros and ones representing the truth value of $k$ bits, and the
+ground-truth label $y$ is whether they satisfies the formula or not.</p>
+
+<p>By default, the <code class="language-plaintext highlighter-rouge">MNLogic</code> assumes the formula is a $k$-bit XOR, but any other
+formula can be supplied. <code class="language-plaintext highlighter-rouge">rsbench</code>provides code to generate random CNF formulas,
+that is, random conjunctions of disjunctions (clauses) of $k$ bits. The code
+allows to control the number of bits $k$ and the number of structure of the
+random formula, that is, the number of clauses and their length. It also avoids
+trivial data by ensuring each clauses is neither a tautology nor a
+contradiction.</p>
+
+<h1><a name="Kand-Logic">Kand-Logic</a></h1>
+
+<p><img src="assets/images/rsbench-kandlogic.png" alt="kandlogic" width="80%" height="auto" /></p>
+
+<p>This task, inspired by Wassily Kandinsky’s paintings and <a href="https://www.sciencedirect.com/science/article/pii/S0004370221000977">Mueller and Holzinger 2021</a> requires simple (but non-trivial) perceptual processing and relatively complex reasoning in classifying logical patterns on sets of images comprising different shapes and colors. For example, each input can comprise two $64 \times 64$ images, i.e., $x = (x_1, x_2)$, each depicting three geometric primitives with different shapes (<code class="language-plaintext highlighter-rouge">square</code>, <code class="language-plaintext highlighter-rouge">triangle</code>, <code class="language-plaintext highlighter-rouge">circle</code>) and colors (<code class="language-plaintext highlighter-rouge">red</code>, <code class="language-plaintext highlighter-rouge">blue</code>, <code class="language-plaintext highlighter-rouge">yellow</code>). The goal is to predict whether $x_1$ and $x_2$ fit the same predefined logical pattern or not. The pattern is built out of predicates like <code class="language-plaintext highlighter-rouge">all primitives in the image have a different color</code>, <code class="language-plaintext highlighter-rouge">all primitives have the same color</code>, and <code class="language-plaintext highlighter-rouge">exactly two primitives have the same shape</code>.</p>
+
+<p>Unlike <code class="language-plaintext highlighter-rouge">MNLogic</code>, in <code class="language-plaintext highlighter-rouge">Kand-Logic</code> each primitive has multiple attributes that cannot easily be processed separately.  This means that RSs can easily appear, e.g., confuse shape with color when either is sufficient to entail the right prediction, as in the example above. We provide the data set used in <a href="https://arxiv.org/abs/2402.12240">Marconato et al. 2024b</a> ($3$ images per input with $3$ primitives each) and a generator that allows configuring the number of images and primitives per input and the pattern itself.</p>
+
+<h1><a name="CLE4EVR">CLE4EVR</a></h1>
+
+<p><img src="assets/images/rsbench-cle4evr.png" alt="cle4evr" width="80%" height="auto" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">CLE4EVR</code>  focuses on logical reasoning over three-dimensional scenes, inspired by <code class="language-plaintext highlighter-rouge">CLEVR</code> <a href="https://cs.stanford.edu/people/jcjohns/clevr/">Johnson et al.</a> and  <code class="language-plaintext highlighter-rouge">CLEVR-HANS</code> <a href="https://github.com/ml-research/CLEVR-Hans">Stammer et al.</a>.</p>
+
+<p>Each input image $x$, of size $240 \times 320$, contains a variable number of objects differing in size ($3$ possible values), shape ($10$), color ($10$), material ($2$), position (real), and rotation (real), and the goal is to determine whether the objects satisfy a pre-specified rule that depends on all discrete attributes of the objects in the scene. Example of shapes are <code class="language-plaintext highlighter-rouge">sphere</code>, <code class="language-plaintext highlighter-rouge">pyramid</code>, and <code class="language-plaintext highlighter-rouge">diamonds</code>.</p>
+
+<p>The default knowledge $\mathsf K$ is designed to induce Reasoning Shortcuts: it asserts that an image $x$ is positive iff at least two objects $x_i$ and $x_j$ have the same color and shape, <em>i.e.</em>, $\exists i \ne j \ . \ ({\tt sha}(x_i) = {\tt sha}(x_j)) \land ({\tt col}(x_i) = {\tt col}(x_j))$. Reasoning Shortcuts, include confusing one shape for one another, or confusing colors for shapes and vice versa. For example, a model may associate <code class="language-plaintext highlighter-rouge">red pyramid</code> to <code class="language-plaintext highlighter-rouge">gray sphere</code> while yielding perfect task accuracy.</p>
+
+<p>The generator allows to customize the number of objects per image, the knowledge, and whether occlusion is allowed.</p>
+
+<h1><a name="BDD-OIA">BDD-OIA</a></h1>
+
+<p><img src="assets/images/rsbench-bddoia.png" alt="bddoia" width="80%" height="auto" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">BDD-OIA</code> <a href="https://twizwei.github.io/bddoia_project/">Xu et al.</a> is a multi-label autonomous driving task for studying RSs in real-world, <em>high-stakes</em> scenarios.
+The goal is to infer what actions out of ${ {\tt forward}, {\tt stop}, {\tt left}, {\tt right} }$ are safe depending on what objects (<em>e.g.</em>, cars, traffic signs) are present in an input dashcam image.</p>
+
+<p>Input images, of size $720 \times 1280$, come with concept-level annotations, making it possible to assess the quality of the learned concepts.  The dataset comprises $16,082$ training examples, $2,270$ validation examples and $4,572$ test examples.</p>
+
+<p>The knowledge $\mathsf K$ establishes that, <em>e.g.</em>, it is not safe to move $\tt forward$ if there are pedestrians on the road, based on a set of $21$ binary concepts indicating the presence of different obstacles on the road.
+The constraints specify conditions for being able to proceed (${\tt green\_light} \lor {\tt follow} \lor {\tt clear} \Rightarrow {\tt forward}$), stop (${\tt red\_light} \lor {\tt stop\_sign} \lor {\tt obstacle} \Rightarrow {\tt stop}$), and for turning left and right, as well as relationships between actions (like ${\tt stop} \Rightarrow \lnot {\tt forward}$).</p>
+
+<p>Common Reasoning Shortcuts allow to, for example confuse ${\tt pedestrians}$ with ${\tt red\_light}$ s, as they both imply the correct $ {\tt stop}$  action for all training examples.</p>
+
+<h1><a name="SDD-OIA">SDD-OIA</a></h1>
+
+<p><img src="assets/images/rsbench-sddoia.png" alt="sddoia" width="80%" height="auto" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">SDD-OIA</code> is a synthetic replacement for <code class="language-plaintext highlighter-rouge">BDD-OIA</code> that comes with a fully configurable <em>{data generator}</em>, enabling fine-grained control over what labels, concepts, and images are observed and the creation of OOD splits.
+In short, <code class="language-plaintext highlighter-rouge">SDD-OIA</code> shares the same classes, concepts and (by default) knowledge as <code class="language-plaintext highlighter-rouge">BDD-OIA</code>, but the images are 3D traffic scenes modelled and rendered using Blender as $469 \times 387$ RGB images.</p>
+
+<p>Images are generated by first sampling a desired label $\mathbf y$, then picking concepts $\mathbf c$ that yield that label, and then rendering an image $\mathbf x$ displaying those concepts.  This allows to easily control what concepts and labels should appear in all data splits, which in turn determine what kinds of RSs can be learned. The dataset we propose contains overall $6820$ training examples, $1464$ validation examples, and $1464$ test examples. Reasoning Shortcuts learned in this task rensemble those in <code class="language-plaintext highlighter-rouge">BDD-OIA</code>.</p>
+
+<p>We also include a OOD test scenario, where the knowledge changes including a new exception under emergency case, this includes in total $1000$ examples. 
+Here, the vehicle is allowed to cross red lights in case of an ${\tt emergency}$. Formally, this alterates the label predictions where the new ${\tt emergency}$ variable that conditions the traffic rules, that is, $(\lnot {\tt emergency} \implies \text{original rule for } {\tt stop})$ $\land$ $(\lnot {\tt emergency} \implies \text{alternative rule for } {\tt stop})$, and similarly for ${\tt turn\_left}$ and ${\tt turn\_right}$.</p>
+
+<p><code class="language-plaintext highlighter-rouge">SDD-OIA</code> comes with its generator, allowing to test different cases and creationg variations of other OOD scenarios can be created.</p>
+
+<h1><a name="verification">Verification</a></h1>
+
+<p><code class="language-plaintext highlighter-rouge">count-rss</code> is a small tool that is able to enumerate the RSs in a task by
+reducing the task to model counting (<code class="language-plaintext highlighter-rouge">#SAT</code>).  In short, <code class="language-plaintext highlighter-rouge">count-rss</code> takes a
+<code class="language-plaintext highlighter-rouge">DIMACS CNF</code> specification of the prior knowledge and a data set, and outputs a
+<code class="language-plaintext highlighter-rouge">DIMACS CNF</code> specification of the RS counting problem, which can be fed to any
+<code class="language-plaintext highlighter-rouge">#SAT</code> solver. Due to their large number even on seemingly simple tasks, we
+suggest using the state-of-the-art approximate <code class="language-plaintext highlighter-rouge">#SAT</code> solver
+<a href="https://github.com/meelgroup/approxmc">ApproxMC</a>.</p>
+
+<h2 id="generating-the-rss-counting-encoding">Generating the RSs counting encoding</h2>
+
+<p>Use <code class="language-plaintext highlighter-rouge">python gen-rss-count.py</code> for generating a DIMACS encoding of the counting task.</p>
+
+<p>On small datasets/tasks, the count of RSs can be computed directly (and exactly) with the <code class="language-plaintext highlighter-rouge">-E</code> flag. 
+For instance:</p>
+
+<p><code class="code-block">$ python gen-rss-count.py xor -n 3 -E</code></p>
+
+<p>computes all the RSs resulting from the XOR task on 3 variables with exhaustive supervision.</p>
+
+<p>Partial/incomplete supervision can be controlled with <code class="language-plaintext highlighter-rouge">-d P</code> with <code class="language-plaintext highlighter-rouge">P</code> in <code class="language-plaintext highlighter-rouge">[0,1]</code>. For instance:</p>
+
+<p><code class="code-block">$ python gen-rss-count.py xor -n 3 -E -d 0.25</code></p>
+
+<p>computes all the RSs when only 1/4 (<it>i.e.</it> 2 examples) are provided. The optional <code class="language-plaintext highlighter-rouge">--seed</code>  argument sets the seed number.</p>
+
+<p>Beyond illustrative the XOR case, random CNFs with <code class="language-plaintext highlighter-rouge">N</code> variables, <code class="language-plaintext highlighter-rouge">M</code> clauses of length <code class="language-plaintext highlighter-rouge">K</code> can be evaluated:</p>
+
+<p><code class="code-block">$ python gen-rss-count.py random -n N -m M -k K</code></p>
+
+<p>Custom task expressed in <code class="language-plaintext highlighter-rouge">DIMACS</code> format are supported, for instance:</p>
+
+<p><code class="code-block">$ python gen-rss-count.py cnf and.cnf</code></p>
+
+<p>Use the flag <code class="language-plaintext highlighter-rouge">-h</code> for help on additional arguments.</p>
+
+<h2 id="counting-rss-with-pyapproxmc">Counting RSs with pyapproxmc</h2>
+
+<p>Once the encoding of the problem is generated with <code class="language-plaintext highlighter-rouge">gen-rss-count.py</code>, use:</p>
+
+<p><code class="code-block">$ python count-amc.py PATH --epsilon E --delta D</code></p>
+
+<p>for obtaining an (epsilon,delta)-approximation of the exact RS count.</p>
+
+<p>Alternative solvers can be used analogously.  Exact solvers include <a href="https://pyeda.readthedocs.io/en/latest/"><code class="language-plaintext highlighter-rouge">pyeda</code></a> and
+<a href="https://github.com/wannesm/PySDD"><code class="language-plaintext highlighter-rouge">pysdd</code></a>.</p>
+
+<h1><a name="relevant">Relevant Papers using rsbench for studying RSs</a></h1>
+
+<ul style="list-style: none;">
+  <li>
+    <strong>Authors:</strong> Emanuele Marconato, Stefano Teso, Antonio Vergari, Andrea Passerini <br />
+    <strong>Title:</strong> <a href="https://dl.acm.org/doi/10.5555/3666122.3669292" target="_blank">
+      Not all neuro-symbolic concepts are created equal: analysis and mitigation of reasoning shortcuts
+    </a> <br />
+    <strong>Publication:</strong> <em>Neural Information Processing Systems (NeurIPS)</em>, 2023 <br />
+    <span>TL;DR: Why RSs appear, their root causes, and mitigation strategies</span>
+  </li>
+  <li>
+    <strong>Authors:</strong> Emanuele Marconato, Samuele Bortolotti, Emile van Krieken, Antonio Vergari, Andrea Passerini, Stefano Teso <br />
+    <strong>Title:</strong> <a href="https://proceedings.mlr.press/v244/marconato24a.html" target="_blank">
+      BEARS Make Neuro-Symbolic Models Aware of their Reasoning Shortcuts
+    </a> <br />
+    <strong>Publication:</strong> <em>Uncertainty in Artificial Intelligence (UAI)</em>, 2024 <br />
+    <span>TL;DR: How to make Neuro-Symbolic models aware of their RSs</span>
+  </li>
+  <li>
+    <strong>Authors:</strong> Xiao-Wen Yang, Wen-Da Wei, Jie-Jing Shao, Yu-Feng Li, Zhi-Hua Zhou <br />
+    <strong>Title:</strong> <a href="https://proceedings.mlr.press/v235/yang24ac.html" target="_blank">
+      Analysis for Abductive Learning and Neural-Symbolic Reasoning Shortcuts
+    </a> <br />
+    <strong>Publication:</strong> <em>International Conference on Machine Learning (ICML)</em>, 2024 <br />
+    <span>TL;DR: Reduce shortcut risk using Abductive Learning</span>
+  </li>
+</ul>
+
+<h1><a name="metadata">Metadata</a></h1>
+
+<p>Preliminary metadata for the datasets we provide in the <code class="language-plaintext highlighter-rouge">Zenodo</code> archive and <code class="language-plaintext highlighter-rouge">Google Drive</code> is listed here:</p>
+
+<ul>
+  <li><a href="https://unitn-sml.github.io/rsbench/assets/metadata/bbox_kand_logic_croissant.json"><code class="language-plaintext highlighter-rouge">bbox_kand_logic</code></a></li>
+  <li><a href="https://unitn-sml.github.io/rsbench/assets/metadata/kand_logic_croissant.json"><code class="language-plaintext highlighter-rouge">kand_logic_croissant</code></a></li>
+  <li><a href="https://unitn-sml.github.io/rsbench/assets/metadata/sddoia_croissant.json"><code class="language-plaintext highlighter-rouge">sdd_oia</code></a></li>
+  <li><a href="https://unitn-sml.github.io/rsbench/assets/metadata/sddoia_embeddings_croissant.json"><code class="language-plaintext highlighter-rouge">sdd_oia_embeddings</code></a></li>
+</ul>
+
+<h1><a name="license">License</a></h1>
+
+<p><strong>Code</strong>: Most of our code is distributed under the <a href="https://opensource.org/license/bsd-3-clause">BSD
+3</a> license.  The <code class="language-plaintext highlighter-rouge">CLE4EVR</code> and
+<code class="language-plaintext highlighter-rouge">SDDOIA</code> generators are derived from the <code class="language-plaintext highlighter-rouge">CLEVR</code> code base, which is
+distributed under the permissive BSD license.  The <code class="language-plaintext highlighter-rouge">Kand-Logic</code> generator is
+based on the <code class="language-plaintext highlighter-rouge">Kandinsky-patterns</code> code, which is available under the
+<a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPL-3.0</a> license, and so is our
+generator.</p>
+
+<p><strong>Data</strong>: All ready-made data sets and generated datasets are distributed under
+the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a>
+license, with the exception of <code class="language-plaintext highlighter-rouge">Kand-Logic</code>, which is derived from
+<code class="language-plaintext highlighter-rouge">Kandinsky-patterns</code> and as such is distributed under the
+<a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPL-3.0</a> license.</p>
+
+      </main>
+    </div>
+    <footer>
+    <p></p>
+</footer>
+  </body>
+</html>

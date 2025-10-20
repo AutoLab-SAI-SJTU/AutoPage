@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EM-LLM: Human-inspired Episodic Memory for Infinite Context LLMs</title>
+    <meta name="description" content="A novel approach integrating human-like episodic memory into Large Language Models for enhanced long-context processing">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script src="plotly-latest.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>EM-LLM: Human-inspired Episodic Memory for Infinite Context LLMs</h1>
+            <p class="venue">ICLR 2025</p>
+            <p class="authors"><a href="https://zfountas.com/"  class="author-link">Zafeirios Fountas</a>, 
+                Martin A Benfeghoul, 
+                Adnan Oomerjee, 
+                <a href="https://fenchri.github.io/" class="author-link">Fenia Christopoulou</a>, 
+                <a href="https://glampouras.github.io/" class="author-link">Gerasimos Lampouras</a>, 
+                <a href="https://scholar.google.com/citations?user=AE5suDoAAAAJ&hl=en" class="author-link">Haitham Bou-Ammar</a>, 
+                <a href="http://www0.cs.ucl.ac.uk/staff/jun.wang/" class="author-link">Jun Wang</a>
+            </p>
+                <p class="affiliations">Huawei Noah's Ark Lab, London, UK | University College London, UK</p>
+            <!-- <p class="conference">xxx 2024 (oral/poster)</p>-->
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/gWoh_5fsZpA?si=wySuvhbl0TFt-guF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <nav>
+                <a href="https://openreview.net/pdf?id=BI2int5SAC" class="button">Paper</a>
+                <a href="https://github.com/em-llm/EM-LLM-model" class="button">GitHub</a>
+                <a href="https://huggingface.co/papers/2407.09450" class="button">Hugging Face</a>
+                <a href="https://x.com/zfountas/status/1812854706051461441" class="button">Twitter</a>
+                <!--<a href="#" class="button">Code</a>
+                <a href="#" class="button">Video</a>-->
+            </nav>
+        </div>
+        <!--<div class="header-visual">
+             Replace with actual path to your key figure or video embed 
+            <img src="video.png" alt="EM-LLM Key Figure"> 
+        </div>-->
+    </header>
+
+    <main>
+        <section id="abstract">
+
+            <h2>Summary</h2>
+            <p>
+                While current large language models (LLMs) hit a wall with extensive contexts, the human brain effortlessly organizes and retrieves experiences spanning a lifetime. 
+                Drawing inspiration from human cognition, we introduce <span class="tooltip-trigger"><b>EM-LLM</b><span class="tooltip">Episodic Memory Language Model - our novel architecture that combines human-like memory mechanisms with LLMs.</span></span>, an architecture that integrates key aspects of human episodic memory and event cognition into LLMs with <span class="tooltip-trigger"><b>no fine-tuning required</b><span class="tooltip">The model works out of the box with any Transformer-based LLM without requiring additional training!</span></span>. Beyond achieving state-of-the-art (SOTA) performance on long-context tasks, EM-LLM's approach to information organization shows <a href="index.html#human-correlation" class="tooltip-trigger">remarkable <strong>similarities to human memory patterns</strong><span class="tooltip">Our analysis reveals strong correlations between EM-LLM's event segmentation and human-perceived events - see the full analysis below</span></a>, suggesting we're on the right track in bridging artificial and biological information processing.</p>
+
+            <p>At its core, EM-LLM organizes incoming information into coherent episodic events, much like how humans naturally segment their experiences. It does this through a sophisticated combination of Bayesian surprise detection and graph-theoretic boundary refinement, operating in real-time as information flows in. When needed, these events are retrieved through a two-stage memory process that mirrors human memory access patterns, combining similarity-based search with temporal relationships.</p>
+
+            <p>Experiments on the <a class="dataset-link tooltip-trigger" target="_blank" href="https://github.com/THUDM/LongBench"><i><strong>LongBench</strong></i><span class="tooltip">A comprehensive benchmark for evaluating LLM performance on long-context tasks.<br/>Click to visit the github repo.</span></a> and <a target="_blank" class="dataset-link tooltip-trigger" href="https://github.com/OpenBMB/InfiniteBench"><strong><i>∞-Bench</i></strong><span class="tooltip">A benchmark designed to test model performance on extremely long contexts.<br/>Click to visit the github repo.</span></a> benchmarks demonstrate EM-LLM's superior performance, consistently outperforming the SOTA model in long-context LLM architectures <a class="dataset-link tooltip-trigger" target="_blank" href="https://arxiv.org/abs/2402.04617"><strong>InfLLM</strong><span class="tooltip">A recent SOTA model by C Xiao et al., published in NeurIPS 2024.<br/>Click to visit the paper.</span></a> across various baseline LLMs. In addition, EM-LLM outperforms <a class="dataset-link tooltip-trigger" target="_blank" href="https://huggingface.co/spaces/mteb/leaderboard"><strong>SOTA RAG</strong><span class="tooltip">We used <strong>NV-Embed-v2</strong> retriever, which ranks No. 1 on the Massive Text Embedding Benchmark (MTEB benchmark)(as of Oct 25, 2024).<br/>Click to visit the leaderboard.</span></a> retrieval models in a wide range of tasks, while requiring similar resources. Notably, EM-LLM's performance even surpasses <span class="tooltip-trigger"><strong>full-context models</strong><span class="tooltip">Models that process the entire input context at once without any chunking or retrieval</span></span> in most tasks, while successfully performing retrieval across <span class="tooltip-trigger"><strong>10M tokens</strong><span class="tooltip">Ten million tokens - approximately equivalent to 7,500 pages of text</span></span> - a scale computationally infeasible for such models. Our analysis reveals strong correlations between EM-LLM's event segmentation and human-perceived events, suggesting a bridge between this artificial system and its biological counterpart, thereby offering a novel computational framework for exploring human memory mechanisms.</p>
+            </section>
+
+        <section id="architecture">
+            <h2>Architecture</h2>
+            <p>
+                EM-LLM brings human-like memory capabilities to LLMs through three key innovations: An initial segmentation of the context window into <i>events</i> based on a metric of surprise (1), the refinement of the boundary of these events based on graph theory (2) and a two-stage memory retrieval process (3-4). The complete EM-LLM architecture showing all components and their interactions is shown below. You can hover over each section to explore the individual components.
+            </p>
+            
+            <div class="image-container" style="position: relative; width: 100%; max-width: 1000px; margin: 0 auto;">
+                <!-- Main image -->
+                <img id="archImage" src="Fig_architecture/1_all.svg" alt="EM-LLM Architecture" style="width: 100%;">
+                
+                <!-- Invisible buttons overlaying the image -->
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: grid; grid-template-rows: repeat(4, 1fr);">
+                <!-- Initial Segmentation -->
+                <div 
+                    class="hover-area"
+                    onmouseover="updateView('2_segmentation', 'Initial segmentation uses Bayesian surprise to detect potential event boundaries in the token stream.')"
+                    onmouseout="resetView()"
+                    style="background: transparent; cursor: pointer;">
+                </div>
+                
+                <!-- Refinement -->
+                <div 
+                    class="hover-area"
+                    onmouseover="updateView('3_refinement', 'Graph-theoretic boundary refinement optimizes the initial segmentation using temporal relationships.')"
+                    onmouseout="resetView()"
+                    style="background: transparent; cursor: pointer;">
+                </div>
+                
+                <!-- Cued Recall -->
+                <div 
+                    class="hover-area"
+                    onmouseover="updateView('4_cued', 'Cued recall retrieves relevant events using similarity-based search with kNN.')"
+                    onmouseout="resetView()"
+                    style="background: transparent; cursor: pointer;">
+                </div>
+                
+                <!-- Free Recall -->
+                <div 
+                    class="hover-area"
+                    onmouseover="updateView('5_free', 'Free recall combines similarity and temporal contiguity for more natural memory access.')"
+                    onmouseout="resetView()"
+                    style="background: transparent; cursor: pointer;">
+                </div>
+                </div>
+            </div>
+            
+            </div>
+
+            <style>
+            .hover-area {
+            transition: background-color 0.3s;
+            }
+
+            .hover-area:nth-child(1):hover {
+            background-color: rgba(59, 130, 246, 0.1); /* blue */
+            }
+
+            .hover-area:nth-child(2):hover {
+            background-color: rgba(34, 197, 94, 0.1); /* green */
+            }
+
+            .hover-area:nth-child(3):hover {
+            background-color: rgba(234, 179, 8, 0.1);  /* yellow */
+            }
+
+            .hover-area:nth-child(4):hover {
+            background-color: rgba(239, 68, 68, 0.1);  /* red */
+            }
+            </style>
+
+            <script>
+            function updateView(imageName, description) {
+            document.getElementById('archImage').src = `Fig_architecture/${imageName}.svg`;
+            document.getElementById('description').textContent = description;
+            }
+
+            function resetView() {
+            document.getElementById('archImage').src = 'Fig_architecture/1_all.svg';
+            document.getElementById('description').textContent = 'Complete EM-LLM architecture showing all components and their interactions.';
+            }
+            </script>
+
+
+
+
+        </section>
+
+
+
+
+        <section id="results">
+            <h2>Performance Results</h2>
+            <p>
+                EM-LLM sets new benchmarks across multiple long-context tasks, consistently outperforming both current SOTA models and traditional RAG approaches. We tested EM-LLM on the <a href="https://github.com/THUDM/LongBench" class="dataset-link"><strong>LongBench</strong></a> and <a href="https://github.com/OpenBMB/InfiniteBench" class="dataset-link"><strong>∞-Bench</strong></a> benchmarks, across a wide range of long-context tasks (including tasks with millions of tokens), comparing it to the current SOTA in both RAG retrievals and other long-context models. Here's a quick look at how we did:
+            </p>
+
+            <h3>EM-LLM vs RAG and full-context models</h3>
+            <p>
+                On the <strong>left</strong> in the figure below, we see EM-LLM vs. RAG (NV-Embed-v2 retriever) vs. full-context, with LLaMA-3.1-8B as the base LLM, evaluated on LongBench. On the <strong>right</strong>, we see a comparison of various long-sequence methods (sorted based on their context window length) on an extended version of ∞-Bench's <i>Retrieve.PassKey</i>.
+                <div align="center">
+                <img src="Fig_rag_fc_10M.svg" alt="emllm_rag_fc" width="100%"/>
+                </div>
+            </p>
+      
+            <h3>EM-LLM vs <a href="index.html#" class="dataset-link">InfLLM</a></h3>
+                We also compared EM-LLM against the method in the literature that is both the closest in terms of architecture as well as the SOTA (at the time of writing) in long-context benchmarks. The result of this performance in LongBench can be seen in this figure:
+                <td style="width: 50%; vertical-align: top;">
+                    <div align="center"><div id="chart_longb" style="width: 70%;"></div></div>
+                </td>
+
+            <script>
+                var models = ['Phi 3', 'Phi 3.5', 'Mistral v2', 'LLaMA 3', 'LLaMA 3.1'];
+                var inf_llm_avg = [34.5, 34.2, 41.9, 47, 51.1];
+                var em_llm_avg = [35.4, 34.9, 43.7, 47.2, 51.3];
+        
+                var trace1 = {
+                    x: models,
+                    y: inf_llm_avg,
+                    name: 'InfLLM',
+                    type: 'bar',
+                    marker: {color: '#5c5c5c'}
+                };
+        
+                var trace2 = {
+                    x: models,
+                    y: em_llm_avg,
+                    name: 'EM-LLM',
+                    type: 'bar',
+                    marker: {color: '#4CAF50'}
+                };
+                var data_long = [trace1, trace2];
+
+                var models_inf = ['Mistral v2', 'LLaMA 3', 'LLaMA 3.1'];
+                var inf_llm_avg_inf = [65.77, 50.32, 64.00];
+                var em_llm_avg_inf = [66.15, 48.83, 65.73];
+
+
+                var layout_long = {
+                    title: '', //'LongBench tasks', # TODO: Reduce size from top, that is normally allocated for the plot title.
+                    xaxis: {title: 'Base LLM model'},
+                    yaxis: {title: 'Average Performance', range: [30, 52]},
+                    barmode: 'group',
+                    plot_bgcolor: 'rgba(0, 0, 0, 0)',  // Transparent plot area
+                    paper_bgcolor: 'rgba(0, 0, 0, 0)',  // Transparent surrounding area
+                    legend: {
+                        x: 0.05,
+                        y: 0.95,
+                        bgcolor: 'rgba(255, 255, 255, 0.2)',  // Optional
+                        bordercolor: 'rgba(0, 0, 0, 0.5)'  // Optional
+                    }
+                };
+
+                Plotly.newPlot('chart_longb', data_long, layout_long);
+            </script>
+
+
+            <p>
+                EM-LLM shows consistent improvements, with standout performances (up to 40% improvement) in retrieval and QA tasks. 
+                To view the result tables for both benchmarks <span class="dataset-link" onclick="toggleTable('longbench'); event.preventDefault();"><strong>click here</strong></span>.
+            </p>
+ 
+
+
+            
+            <div class="benchmark-container">
+                <div class="benchmark-section">
+                    <div class="benchmark-header" onclick="toggleTable('longbench')">
+                    </div>
+                    <div id="longbench" class="table-container">
+                        <h3>Full benchmark tables</h3>
+
+                        Performance on all LongBench tasks:
+                        <table class="results-table">
+                            <thead>
+                                <tr>
+                                    <th>Base LLM</th>
+                                    <th>Method</th>
+                                    <th>SQA</th>
+                                    <th>MQA</th>
+                                    <th>Sum</th>
+                                    <th>FSL</th>
+                                    <th>Ret</th>
+                                    <th>Cod</th>
+                                    <th>Avg.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2">Mistral v2</td>
+                                    <td>InfLLM (4k+2k)</td>
+                                    <td class="best-score">33.0</td>
+                                    <td>25.5</td>
+                                    <td>27.1</td>
+                                    <td>66.1</td>
+                                    <td>64.0</td>
+                                    <td>54.8</td>
+                                    <td>41.9</td>
+                                </tr>
+                                <tr>
+                                    <td>EM-LLM<sub>SM+C</sub></td>
+                                    <td>32.9</td>
+                                    <td class="best-score">27.0</td>
+                                    <td class="best-score">27.2</td>
+                                    <td class="best-score">66.8</td>
+                                    <td class="best-score">84.1</td>
+                                    <td>54.8</td>
+                                    <td class="best-score">43.7</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">LLaMA 3</td>
+                                    <td>InfLLM (4k+4k)</td>
+                                    <td>38.5</td>
+                                    <td>36.9</td>
+                                    <td>27.0</td>
+                                    <td>69.0</td>
+                                    <td>84.0</td>
+                                    <td class="best-score">53.2</td>
+                                    <td>47.0</td>
+                                </tr>
+                                <tr>
+                                    <td>EM-LLM<sub>S</sub></td>
+                                    <td class="best-score">39.3</td>
+                                    <td class="best-score">37.7</td>
+                                    <td>27.0</td>
+                                    <td class="best-score">69.2</td>
+                                    <td class="best-score">87.5</td>
+                                    <td>50.3</td>
+                                    <td class="best-score">47.2</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">LLaMA 3.1</td>
+                                    <td>InfLLM (4k+4k)</td>
+                                    <td class="best-score">41.4</td>
+                                    <td>40.7</td>
+                                    <td>29.0</td>
+                                    <td>69.0</td>
+                                    <td>97.0</td>
+                                    <td class="best-score">64.2</td>
+                                    <td>51.1</td>
+                                </tr>
+                                <tr>
+                                    <td>EM-LLM<sub>SM</sub></td>
+                                    <td>41.2</td>
+                                    <td class="best-score">41.3</td>
+                                    <td class="best-score">29.2</td>
+                                    <td class="best-score">69.1</td>
+                                    <td class="best-score">98.5</td>
+                                    <td>64.1</td>
+                                    <td class="best-score">51.3</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">Phi 3</td>
+                                    <td>InfLLM (1k+3k)</td>
+                                    <td>28.4</td>
+                                    <td>24.9</td>
+                                    <td>25.6</td>
+                                    <td>52.9</td>
+                                    <td>7.5</td>
+                                    <td>57.0</td>
+                                    <td>34.5</td>
+                                </tr>
+                                <tr>
+                                    <td>EM-LLM<sub>S</sub></td>
+                                    <td class="best-score">29.2</td>
+                                    <td class="best-score">27.1</td>
+                                    <td class="best-score">25.9</td>
+                                    <td class="best-score">53.5</td>
+                                    <td class="best-score">10.0</td>
+                                    <td>57.0</td>
+                                    <td class="best-score">35.4</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">Phi 3.5</td>
+                                    <td>InfLLM (1k+3k)</td>
+                                    <td>31.7</td>
+                                    <td>28.5</td>
+                                    <td>23.9</td>
+                                    <td class="best-score">56.3</td>
+                                    <td>11.5</td>
+                                    <td class="best-score">40.3</td>
+                                    <td>34.2</td>
+                                </tr>
+                                <tr>
+                                    <td>EM-LLM<sub>S</sub></td>
+                                    <td class="best-score">31.8</td>
+                                    <td class="best-score">31.9</td>
+                                    <td class="best-score">24.5</td>
+                                    <td>55.5</td>
+                                    <td class="best-score">13.0</td>
+                                    <td>39.5</td>
+                                    <td class="best-score">34.9</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <br/>
+                        Performance on InfiniteBench tasks:
+
+                        <table class="results-table">
+                            <thead>
+                                <tr>
+                                    <th>Base LLM</th>
+                                    <th>Method</th>
+                                    <th>C.D</th>
+                                    <th>M.F</th>
+                                    <th>MC</th>
+                                    <th>R.KV</th>
+                                    <th>R.P</th>
+                                    <th>R.N</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2">Mistral v2</td>
+                                    <td>InfLLM (4k+2k)</td>
+                                    <td class="best-score">29.4</td>
+                                    <td>26.6</td>
+                                    <td class="best-score">43.2</td>
+                                    <td>95.6</td>
+                                    <td>100.0</td>
+                                    <td>99.8</td>
+                                </tr>
+                                <tr>
+                                    <td>EM-LLM<sub>SM+C</sub></td>
+                                    <td>28.2</td>
+                                    <td class="best-score">27.1</td>
+                                    <td>42.8</td>
+                                    <td class="best-score">99.0</td>
+                                    <td>100.0</td>
+                                    <td>99.8</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">LLaMA 3</td>
+                                    <td>InfLLM (4k+4k)</td>
+                                    <td>30.5</td>
+                                    <td class="best-score">23.7</td>
+                                    <td class="best-score">43.7</td>
+                                    <td class="best-score">5.0</td>
+                                    <td>100.0</td>
+                                    <td>99.0</td>
+                                </tr>
+                                <tr>
+                                    <td>EM-LLM<sub>S</sub></td>
+                                    <td class="best-score">31.7</td>
+                                    <td>16.9</td>
+                                    <td>40.6</td>
+                                    <td>4.2</td>
+                                    <td>100.0</td>
+                                    <td class="best-score">99.6</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">LLaMA 3.1</td>
+                                    <td>InfLLM (4k+4k)</td>
+                                    <td>22.6</td>
+                                    <td>33.7</td>
+                                    <td>46.7</td>
+                                    <td>81.0</td>
+                                    <td>100.0</td>
+                                    <td>100.0</td>
+                                </tr>
+                                <tr>
+                                    <td>EM-LLM<sub>SM</sub></td>
+                                    <td>22.6</td>
+                                    <td class="best-score">34.0</td>
+                                    <td class="best-score">47.6</td>
+                                    <td class="best-score">90.2</td>
+                                    <td>100.0</td>
+                                    <td>100.0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+
+
+
+            <script>
+                function toggleTable(tableId) {
+                    const tableContainer = document.getElementById(tableId);
+                    const currentDisplay = tableContainer.style.display;
+                    tableContainer.style.display = currentDisplay === 'block' ? 'none' : 'block';
+                }
+                
+                // Initialize tables as hidden
+                document.addEventListener('DOMContentLoaded', function() {
+                    const tables = document.getElementsByClassName('table-container');
+                    for(let table of tables) {
+                        table.style.display = 'none';
+                    }
+                });
+            </script>
+        </section>
+
+        <section id="human-correlation">
+            <h2>Human-like Event Segmentation</h2>
+            <p>
+                Additionally, our analysis reveals strong correlations between EM-LLM's surprise-based event segmentation and human-perceived events, suggesting a bridge between these two systems. For example, consider the figure below:
+            </p>
+            <img src="Fig_human_res_llama2_2.svg" alt="Human-LLM Correlation in Event Segmentation" class="figure">
+            <p>
+                These graphs present results from a <a href="https://arxiv.org/abs/2301.10297">study</a> where participants listened to a podcast and indicated points they perceived as event boundaries. 
+                We then compared various AI segmentation methods, including EM-LLM, against these human annotations. 
+                The height of each bar represents how closely the method aligns with human judgments. 
+                Notably, our surprise-based approaches (<b>S</b>, <b>SM</b>, <b>SC</b>) consistently outperform fixed-interval methods (<b>F</b>, <b>FM</b>, <b>FC</b>), with EM-LLM closely mirroring human intuition. 
+                This alignment suggests that EM-LLM's event detection mechanism captures something fundamental about how humans naturally segment continuous experiences.
+            </p>
+
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>EM-LLM represents a significant step forward in the development of language models with extended context-processing capabilities. By bridging insights from cognitive science with machine learning, our approach not only enhances the performance of LLMs on long-context tasks but also provides a scalable computational framework for testing hypotheses about human memory.</p>
+        </section>
+
+
+        <section id="cite">
+            <h2>Cite Us</h2>
+            <div class="citation-container">
+                <pre><code id="citationText">
+@inproceedings{fountas2025humaninspired,
+      title={Human-inspired Episodic Memory for Infinite Context {LLM}s},
+      author={Zafeirios Fountas and Martin Benfeghoul and Adnan Oomerjee and Fenia Christopoulou and Gerasimos Lampouras and Haitham Bou Ammar and Jun Wang},
+      booktitle={The Thirteenth International Conference on Learning Representations},
+      year={2025},
+      url={https://openreview.net/forum?id=BI2int5SAC}
+}
+                </code></pre>
+                <button id="copyButton" aria-label="Copy citation">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            </div>
+        </section>
+    
+   
+        <script>
+            document.getElementById('copyButton').addEventListener('click', function() {
+                var citationText = document.getElementById('citationText').textContent;
+                navigator.clipboard.writeText(citationText).then(function() {
+                    alert('Citation copied to clipboard!');
+                }, function(err) {
+                    console.error('Could not copy text: ', err);
+                });
+            });
+        </script>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Huawei Noah's Ark Lab, London, UK</p>
+    </footer>
+</body>
+</html>

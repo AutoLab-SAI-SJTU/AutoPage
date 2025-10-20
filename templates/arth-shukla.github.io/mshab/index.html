@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <!-- For Google Search Console verification -->
+  <meta name="google-site-verification" content="8s3vaaMawNZ2FukDgSgywqfaFLWBrKw0YMySKlEAxdI" />
+  
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="ManiSkill-HAB provides a GPU-accelerated implementation of the Home Assistant Benchmark (HAB) which supports realistic low-level control, extensive RL and IL baselines, and a rule-based trajectory filtering system to enable efficient, controlled data generation at scale.">
+  <meta property="og:title" content="ManiSkill-HAB: A Benchmark for Low-Level Manipulation in Home Rearrangement Tasks" />
+  <meta property="og:description" content="ManiSkill-HAB provides a GPU-accelerated implementation of the Home Assistant Benchmark (HAB) which supports realistic low-level control, extensive RL and IL baselines, and a rule-based trajectory filtering system to enable efficient, controlled data generation at scale." />
+  <meta property="og:url" content="https://arth-shukla.github.io/mshab" />
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/images/mshab_banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+
+  <meta name="twitter:title" content="ManiSkill-HAB: A Benchmark for Low-Level Manipulation in Home Rearrangement Tasks">
+  <meta name="twitter:description" content="ManiSkill-HAB provides a GPU-accelerated implementation of the Home Assistant Benchmark (HAB) which supports realistic low-level control, extensive RL and IL baselines, and a rule-based trajectory filtering system to enable efficient, controlled data generation at scale.">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/mshab_twitter_banner.png">
+  <meta name="twitter:card" content="static/images/mshab_twitter_card.png">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="mshab, ManiSkill-HAB, maniskill-hab, home assistant benchmark, home assistant, benchmark, gpu, simulation, manipulation, low-level control, reinforcement learning, imitation learning, data generation, efficient, controlled, scale, dataset, vision-based dataset, robot learning, embodied ai, embodied learning, embodied navigation, embodied manipulation, embodied rearrangement, embodied tasks, embodied benchmarks, embodied learning benchmarks, embodied learning tasks, embodied learning environments, embodied learning datasets, embodied learning benchmarks and tasks, embodied learning environments and datasets, embodied learning benchmarks and tasks and environments and datasets">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>ManiSkill-HAB</title>
+  <link rel="icon" type="image/x-icon" href="static/svg/Favicon.svg">
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class=" is-centered">
+          <div class=" logo"><img src="static/svg/HillbotLogo.svg" alt="SVG" width="100" height="100"></div>
+          <div class="column has-text-centered hero-title__element sm:px-[40px] px-[20px]">
+            <header>
+              <h1 class=" publication-title">ManiSkill-HAB</h1>
+              <p>A Benchmark for Low-Level Manipulation in Home Rearrangement Tasks</p>
+            </header>
+            <span class="element__conference">International Conference on Learning Representations (ICLR) 2025</span>
+
+            <div class=" element__authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="https://arth.website" target="_blank">Arth Shukla</a>,</span>
+              <span class="author-block">
+                <a href="https://www.stoneztao.com" target="_blank">Stone Tao</a>,</span>
+              <span class="author-block">
+                <a href="https://cseweb.ucsd.edu/~haosu" target="_blank">Hao Su</a>
+              </span>
+            </div>
+
+            <div class="element__institution">
+              <span class="">Hillbot Inc. and UC San Diego</span>
+              <!-- <span class=""><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
+            </div>
+
+            <div class="element__link flex-wrap" style="width: 100% !important;">
+              <!-- Paper PDF link -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2412.13211" target="_blank" class="  ">
+                  <span class="">
+                    <img src="static/svg/Icon-paper.svg" alt="SVG" width="16px" height="16px">
+                  </span>
+                  <span>Paper</span>
+                  <!-- TODO (arth): Add paper link -->
+                </a>
+              </span>
+
+              <!-- Github link -->
+              <span class="link-block">
+                <a href="https://github.com/arth-shukla/mshab" target="_blank" class="  ">
+                  <span class="">
+                    <img src="static/svg/Icon-code.svg" alt="SVG" width="16px" height="16px">
+                  </span>
+                  <span>Code</span>
+                  <!-- TODO (arth): Add code link -->
+                </a>
+              </span>
+
+              <!-- Dataset link -->
+              <span class="link-block">
+                <a href="https://huggingface.co/arth-shukla/mshab_checkpoints" target="_blank" class="  ">
+                  <span class="">
+                    <img src="static/svg/Icon-ckpt.svg" alt="SVG" width="16px" height="16px">
+                  </span>
+                  <span>Models</span>
+                  <!-- TODO (arth): Upload dataset and add link -->
+                </a>
+              </span>
+
+              <!-- Dataset link -->
+              <span class="link-block">
+                <a href="index.html#dataset-section" class="  ">
+                  <span class="">
+                    <img src="static/svg/Icon-data.svg" alt="SVG" width="16px" height="16px">
+                  </span>
+                  <span>Dataset</span>
+                  <!-- TODO (arth): Upload dataset and add link -->
+                </a>
+              </span>
+
+              <!-- Supplementary Website -->
+              <span class="link-block">
+                <a href="https://sites.google.com/view/maniskill-hab" target="_blank" class="  ">
+                  <span class="">
+                    <img src="static/svg/Icon-arxiv.svg" alt="SVG" width="16px" height="16px">
+                  </span>
+                  <span>Supplementary</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teaser video-->
+  <section class="hero-teaser__video">
+    <div class="container  is-max-desktop max-w-[960px]">
+      <div class=" ">
+        <video poster="index.html" id="nice-render-videos-loop" preload autoplay muted loop playsinline height="100%">
+          <!-- Your video here -->
+          <source id="nice-render-videos-loop-source" src="static/videos/mshab_renders.mp4" type="video/mp4">
+          Unable to load video.
+        </video>
+        <h2 class="video__text">
+          Overview: ManiSkill-HAB provides a GPU-accelerated implementation of the Home Assistant Benchmark (HAB) which supports realistic low-level control, extensive RL and IL baselines, and a rule-based trajectory filtering system to enable efficient, controlled data generation at scale.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser video -->
+
+  <!-- Paper abstract -->
+  <section class="hero-abstract">
+    <div class="container  is-max-desktop max-w-[960px]">
+      <h2 class=" is-3 hero-abstract__title">Abstract</h2>
+      <div class="content  hero-abstract__text">
+        <p>
+          High-quality benchmarks are the foundation for embodied AI research, enabling significant advancements in long-horizon navigation, manipulation and rearrangement tasks. However, as frontier tasks in robotics get more advanced, they require faster simulation speed, more intricate test environments, and larger demonstration datasets. To this end, we present MS-HAB, a holistic benchmark for low-level manipulation and in-home object rearrangement. First, we provide a GPU-accelerated implementation of the Home Assistant Benchmark (HAB). We support realistic low-level control and achieve over 3&times; the speed of previous magical grasp implementations at similar GPU memory usage. Second, we train extensive reinforcement learning (RL) and imitation learning (IL) baselines for future work to compare against. Finally, we develop a rule-based trajectory filtering system to sample specific demonstrations from our RL policies which match predefined criteria for robot behavior and safety. Combining demonstration filtering with our fast environments enables efficient, controlled data generation at scale.
+        </p>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+  <!--  Video Presentation -->
+  <style>
+    @media (min-width: 900px) {
+      .gpu-sim-media-container {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .gpu-sim-media-item-image {
+        flex: 0.5;
+        float: left;
+        margin-right: 20px;
+        display: flex;
+        justify-content: center;
+      }
+      .gpu-sim-text-content {
+        flex: 0.5;
+      }
+    }
+    
+    @media (max-width: 899px) {
+      .gpu-sim-media-item {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+
+  <section class="hero-content__video-presentation">
+    <div class="container is-max-desktop max-w-[960px]">
+      <h2 class="video-presentation__title">
+        Parallelized GPU Simulation and Rendering
+      </h2>
+      <div class="gpu-sim-media-container">
+        <div class="gpu-sim-media-item gpu-sim-media-item-image">
+          <img src="static/images/ms_hab2.0_interact_benchmark.png" alt=" " style="width: 100%; max-width: 500px" />
+        </div>
+        <div class="gpu-sim-text-content">
+          <p class="video-presentation__text">
+            By scaling parallel environments with GPU simulation, MS-HAB achieves >4000 samples per second on a benchmark involving representative interaction with dynamic objects — 3&times; Habitat 2.0 at a fraction of the GPU memory usage.
+            <br /><br />
+            MS-HAB environments support realistic low-level control for successful grasping, manipulation, and interaction, while the Habitat 2.0 environments do not support such kind of low-level control.
+            <br /><br />
+            This means MS-HAB is fast enough to support online training and efficient, extensive evaluation without sacrificing physical realism.
+          </p>
+        </div>
+      </div>
+
+      <div class="gpu-sim-media-item">
+        <video poster="index.html" id="zoom-out-video" autoplay preload muted loop playsinline style="width: 100%;">
+          <!-- Your video here -->
+          <source id="zoom-out-video-source" src="static/videos/mshab_zoom_outs.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+  <!-- End  Video Presentation -->
+
+  <!--  Video Presentation -->
+  <section class="hero-content__video-presentation">
+    <div class="container  is-max-desktop max-w-[960px]">
+      <h2 class="video-presentation__title">
+        Extensive RL and IL Baselines with Whole-Body Control
+      </h2>
+      <p class="video-presentation__text">
+        To solve the HAB's long-horizon tasks (TidyHouse, PrepareGroceries, SetTable), MS-HAB chains individual skill policies (Pick, Place, Open, and Close). For each skill, MS-HAB provides extensive reinforcement learning (RL) and imitation learning (IL) baselines which use whole-body control, i.e. manipulation and navigation performed simultaneously.
+
+        <br /><br /><br />
+
+        <video poster="index.html" id="rollouts-video" autoplay preload muted loop playsinline height="100%">
+          <!-- Your video here -->
+          <source id="rollouts-video-source" src="static/videos/mshab_rollouts.mp4" type="video/mp4">
+        </video>
+
+        <br /><br />
+
+        We find that, despite signficant tuning, our baselines are unable to solve the MS-HAB tasks. In particular, individual subtask success rate (Pick, Place, Open, and Close) all leave significant room for improvement. This indicates our task is not yet saturated, and there is room for future work to improve performance.
+
+        <div style="border: 1px solid rgb(120,120,120); border-radius: 24px;"><img src="static/images/mshab_progressive_completion_rates.jpg" alt=" " style="width: 100%; padding: 10px;" /></div>
+      </p>
+    </div>
+  </section>
+  <!-- End  Video Presentation -->
+
+  <!-- Video Presentation -->
+  <section class="hero-content__video-presentation">
+    <div id="dataset-section"class="container is-max-desktop max-w-[960px]">
+      <h2 class="video-presentation__title">
+        Efficient, Controlled Data Generation at Scale
+      </h2>
+      <p class="video-presentation__text" style="padding-bottom: 0;">
+        We develop a rule-based event labeling and trajectory categorization system to filter for specific demonstrations which match predefined criteria for robot behavior and safety. We provide these tools so users can generate data with custom requirements. We use this filtering system to generate a large vision-based robot dataset to train our IL policies.
+      </p>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <table id="dataset-table">
+          <caption style="margin-bottom: 10px;">2 128&times;128 RGBD Pixels + State&nbsp;&nbsp;|&nbsp;&nbsp;1000 episodes per target obj/articulation&nbsp;&nbsp;|&nbsp;&nbsp;Event labeling performed on all trajectories</caption>
+          <thead style="border-top: 1px solid rgb(120,120,120); border-bottom: 1px solid rgb(120,120,120);">
+            <tr>
+              <th>Long-Horizon Task</th>
+              <th>Subtasks</th>
+              <th>Episodes</th>
+              <th>Transitions</th>
+              <th>Size</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody style="border-bottom: 1px solid rgb(120,120,120);">
+            <tr>
+              <td>TidyHouse</td>
+              <td>Pick (<span style="color: #FF8318; font-weight: bold;">M</span>*), Place (<span style="color: #FF8318; font-weight: bold;">M</span>~<span style="color: red; font-weight: bold;">H</span>)</td>
+              <td>18K</td>
+              <td>3.6M</td>
+              <td>208.5 GB</td>
+              <td><a href="https://huggingface.co/datasets/arth-shukla/MS-HAB-TidyHouse" target="_blank">Download</a></td>
+            </tr>
+            <tr>
+              <td>PrepareGroceries</td>
+              <td>Pick (<span style="color: red; font-weight: bold;">H</span>), Place (<span style="color: red; font-weight: bold;">H</span>)</td>
+              <td>18K</td>
+              <td>3.6M</td>
+              <td>174.2 GB</td>
+              <td><a href="https://huggingface.co/datasets/arth-shukla/MS-HAB-PrepareGroceries" target="_blank">Download</a></td>
+            </tr>
+            <tr></tr>
+              <td>SetTable</td>
+              <td>Pick (<span style="color: #5A5AFA; font-weight: bold;">E</span>), Place (<span style="color: #5A5AFA; font-weight: bold;">E</span>),<br />Open (<span style="color: #5A5AFA; font-weight: bold;">E</span>), Close (<span style="color: #5A5AFA; font-weight: bold;">E</span>)</td>
+              <td>8K</td>
+              <td>1.6M</td>
+              <td>83.4 GB</td>
+              <td><a href="https://huggingface.co/datasets/arth-shukla/MS-HAB-SetTable" target="_blank">Download</a></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="6">*Approxmate Subtask Difficulty (based on randomizations, receptacles, etc): Easy &mdash; <span style="color: #5A5AFA; font-weight: bold;">E</span>&nbsp;&nbsp;|&nbsp;&nbsp;Medium &mdash; <span style="color: #FF8318; font-weight: bold;">M</span>&nbsp;&nbsp;|&nbsp;&nbsp;Hard &mdash; <span style="color: red; font-weight: bold;">H</span></td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <p class="video-presentation__text">
+        Furthermore, we use the trajectory categorization system to group rollouts by success/failure modes. We provide these statistics in the paper appendix to provide the community with clearer insight on avenues for improvement beyond raw success rates.
+      </p>
+    </div>
+  </section>
+  <!-- End  Video Presentation -->
+
+  <!-- Video Presentation -->
+  <section class="hero-content__video-presentation">
+    <div class="container is-max-desktop max-w-[960px]">
+      <h2 class="video-presentation__title">
+        Supporting Open Source Science
+      </h2>
+      <p class="video-presentation__text">
+        All environments, code, checkpoints, and datasets are open-sourced for the community to use. We will continue to support the MS-HAB benchmark with performance improvments, features, baselines, and tools. If you'd like to request a feature or contribute, please check out the GitHub repository!
+        
+        <br /><br />
+
+        <span class="hero-title__element" style="padding: 0;">
+          <span class="element__link flex-wrap" style="padding: 0;"><!-- Dataset link -->
+            <!-- Dataset link -->
+            <span class="link-block">
+              <a href="https://github.com/arth-shukla/mshab" target="_blank" class="  ">
+                <span class="">
+                  <img src="static/svg/Icon-code.svg" alt="SVG" width="16px" height="16px">
+                </span>
+                <span>Code</span>
+                <!-- TODO (arth): Upload dataset and add link -->
+              </a>
+            </span>
+
+            <span class="link-block">
+              <a href="https://huggingface.co/arth-shukla/mshab_checkpoints" target="_blank" class="  ">
+                <span class="">
+                  <img src="static/svg/Icon-ckpt.svg" alt="SVG" width="16px" height="16px">
+                </span>
+                <span>Models</span>
+                <!-- TODO (arth): Upload dataset and add link -->
+              </a>
+            </span>
+
+            <!-- Dataset link -->
+            <span class="link-block">
+              <a href="index.html#dataset-section" class="  ">
+                <span class="">
+                  <img src="static/svg/Icon-data.svg" alt="SVG" width="16px" height="16px">
+                </span>
+                <span>Dataset</span>
+                <!-- TODO (arth): Upload dataset and add link -->
+              </a>
+            </span>
+          </span>
+        </span>
+
+        <br />
+
+        Whole-body low-level control under constraints in cluttered environments, long-horizon skill chaining, and scene-level rearrangement are challenging for current robot learning methods; we hope our benchmark and dataset aid the community in advancing these research areas.
+      </p>
+  </section>
+  <!-- End  Video Presentation -->
+
+
+  <!--BibTex citation -->
+  <section class="section hero-content__bibtex" id="BibTeX">
+    <div class="container  is-max-desktop content">
+      <div id="citation-div" class="flex justify-center items-center flex-col px-6 pb-20">
+        <h1 class="bibtex__citation mb-2">Citation</h1>
+        <p class="bibtex__text">
+          If you use ManiSkill-HAB in your work, please consider citing the following:
+        </p>
+        <div class="relative max-w-[840px] w-full">
+          <div class="absolute top-12 right-2 z-10 group cursor-pointer flex" id="copyButton">
+            <div id="message" class=" inline"></div>
+            <img src="static/svg/StateDefault.svg" alt="SVG">
+          </div>
+          <div
+            class="w-full p-10 bg-[#f2f3f4] rounded-xl flex-col justify-start items-start gap-1 inline-flex mt-10 overflow-x-scroll scrollbar-thin scrollbar-thumb-[#f2f3f4] relative">
+            <div class="bibtex__copy w-full">
+              <p>@inproceedings{shukla2025maniskillhab,</p>
+              <p class="ml-[40px] whitespace-nowrap">
+                author={Arth Shukla and Stone Tao and Hao Su},
+              </p>
+              <p class="ml-[40px] whitespace-nowrap">
+                title        = {ManiSkill-HAB: {A} Benchmark for Low-Level Manipulation in Home Rearrangement Tasks},
+              </p>
+              <p class="ml-[40px] whitespace-nowrap">
+                booktitle    = {The Thirteenth International Conference on Learning Representations, {ICLR} 2025, Singapore, April 24-28, 2025},
+              </p>
+              <p class="ml-[40px] whitespace-nowrap">
+                publisher    = {OpenReview.net},
+              </p>
+              <p class="ml-[40px] whitespace-nowrap">
+                year         = {2025},
+              </p>
+              <p class="ml-[40px] whitespace-nowrap">
+                url          = {https://openreview.net/forum?id=6bKEWevgSd},
+              </p>
+              <p class="ml-[40px] whitespace-nowrap">
+                timestamp    = {Thu, 15 May 2025 17:19:05 +0200},
+              </p>
+              <p class="ml-[40px] whitespace-nowrap">
+                biburl       = {https://dblp.org/rec/conf/iclr/ShuklaTS25.bib},
+              </p>
+              <p class="ml-[40px] whitespace-nowrap">
+                bibsource    = {dblp computer science bibliography, https://dblp.org}
+              </p>
+              <p>}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--End BibTex citation -->
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div
+      class="flex w-full bg-black flex-col justify-start h-[480px] w-full items-center bg-center bg-cover bg-[url('static/images/footer-bg.webp')] bg-no-repeat"
+      id="contact">
+      <div class="flex flex-col w-full gap-16 px-6 pt-20 max-w-[1440px] mx-auto">
+        <div class="flex justify-between flex-col sm:flex-row gap-y-10">
+          <div class="flex gap-2 flex-col">
+            <p class="text-white text-2xl font-normal font-ppsupplySans-regular leading-[30px]">
+              <img src="static/svg/Logo.svg" alt="SVG" class=" h-[22px]">
+            </p>
+            <p class="text-white text-base font-normal font-ppsupplySans-regular leading-tight flex gap-1 items-center">
+              Skill by Skill.
+            </p>
+          </div>
+          <div class="flex flex-row gap-10">
+            <div class="">
+              <p class="text-white/40 text-base font-normal font-geist-regular leading-tight">
+                For general inquiries
+              </p>
+              <a href="mailto:contact@hillbot.ai"
+                class="text-white text-lg font-normal font-ppsupplySans-regular leading-snug">
+                contact@hillbot.ai
+              </a>
+            </div>
+            <div class="">
+              <p class="text-white/40 text-base font-normal font-geist-regular leading-tight">
+                For careers
+              </p>
+              <a href="mailto:hr@hillbot.ai"
+                class="text-white text-lg font-normal font-ppsupplySans-regular leading-snug">
+                hr@hillbot.ai
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-2 justify-between">
+          <p class="text-white text-base font-normal font-geist-regular leading-tight">
+            © 2024 Hillbot Inc.
+          </p>
+          <div class="flex gap-4">
+            <a href="https://x.com/Hillbot_AI" target="_blank">
+              <img src="static/svg/XWhite.svg" alt="SVG">
+            </a><a href="https://www.linkedin.com/company/hillbot" target="_blank">
+              <img src="static/svg/LinkedInWhite.svg" alt="SVG">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

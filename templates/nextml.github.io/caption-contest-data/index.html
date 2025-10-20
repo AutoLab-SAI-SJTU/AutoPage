@@ -1,0 +1,4699 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>The New Yorker Cartoon Caption Contest Dataset</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+
+<body>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  <div class="container">
+    <div class="row" align="center"><h2>The New Yorker Cartoon Caption Contest Dataset</h2></div>
+    <div class="row col-md-8 offset-md-2">
+      <p>
+        Thanks for your interest in this dataset.  The data may not be used for commercial purposes. If you do use it for academic research, we would appreciate you referencing the dataset as follows: 
+      </p>
+      <blockquote>
+        <TT>Zhang, J.<sup>*</sup>, Jain, L.<sup>*</sup>, Guo, Y.<sup>*</sup>, Chen, J., Zhou, K. L., Suresh, S., ... & Nowak, R. (2024). Humor in AI: Massive Scale Crowd-Sourced Preferences and Benchmarks for Cartoon Captioning. arXiv preprint arXiv:2406.10522.</TT>
+      </blockquote>
+      <p>and</p>
+      <blockquote>
+        <TT>Jain, L., Jamieson, K., Mankoff, R., Nowak, R., Sievert, S., (2020). The New Yorker Cartoon Caption Contest Dataset. https://nextml.github.io/caption-contest-data/</TT>
+      </blockquote>
+      <p>
+        These data were gathered as part of the The New Yorker (TNY) cartoon caption contest.  The crowdsourced ratings inform the final judging of the captions, but the official winner is decided by the TNY editorial staff.
+      </p>
+      <p>
+      <i>The most recent contest (not shown) is likely receiving votes at <a href="https://www.newyorker.com/cartoons/vote">https://www.newyorker.com/cartoons/vote</a>.</i>
+      </p>
+      <p>
+      More insight into this dataset is at
+      <a href="https://nextml.github.io/caption-contest-data-api/examples.html">
+          https://nextml.github.io/caption-contest-data-api/examples.html
+      </a>, which answers the following questions:
+        <ul>
+            <li>How many responses are gathered per contest?</li>
+            <li>How does the system perform, both for the web server and sampling algorithm?</li>
+            <li>How do ratings behave after users have seen many captions?</li>
+            <li>How funny are captions? How do top captions behave?</li>
+            <li>How well can (older) natural language processing (NLP) tools find similar captions?</li>
+        </ul>
+      </p>
+    </div>  
+  </div>
+   
+  <div class="container">
+    <div class="row" align="center">
+
+        <!--
+      <h2>Downloads</h2>
+      <p><a href="all-data.zip"><b>Download all data</b></a></p>
+      <p>Links to download the captions/cartoon are available on each dashboard.</p>
+        -->
+      <h3>Contests</h3>
+      <table style="width:80%" align="center" class="table">
+        <tr>
+          <th>Contest Dashboard</th>
+          <th>Cartoon</th>
+          <th>Top Rated caption</th>
+          <th>The New Yorker's winner</th>
+          <th>Finalists Announced (date of issue)</th>
+          <th>Number of votes</th>
+          <!--
+          <th>Sampler(s)</th>
+          -->
+        </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/895.html">895 Dashboard</a></td>
+            <td><img src="cartoons/895.jpg" width=300 /></td>
+            <td>“Do you think death rays would be considered electronics or sporting goods?”</td>
+            <td></td>
+            <td></th>
+            <td>777,820</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/894.html">894 Dashboard</a></td>
+            <td><img src="cartoons/894.jpg" width=300 /></td>
+            <td>“See how the nose seems to follow you?”</td>
+            <td></td>
+            <td></th>
+            <td>878,676</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/893.html">893 Dashboard</a></td>
+            <td><img src="cartoons/893.jpg" width=300 /></td>
+            <td>“The seller isn't willing to come down.”</td>
+            <td></td>
+            <td></th>
+            <td>1,085,745</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/892.html">892 Dashboard</a></td>
+            <td><img src="cartoons/892.jpg" width=300 /></td>
+            <td>“Yes, it's called Thesaurus, but you're not related.”</td>
+            <td></td>
+            <td></th>
+            <td>788,251</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/891.html">891 Dashboard</a></td>
+            <td><img src="cartoons/891.jpg" width=300 /></td>
+            <td>“Sorry, only the catcher works from home.”</td>
+            <td></td>
+            <td></th>
+            <td>928,856</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/890.html">890 Dashboard</a></td>
+            <td><img src="cartoons/890.jpg" width=300 /></td>
+            <td>“You never told me you have a sun.”</td>
+            <td></td>
+            <td></th>
+            <td>720,369</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/889.html">889 Dashboard</a></td>
+            <td><img src="cartoons/889.jpg" width=300 /></td>
+            <td>“You say ‘flood’ like it’s a bad thing.”</td>
+            <td></td>
+            <td></th>
+            <td>865,117</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/888.html">888 Dashboard</a></td>
+            <td><img src="cartoons/888.jpg" width=300 /></td>
+            <td>“You know, it's gonna itch like hell when it grows back.”</td>
+            <td></td>
+            <td></th>
+            <td>672,907</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/887.html">887 Dashboard</a></td>
+            <td><img src="cartoons/887.jpg" width=300 /></td>
+            <td>“Four wishes if you listen to a timeshare presentation.”</td>
+            <td></td>
+            <td></th>
+            <td>443,647</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/886.html">886 Dashboard</a></td>
+            <td><img src="cartoons/886.jpg" width=300 /></td>
+            <td>“You're a lifeguard, Larry. You can't keep working from home.”</td>
+            <td></td>
+            <td></th>
+            <td>637,472</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/885.html">885 Dashboard</a></td>
+            <td><img src="cartoons/885.jpg" width=300 /></td>
+            <td>“Upset? I’m beside myself!”</td>
+            <td></td>
+            <td></th>
+            <td>796,287</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/884.html">884 Dashboard</a></td>
+            <td><img src="cartoons/884.jpg" width=300 /></td>
+            <td>“What do you mean, 'we can do this the smooth way or the crunchy way'...?!”</td>
+            <td></td>
+            <td></th>
+            <td>1,093,976</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/883.html">883 Dashboard</a></td>
+            <td><img src="cartoons/883.jpg" width=300 /></td>
+            <td>“Do you ever get the feeling you're wasting one of your lives?”</td>
+            <td></td>
+            <td></th>
+            <td>786,791</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/882.html">882 Dashboard</a></td>
+            <td><img src="cartoons/882.jpg" width=300 /></td>
+            <td>“I think this calls for a discouraging word.”</td>
+            <td></td>
+            <td></th>
+            <td>814,233</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/881.html">881 Dashboard</a></td>
+            <td><img src="cartoons/881.jpg" width=300 /></td>
+            <td>“Listen you guys, I just went through this with Eenie, Meenie, Minie and Moe.””</td>
+            <td></td>
+            <td></th>
+            <td>675,468</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/880.html">880 Dashboard</a></td>
+            <td><img src="cartoons/880.jpg" width=300 /></td>
+            <td>“Ticking?  Actually I find your breathing more annoying.”</td>
+            <td></td>
+            <td></th>
+            <td>737,642</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/879.html">879 Dashboard</a></td>
+            <td><img src="cartoons/879.jpg" width=300 /></td>
+            <td>“It started when Hell froze over”</td>
+            <td></td>
+            <td></th>
+            <td>1,119,122</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/878.html">878 Dashboard</a></td>
+            <td><img src="cartoons/878.jpg" width=300 /></td>
+            <td>“Take those off!  They’ll give you mistle toe.”</td>
+            <td></td>
+            <td></th>
+            <td>777,292</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/877.html">877 Dashboard</a></td>
+            <td><img src="cartoons/877.jpg" width=300 /></td>
+            <td>“I’m having mixed emojis.”</td>
+            <td></td>
+            <td></th>
+            <td>486,047</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/876.html">876 Dashboard</a></td>
+            <td><img src="cartoons/876.jpg" width=300 /></td>
+            <td>“The weird part is this one’s on the placebo.”</td>
+            <td></td>
+            <td></th>
+            <td>741,955</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/875.html">875 Dashboard</a></td>
+            <td><img src="cartoons/875.jpg" width=300 /></td>
+            <td>“See, honey, it is possible . . . one bag for six months.”</td>
+            <td></td>
+            <td></th>
+            <td>632,342</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/874.html">874 Dashboard</a></td>
+            <td><img src="cartoons/874.jpg" width=300 /></td>
+            <td>“Not as surprising as watching you pick up his poo.”</td>
+            <td></td>
+            <td></th>
+            <td>660,003</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/873.html">873 Dashboard</a></td>
+            <td><img src="cartoons/873.jpg" width=300 /></td>
+            <td>“Congratulations. We've found millions of compatible donors.”</td>
+            <td></td>
+            <td></th>
+            <td>669,650</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/872.html">872 Dashboard</a></td>
+            <td><img src="cartoons/872.jpg" width=300 /></td>
+            <td>“Sorry I was late. I hit every traffic light on the way here.”</td>
+            <td></td>
+            <td></th>
+            <td>685,011</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/871.html">871 Dashboard</a></td>
+            <td><img src="cartoons/871.jpg" width=300 /></td>
+            <td>“It's vegan because I added vegans.”</td>
+            <td></td>
+            <td></th>
+            <td>628,147</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/870.html">870 Dashboard</a></td>
+            <td><img src="cartoons/870.jpg" width=300 /></td>
+            <td>“It’s attached to the debt ceiling.”</td>
+            <td></td>
+            <td></th>
+            <td>525,967</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/869.html">869 Dashboard</a></td>
+            <td><img src="cartoons/869.jpg" width=300 /></td>
+            <td>“Anyway, Gayle, where‘s this can of worms you said we‘d be opening?”</td>
+            <td></td>
+            <td></th>
+            <td>650,378</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/868.html">868 Dashboard</a></td>
+            <td><img src="cartoons/868.jpg" width=300 /></td>
+            <td>“Lately, my meltdowns are coming more frequently.”</td>
+            <td></td>
+            <td></th>
+            <td>898,827</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/867.html">867 Dashboard</a></td>
+            <td><img src="cartoons/867.jpg" width=300 /></td>
+            <td>“I heard I’m being considered for a cabinet post.”</td>
+            <td></td>
+            <td></th>
+            <td>783,397</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/866.html">866 Dashboard</a></td>
+            <td><img src="cartoons/866.jpg" width=300 /></td>
+            <td>“Yeah, that was me. I have greenhouse gas.”</td>
+            <td></td>
+            <td></th>
+            <td>1,042,413</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/865.html">865 Dashboard</a></td>
+            <td><img src="cartoons/865.jpg" width=300 /></td>
+            <td>“Well, in a black hole the gravitational pull is so intense that nothing, not even light, can escape. So yeah, I think your ball is gone.”</td>
+            <td></td>
+            <td></th>
+            <td>938,655</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/864.html">864 Dashboard</a></td>
+            <td><img src="cartoons/864.jpg" width=300 /></td>
+            <td>“Maybe cut the line about following your instincts.”</td>
+            <td></td>
+            <td></th>
+            <td>675,816</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/863.html">863 Dashboard</a></td>
+            <td><img src="cartoons/863.jpg" width=300 /></td>
+            <td>“First, let me fill you in.”</td>
+            <td></td>
+            <td></th>
+            <td>961,488</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/862.html">862 Dashboard</a></td>
+            <td><img src="cartoons/862.jpg" width=300 /></td>
+            <td>“If you watch “Gone With the Wind” with red glasses, the South wins.”</td>
+            <td></td>
+            <td></th>
+            <td>589,565</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/861.html">861 Dashboard</a></td>
+            <td><img src="cartoons/861.jpg" width=300 /></td>
+            <td>“Welcome to the Mild, Mild West!”</td>
+            <td></td>
+            <td></th>
+            <td>774,086</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/860.html">860 Dashboard</a></td>
+            <td><img src="cartoons/860.jpg" width=300 /></td>
+            <td>“And I'm the dirty one?”</td>
+            <td></td>
+            <td></th>
+            <td>724,509</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/859.html">859 Dashboard</a></td>
+            <td><img src="cartoons/859.jpg" width=300 /></td>
+            <td>“For heavens sake George, let's just split the lunch bill five ways.”</td>
+            <td></td>
+            <td></th>
+            <td>844,180</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/858.html">858 Dashboard</a></td>
+            <td><img src="cartoons/858.jpg" width=300 /></td>
+            <td>“When I said “wait till you see these puppies,” what did you think I meant?”</td>
+            <td></td>
+            <td></th>
+            <td>616,719</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/857.html">857 Dashboard</a></td>
+            <td><img src="cartoons/857.jpg" width=300 /></td>
+            <td>“That's nice.  My husband is a carpenter too.”</td>
+            <td></td>
+            <td></th>
+            <td>762,493</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/856.html">856 Dashboard</a></td>
+            <td><img src="cartoons/856.jpg" width=300 /></td>
+            <td>“You don’t have to say ‘excuse me’ every single time.”</td>
+            <td></td>
+            <td></th>
+            <td>1,106,340</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/855.html">855 Dashboard</a></td>
+            <td><img src="cartoons/855.jpg" width=300 /></td>
+            <td>“I can't get a dog but you adopt a highway.”</td>
+            <td></td>
+            <td></th>
+            <td>678,579</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/854.html">854 Dashboard</a></td>
+            <td><img src="cartoons/854.jpg" width=300 /></td>
+            <td>“Are you very satisfied, somewhat satisfied, or not at all satisfied with your pool experience?”</td>
+            <td></td>
+            <td></th>
+            <td>764,444</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/853.html">853 Dashboard</a></td>
+            <td><img src="cartoons/853.jpg" width=300 /></td>
+            <td>“Who knew the Swiss had a navy?”</td>
+            <td></td>
+            <td></th>
+            <td>923,719</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/852.html">852 Dashboard</a></td>
+            <td><img src="cartoons/852.jpg" width=300 /></td>
+            <td>“It's OK, as long as I don't sit on the Jalapenos.”</td>
+            <td></td>
+            <td></th>
+            <td>840,964</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/851.html">851 Dashboard</a></td>
+            <td><img src="cartoons/851.jpg" width=300 /></td>
+            <td>“I’m here to conduct your exit interview.”</td>
+            <td></td>
+            <td></th>
+            <td>553,475</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/850.html">850 Dashboard</a></td>
+            <td><img src="cartoons/850.jpg" width=300 /></td>
+            <td>“If you wanted me to jump, you could've just pushed me.”</td>
+            <td></td>
+            <td></th>
+            <td>31,173</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/849.html">849 Dashboard</a></td>
+            <td><img src="cartoons/849.jpg" width=300 /></td>
+            <td>“How do I look? Yea or neigh?”</td>
+            <td></td>
+            <td></th>
+            <td>692,898</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/848.html">848 Dashboard</a></td>
+            <td><img src="cartoons/848.jpg" width=300 /></td>
+            <td>“Look! The first Robinsons of Spring.”</td>
+            <td></td>
+            <td></th>
+            <td>764,424</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/847.html">847 Dashboard</a></td>
+            <td><img src="cartoons/847.jpg" width=300 /></td>
+            <td>“I absolutely love what you’ve done with your air.”</td>
+            <td></td>
+            <td></th>
+            <td>696,435</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/846.html">846 Dashboard</a></td>
+            <td><img src="cartoons/846.jpg" width=300 /></td>
+            <td>“Now I’m starting to believe the mailman’s side of the story.”</td>
+            <td></td>
+            <td></th>
+            <td>915,320</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/845.html">845 Dashboard</a></td>
+            <td><img src="cartoons/845.jpg" width=300 /></td>
+            <td>“A mortgage I’ll approve for thee, if you can solve these riddles three.”</td>
+            <td></td>
+            <td></th>
+            <td>689,283</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/844.html">844 Dashboard</a></td>
+            <td><img src="cartoons/844.jpg" width=300 /></td>
+            <td>“You can leave your label on.”</td>
+            <td></td>
+            <td></th>
+            <td>630,216</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/843.html">843 Dashboard</a></td>
+            <td><img src="cartoons/843.jpg" width=300 /></td>
+            <td>“Leave the circus,” you said. “You’ll never use those skills,” you said”</td>
+            <td></td>
+            <td></th>
+            <td>694,038</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/842.html">842 Dashboard</a></td>
+            <td><img src="cartoons/842.jpg" width=300 /></td>
+            <td>“Duck! Just kidding, watch your step.”</td>
+            <td></td>
+            <td></th>
+            <td>585,396</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/841.html">841 Dashboard</a></td>
+            <td><img src="cartoons/841.jpg" width=300 /></td>
+            <td>“This is too easy. Let’s put them in an IKEA.”</td>
+            <td></td>
+            <td></th>
+            <td>741,430</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/840.html">840 Dashboard</a></td>
+            <td><img src="cartoons/840.jpg" width=300 /></td>
+            <td>“The label said 'Lay flat to iron."”</td>
+            <td></td>
+            <td></th>
+            <td>730,960</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/839.html">839 Dashboard</a></td>
+            <td><img src="cartoons/839.jpg" width=300 /></td>
+            <td>“I don't care what Satan lets his kids do.”</td>
+            <td></td>
+            <td></th>
+            <td>574,148</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/838.html">838 Dashboard</a></td>
+            <td><img src="cartoons/838.jpg" width=300 /></td>
+            <td>“It’s a win-win. He was delicious, and now we’ve got a flashlight.”</td>
+            <td></td>
+            <td></th>
+            <td>711,545</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/837.html">837 Dashboard</a></td>
+            <td><img src="cartoons/837.jpg" width=300 /></td>
+            <td>“I suspect vowel play”</td>
+            <td></td>
+            <td></th>
+            <td>695,564</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/836.html">836 Dashboard</a></td>
+            <td><img src="cartoons/836.jpg" width=300 /></td>
+            <td>“You're a Holstein? Do you know the Greenblatts from Jersey City?”</td>
+            <td></td>
+            <td></th>
+            <td>1,139,385</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/835.html">835 Dashboard</a></td>
+            <td><img src="cartoons/835.jpg" width=300 /></td>
+            <td>“Sir, this is a Whole Foods. The only payment we accept is an arm and a leg.”</td>
+            <td></td>
+            <td></th>
+            <td>684,627</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/834.html">834 Dashboard</a></td>
+            <td><img src="cartoons/834.jpg" width=300 /></td>
+            <td>“They recommend the beef.”</td>
+            <td></td>
+            <td></th>
+            <td>484,214</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/833.html">833 Dashboard</a></td>
+            <td><img src="cartoons/833.jpg" width=300 /></td>
+            <td>“This is the option covered by your insurance”</td>
+            <td></td>
+            <td></th>
+            <td>809,874</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/832.html">832 Dashboard</a></td>
+            <td><img src="cartoons/832.jpg" width=300 /></td>
+            <td>“We will not negotiate with terriers.”</td>
+            <td></td>
+            <td></th>
+            <td>559,921</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/831.html">831 Dashboard</a></td>
+            <td><img src="cartoons/831.jpg" width=300 /></td>
+            <td>“Any happily married people here tonight?”</td>
+            <td>“Any happily married people here tonight?”</td>
+            <td>January 2 & 9, 2023</th>
+            <td>1,039,647</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/830.html">830 Dashboard</a></td>
+            <td><img src="cartoons/830.jpg" width=300 /></td>
+            <td>“Well of course I’m being defensive!”</td>
+            <td>"Well, of course I'm being defensive."</td>
+            <td>December 19, 2022</th>
+            <td>540,717</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/829.html">829 Dashboard</a></td>
+            <td><img src="cartoons/829.jpg" width=300 /></td>
+            <td>“I was young and needed the money.”</td>
+            <td>"You always think everything is about you."</td>
+            <td>December 12, 2022</th>
+            <td>699,465</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/828.html">828 Dashboard</a></td>
+            <td><img src="cartoons/828.jpg" width=300 /></td>
+            <td>“They want to know if we lost a ball on the Moon in 1971?”</td>
+            <td>“Everyone’s landing on the green but you.”</td>
+            <td>December 5, 2022</th>
+            <td>594,974</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/827.html">827 Dashboard</a></td>
+            <td><img src="cartoons/827.jpg" width=300 /></td>
+            <td>“I’m from the future. Vote carefully.”</td>
+            <td>“How do you kill your lunch with that thing?”</td>
+            <td>November 28, 2022</th>
+            <td>807,973</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/826.html">826 Dashboard</a></td>
+            <td><img src="cartoons/826.jpg" width=300 /></td>
+            <td>“I love it when they wake up and ask what year this is.”</td>
+            <td>“The patient has requested ‘Stayin’ Alive.'”</td>
+            <td>November 21, 2022</th>
+            <td>745,717</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/825.html">825 Dashboard</a></td>
+            <td><img src="cartoons/825.jpg" width=300 /></td>
+            <td>“Just remember, you can be empty headed and orange and still succeed in America.”</td>
+            <td>“Thanks for carving out a little face time.”</td>
+            <td>November 14, 2022</th>
+            <td>808,863</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/824.html">824 Dashboard</a></td>
+            <td><img src="cartoons/824.jpg" width=300 /></td>
+            <td>“Looks like I caught you at the tail end of your meal.”</td>
+            <td>“Your stomach is growling.”</td>
+            <td>November 7, 2022</th>
+            <td>811,988</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/823.html">823 Dashboard</a></td>
+            <td><img src="cartoons/823.jpg" width=300 /></td>
+            <td>“Be grateful you're not in business class.   They have a mime.”</td>
+            <td>“Think of a delay between one and ten hours.”</td>
+            <td>October 31, 2022</th>
+            <td>397,422</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/822.html">822 Dashboard</a></td>
+            <td><img src="cartoons/822.jpg" width=300 /></td>
+            <td>“…but the third planet was juuuuust right!”</td>
+            <td>“Goodnight, trees, goodnight, dirt. Goodnight, human race on the earth.”</td>
+            <td>October 24, 2022</th>
+            <td>687,072</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/821.html">821 Dashboard</a></td>
+            <td><img src="cartoons/821.jpg" width=300 /></td>
+            <td>“You shoulda heard the mocking birds this morning.”</td>
+            <td>“You shoulda heard the mockingbirds this morning.”</td>
+            <td>October 17, 2022</th>
+            <td>736,497</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/820.html">820 Dashboard</a></td>
+            <td><img src="cartoons/820.jpg" width=300 /></td>
+            <td>“You've got it upside down.”</td>
+            <td>“It leaves me feeling empty.”</td>
+            <td>October 10, 2022</th>
+            <td>566,410</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/819.html">819 Dashboard</a></td>
+            <td><img src="cartoons/819.jpg" width=300 /></td>
+            <td>“My wife said, "Try them on, it won't kill you. "”</td>
+            <td>"I only knew about the moral code."</td>
+            <td>October 3, 2022</th>
+            <td>804,325</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/818.html">818 Dashboard</a></td>
+            <td><img src="cartoons/818.jpg" width=300 /></td>
+            <td>“You told me to come back when I got my act together!”</td>
+            <td>“Your downstairs neighbors sent us.”</td>
+            <td>September 26, 2022</th>
+            <td>776,315</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/817.html">817 Dashboard</a></td>
+            <td><img src="cartoons/817.jpg" width=300 /></td>
+            <td>“They tell you to reach for these, but never what to do you if actually catch one.”</td>
+            <td>“You just don’t see stars like this in the city.”</td>
+            <td>September 19, 2022</th>
+            <td>564,661</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/816.html">816 Dashboard</a></td>
+            <td><img src="cartoons/816.jpg" width=300 /></td>
+            <td>“My ex-wife got most of the house.”</td>
+            <td>“Do you mind if I bounce something off you?”</td>
+            <td>September 12, 2022</th>
+            <td>845,170</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/815.html">815 Dashboard</a></td>
+            <td><img src="cartoons/815.jpg" width=300 /></td>
+            <td>“This place is known for serving local produce.”</td>
+            <td>“Elbows on the table. Another reason I don’t like broccoli.”</td>
+            <td>September 5, 2022</th>
+            <td>534,542</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/814.html">814 Dashboard</a></td>
+            <td><img src="cartoons/814.jpg" width=300 /></td>
+            <td>“It has unlimited, data, unlimited minutes, with one string attached.”</td>
+            <td>“I haven’t heard from you since we were kids!”</td>
+            <td>August 29, 2022</th>
+            <td>565,167</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/813.html">813 Dashboard</a></td>
+            <td><img src="cartoons/813.jpg" width=300 /></td>
+            <td>“Sign the treaty, I’m out of quarters.”</td>
+            <td>“I will give you no quarter.”</td>
+            <td>August 22, 2022</th>
+            <td>711,653</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/812.html">812 Dashboard</a></td>
+            <td><img src="cartoons/812.jpg" width=300 /></td>
+            <td>“Pleasing people is all I know, but you wouldn't understand.”</td>
+            <td>“You wouldn’t understand. I need people to like me.”</td>
+            <td>August 15, 2022</th>
+            <td>700,760</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/811.html">811 Dashboard</a></td>
+            <td><img src="cartoons/811.jpg" width=300 /></td>
+            <td>“I told the aquarium we''ll be working remotely from now on.”</td>
+            <td>“A few more years, and all this will be ours.”</td>
+            <td>August 8, 2022</th>
+            <td>635,882</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/810.html">810 Dashboard</a></td>
+            <td><img src="cartoons/810.jpg" width=300 /></td>
+            <td>“Once you press your floor number, he'll never forget.”</td>
+            <td>“Actually, everybody wants to talk about it.”</td>
+            <td>August 1, 2022</th>
+            <td>787,880</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/809.html">809 Dashboard</a></td>
+            <td><img src="cartoons/809.jpg" width=300 /></td>
+            <td>“Once the kids move out it'll get easier”</td>
+            <td>“Why don’t you ever leave the house?”</td>
+            <td>July 25, 2022</th>
+            <td>665,583</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/808.html">808 Dashboard</a></td>
+            <td><img src="cartoons/808.jpg" width=300 /></td>
+            <td>“Yeah, Florida was just getting too weird for us.”</td>
+            <td>“We thought we’d try a flying object they could identify.”</td>
+            <td>July 11 & 18, 2022</th>
+            <td>892,788</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/807.html">807 Dashboard</a></td>
+            <td><img src="cartoons/807.jpg" width=300 /></td>
+            <td>“We use the males as a control group - they never ask for directions.”</td>
+            <td>“The hardest part was teaching him to use the hedge trimmers.”</td>
+            <td>July 4, 2022</th>
+            <td>581,998</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/806.html">806 Dashboard</a></td>
+            <td><img src="cartoons/806.jpg" width=300 /></td>
+            <td>“The castle looked bigger on Zillow.”</td>
+            <td>“Don’t you hate it when sand gets in your suit?”</td>
+            <td>June 27, 2022</th>
+            <td>702,174</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/805.html">805 Dashboard</a></td>
+            <td><img src="cartoons/805.jpg" width=300 /></td>
+            <td>“When we were dating he climbed a skyscraper for me—now I can’t even get him to take out the garbage.”</td>
+            <td>“I think he's been seeing the woman upstairs.”</td>
+            <td>June 20, 2022</th>
+            <td>734,195</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/804.html">804 Dashboard</a></td>
+            <td><img src="cartoons/804.jpg" width=300 /></td>
+            <td>“You're home early.”</td>
+            <td>“You really want to add a kid to all this?”</td>
+            <td>June 13, 2022</th>
+            <td>656,353</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/803.html">803 Dashboard</a></td>
+            <td><img src="cartoons/803.jpg" width=300 /></td>
+            <td>“It’s like new. The previous owner preferred the box it came in.”</td>
+            <td>“O.K., I’ll grab some crayons and get started on the paperwork.”</td>
+            <td>June 6, 2022</th>
+            <td>810,305</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/802.html">802 Dashboard</a></td>
+            <td><img src="cartoons/802.jpg" width=300 /></td>
+            <td>“It was so much easier when everyone was still working from home.”</td>
+            <td>“We usually don’t deliver above Eighty-second Street.”</td>
+            <td>May 30, 2022</th>
+            <td>724,844</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/801.html">801 Dashboard</a></td>
+            <td><img src="cartoons/801.jpg" width=300 /></td>
+            <td>“What do you mean I don’t have time for another game?”</td>
+            <td>“I thought you’d be better at the endgame.”</td>
+            <td>May 23, 2022</th>
+            <td>562,261</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/800.html">800 Dashboard</a></td>
+            <td><img src="cartoons/800.jpg" width=300 /></td>
+            <td>“We're hoping to see more of him as the season goes on!”</td>
+            <td>“Now they’ll never know who’s on first.”</td>
+            <td>May 16, 2022</th>
+            <td>760,341</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/799.html">799 Dashboard</a></td>
+            <td><img src="cartoons/799.jpg" width=300 /></td>
+            <td>“..... and that's when she said, 'It's me or the cat.”</td>
+            <td>“I thought you’d like to try it, instead of just knocking it off the counter.”</td>
+            <td>May 9, 2022</th>
+            <td>1,081,898</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/798.html">798 Dashboard</a></td>
+            <td><img src="cartoons/798.jpg" width=300 /></td>
+            <td>“Sure, call Roadside Assistance. The more, the merrier.”</td>
+            <td>“Don’t worry, you'll be running in no time.”</td>
+            <td>April 25 & May 2</th>
+            <td>698,173</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/797.html">797 Dashboard</a></td>
+            <td><img src="cartoons/797.jpg" width=300 /></td>
+            <td>“Is this a Middle Age crisis?”</td>
+            <td>“We can all hear you snoring in there, Steve.”</td>
+            <td>April 18, 2022</th>
+            <td>757,281</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/796.html">796 Dashboard</a></td>
+            <td><img src="cartoons/796.jpg" width=300 /></td>
+            <td>“Turns out they only check to see if you return the shoes.”</td>
+            <td>“Turns out they only check to see if you return the shoes.”</td>
+            <td>April 11, 2022</th>
+            <td>660,223</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/795.html">795 Dashboard</a></td>
+            <td><img src="cartoons/795.jpg" width=300 /></td>
+            <td>“His last words were "I hope this goes straight to her hips."”</td>
+            <td>“From the gentleman at the bar.”</td>
+            <td>April 4, 2022</th>
+            <td>738,467</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/794.html">794 Dashboard</a></td>
+            <td><img src="cartoons/794.jpg" width=300 /></td>
+            <td>“I told you no lawyer on earth would take our case.”</td>
+            <td>“Oh, no! They’re returning him.”</td>
+            <td>March 28, 2022</th>
+            <td>683,122</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/793.html">793 Dashboard</a></td>
+            <td><img src="cartoons/793.jpg" width=300 /></td>
+            <td>“Teach a bear to shop and he will never have to fish again.”</td>
+            <td>“No bag. Just toss it in the air.	”</td>
+            <td>March 21, 2022</th>
+            <td>710,753</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/792.html">792 Dashboard</a></td>
+            <td><img src="cartoons/792.jpg" width=300 /></td>
+            <td>“It seems someone else wrote a song called "HELP"”</td>
+            <td>“So far, it looks like no one is coming to the recital.”</td>
+            <td>March 14, 2022</th>
+            <td>782,090</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/791.html">791 Dashboard</a></td>
+            <td><img src="cartoons/791.jpg" width=300 /></td>
+            <td>“I’m pretty sure I wasn’t their first choice.”</td>
+            <td>“It’s got an indoor tree.”</td>
+            <td>March 7, 2022</th>
+            <td>910,349</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/790.html">790 Dashboard</a></td>
+            <td><img src="cartoons/790.jpg" width=300 /></td>
+            <td>“You take a left at these lights. Go the the next junction. Spin around 10 times. Hit the wall. Then reverse back about 10 feet and it should be on your left.”</td>
+            <td>“The dealer said it scored high in crash tests.”</td>
+            <td>February 28, 2022</th>
+            <td>848,102</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/789.html">789 Dashboard</a></td>
+            <td><img src="cartoons/789.jpg" width=300 /></td>
+            <td>“Do you have to come in here every time I turn on the light?”</td>
+            <td>“Do you have to come in here every time I turn on the light?”</td>
+            <td>February 14 & 21, 2022</th>
+            <td>447,322</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/788.html">788 Dashboard</a></td>
+            <td><img src="cartoons/788.jpg" width=300 /></td>
+            <td>“You should have done that before you put it on.”</td>
+            <td>"Ideal for parties with no atmosphere."</td>
+            <td>February 7, 2022</th>
+            <td>815,462</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/787.html">787 Dashboard</a></td>
+            <td><img src="cartoons/787.jpg" width=300 /></td>
+            <td>“Of course I’m living in the past. Have you seen the present?!”</td>
+            <td>“These should help me approach your father on his own level.”</td>
+            <td>January 31, 2022</th>
+            <td>683,875</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/786.html">786 Dashboard</a></td>
+            <td><img src="cartoons/786.jpg" width=300 /></td>
+            <td>“This is the homework your son alleges my client ate.”</td>
+            <td>“My client is prepared to walk.”</td>
+            <td>January 24, 2022</th>
+            <td>1,076,445</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/785.html">785 Dashboard</a></td>
+            <td><img src="cartoons/785.jpg" width=300 /></td>
+            <td>“Come out with your hands up, wrists straight, fingers gently curved!”</td>
+            <td>“Looks like somebody needs to be taught a lesson.”</td>
+            <td>January 17, 2022</th>
+            <td>425,704</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/784.html">784 Dashboard</a></td>
+            <td><img src="cartoons/784.jpg" width=300 /></td>
+            <td>“George quickly realized he ordered from the wrong Amazon.”</td>
+            <td>“Mind if I read over your shoulder? I have trouble turning pages.”</td>
+            <td>January 3 & 10, 2022</th>
+            <td>1,225,039</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/783.html">783 Dashboard</a></td>
+            <td><img src="cartoons/783.jpg" width=300 /></td>
+            <td>“What makes you think he just wants you as something on the side ?”</td>
+            <td>“And how did being left on the plate make you feel?”</td>
+            <td>December 20, 2021</th>
+            <td>771,572</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/782.html">782 Dashboard</a></td>
+            <td><img src="cartoons/782.jpg" width=300 /></td>
+            <td>“I really don't need two more men in my life who never talk.”</td>
+            <td>“Just pretend to give them your wallet.”</td>
+            <td>December 13, 2021</th>
+            <td>682,543</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/781.html">781 Dashboard</a></td>
+            <td><img src="cartoons/781.jpg" width=300 /></td>
+            <td>“Where do you see yourself in five seconds?”</td>
+            <td>“I so rarely meet a person of your calibre.”</td>
+            <td>December 6, 2021</th>
+            <td>784,246</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/780.html">780 Dashboard</a></td>
+            <td><img src="cartoons/780.jpg" width=300 /></td>
+            <td>“Sink or swim is nothing. Be glad you weren't here when the corporate culture was dog eat dog.”</td>
+            <td>“Apparently, I was mistaken. He’s not in over his head.”</td>
+            <td>November 29, 2021</th>
+            <td>783,928</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/779.html">779 Dashboard</a></td>
+            <td><img src="cartoons/779.jpg" width=300 /></td>
+            <td>“I don't ask you how you squeezed into that sweater.”</td>
+            <td>“Technically, the fish is still in the bowl.”</td>
+            <td>November 22, 2021</th>
+            <td>701,175</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/778.html">778 Dashboard</a></td>
+            <td><img src="cartoons/778.jpg" width=300 /></td>
+            <td>“It’s the closest Texas would let us get to sex ed.”</td>
+            <td>"Don't sell him short. He did solve that crossing-the-road thing."</td>
+            <td>November 15, 2021</th>
+            <td>743,889</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/777.html">777 Dashboard</a></td>
+            <td><img src="cartoons/777.jpg" width=300 /></td>
+            <td>“Amazon accidentally sent two.”</td>
+            <td>“It works fine—we’re just no longer a nuclear family.”</td>
+            <td>November 8, 2021</th>
+            <td>795,026</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/776.html">776 Dashboard</a></td>
+            <td><img src="cartoons/776.jpg" width=300 /></td>
+            <td>“He hasn't proposed yet, but he did give me a written estimate.”</td>
+            <td>“Most people only have roadside assistance.”</td>
+            <td>November 1, 2021</th>
+            <td>695,826</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/775.html">775 Dashboard</a></td>
+            <td><img src="cartoons/775.jpg" width=300 /></td>
+            <td>“Can’t believe we’re opening for Genesis.”</td>
+            <td>“Can’t believe we’re opening for Genesis.”</td>
+            <td>October 25, 2021</th>
+            <td>837,648</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/774.html">774 Dashboard</a></td>
+            <td><img src="cartoons/774.jpg" width=300 /></td>
+            <td>“O, hi Carol.  I didn't expect it would be an ex that marked the spot.”</td>
+            <td>“By any chance, are you sitting on a large X?”</td>
+            <td>October 18, 2021</th>
+            <td>793,193</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/773.html">773 Dashboard</a></td>
+            <td><img src="cartoons/773.jpg" width=300 /></td>
+            <td>“„.dnos ǝɥʇ ɹǝpɹo ʇ’uoᗡ„”</td>
+            <td>“We should’ve ordered our drinks straight up.”</td>
+            <td>October 11, 2021</th>
+            <td>664,281</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/772.html">772 Dashboard</a></td>
+            <td><img src="cartoons/772.jpg" width=300 /></td>
+            <td>“This isn't what I meant when I said to go towards the light.”</td>
+            <td>“This isn’t what I meant when I said to go toward the light.”</td>
+            <td>October 4, 2021</th>
+            <td>696,835</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/771.html">771 Dashboard</a></td>
+            <td><img src="cartoons/771.jpg" width=300 /></td>
+            <td>“Three more dollars and we can order a pizza.”</td>
+            <td>“Don’t worry about it—I wasn't going to say yes anyway.”</td>
+            <td>September 27, 2021</th>
+            <td>616,562</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/770.html">770 Dashboard</a></td>
+            <td><img src="cartoons/770.jpg" width=300 /></td>
+            <td>“I guess "trail lawyer" wasn't a typo after all.”</td>
+            <td>“I guess I misunderstood when you said your legal problems were behind you.”</td>
+            <td>September 20, 2021</th>
+            <td>531,879</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/769.html">769 Dashboard</a></td>
+            <td><img src="cartoons/769.jpg" width=300 /></td>
+            <td>“Trying to make it feel more like Amazon. I mean, the Amazon.”</td>
+            <td>"His favorite book is 'A Farewell to Arms,' so don't get too close."</td>
+            <td>September 13, 2021</th>
+            <td>921,031</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/768.html">768 Dashboard</a></td>
+            <td><img src="cartoons/768.jpg" width=300 /></td>
+            <td>“Don't tell me you ordered from White Castle again.”</td>
+            <td>"Winner gets the knight."</td>
+            <td>September 6, 2021</th>
+            <td>779,519</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/767.html">767 Dashboard</a></td>
+            <td><img src="cartoons/767.jpg" width=300 /></td>
+            <td>“You seem really nice - most of the guys I date are clowns.”</td>
+            <td>“Now, if you'll just yank away the tablecloth.”</td>
+            <td>August 30, 2021</th>
+            <td>768,653</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/766.html">766 Dashboard</a></td>
+            <td><img src="cartoons/766.jpg" width=300 /></td>
+            <td>“Well played, Fran. The tuba will be gone by morning.”</td>
+            <td>“I sent my wife up an hour ago about the noise. Have you seen her?”</td>
+            <td>August 23, 2021</th>
+            <td>731,238</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/765.html">765 Dashboard</a></td>
+            <td><img src="cartoons/765.jpg" width=300 /></td>
+            <td>“It was then that Marcus realized that his message in a bottle requesting beer and ice may have contained a single yet crucial typo.”</td>
+            <td>“I know how you feel. This used to be Florida.”</td>
+            <td>August 16, 2021</th>
+            <td>763,962</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/764.html">764 Dashboard</a></td>
+            <td><img src="cartoons/764.jpg" width=300 /></td>
+            <td>“If you're from Uber Eats, just sprinkle it in.”</td>
+            <td>“I hope you’ve come to change the water.”</td>
+            <td>August 9, 2021</th>
+            <td>665,368</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/763.html">763 Dashboard</a></td>
+            <td><img src="cartoons/763.jpg" width=300 /></td>
+            <td>“You can use the loaner corn dog while you wait. Can you drive a stick?”</td>
+            <td>“So, when did the ‘check mustard’ light come on?”</td>
+            <td>August 2, 2021</th>
+            <td>889,556</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/762.html">762 Dashboard</a></td>
+            <td><img src="cartoons/762.jpg" width=300 /></td>
+            <td>“First, let me bring you up to speed.”</td>
+            <td>“We’re really looking for someone with more lab experience.”</td>
+            <td>July 26, 2021</th>
+            <td>901,611</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/761.html">761 Dashboard</a></td>
+            <td><img src="cartoons/761.jpg" width=300 /></td>
+            <td>“He's the only one who can legally hand out refreshments to voters in Georgia.”</td>
+            <td>“He says making lemonade is not an option.”</td>
+            <td>July 12 & 19, 2021</th>
+            <td>926,127</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/760.html">760 Dashboard</a></td>
+            <td><img src="cartoons/760.jpg" width=300 /></td>
+            <td>“You probably meant compote.”</td>
+            <td>“It’s curb to table.”</td>
+            <td>July 5, 2021</th>
+            <td>807,956</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/759.html">759 Dashboard</a></td>
+            <td><img src="cartoons/759.jpg" width=300 /></td>
+            <td>“They call it kitsch-and-release.”</td>
+            <td>“They call it kitsch and release.”</td>
+            <td>June 28, 2021</th>
+            <td>779,033</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/758.html">758 Dashboard</a></td>
+            <td><img src="cartoons/758.jpg" width=300 /></td>
+            <td>“Honey can you close the door? I’m in a meeting.”</td>
+            <td>“Honey, can you close the door? I’m in a meeting.”</td>
+            <td>June 21, 2021</th>
+            <td>566,563</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/757.html">757 Dashboard</a></td>
+            <td><img src="cartoons/757.jpg" width=300 /></td>
+            <td>“I thought partly cloudy with a chance of rage was a typo”</td>
+            <td>“Don’t worry, it’s just a front.”</td>
+            <td>June 14, 2021</th>
+            <td>742,808</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/756.html">756 Dashboard</a></td>
+            <td><img src="cartoons/756.jpg" width=300 /></td>
+            <td>“And just when I finally got comfortable in my own skin, she repainted the bedroom.”</td>
+            <td>“So, you’re saying you didn’t miss your last two appointments?”</td>
+            <td>June 7, 2021</th>
+            <td>774,284</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/755.html">755 Dashboard</a></td>
+            <td><img src="cartoons/755.jpg" width=300 /></td>
+            <td>“'Yes Robert I bought a chair. I was sick of my options being between a rock and a hard place.'”</td>
+            <td>“If you’re so civilized, why don’t you use a coaster?”</td>
+            <td>May 31, 2021</th>
+            <td>827,963</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/754.html">754 Dashboard</a></td>
+            <td><img src="cartoons/754.jpg" width=300 /></td>
+            <td>“Whoa, the new recruit went down the laundry chute.”</td>
+            <td>“Since when did the pizza delivery guy get his own pole?”</td>
+            <td>May 24, 2021</th>
+            <td>723,023</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/753.html">753 Dashboard</a></td>
+            <td><img src="cartoons/753.jpg" width=300 /></td>
+            <td>“Oh I'm sorry, maybe I'd move faster if SOMEONE didn't bite my leg off.”</td>
+            <td>“Oh, hey, I almost didn’t recognize you outside of work.”</td>
+            <td>May 17, 2021</th>
+            <td>1,116,808</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/752.html">752 Dashboard</a></td>
+            <td><img src="cartoons/752.jpg" width=300 /></td>
+            <td>“Don't give them anything. It only encourages sequels.”</td>
+            <td>“The classics can be so intimidating.”</td>
+            <td>May 10, 2021</th>
+            <td>1,141,292</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/751.html">751 Dashboard</a></td>
+            <td><img src="cartoons/751.jpg" width=300 /></td>
+            <td>“If you see a fork in the road, avoid it.”</td>
+            <td>“I want one that snows.”</td>
+            <td>April 26 & May 3, 2021</th>
+            <td>789,736</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/750.html">750 Dashboard</a></td>
+            <td><img src="cartoons/750.jpg" width=300 /></td>
+            <td>“It’s good to be back in the field. It just wasn’t the same working from home.”</td>
+            <td>“Every night, when I try to sleep, I can’t stop thinking about work.”</td>
+            <td>April 19, 2021</th>
+            <td>797,912</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/749.html">749 Dashboard</a></td>
+            <td><img src="cartoons/749.jpg" width=300 /></td>
+            <td>“4B wants you to make her husband disappear.”</td>
+            <td></td>
+            <td></th>
+            <td>697,397</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/748.html">748 Dashboard</a></td>
+            <td><img src="cartoons/748.jpg" width=300 /></td>
+            <td>“I would prefer to go out the way we came in.”</td>
+            <td>“Not the return to inside dining I was expecting.”</td>
+            <td>April 5, 2021</th>
+            <td>895,729</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/747.html">747 Dashboard</a></td>
+            <td><img src="cartoons/747.jpg" width=300 /></td>
+            <td>“Just be glad he's not wearing his kilt today.”</td>
+            <td>“I’m always afraid he will drop in unexpectedly.”</td>
+            <td>March 29, 2021</th>
+            <td>874,526</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/746.html">746 Dashboard</a></td>
+            <td><img src="cartoons/746.jpg" width=300 /></td>
+            <td>“I forgot what I came upstairs for.”</td>
+            <td>“So that’s where all the furniture went.”</td>
+            <td>March 22, 2021</th>
+            <td>1,124,620</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/745.html">745 Dashboard</a></td>
+            <td><img src="cartoons/745.jpg" width=300 /></td>
+            <td>“We probably should have done something about this last year when it was still three blocks away.”</td>
+            <td>“I told you we should have salted the roads.”</td>
+            <td>March 15, 2021</th>
+            <td>997,609</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/744.html">744 Dashboard</a></td>
+            <td><img src="cartoons/744.jpg" width=300 /></td>
+            <td>“Your going as a satellite dish?  I'm going as a pilgrim.”</td>
+            <td>“I could never pull that off.”</td>
+            <td>March 8, 2021</th>
+            <td>1,110,562</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/743.html">743 Dashboard</a></td>
+            <td><img src="cartoons/743.jpg" width=300 /></td>
+            <td>“I’ve changed my mind. I love it.”</td>
+            <td>“Still not level.”</td>
+            <td>March 1, 2021</th>
+            <td>1,140,034</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/742.html">742 Dashboard</a></td>
+            <td><img src="cartoons/742.jpg" width=300 /></td>
+            <td>“Sir, this is the Met. The Mets are down the street.”</td>
+            <td>“That’s a rare medium. Well done.”</td>
+            <td>February 15 & 22, 2021</th>
+            <td>669,427</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/741.html">741 Dashboard</a></td>
+            <td><img src="cartoons/741.jpg" width=300 /></td>
+            <td>“Don’t be fooled. He has a dark side.”</td>
+            <td>“I think it’s just a phase.”</td>
+            <td>February 8, 2021</th>
+            <td>676,978</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/740.html">740 Dashboard</a></td>
+            <td><img src="cartoons/740.jpg" width=300 /></td>
+            <td>“I hope she doesn't say "charge"”</td>
+            <td>“You were right—putting him on commission changed his attitude.”</td>
+            <td>February 1, 2021</th>
+            <td>1,017,304</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/739.html">739 Dashboard</a></td>
+            <td><img src="cartoons/739.jpg" width=300 /></td>
+            <td>“Of course we wanted a son. But we also wanted unconditional love.”</td>
+            <td>“Once tax season is over, you can go back to being the only child.”</td>
+            <td>January 25, 2020</th>
+            <td>949,488</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/738.html">738 Dashboard</a></td>
+            <td><img src="cartoons/738.jpg" width=300 /></td>
+            <td>“Just to mess with him put them back on the tree.”</td>
+            <td>“Can’t wait to see the look on his face when we put these back on the tree.”</td>
+            <td>January 18, 2021</th>
+            <td>939,433</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/737.html">737 Dashboard</a></td>
+            <td><img src="cartoons/737.jpg" width=300 /></td>
+            <td>“I thought you said the cloud was secure.”</td>
+            <td>“I thought you said the cloud was secure.”</td>
+            <td>January 4 & 11, 2021</th>
+            <td>843,580</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/736.html">736 Dashboard</a></td>
+            <td><img src="cartoons/736.jpg" width=300 /></td>
+            <td>“You can advocate for wind power all you want, Randy, but you’re not going to escape your fossil fuel destiny.”</td>
+            <td>“Your meal came with a toy?”</td>
+            <td>December 21, 2020</th>
+            <td>869,589</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/735.html">735 Dashboard</a></td>
+            <td><img src="cartoons/735.jpg" width=300 /></td>
+            <td>“It always ends in tiers......”</td>
+            <td>“I can keep it together during the ceremony. The reception is where I fall to pieces.”</td>
+            <td>December 14, 2020</th>
+            <td>673,778</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/734.html">734 Dashboard</a></td>
+            <td><img src="cartoons/734.jpg" width=300 /></td>
+            <td>“This your last chance to come clean.”</td>
+            <td>“Stop fighting it, kid—everyone eventually sings in the shower.”</td>
+            <td>December 7, 2020</th>
+            <td>840,412</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/733.html">733 Dashboard</a></td>
+            <td><img src="cartoons/733.jpg" width=300 /></td>
+            <td>“It seems you promised them herd immunity, Sir.”</td>
+            <td>"It seems you promised them herd immunity, sir."</td>
+            <td>November 30, 2020</th>
+            <td>1,169,444</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/732.html">732 Dashboard</a></td>
+            <td><img src="cartoons/732.jpg" width=300 /></td>
+            <td>“It's true, your honor. I slept with the witness.”</td>
+            <td>“Where were you between the hours of beddy-bye and nighty-night?”</td>
+            <td>November 23, 2020</th>
+            <td>945,258</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/731.html">731 Dashboard</a></td>
+            <td><img src="cartoons/731.jpg" width=300 /></td>
+            <td>“With all due respect, Helen, you’re gonna find crappy men in China, too”</td>
+            <td>“During next week’s session, we’ll have you paint yourself into a corner.”</td>
+            <td>November 16, 2020</th>
+            <td>669,413</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/730.html">730 Dashboard</a></td>
+            <td><img src="cartoons/730.jpg" width=300 /></td>
+            <td>“I'm the only one commenting on your name, Dr. Katz?”</td>
+            <td>“And, when you get hungry, the cafeteria is to your right, left, left, right, left, straight, right, straight, left, and then you push on the big lever.”</td>
+            <td>November 9, 2020</th>
+            <td>55,362</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/729.html">729 Dashboard</a></td>
+            <td><img src="cartoons/729.jpg" width=300 /></td>
+            <td>“We can’t be overthrown, but we can be swayed.”</td>
+            <td>“We can’t be overthrown, but we can be swayed.”</td>
+            <td>November 2, 2020</th>
+            <td>902,767</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/728.html">728 Dashboard</a></td>
+            <td><img src="cartoons/728.jpg" width=300 /></td>
+            <td>“Okay, okay. Fine, I'll fill out the census.”</td>
+            <td>“Thank you for agreeing to meet remotely.”</td>
+            <td>October 26, 2020</th>
+            <td>925,799</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/727.html">727 Dashboard</a></td>
+            <td><img src="cartoons/727.jpg" width=300 /></td>
+            <td>“It's the closest you'll get to Manhattan in your price range.”</td>
+            <td>“It’s the closest you’ll get to Manhattan in your price range.”</td>
+            <td>October 19, 2020</th>
+            <td>921,025</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/726.html">726 Dashboard</a></td>
+            <td><img src="cartoons/726.jpg" width=300 /></td>
+            <td>“Once they choose their queen, honey, it’s really hard to change their minds.”</td>
+            <td>“To be fair, Martha, you did just kill one of their kids.”</td>
+            <td>October 12, 2020</th>
+            <td>978,388</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/725.html">725 Dashboard</a></td>
+            <td><img src="cartoons/725.jpg" width=300 /></td>
+            <td>“Wait, dad! Your glasses!”</td>
+            <td>“I’m just saying, after this haircut, it’s difficult to trust you.”</td>
+            <td>October 5, 2020</th>
+            <td>1,039,526</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/724.html">724 Dashboard</a></td>
+            <td><img src="cartoons/724.jpg" width=300 /></td>
+            <td>“"MEET ??". I heard "EAT".”</td>
+            <td>“To Archaeopteryx, spelled just like it sounds.”</td>
+            <td>September 28, 2020</th>
+            <td>999,215</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/723.html">723 Dashboard</a></td>
+            <td><img src="cartoons/723.jpg" width=300 /></td>
+            <td>“Less woofer?”</td>
+            <td>“We should be able to finish the album today, as long as no one rings the doorbell.”</td>
+            <td>September 21, 2020</th>
+            <td>1,325,805</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/722.html">722 Dashboard</a></td>
+            <td><img src="cartoons/722.jpg" width=300 /></td>
+            <td>“This is the only house I could find under a grand.”</td>
+            <td>“The piano's in tune, but the house is a little flat.”</td>
+            <td>September 14, 2020</th>
+            <td>1,490,136</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/721.html">721 Dashboard</a></td>
+            <td><img src="cartoons/721.jpg" width=300 /></td>
+            <td>“I can still vote by mail,you know.”</td>
+            <td>“I’m starting to regret that haircut.”</td>
+            <td>September 7, 2020</th>
+            <td>818,486</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/720.html">720 Dashboard</a></td>
+            <td><img src="cartoons/720.jpg" width=300 /></td>
+            <td>“I changed my mind.  It would look better on the other side.”</td>
+            <td>“Do you struggle endlessly through here often?”</td>
+            <td>August 31, 2020</th>
+            <td>1,123,201</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/719.html">719 Dashboard</a></td>
+            <td><img src="cartoons/719.jpg" width=300 /></td>
+            <td>“Ignore the ‘Whites Only’ sign.”</td>
+            <td>“Between you and me, the owner can’t unload this fast enough.”</td>
+            <td>August 24, 2020</th>
+            <td>1,020,554</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/718.html">718 Dashboard</a></td>
+            <td><img src="cartoons/718.jpg" width=300 /></td>
+            <td>“I don't think 'dressage' means what you think it means.”</td>
+            <td>“I don’t need your approval. I just need you to tie the laces.”</td>
+            <td>August 17, 2020</th>
+            <td>1,929,624</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/717.html">717 Dashboard</a></td>
+            <td><img src="cartoons/717.jpg" width=300 /></td>
+            <td>“Well, at least up here we only have to feed it.”</td>
+            <td>“I know it’s not an elephant, but we still need to talk about it.”</td>
+            <td>August 3, 2020</th>
+            <td>1,035,579</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/716.html">716 Dashboard</a></td>
+            <td><img src="cartoons/716.jpg" width=300 /></td>
+            <td>“Could we have outstayed our welcome?”</td>
+            <td>“He could have just written his name on his yogurt.”</td>
+            <td>July 27, 2020</th>
+            <td>261,717</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/715.html">715 Dashboard</a></td>
+            <td><img src="cartoons/715.jpg" width=300 /></td>
+            <td>“The recipe said 'One egg, beaten.' I was lucky to get out alive.”</td>
+            <td>“And then I find out all the king’s horses and all the king’s men are out-of-network.”</td>
+            <td>July 20, 2020</th>
+            <td>2,012,461</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/714.html">714 Dashboard</a></td>
+            <td><img src="cartoons/714.jpg" width=300 /></td>
+            <td>“At that moment Willow was consumed with three thoughts: she couldn't swim,they were on their third drink,and she was on her ninth life.”</td>
+            <td>“You’re right. It is easier with the ball.”</td>
+            <td>July 6 & 13, 2020</th>
+            <td>870,375</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/713.html">713 Dashboard</a></td>
+            <td><img src="cartoons/713.jpg" width=300 /></td>
+            <td>“...there's yer problem!  ya gotta short circus!”</td>
+            <td>“I found something serious under the hood.”</td>
+            <td>June 29, 2020</th>
+            <td>1,059,045</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/712.html">712 Dashboard</a></td>
+            <td><img src="cartoons/712.jpg" width=300 /></td>
+            <td>“So...we had a bad 1st quarter. It’s not the end of the world.”</td>
+            <td>“Tell me about a time you identified a problem that others didn’t see coming.”</td>
+            <td>June 22, 2020</th>
+            <td>1,489,228</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/711.html">711 Dashboard</a></td>
+            <td><img src="cartoons/711.jpg" width=300 /></td>
+            <td>“Yes, it's a home game. Of course it's a home game. Everything's a fricking home game.”</td>
+            <td>“All his pitches have been inside.”</td>
+            <td>June 8 & 15, 2020</th>
+            <td>1,053,338</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/710.html">710 Dashboard</a></td>
+            <td><img src="cartoons/710.jpg" width=300 /></td>
+            <td>“Remember when he was just a humming bird?”</td>
+            <td>“I can usually identify a bird by the song, but I think he’s doing a cover.”</td>
+            <td>June 1, 2020</th>
+            <td>1,550,011</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/709.html">709 Dashboard</a></td>
+            <td><img src="cartoons/709.jpg" width=300 /></td>
+            <td>“You might want to try the stairs. This one only goes down and takes an eternity.”</td>
+            <td>“Try the stairs. This takes an eternity.”</td>
+            <td>May 25, 2020</th>
+            <td>1,458,079</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/708.html">708 Dashboard</a></td>
+            <td><img src="cartoons/708.jpg" width=300 /></td>
+            <td>“A better question is, why aren't YOU wearing a mask?”</td>
+            <td>“Fine—next time you slay the dragon and I'll cook.”</td>
+            <td>May 18, 2020</th>
+            <td>1,452,344</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/707.html">707 Dashboard</a></td>
+            <td><img src="cartoons/707.jpg" width=300 /></td>
+            <td>“This was easier to carry when it was flat.”</td>
+            <td>“Next week, I'll move Heaven for you.”</td>
+            <td>May 11, 2020</th>
+            <td>1,376,223</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/706.html">706 Dashboard</a></td>
+            <td><img src="cartoons/706.jpg" width=300 /></td>
+            <td>“Well,I know what Duke Ellington would do.”</td>
+            <td>“Of course—we wait forever, then two come at the same time.”</td>
+            <td>May 4, 2020</th>
+            <td>1,079,547</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/705.html">705 Dashboard</a></td>
+            <td><img src="cartoons/705.jpg" width=300 /></td>
+            <td>“Tall salted caramel macchiato with low-fat organic almond milk, no sugar… It’s him alright.”</td>
+            <td>“Decaf. They can’t be far away.”</td>
+            <td>April 27, 2020</th>
+            <td>1,246,918</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/704.html">704 Dashboard</a></td>
+            <td><img src="cartoons/704.jpg" width=300 /></td>
+            <td>“Forget everything you've ever thought about elevator music.”</td>
+            <td>“No, you come in on four.”</td>
+            <td>April 20, 2020</th>
+            <td>1,076,611</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/703.html">703 Dashboard</a></td>
+            <td><img src="cartoons/703.jpg" width=300 /></td>
+            <td>“We have them between all tables, it encourages social distancing.”</td>
+            <td>“Past the alligator, through the ring of fire, first door on your left.”</td>
+            <td>April 13, 2020</th>
+            <td>973,712</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/702.html">702 Dashboard</a></td>
+            <td><img src="cartoons/702.jpg" width=300 /></td>
+            <td>“You asked if I wanted product in my hair...and I said a smidgeon...a smidgeon, Ralph.”</td>
+            <td>“Could you trim the sides but leave it feathered on top?”</td>
+            <td>April 6, 2020</th>
+            <td>883,343</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/701.html">701 Dashboard</a></td>
+            <td><img src="cartoons/701.jpg" width=300 /></td>
+            <td>“I just want to make sure 'mousse' isn't a typo.”</td>
+            <td>“I know I don’t look familiar, but, believe me, I eat here all the time.”</td>
+            <td>March 30, 2020</th>
+            <td>1,083,114</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/700.html">700 Dashboard</a></td>
+            <td><img src="cartoons/700.jpg" width=300 /></td>
+            <td>“Looks like you're already familiar with the side effects.”</td>
+            <td>“Looks like you’re already familiar with the side effects.”</td>
+            <td>March 23, 2020</th>
+            <td>939,103</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/699.html">699 Dashboard</a></td>
+            <td><img src="cartoons/699.jpg" width=300 /></td>
+            <td>“Two of you have underlying issues.”</td>
+            <td>“And how do you feel about how she feels about how he feels?”</td>
+            <td>March 16, 2020</th>
+            <td>1,192,068</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/698.html">698 Dashboard</a></td>
+            <td><img src="cartoons/698.jpg" width=300 /></td>
+            <td>“Harry, the whole point of leaving England was to blend in.”</td>
+            <td>“Harry, the whole point of leaving England was to blend in.”</td>
+            <td>March 9, 2020</th>
+            <td>987,093</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/697.html">697 Dashboard</a></td>
+            <td><img src="cartoons/697.jpg" width=300 /></td>
+            <td>“This is a lot more effective on the elevated tracks.”</td>
+            <td>“No one crosses the Pirates of Penn Station.”</td>
+            <td>March 2, 2020</th>
+            <td>1,289,041</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/696.html">696 Dashboard</a></td>
+            <td><img src="cartoons/696.jpg" width=300 /></td>
+            <td>“Best farm-to-table in town.”</td>
+            <td>“If there’s a ring in here, Hank, I swear to God . . .”</td>
+            <td>February 17 & 24,2020</th>
+            <td>1,331,920</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/695.html">695 Dashboard</a></td>
+            <td><img src="cartoons/695.jpg" width=300 /></td>
+            <td>“We have one slot left.”</td>
+            <td>“You’re in luck. A slot for you just opened up in our kitchen.”</td>
+            <td>February 10, 2020</th>
+            <td>75,949</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/694.html">694 Dashboard</a></td>
+            <td><img src="cartoons/694.jpg" width=300 /></td>
+            <td>“I didn't say I would help.  I said I'd accompany you.”</td>
+            <td>“I didn’t say I would help. I said I’d accompany you.”</td>
+            <td>February 3, 2020</th>
+            <td>798,499</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/693.html">693 Dashboard</a></td>
+            <td><img src="cartoons/693.jpg" width=300 /></td>
+            <td>“Should I check, “exceeded expectations?””</td>
+            <td>“Let’s just give him the damn cheese.”</td>
+            <td>January 27, 2020</th>
+            <td>912,523</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/692.html">692 Dashboard</a></td>
+            <td><img src="cartoons/692.jpg" width=300 /></td>
+            <td>“First day on Wall Street, sir?”</td>
+            <td>“I'll take this and the granny dress.”</td>
+            <td>January 20, 2020</th>
+            <td>827,817</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/691.html">691 Dashboard</a></td>
+            <td><img src="cartoons/691.jpg" width=300 /></td>
+            <td>“See? Now they ALL want scarves.”</td>
+            <td>“Great, now they all want a scarf.”</td>
+            <td>January 13, 2020</th>
+            <td>997,887</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/690.html">690 Dashboard</a></td>
+            <td><img src="cartoons/690.jpg" width=300 /></td>
+            <td>“3 ..2.. 1..”</td>
+            <td>"Please watch your small step."</td>
+            <td>January 6, 2019</th>
+            <td>37,165</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/689.html">689 Dashboard</a></td>
+            <td><img src="cartoons/689.jpg" width=300 /></td>
+            <td>“He’s lucky I didn’t rear end him.”</td>
+            <td>“Yes, but just a couple of meads, probably more than an hour ago.”</td>
+            <td>December 23, 2019</th>
+            <td>813,517</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/688.html">688 Dashboard</a></td>
+            <td><img src="cartoons/688.jpg" width=300 /></td>
+            <td>“It prints out his tweets. All the new uniforms have them.”</td>
+            <td>“I was stationed at CVS during the war on drugs.”</td>
+            <td>December 16, 2019</th>
+            <td>795,757</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/687.html">687 Dashboard</a></td>
+            <td><img src="cartoons/687.jpg" width=300 /></td>
+            <td>“You think this is awkward? Try living a few floors down.”</td>
+            <td>“How much did you spend at Macy’s this year?”</td>
+            <td>December 9, 2019</th>
+            <td>760,044</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/686.html">686 Dashboard</a></td>
+            <td><img src="cartoons/686.jpg" width=300 /></td>
+            <td>“Oh sure, when a MAN does it, suddenly it’s such a big deal!”</td>
+            <td>“I don’t know how to tell him it’s not his.”</td>
+            <td>December 02, 2019</th>
+            <td>1,070,506</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/685.html">685 Dashboard</a></td>
+            <td><img src="cartoons/685.jpg" width=300 /></td>
+            <td>“Stay calm. I think it just wants to be squeezed.”</td>
+            <td>“Oh, no. I have its little one in my backpack.”</td>
+            <td>November 25, 2019</th>
+            <td>904,446</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/684.html">684 Dashboard</a></td>
+            <td><img src="cartoons/684.jpg" width=300 /></td>
+            <td>“Publicly, we're still saying there are no side effects.”</td>
+            <td>“Publicly, we’re still saying there are no side effects.”</td>
+            <td>November 18, 2019</th>
+            <td>1,094,055</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/683.html">683 Dashboard</a></td>
+            <td><img src="cartoons/683.jpg" width=300 /></td>
+            <td>“They must have made a fortune from the wheel.”</td>
+            <td>“I guarantee he brings up the whole discovering-fire thing within the first five minutes.”</td>
+            <td>November 11, 2019</th>
+            <td>833,200</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/682.html">682 Dashboard</a></td>
+            <td><img src="cartoons/682.jpg" width=300 /></td>
+            <td>“I don't mind autumn so much; it's the fall I hate.”</td>
+            <td>“It’s not you. It’s November.”</td>
+            <td>November 4, 2019</th>
+            <td>1,124,181</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/681.html">681 Dashboard</a></td>
+            <td><img src="cartoons/681.jpg" width=300 /></td>
+            <td>“Mobster, Larry. The invitation said to dress like a mobster.”</td>
+            <td>“You pinch me one more time and you’re going to find yourself in hot water.”</td>
+            <td>October 28, 2019</th>
+            <td>1,117,477</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/680.html">680 Dashboard</a></td>
+            <td><img src="cartoons/680.jpg" width=300 /></td>
+            <td>“Is the salmon fresh?”</td>
+            <td>“Well, don't put it on the menu if you can't catch one.”</td>
+            <td>10/21/2019</th>
+            <td>939,369</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/679.html">679 Dashboard</a></td>
+            <td><img src="cartoons/679.jpg" width=300 /></td>
+            <td>“Supplicants, sir. You want to surround yourself with supplicants.”</td>
+            <td>“Well, after you beheaded the groundskeeper, we had to go with something low-maintenance.”</td>
+            <td>October 14, 2019</th>
+            <td>725,498</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/678.html">678 Dashboard</a></td>
+            <td><img src="cartoons/678.jpg" width=300 /></td>
+            <td>“My left or your left?”</td>
+            <td>“I always knew we'd wind up together.”</td>
+            <td>October 7, 2019</th>
+            <td>709,050</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/677.html">677 Dashboard</a></td>
+            <td><img src="cartoons/677.jpg" width=300 /></td>
+            <td>“The leftover salmon. Into my dish. You will remember nothing.”</td>
+            <td>“The ahi. Not the canned.”</td>
+            <td>September 30, 2019</th>
+            <td>692,234</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/676.html">676 Dashboard</a></td>
+            <td><img src="cartoons/676.jpg" width=300 /></td>
+            <td>“You know we could've had eggs for life, right?”</td>
+            <td>“I don't tell you how to gather.”</td>
+            <td>September 23, 2019</th>
+            <td>913,555</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/675.html">675 Dashboard</a></td>
+            <td><img src="cartoons/675.jpg" width=300 /></td>
+            <td>“Honey, be nice... he's under a lot more pressure.”</td>
+            <td>“You two seem oddly suited.”</td>
+            <td>September 16, 2019</th>
+            <td>655,786</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/674.html">674 Dashboard</a></td>
+            <td><img src="cartoons/674.jpg" width=300 /></td>
+            <td>“Let's let him keep your ball.”</td>
+            <td>“Let's let him keep your ball.”</td>
+            <td>September 9, 2019</th>
+            <td>1,150,449</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/673.html">673 Dashboard</a></td>
+            <td><img src="cartoons/673.jpg" width=300 /></td>
+            <td>“My conditioner said it would give me extra body, but I didn't expect it to be yours.”</td>
+            <td>“For God's sake, Dave, you're thirty-five—just use the stairs.”</td>
+            <td>September 2, 2019</th>
+            <td>601,565</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/672.html">672 Dashboard</a></td>
+            <td><img src="cartoons/672.jpg" width=300 /></td>
+            <td>“I take this myself.  There is one side effect I should mention.”</td>
+            <td>“Don't worry. I wouldn't prescribe anything I haven't tested on myself.”</td>
+            <td>August 26, 2019</th>
+            <td>783,674</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/671.html">671 Dashboard</a></td>
+            <td><img src="cartoons/671.jpg" width=300 /></td>
+            <td>“Someone came to school with humans. Now we’ve all got them.”</td>
+            <td>“It didn’t really bother me until they discovered fire.”</td>
+            <td>August 19, 2019</th>
+            <td>1,352,586</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/670.html">670 Dashboard</a></td>
+            <td><img src="cartoons/670.jpg" width=300 /></td>
+            <td>“Armstrong? No, though I do get mistaken for Lance a lot.”</td>
+            <td>“It started as a crusade. Now it's just a commute.”</td>
+            <td>August 5 & 12, 2019</th>
+            <td>640,930</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/669.html">669 Dashboard</a></td>
+            <td><img src="cartoons/669.jpg" width=300 /></td>
+            <td>“He went right from crawling to stand-up!”</td>
+            <td>“I love his bedtime routine.”</td>
+            <td>July 29, 2019</th>
+            <td>703,078</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/668.html">668 Dashboard</a></td>
+            <td><img src="cartoons/668.jpg" width=300 /></td>
+            <td>“I’m sorry. I’ve been burned too many times.”</td>
+            <td>“I’m sorry. I’ve been burned too many times.”</td>
+            <td>July 22, 2019</th>
+            <td>796,524</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/667.html">667 Dashboard</a></td>
+            <td><img src="cartoons/667.jpg" width=300 /></td>
+            <td>“Maybe we should try thinking inside the box.”</td>
+            <td>“Let's just go with the open floor plan.”</td>
+            <td>July 8, 2019</th>
+            <td>1,117,451</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/666.html">666 Dashboard</a></td>
+            <td><img src="cartoons/666.jpg" width=300 /></td>
+            <td>“You should see the couch they have at the urologist's office.”</td>
+            <td>“Shouldn’t you be sitting in an ear?”</td>
+            <td>July 1, 2019</th>
+            <td>677,561</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/665.html">665 Dashboard</a></td>
+            <td><img src="cartoons/665.jpg" width=300 /></td>
+            <td>“Lunch is on me.”</td>
+            <td>“How about some help carrying the groceries?”</td>
+            <td>June 24, 2019</th>
+            <td>1,501,739</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/664.html">664 Dashboard</a></td>
+            <td><img src="cartoons/664.jpg" width=300 /></td>
+            <td>“I just made a guy disappear for twenty years. Can you do that?”</td>
+            <td>"When was the last time you saw either half of her?”</td>
+            <td>June 10, 2019</th>
+            <td>612,158</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/663.html">663 Dashboard</a></td>
+            <td><img src="cartoons/663.jpg" width=300 /></td>
+            <td>“Next time, when they ask you if you want any toppings, you’d better be more specific than 'Yeah, a couple.'”</td>
+            <td>“Well, you're not what we ordered, either.”</td>
+            <td>June 3, 2019</th>
+            <td>740,813</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/662.html">662 Dashboard</a></td>
+            <td><img src="cartoons/662.jpg" width=300 /></td>
+            <td>“Did you see the rock he gave her.”</td>
+            <td>“It’s about time they settled down and razed a village.”</td>
+            <td>May 27, 2019</th>
+            <td>938,191</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/661.html">661 Dashboard</a></td>
+            <td><img src="cartoons/661.jpg" width=300 /></td>
+            <td>“I am pleased to announce that Dopey will be leaving us to pursue a career as White House Chief of Staff.”</td>
+            <td>“Workplace morale hasn't been this high since we introduced whistling.”</td>
+            <td>May 20, 2019</th>
+            <td>896,509</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/660.html">660 Dashboard</a></td>
+            <td><img src="cartoons/660.jpg" width=300 /></td>
+            <td>“I’m afraid we’ve found a problem with the Crown Jewels.”</td>
+            <td>“Worse than a cold. It's a common cold.”</td>
+            <td>May 13, 2019</th>
+            <td>1,109,788</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/659.html">659 Dashboard</a></td>
+            <td><img src="cartoons/659.jpg" width=300 /></td>
+            <td>“We had a good run, Ted, but I simply don’t have the counter space.”</td>
+            <td>“Are you here about the sublet?”</td>
+            <td>May 6, 2019</th>
+            <td>1,028,025</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/658.html">658 Dashboard</a></td>
+            <td><img src="cartoons/658.jpg" width=300 /></td>
+            <td>“Do you want to go for L-U-N-C-H and maybe a W-A-L-K?”</td>
+            <td>“We had a good run, Ted, but I simply don’t have the counter space.”</td>
+            <td>April 29, 2019</th>
+            <td>993,479</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/657.html">657 Dashboard</a></td>
+            <td><img src="cartoons/657.jpg" width=300 /></td>
+            <td>“Fortunately, our time is up.”</td>
+            <td>“Want to go for a w-a-l-k?”</td>
+            <td>April 22, 2019</th>
+            <td>1,528,352</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/656.html">656 Dashboard</a></td>
+            <td><img src="cartoons/656.jpg" width=300 /></td>
+            <td>“How do you respond to allegations that you're bipolar?”</td>
+            <td>“He gets so dramatic when I lower the thermostat.”</td>
+            <td>April 15, 2019</th>
+            <td>769,984</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/655.html">655 Dashboard</a></td>
+            <td><img src="cartoons/655.jpg" width=300 /></td>
+            <td>“How do you respond to allegations that you're bipolar?”</td>
+            <td>“Who is ‘coming around the mountain,’ John? Could it be your mother?”</td>
+            <td>April 8, 2019</th>
+            <td>758,127</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/654.html">654 Dashboard</a></td>
+            <td><img src="cartoons/654.jpg" width=300 /></td>
+            <td>“Cancel the molten lava cake.”</td>
+            <td>“I guarantee in twelve hours we'll see a completely different side of my opponent.”</td>
+            <td>April 1, 2019</th>
+            <td>1,286,972</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/653.html">653 Dashboard</a></td>
+            <td><img src="cartoons/653.jpg" width=300 /></td>
+            <td>“Meet Trump's nominee for the Centers for Disease Control.”</td>
+            <td>“Before you go, describe the iceberg salad.”</td>
+            <td>March 25, 2019</th>
+            <td>1,034,443</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/652.html">652 Dashboard</a></td>
+            <td><img src="cartoons/652.jpg" width=300 /></td>
+            <td>“I wish we'd noticed that before eating Bob.”</td>
+            <td>“Tell them what happened in the lab, Harry.”</td>
+            <td>March 18, 2019</th>
+            <td>1,454,910</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/651.html">651 Dashboard</a></td>
+            <td><img src="cartoons/651.jpg" width=300 /></td>
+            <td>“No need to panic: a reptile dysfunction is common for men of your age.”</td>
+            <td>“I wish we’d seen that before we ate Dave.”</td>
+            <td>March 11, 2019</th>
+            <td>2,249,813</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/650.html">650 Dashboard</a></td>
+            <td><img src="cartoons/650.jpg" width=300 /></td>
+            <td>“I wish you’d come in when it was just a chip on your shoulder.”</td>
+            <td>“Any tightness or difficulty breathing?”</td>
+            <td>March 4, 2019</th>
+            <td>1,040,362</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/649.html">649 Dashboard</a></td>
+            <td><img src="cartoons/649.jpg" width=300 /></td>
+            <td>“I said, 'Not in my backyard,' and they said, 'Ok, have it your way."”</td>
+            <td>“We'll pick this up next week.”</td>
+            <td>February 18 & 25</th>
+            <td>1,197,306</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/648.html">648 Dashboard</a></td>
+            <td><img src="cartoons/648.jpg" width=300 /></td>
+            <td>“This is the exact moment Susan realized she may be an accomplice and not a magician's assistant...”</td>
+            <td>“It all started when we adopted a highway.”</td>
+            <td>February 11, 2019</th>
+            <td>708,793</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/647.html">647 Dashboard</a></td>
+            <td><img src="cartoons/647.jpg" width=300 /></td>
+            <td>“Like it would have killed you to ask him for directions.”</td>
+            <td>“Watch as I transform this ordinary magician's assistant into an accomplice to a federal crime.”</td>
+            <td>February 4, 2019</th>
+            <td>1,690,546</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/646.html">646 Dashboard</a></td>
+            <td><img src="cartoons/646.jpg" width=300 /></td>
+            <td>“Like it would have killed you to ask him for directions.”</td>
+            <td>“I choose to remember Aspen as it was.”</td>
+            <td>January 28, 2019</th>
+            <td>1,626,322</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/645.html">645 Dashboard</a></td>
+            <td><img src="cartoons/645.jpg" width=300 /></td>
+            <td>“If we time it right, I can get you in this house today.”</td>
+            <td>“Don’t bring a camera, you said. Just enjoy the experience, you said.”</td>
+            <td>January 21, 2019</th>
+            <td>982,979</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/644.html">644 Dashboard</a></td>
+            <td><img src="cartoons/644.jpg" width=300 /></td>
+            <td>“My next selection sounds just like the last one.”</td>
+            <td>“If we time it right, I can get you in this house today.”</td>
+            <td>January 14, 2019</th>
+            <td>1,629,394</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/643.html">643 Dashboard</a></td>
+            <td><img src="cartoons/643.jpg" width=300 /></td>
+            <td>“My next selection sounds just like the last one.”</td>
+            <td>“And now—I've got an old score to settle.”</td>
+            <td>January 7, 2019</th>
+            <td>1,185,450</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/642.html">642 Dashboard</a></td>
+            <td><img src="cartoons/642.jpg" width=300 /></td>
+            <td>“Linda suddenly realized she had entered the hallucinatory phase of her low-carb diet.”</td>
+            <td>“Vinnie would appreciate it if you reconsidered that Yelp rating.”</td>
+            <td>December 24 & 31, 2018</th>
+            <td>881,547</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/641.html">641 Dashboard</a></td>
+            <td><img src="cartoons/641.jpg" width=300 /></td>
+            <td>“I'm not sure how many there are. Every time I start counting I fall asleep.”</td>
+            <td>“I don't know how many there are. I'm trying to stay awake.”</td>
+            <td>December 17, 2018</th>
+            <td>1,400,950</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/640.html">640 Dashboard</a></td>
+            <td><img src="cartoons/640.jpg" width=300 /></td>
+            <td>“Still got that new cat smell.”</td>
+            <td>“Listen to this baby purr.”</td>
+            <td>December 10, 2018</th>
+            <td>1,631,425</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/639.html">639 Dashboard</a></td>
+            <td><img src="cartoons/639.jpg" width=300 /></td>
+            <td>“Earl of Cowlick. And you are?”</td>
+            <td>“It is I, Manbunzel.”</td>
+            <td>November 26, 2018</th>
+            <td>1,063,820</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/638.html">638 Dashboard</a></td>
+            <td><img src="cartoons/638.jpg" width=300 /></td>
+            <td>“I wear the pants but my wife controls them.”</td>
+            <td>“You must be the fellow who ordered a friend on Amazon.”</td>
+            <td>November 19, 2018</th>
+            <td>882,701</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/637.html">637 Dashboard</a></td>
+            <td><img src="cartoons/637.jpg" width=300 /></td>
+            <td>“Every move you make, 
+Every leaf you rake,
+I'll be watching you.”</td>
+            <td>“I'm here to review the fall collection.”</td>
+            <td>November 12, 2018</th>
+            <td>824,593</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/636.html">636 Dashboard</a></td>
+            <td><img src="cartoons/636.jpg" width=300 /></td>
+            <td>“Yes, we all had the potato salad.  Why?”</td>
+            <td>“I hope you’re on a break, too.”</td>
+            <td>November 5, 2018</th>
+            <td>1,098,739</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/635.html">635 Dashboard</a></td>
+            <td><img src="cartoons/635.jpg" width=300 /></td>
+            <td>“I don't normally date Middle-Aged men.”</td>
+            <td>“Well, I'm sort of between quests at the moment.”</td>
+            <td>October 29, 2018</th>
+            <td>1,311,984</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/634.html">634 Dashboard</a></td>
+            <td><img src="cartoons/634.jpg" width=300 /></td>
+            <td>“He offered us a franchise, but I think it’s a pyramid scheme.”</td>
+            <td>“I think it’s safe to assume it contains preservatives.”</td>
+            <td>October 22, 2018</th>
+            <td>929,951</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/633.html">633 Dashboard</a></td>
+            <td><img src="cartoons/633.jpg" width=300 /></td>
+            <td>“The judge ordered a short recess.”</td>
+            <td>“Sorry, kid, but this is the corporate ladder.”</td>
+            <td>October 15, 2018</th>
+            <td>844,596</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/632.html">632 Dashboard</a></td>
+            <td><img src="cartoons/632.jpg" width=300 /></td>
+            <td>“I got her to open up, but now she's beside herself.”</td>
+            <td>“Looks like an inside inside inside inside inside job.”</td>
+            <td>October 8, 2018</th>
+            <td>663,855</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/631.html">631 Dashboard</a></td>
+            <td><img src="cartoons/631.jpg" width=300 /></td>
+            <td>“If I had more dough, I'd be in first class.”</td>
+            <td>“Ideally, you want the dough to rise to about thirty-five thousand feet.”</td>
+            <td>October 1, 2018</th>
+            <td>1,065,763</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/630.html">630 Dashboard</a></td>
+            <td><img src="cartoons/630.jpg" width=300 /></td>
+            <td>“Gore was right. This is inconvenient.”</td>
+            <td>“Trust me, come low tide everyone will want these seats.”</td>
+            <td>September 24, 2018</th>
+            <td>1,159,733</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/629.html">629 Dashboard</a></td>
+            <td><img src="cartoons/629.jpg" width=300 /></td>
+            <td>“In retrospect, I should have been more specific when I told the genie I wanted to be in a rock group and have women climbing all over me.”</td>
+            <td>“I wouldn’t. It’s a toupee.”</td>
+            <td>September 17, 2018</th>
+            <td>865,017</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/628.html">628 Dashboard</a></td>
+            <td><img src="cartoons/628.jpg" width=300 /></td>
+            <td>“I heard today I'm getting canned.”</td>
+            <td>“Yeah? Well, I’m also a fish out of Scotch.”</td>
+            <td>September 10, 2018</th>
+            <td>1,302,098</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/627.html">627 Dashboard</a></td>
+            <td><img src="cartoons/627.jpg" width=300 /></td>
+            <td>“I recommend the pigeon. It's locally sourced.”</td>
+            <td>“Ignore the screams, sir. I’ll get you a new fork.”</td>
+            <td>September 3, 2018</th>
+            <td>1,162,999</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/626.html">626 Dashboard</a></td>
+            <td><img src="cartoons/626.jpg" width=300 /></td>
+            <td>“About to land now, call you when I'm on the ground.”</td>
+            <td>“I’m in the air right now—let me call you back after I land.”</td>
+            <td>August 27, 2018</th>
+            <td>994,702</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/625.html">625 Dashboard</a></td>
+            <td><img src="cartoons/625.jpg" width=300 /></td>
+            <td>“No, sir, this is Fenway. You're looking for Jurassic Park.”</td>
+            <td>“A lot has happened since your last at-bat.”</td>
+            <td>August 20, 2018</th>
+            <td>1,326,529</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/624.html">624 Dashboard</a></td>
+            <td><img src="cartoons/624.jpg" width=300 /></td>
+            <td>“Of course I am happy to see you! I just need a little time to decompose myself!”</td>
+            <td>“Please, I need time to decompose myself.”</td>
+            <td>August 6 & 13, 2018</th>
+            <td>712,054</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/623.html">623 Dashboard</a></td>
+            <td><img src="cartoons/623.jpg" width=300 /></td>
+            <td>“You better hope that was rain I just felt."”</td>
+            <td>“Sir, I don't make the laws of gravity, I just enforce them.”</td>
+            <td>July 30, 2018</th>
+            <td>971,088</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/622.html">622 Dashboard</a></td>
+            <td><img src="cartoons/622.jpg" width=300 /></td>
+            <td>“To go?”</td>
+            <td>“It sends the other rats a message.”</td>
+            <td>July 23, 2018</th>
+            <td>99,592</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/621.html">621 Dashboard</a></td>
+            <td><img src="cartoons/621.jpg" width=300 /></td>
+            <td>“She’ll appreciate you’re wearing protection.”</td>
+            <td>“It’s off the rack. The guy on the rack doesn’t need it anymore.”</td>
+            <td> July 9th & 16th, 2018</th>
+            <td>1,210,323</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/620.html">620 Dashboard</a></td>
+            <td><img src="cartoons/620.jpg" width=300 /></td>
+            <td>“It's not the end of the world if he misses.”</td>
+            <td>“Most of them have candy. This one's filled with nuts.”</td>
+            <td>July 2nd, 2018</th>
+            <td>836,027</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/619.html">619 Dashboard</a></td>
+            <td><img src="cartoons/619.jpg" width=300 /></td>
+            <td>“It was a very hostile takeover.”</td>
+            <td>“At least you didn't get the axe.”</td>
+            <td>June 25th, 2018</th>
+            <td>867,527</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/618.html">618 Dashboard</a></td>
+            <td><img src="cartoons/618.jpg" width=300 /></td>
+            <td>“Strangely enough, you are the first person to ask about the clock.”</td>
+            <td>“Well, of course they don’t exist. Now.”</td>
+            <td>June 18th, 2018</th>
+            <td>1,376,577</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/617.html">617 Dashboard</a></td>
+            <td><img src="cartoons/617.jpg" width=300 /></td>
+            <td>“But before we head down... a short fire-safety video...”</td>
+            <td>“He makes us watch this fire-safety video once a year.”</td>
+            <td>June 4th & 11th, 2018</th>
+            <td>895,011</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/616.html">616 Dashboard</a></td>
+            <td><img src="cartoons/616.jpg" width=300 /></td>
+            <td>“I’ve advised my client not to talk.”</td>
+            <td>“His words, not mine.”</td>
+            <td>May 28th, 2018</th>
+            <td>663,636</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/615.html">615 Dashboard</a></td>
+            <td><img src="cartoons/615.jpg" width=300 /></td>
+            <td>“I can hear the wife now: "You caught it, you clean it."”</td>
+            <td>"First, I set the mood."</td>
+            <td>May 21st, 2018</th>
+            <td>798,876</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/614.html">614 Dashboard</a></td>
+            <td><img src="cartoons/614.jpg" width=300 /></td>
+            <td>“No, I said to play with more attitude.”</td>
+            <td></td>
+            <td></th>
+            <td>801,294</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/613.html">613 Dashboard</a></td>
+            <td><img src="cartoons/613.jpg" width=300 /></td>
+            <td>“We are authorized to use farce, if necessary.”</td>
+            <td></td>
+            <td></th>
+            <td>832,844</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/612.html">612 Dashboard</a></td>
+            <td><img src="cartoons/612.jpg" width=300 /></td>
+            <td>“It's a textbook case--depending on which state your textbooks are from.”</td>
+            <td></td>
+            <td></th>
+            <td>912,652</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/611.html">611 Dashboard</a></td>
+            <td><img src="cartoons/611.jpg" width=300 /></td>
+            <td>“Believe me, I’ve tested a lot worse things when I was in pharmaceuticals.”</td>
+            <td></td>
+            <td></th>
+            <td>1,135,917</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/610.html">610 Dashboard</a></td>
+            <td><img src="cartoons/610.jpg" width=300 /></td>
+            <td>“'Bad news. They found the proof in the pudding.'”</td>
+            <td></td>
+            <td></th>
+            <td>1,220,029</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/609.html">609 Dashboard</a></td>
+            <td><img src="cartoons/609.jpg" width=300 /></td>
+            <td>“He really did appoint Chris Christie as Secretary of Transportation.”</td>
+            <td></td>
+            <td></th>
+            <td>1,046,199</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/608.html">608 Dashboard</a></td>
+            <td><img src="cartoons/608.jpg" width=300 /></td>
+            <td>“The hard part was transposing from C major to Fahrenheit.”</td>
+            <td></td>
+            <td></th>
+            <td>957,697</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/607.html">607 Dashboard</a></td>
+            <td><img src="cartoons/607.jpg" width=300 /></td>
+            <td>“My only regret is that he never got around to visiting your mother.”</td>
+            <td></td>
+            <td></th>
+            <td>1,026,981</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/606.html">606 Dashboard</a></td>
+            <td><img src="cartoons/606.jpg" width=300 /></td>
+            <td>“As senior squeegee-man during flight simulations, moving up didn’t pan out.”</td>
+            <td></td>
+            <td></th>
+            <td>46,951</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/605.html">605 Dashboard</a></td>
+            <td><img src="cartoons/605.jpg" width=300 /></td>
+            <td>“Son, your Mom and I want you back in the picture.”</td>
+            <td></td>
+            <td></th>
+            <td>770,768</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/604.html">604 Dashboard</a></td>
+            <td><img src="cartoons/604.jpg" width=300 /></td>
+            <td>“Trust me. One day your portrait will be used as the symbol of a political party even more primitive than we are.”</td>
+            <td></td>
+            <td></th>
+            <td>805,609</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/603.html">603 Dashboard</a></td>
+            <td><img src="cartoons/603.jpg" width=300 /></td>
+            <td>“We used to offer enlightenment. Then we discovered people really preferred brunch.”</td>
+            <td></td>
+            <td></th>
+            <td>1,286,234</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/602.html">602 Dashboard</a></td>
+            <td><img src="cartoons/602.jpg" width=300 /></td>
+            <td>“The operation went well—you’re one tough cookie.”</td>
+            <td></td>
+            <td></th>
+            <td>882,768</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/601.html">601 Dashboard</a></td>
+            <td><img src="cartoons/601.jpg" width=300 /></td>
+            <td>“I thought you said it wouldn't need much attention.”</td>
+            <td></td>
+            <td></th>
+            <td>468,015</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/600.html">600 Dashboard</a></td>
+            <td><img src="cartoons/600.jpg" width=300 /></td>
+            <td>“Mission accomplished. We will report that this planet's inhabitants are friendly and playful.”</td>
+            <td></td>
+            <td></th>
+            <td>757,243</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/599.html">599 Dashboard</a></td>
+            <td><img src="cartoons/599.jpg" width=300 /></td>
+            <td>“I dreamt last night that some day judges might just require a small plastic bracelet”</td>
+            <td></td>
+            <td></th>
+            <td>511,658</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/598.html">598 Dashboard</a></td>
+            <td><img src="cartoons/598.jpg" width=300 /></td>
+            <td>“I'm the fitness guru. The wisdom guru is one mountain over.”</td>
+            <td></td>
+            <td></th>
+            <td>347,381</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/597.html">597 Dashboard</a></td>
+            <td><img src="cartoons/597.jpg" width=300 /></td>
+            <td>“Actually, I did leave my bag unattended for a few minutes. Why?”</td>
+            <td></td>
+            <td></th>
+            <td>818,622</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/596.html">596 Dashboard</a></td>
+            <td><img src="cartoons/596.jpg" width=300 /></td>
+            <td>“C’mon, live a little.”</td>
+            <td></td>
+            <td></th>
+            <td>338,162</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/595.html">595 Dashboard</a></td>
+            <td><img src="cartoons/595.jpg" width=300 /></td>
+            <td>“Surprise, surprise. The new manager is a fat white guy with no pants.”</td>
+            <td></td>
+            <td></th>
+            <td>421,560</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/594.html">594 Dashboard</a></td>
+            <td><img src="cartoons/594.jpg" width=300 /></td>
+            <td>“I remember them from last year. They must be perennials.”</td>
+            <td></td>
+            <td></th>
+            <td>260,848</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/593.html">593 Dashboard</a></td>
+            <td><img src="cartoons/593.jpg" width=300 /></td>
+            <td>“It's not so much what she said as how she said it.”</td>
+            <td></td>
+            <td></th>
+            <td>619,876</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/592.html">592 Dashboard</a></td>
+            <td><img src="cartoons/592.jpg" width=300 /></td>
+            <td>“Do you ever want to wring your own neck?”</td>
+            <td></td>
+            <td></th>
+            <td>1,021,316</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/591.html">591 Dashboard</a></td>
+            <td><img src="cartoons/591.jpg" width=300 /></td>
+            <td>“My methods are Jungian. Sometimes a bar of soap *is* just a bar of soap, you know...”</td>
+            <td></td>
+            <td></th>
+            <td>683,358</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/590.html">590 Dashboard</a></td>
+            <td><img src="cartoons/590.jpg" width=300 /></td>
+            <td>“He did my summer cave in Lascaux, too.”</td>
+            <td></td>
+            <td></th>
+            <td>891,586</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/589.html">589 Dashboard</a></td>
+            <td><img src="cartoons/589.jpg" width=300 /></td>
+            <td>“Can I tell you about a few items that aren't on the menu?”</td>
+            <td></td>
+            <td></th>
+            <td>628,409</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/588.html">588 Dashboard</a></td>
+            <td><img src="cartoons/588.jpg" width=300 /></td>
+            <td>“Siri, how far can a hunchback jump?”</td>
+            <td></td>
+            <td></th>
+            <td>295,566</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/587.html">587 Dashboard</a></td>
+            <td><img src="cartoons/587.jpg" width=300 /></td>
+            <td>“I see myself in so much of his work.”</td>
+            <td></td>
+            <td></th>
+            <td>488,546</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/586.html">586 Dashboard</a></td>
+            <td><img src="cartoons/586.jpg" width=300 /></td>
+            <td>“Of course it looks alien to you. You've never used one.”</td>
+            <td></td>
+            <td>2017-10-16 (estimated)</th>
+            <td>480,072</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/585.html">585 Dashboard</a></td>
+            <td><img src="cartoons/585.jpg" width=300 /></td>
+            <td>“I went ahead and fixed the bagel setting, too. So with parts and labor, that actually comes out to two wishes.”</td>
+            <td></td>
+            <td>2017-10-09 (estimated)</th>
+            <td>356,787</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/584.html">584 Dashboard</a></td>
+            <td><img src="cartoons/584.jpg" width=300 /></td>
+            <td>“Hold on, the Senate Committee on Women's Health is getting out.”</td>
+            <td></td>
+            <td>2017-10-01 (estimated)</th>
+            <td>501,501</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/583.html">583 Dashboard</a></td>
+            <td><img src="cartoons/583.jpg" width=300 /></td>
+            <td>“So much for the suggestion box being anonymous”</td>
+            <td></td>
+            <td>2017-09-25 (estimated)</th>
+            <td>342,411</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/582.html">582 Dashboard</a></td>
+            <td><img src="cartoons/582.jpg" width=300 /></td>
+            <td>“Yes, I see the train but I think we can beat it.”</td>
+            <td></td>
+            <td>2017-09-18 (estimated)</th>
+            <td>196,119</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/581.html">581 Dashboard</a></td>
+            <td><img src="cartoons/581.jpg" width=300 /></td>
+            <td>“Expect a chilly reception at the circumcision symposium.”</td>
+            <td></td>
+            <td>2017-09-10 (estimated)</th>
+            <td>203,573</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/580.html">580 Dashboard</a></td>
+            <td><img src="cartoons/580.jpg" width=300 /></td>
+            <td>“When he starts acting like a king, I'll start acting like a guard.”</td>
+            <td></td>
+            <td>2017-09-03 (estimated)</th>
+            <td>425,835</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/579.html">579 Dashboard</a></td>
+            <td><img src="cartoons/579.jpg" width=300 /></td>
+            <td>“The truth is you came from a box of free kittens.”</td>
+            <td></td>
+            <td>2017-08-27 (estimated)</th>
+            <td>480,412</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/578.html">578 Dashboard</a></td>
+            <td><img src="cartoons/578.jpg" width=300 /></td>
+            <td>“Just for fun, let's send it back.”</td>
+            <td></td>
+            <td>2017-08-13 (estimated)</th>
+            <td>593,761</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/577.html">577 Dashboard</a></td>
+            <td><img src="cartoons/577.jpg" width=300 /></td>
+            <td>“We meant get a job AND move out.”</td>
+            <td></td>
+            <td>2017-08-06 (estimated)</th>
+            <td>389,881</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/576.html">576 Dashboard</a></td>
+            <td><img src="cartoons/576.jpg" width=300 /></td>
+            <td>“Don't blow my cover. I'm in the middle of a sting operation.”</td>
+            <td></td>
+            <td>2017-07-30 (estimated)</th>
+            <td>284,529</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/575.html">575 Dashboard</a></td>
+            <td><img src="cartoons/575.jpg" width=300 /></td>
+            <td>“Let's pick up the pace. They're billing by the hour.”</td>
+            <td></td>
+            <td>2017-07-16 (estimated)</th>
+            <td>593,171</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/574.html">574 Dashboard</a></td>
+            <td><img src="cartoons/574.jpg" width=300 /></td>
+            <td>“I'd better give it a little longer. It's a really tough case.”</td>
+            <td></td>
+            <td>2017-07-09 (estimated)</th>
+            <td>410,803</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/573.html">573 Dashboard</a></td>
+            <td><img src="cartoons/573.jpg" width=300 /></td>
+            <td>“It's the Heineken maneuver.”</td>
+            <td></td>
+            <td>2017-07-02 (estimated)</th>
+            <td>366,782</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/572.html">572 Dashboard</a></td>
+            <td><img src="cartoons/572.jpg" width=300 /></td>
+            <td>“"I'll catch it", was the last I heard.”</td>
+            <td></td>
+            <td>2017-06-25 (estimated)</th>
+            <td>218,335</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/571.html">571 Dashboard</a></td>
+            <td><img src="cartoons/571.jpg" width=300 /></td>
+            <td>“Now let's see 'em walk off with the bathroom key!”</td>
+            <td></td>
+            <td>2017-06-11 (estimated)</th>
+            <td>363,323</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/570.html">570 Dashboard</a></td>
+            <td><img src="cartoons/570.jpg" width=300 /></td>
+            <td>“You shouldn't have opened that can of worms.”</td>
+            <td></td>
+            <td>2017-06-05 (estimated)</th>
+            <td>303,014</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/569.html">569 Dashboard</a></td>
+            <td><img src="cartoons/569.jpg" width=300 /></td>
+            <td>“Three yea's, six ney's, and Anderson is still up in the air on this one.”</td>
+            <td></td>
+            <td>2017-05-29 (estimated)</th>
+            <td>270,136</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/568.html">568 Dashboard</a></td>
+            <td><img src="cartoons/568.jpg" width=300 /></td>
+            <td>“Our timeshare presentation will begin in about 5 minutes.”</td>
+            <td></td>
+            <td>2017-05-21 (estimated)</th>
+            <td>290,737</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/567.html">567 Dashboard</a></td>
+            <td><img src="cartoons/567.jpg" width=300 /></td>
+            <td>“Like you've never taken anything from a hotel room.”</td>
+            <td></td>
+            <td>2017-05-14 (estimated)</th>
+            <td>239,829</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/566.html">566 Dashboard</a></td>
+            <td><img src="cartoons/566.jpg" width=300 /></td>
+            <td>“Well, that explains our relentless hunt for tuna.”</td>
+            <td></td>
+            <td>2017-05-07 (estimated)</th>
+            <td>191,877</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/565.html">565 Dashboard</a></td>
+            <td><img src="cartoons/565.jpg" width=300 /></td>
+            <td>“Wow, you are literally a hot mess.”</td>
+            <td></td>
+            <td>2017-05-01 (estimated)</th>
+            <td>148,779</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/564.html">564 Dashboard</a></td>
+            <td><img src="cartoons/564.jpg" width=300 /></td>
+            <td>“They're willing to work nights.”</td>
+            <td></td>
+            <td>2017-04-24 (estimated)</th>
+            <td>349,268</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/563.html">563 Dashboard</a></td>
+            <td><img src="cartoons/563.jpg" width=300 /></td>
+            <td>“Listen, I've got to run.”</td>
+            <td></td>
+            <td>2017-04-17 (estimated)</th>
+            <td>128,912</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/562.html">562 Dashboard</a></td>
+            <td><img src="cartoons/562.jpg" width=300 /></td>
+            <td>“It could work. We both like worms.”</td>
+            <td></td>
+            <td>2017-04-09 (estimated)</th>
+            <td>176,381</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/561.html">561 Dashboard</a></td>
+            <td><img src="cartoons/561.jpg" width=300 /></td>
+            <td>“And lastly Father, I bit the mailman”</td>
+            <td></td>
+            <td>2017-04-02 (estimated)</th>
+            <td>438,112</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/560.html">560 Dashboard</a></td>
+            <td><img src="cartoons/560.jpg" width=300 /></td>
+            <td>“That's Bob Mankoff. He used to be the cartoon editor of the New Yorker.”</td>
+            <td></td>
+            <td>2017-03-26 (estimated)</th>
+            <td>418,917</td>
+            <!--
+            <td>lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/559.html">559 Dashboard</a></td>
+            <td><img src="cartoons/559.jpg" width=300 /></td>
+            <td>“Poor guy. Thought he signed up for pilates.”</td>
+            <td></td>
+            <td>2017-03-19 (estimated)</th>
+            <td>562,601</td>
+            <!--
+            <td>Random, LilUCB, lil-KLUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/558.html">558 Dashboard</a></td>
+            <td><img src="cartoons/558.jpg" width=300 /></td>
+            <td>“I pictured it differently when you said you kept my room just like it was.”</td>
+            <td></td>
+            <td>2017-03-12 (estimated)</th>
+            <td>524,297</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/557.html">557 Dashboard</a></td>
+            <td><img src="cartoons/557.jpg" width=300 /></td>
+            <td>“Well, I'll be damned...”</td>
+            <td></td>
+            <td>2017-03-06 (estimated)</th>
+            <td>767,998</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/556.html">556 Dashboard</a></td>
+            <td><img src="cartoons/556.jpg" width=300 /></td>
+            <td>“I think I like the French maid outfit better.”</td>
+            <td></td>
+            <td>2017-02-19 (estimated)</th>
+            <td>713,533</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/555.html">555 Dashboard</a></td>
+            <td><img src="cartoons/555.jpg" width=300 /></td>
+            <td>“I'll never let go.”</td>
+            <td></td>
+            <td>2017-02-12 (estimated)</th>
+            <td>501,078</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/554.html">554 Dashboard</a></td>
+            <td><img src="cartoons/554.jpg" width=300 /></td>
+            <td>“You were with Ringling Brothers? I was with Lehman Brothers.”</td>
+            <td></td>
+            <td>2017-02-05 (estimated)</th>
+            <td>928,060</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/553.html">553 Dashboard</a></td>
+            <td><img src="cartoons/553.jpg" width=300 /></td>
+            <td>“I'd like to see other people.”</td>
+            <td></td>
+            <td>2017-01-29 (estimated)</th>
+            <td>547,090</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/552.html">552 Dashboard</a></td>
+            <td><img src="cartoons/552.jpg" width=300 /></td>
+            <td>“Long time no sea.”</td>
+            <td></td>
+            <td>2017-01-22 (estimated)</th>
+            <td>519,548</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/551.html">551 Dashboard</a></td>
+            <td><img src="cartoons/551.jpg" width=300 /></td>
+            <td>“Row v. Wave”</td>
+            <td></td>
+            <td>2017-01-15 (estimated)</th>
+            <td>583,185</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/550.html">550 Dashboard</a></td>
+            <td><img src="cartoons/550.jpg" width=300 /></td>
+            <td>“When I asked you to line up a meeting with the Department Chairs, this is not what I meant.”</td>
+            <td></td>
+            <td>2017-01-08 (estimated)</th>
+            <td>463,593</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/549.html">549 Dashboard</a></td>
+            <td><img src="cartoons/549.jpg" width=300 /></td>
+            <td>“I admire your restraint.”</td>
+            <td></td>
+            <td>2016-12-25 (estimated)</th>
+            <td>475,431</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/548.html">548 Dashboard</a></td>
+            <td><img src="cartoons/548.jpg" width=300 /></td>
+            <td>“Well, five acres of popcorn back there says you were.”</td>
+            <td></td>
+            <td>2016-12-18 (estimated)</th>
+            <td>501,425</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/547.html">547 Dashboard</a></td>
+            <td><img src="cartoons/547.jpg" width=300 /></td>
+            <td>“You're right. No underwear.”</td>
+            <td></td>
+            <td>2016-12-11 (estimated)</th>
+            <td>398,746</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/546.html">546 Dashboard</a></td>
+            <td><img src="cartoons/546.jpg" width=300 /></td>
+            <td>“We never should have applauded.”</td>
+            <td></td>
+            <td>2016-12-04 (estimated)</th>
+            <td>333,116</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/545.html">545 Dashboard</a></td>
+            <td><img src="cartoons/545.jpg" width=300 /></td>
+            <td>“It's amazing to think he started out in the lobby.”</td>
+            <td></td>
+            <td>2016-11-27 (estimated)</th>
+            <td>344,095</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/544.html">544 Dashboard</a></td>
+            <td><img src="cartoons/544.jpg" width=300 /></td>
+            <td>“Given Mr Tell's declining accuracy with his bow and arrow, we're lucky the guys don't use Apples.”</td>
+            <td></td>
+            <td>2016-11-20 (estimated)</th>
+            <td>198,246</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/543.html">543 Dashboard</a></td>
+            <td><img src="cartoons/543.jpg" width=300 /></td>
+            <td>“I really just thought they would send me a lapel pin when I registered.”</td>
+            <td></td>
+            <td>2016-11-13 (estimated)</th>
+            <td>450,498</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/542.html">542 Dashboard</a></td>
+            <td><img src="cartoons/542.jpg" width=300 /></td>
+            <td>“Should we tell her she's wearing two different shoes?”</td>
+            <td></td>
+            <td>2016-11-06 (estimated)</th>
+            <td>581,602</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/541.html">541 Dashboard</a></td>
+            <td><img src="cartoons/541.jpg" width=300 /></td>
+            <td>“Let me guess...the Gym Reaper?”</td>
+            <td></td>
+            <td>2016-10-30 (estimated)</th>
+            <td>510,944</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/540.html">540 Dashboard</a></td>
+            <td><img src="cartoons/540.jpg" width=300 /></td>
+            <td>“I know a specialist, but he's in prison.”</td>
+            <td></td>
+            <td>2016-10-23 (estimated)</th>
+            <td>456,690</td>
+            <!--
+            <td>Random</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/539.html">539 Dashboard</a></td>
+            <td><img src="cartoons/539.jpg" width=300 /></td>
+            <td>“I don't think he realizes the gravity of the situation.”</td>
+            <td></td>
+            <td>2016-10-16 (estimated)</th>
+            <td>555,190</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/538.html">538 Dashboard</a></td>
+            <td><img src="cartoons/538.jpg" width=300 /></td>
+            <td>“I'm not a big cat person.”</td>
+            <td></td>
+            <td>2016-10-09 (estimated)</th>
+            <td>385,675</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/537.html">537 Dashboard</a></td>
+            <td><img src="cartoons/537.jpg" width=300 /></td>
+            <td>“He said the patent expired”</td>
+            <td></td>
+            <td>2016-10-02 (estimated)</th>
+            <td>665,537</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/536.html">536 Dashboard</a></td>
+            <td><img src="cartoons/536.jpg" width=300 /></td>
+            <td>“Sometimes a dipstick is just a dipstick.”</td>
+            <td></td>
+            <td>2016-09-25 (estimated)</th>
+            <td>415,065</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/535.html">535 Dashboard</a></td>
+            <td><img src="cartoons/535.jpg" width=300 /></td>
+            <td>“You and your surfaris.”</td>
+            <td></td>
+            <td>2016-09-18 (estimated)</th>
+            <td>488,929</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/534.html">534 Dashboard</a></td>
+            <td><img src="cartoons/534.jpg" width=300 /></td>
+            <td>“Looks like Sammy wins the "bring your pet to work" contest. He ate all of the other entries!”</td>
+            <td></td>
+            <td>2016-09-11 (estimated)</th>
+            <td>425,529</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/533.html">533 Dashboard</a></td>
+            <td><img src="cartoons/533.jpg" width=300 /></td>
+            <td>“If you see something, say something.”</td>
+            <td></td>
+            <td>2016-09-04 (estimated)</th>
+            <td>377,496</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/532.html">532 Dashboard</a></td>
+            <td><img src="cartoons/532.jpg" width=300 /></td>
+            <td>“Who's endangered now?”</td>
+            <td></td>
+            <td>2016-08-28 (estimated)</th>
+            <td>714,986</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/531.html">531 Dashboard</a></td>
+            <td><img src="cartoons/531.jpg" width=300 /></td>
+            <td>“Let's stay in tonight. It's a zoo out there.”</td>
+            <td></td>
+            <td>2016-08-14 (estimated)</th>
+            <td>498,337</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/530.html">530 Dashboard</a></td>
+            <td><img src="cartoons/530.jpg" width=300 /></td>
+            <td>“Your overhead is going to kill you.”</td>
+            <td></td>
+            <td>2016-08-07 (estimated)</th>
+            <td>218,558</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/529.html">529 Dashboard</a></td>
+            <td><img src="cartoons/529.jpg" width=300 /></td>
+            <td>“Of course I understand the gravity of the situation.”</td>
+            <td></td>
+            <td>2016-07-31 (estimated)</th>
+            <td>231,291</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/528.html">528 Dashboard</a></td>
+            <td><img src="cartoons/528.jpg" width=300 /></td>
+            <td>“Welcome to Weight Watchers!”</td>
+            <td></td>
+            <td>2016-07-17 (estimated)</th>
+            <td>96,609</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/527.html">527 Dashboard</a></td>
+            <td><img src="cartoons/527.jpg" width=300 /></td>
+            <td>“Well, your profile pic doesn't look much like you either.”</td>
+            <td></td>
+            <td>2016-07-10 (estimated)</th>
+            <td>237,412</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/526.html">526 Dashboard</a></td>
+            <td><img src="cartoons/526.jpg" width=300 /></td>
+            <td>“Hey! My eyes are down here.”</td>
+            <td></td>
+            <td>2016-07-03 (estimated)</th>
+            <td>238,677</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/524.html">524 Dashboard</a></td>
+            <td><img src="cartoons/524.jpg" width=300 /></td>
+            <td>“Take the picture, dammit, take the picture!”</td>
+            <td></td>
+            <td>2016-06-12 (estimated)</th>
+            <td>172,680</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/523.html">523 Dashboard</a></td>
+            <td><img src="cartoons/523.jpg" width=300 /></td>
+            <td>“You ordered from the wrong Amazon.”</td>
+            <td></td>
+            <td>2016-06-05 (estimated)</th>
+            <td>249,063</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/522.html">522 Dashboard</a></td>
+            <td><img src="cartoons/522.jpg" width=300 /></td>
+            <td>“Have you tried turning it off and back on again?”</td>
+            <td></td>
+            <td>2016-05-29 (estimated)</th>
+            <td>347,335</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/521.html">521 Dashboard</a></td>
+            <td><img src="cartoons/521.jpg" width=300 /></td>
+            <td>“Go and check if it's still raining. I'll wait here.”</td>
+            <td></td>
+            <td>2016-05-22 (estimated)</th>
+            <td>183,912</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/520.html">520 Dashboard</a></td>
+            <td><img src="cartoons/520.jpg" width=300 /></td>
+            <td>“I have to ask, do you feel that you could be a danger to others?”</td>
+            <td></td>
+            <td>2016-05-15 (estimated)</th>
+            <td>209,322</td>
+            <!--
+            <td>LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/519.html">519 Dashboard</a></td>
+            <td><img src="cartoons/519.jpg" width=300 /></td>
+            <td>“He's pro-gun, but I like his stance on migration.”</td>
+            <td></td>
+            <td>2016-05-08 (estimated)</th>
+            <td>191,935</td>
+            <!--
+            <td>RoundRobin, LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/518.html">518 Dashboard</a></td>
+            <td><img src="cartoons/518.jpg" width=300 /></td>
+            <td>“This saddest part is he's going in the wrong direction.”</td>
+            <td></td>
+            <td>2016-05-01 (estimated)</th>
+            <td>248,180</td>
+            <!--
+            <td>RoundRobin, LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/517.html">517 Dashboard</a></td>
+            <td><img src="cartoons/517.jpg" width=300 /></td>
+            <td>“Who'd have thought they'd get you for tax evasion.”</td>
+            <td></td>
+            <td>2016-04-24 (estimated)</th>
+            <td>59,717</td>
+            <!--
+            <td>RoundRobin, LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/516.html">516 Dashboard</a></td>
+            <td><img src="cartoons/516.jpg" width=300 /></td>
+            <td>“I have no concrete plans for the rest of the day.”</td>
+            <td></td>
+            <td>2016-04-17 (estimated)</th>
+            <td>49,365</td>
+            <!--
+            <td>RoundRobin, LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/515.html">515 Dashboard</a></td>
+            <td><img src="cartoons/515.jpg" width=300 /></td>
+            <td>“Tell me about your childhood very quickly.”</td>
+            <td></td>
+            <td>2016-04-10 (estimated)</th>
+            <td>47,448</td>
+            <!--
+            <td>RoundRobin, LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/514.html">514 Dashboard</a></td>
+            <td><img src="cartoons/514.jpg" width=300 /></td>
+            <td>“No, you grow up”</td>
+            <td></td>
+            <td>2016-04-03 (estimated)</th>
+            <td>192,198</td>
+            <!--
+            <td>LilUCB, RoundRobin</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/513.html">513 Dashboard</a></td>
+            <td><img src="cartoons/513.jpg" width=300 /></td>
+            <td>“I'm just saying, I can see why the 'brief'case is more popular.”</td>
+            <td></td>
+            <td>2016-03-27 (estimated)</th>
+            <td>34,013</td>
+            <!--
+            <td>RoundRobin, LilUCB</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/512.html">512 Dashboard</a></td>
+            <td><img src="cartoons/512.jpg" width=300 /></td>
+            <td>“We're pretentious, not ostentatious.”</td>
+            <td></td>
+            <td>2016-03-21 (estimated)</th>
+            <td>43,120</td>
+            <!--
+            <td>LilUCB, RoundRobin</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/511.html">511 Dashboard</a></td>
+            <td><img src="cartoons/511.jpg" width=300 /></td>
+            <td>“I'm hourly.”</td>
+            <td></td>
+            <td></th>
+            <td>56,660</td>
+            <!--
+            <td>LilUCB, RoundRobin</td>
+            -->
+          </tr>
+        
+          <tr>
+            <td><a href="https://nextml.github.io/caption-contest-data/dashboards/510.html">510 Dashboard</a></td>
+            <td><img src="cartoons/510.jpg" width=300 /></td>
+            <td>“I'm a congressman--obstruction is my job.”</td>
+            <td></td>
+            <td></th>
+            <td>82,627</td>
+            <!--
+            <td>LilUCB, RoundRobin</td>
+            -->
+          </tr>
+        
+      </table>
+      </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  </div>
+</body>
+</html>

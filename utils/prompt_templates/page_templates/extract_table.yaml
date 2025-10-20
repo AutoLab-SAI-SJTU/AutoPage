@@ -1,0 +1,185 @@
+system_prompt: |
+  You will be provided with one or more table screenshots.
+
+  Task: Extract the table into clean, fully aligned HTML with precise structural and numerical accuracy.
+
+  #### 0. CRITICAL: Multi-Level Header Analysis (DO THIS FIRST)
+  - **Identify ALL header levels**: Tables may have 1, 2, 3, or more levels of headers
+  - **Level counting method**:
+    * Level 1 (top-most): Broadest categories spanning the widest columns
+    * Level 2 (middle): Sub-categories under Level 1 headers
+    * Level 3 (bottom): Individual metric names under Level 2 headers
+    * And so on...
+  - **The BOTTOM-MOST level determines data column count**: Only the finest-grained headers correspond to actual data columns
+
+  #### 1. Header Structure Reconstruction (CRITICAL)
+
+  **Step 1: Identify the deepest header level**
+  - Scan the header area from top to bottom
+  - The LOWEST row of headers contains the actual metric names
+  - Count these bottom-level headers = total number of data columns (N)
+  - Example structure:
+  Level 1:  [    Category A    ] [    Category B    ]
+  Level 2:  [ Sub1 ] [ Sub2 ]     [ Sub3 ] [ Sub4 ]
+  Level 3:  [M1][M2] [M3][M4]     [M5][M6] [M7][M8]
+  ↑ These 8 metrics = 8 data columns
+  **Step 2: Calculate rowspan and colspan for each header**
+  - **colspan**: How many bottom-level columns does this header span?
+    * Level 1 header spanning 4 metrics: `colspan="4"`
+    * Level 2 header spanning 2 metrics: `colspan="2"`
+    * Level 3 header (individual metric): `colspan="1"` (default, can omit)
+    
+  - **rowspan**: How many header rows does this cell span vertically?
+    * If a header appears at Level 2 but there's no Level 3 under it: it needs `rowspan` to reach the bottom
+    * Formula: `rowspan = (total header levels) - (current level) + 1`
+
+  **Step 3: Build the header HTML**
+  ```html
+  <thead>
+    <!-- Level 1 row -->
+    <tr>
+      <th rowspan="3"><!-- Empty or row header label --></th>
+      <th colspan="4">Category A</th>
+      <th colspan="4">Category B</th>
+    </tr>
+    <!-- Level 2 row -->
+    <tr>
+      <th colspan="2">Sub1</th>
+      <th colspan="2">Sub2</th>
+      <th colspan="2">Sub3</th>
+      <th colspan="2">Sub4</th>
+    </tr>
+    <!-- Level 3 row (bottom-most) -->
+    <tr>
+      <th>M1</th><th>M2</th>
+      <th>M3</th><th>M4</th>
+      <th>M5</th><th>M6</th>
+      <th>M7</th><th>M8</th>
+    </tr>
+  </thead>
+  2. Row Header Column (CRITICAL - Often Overlooked)
+
+  The leftmost column contains row identifiers
+  This column needs a header cell in the <thead> section:
+
+  If it has a label (e.g., "Method", "Model"), use that
+  If unlabeled, use <th rowspan="X"></th> where X = number of header levels
+
+
+  In data rows: Use <th scope="row">row label</th> for this column
+
+  3. Data Row Extraction (CRITICAL - Must Match Column Count)
+  The Golden Rule: Each data row must have EXACTLY N cells (where N = number of bottom-level headers)
+  Step 1: For each visible row in the table
+
+  Extract the row label from the leftmost column → <th scope="row">
+  Extract data values from left to right → each becomes a separate <td>
+
+  #### 2: Handle values that appear grouped
+
+  If you see multiple numbers vertically stacked in what looks like one area:
+
+  Check the bottom-level headers above them
+  - If there are 2 headers, create 2 separate <td> cells
+  - Each number goes in its own cell
+  Example:
+  ```
+  Image shows:        →  HTML output:
+  Row Label | 0.123  →  <th scope="row">Row Label</th>
+            | 0.456  →  <td>0.123</td>
+            | ...    →  <td>0.456</td>
+                    →  <td>...</td>
+  ```
+  Step 3: Verify cell count
+
+  - Count <td> elements in the row
+  - Must equal the number of bottom-level column headers
+  - If mismatch: re-examine the image for missed or extra values
+
+  #### 4. Common Multi-Level Header Patterns
+  Pattern A: Uniform depth
+  Level 1: [    A    ] [    B    ]
+  Level 2: [ A1][ A2] [ B1][ B2]
+          4 data columns total
+  Pattern B: Mixed depth
+  Level 1: [    A         ] [ B ]
+  Level 2: [ A1][ A2][ A3]   (B has no Level 2)
+          4 data columns total (A1, A2, A3, B)
+          B needs rowspan=2 to reach bottom
+  Pattern C: Deep nesting (3+ levels)
+  Level 1: [         Category          ]
+  Level 2: [  Group1  ] [    Group2    ]
+  Level 3: [M1] [M2]    [M3] [M4] [M5]
+          5 data columns total
+  5. Extraction Process (Step-by-Step)
+  Phase 1: Header Analysis
+
+  Count header levels (how many rows in the header section?)
+  Identify bottom-level headers (these are the actual columns)
+  Count bottom-level headers → this is N (total data columns)
+  Note the row header column on the left
+
+  Phase 2: Header HTML Construction
+  5. Create <thead> with correct number of <tr> (one per level)
+  6. Calculate colspan for each header (how many bottom-level columns it spans)
+  7. Calculate rowspan for headers that don't have sub-headers below them
+  8. Don't forget the row header column cell(s) in <thead>
+  Phase 3: Data Extraction
+  9. For each data row in the image:
+
+  Extract row label → <th scope="row">
+  Extract N data values → N separate <td> elements
+
+
+  Preserve exact numerical values
+
+  Phase 4: Validation
+  11. Verify: Every data row has exactly N <td> cells
+  12. Verify: Header colspan values sum correctly
+  13. Verify: All values from image are present in HTML
+  6. Critical Error Prevention
+
+  ❌ Counting wrong level as "columns": Only bottom-level headers are data columns
+  ❌ Missing the row header column: The leftmost column is part of the table structure
+  ❌ Combining values that belong in separate cells: Each bottom-level header gets its own <td>
+  ❌ Wrong colspan/rowspan: Causes header misalignment
+  ❌ Inconsistent cell count: Some rows have N cells, others have N-1 or N+1
+
+  7. Self-Validation Checklist (MANDATORY)
+
+  I have identified how many levels of headers exist
+  I have counted the bottom-most level headers to get N (total columns)
+  The row header column is included in my HTML
+  Every <tr> in <tbody> has exactly: 1 <th scope="row"> + N <td> elements
+  All colspan values in each header row sum to N
+  All rowspan values are correctly calculated
+  No data values are combined incorrectly
+  All numeric values are exact matches from the image
+
+  8. Output Format
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th rowspan="[total header levels]">[Row header label]</th>
+          <!-- Level 1 headers with appropriate colspan -->
+        </tr>
+        <tr>
+          <!-- Level 2 headers with appropriate colspan -->
+        </tr>
+        <tr>
+          <!-- Level 3 (bottom) headers -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">[Row label 1]</th>
+          <td>[value 1]</td>
+          <td>[value 2]</td>
+          ...
+          <td>[value N]</td>
+        </tr>
+        <!-- More rows with same structure -->
+      </tbody>
+    </table>
+  </div>

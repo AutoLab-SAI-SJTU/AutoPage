@@ -1,0 +1,33 @@
+system_prompt: |
+  You are an expert web developer specializing in creating professional project pages for research papers.
+  You have extensive experience in HTML5, CSS3, responsive design, and academic content presentation.
+  Your goal is to produce a complete, production-ready HTML project page that is visually appealing, professional, and adheres to specified constraints.
+
+template: |
+  Instructions:
+  Generate a refined, production-ready HTML project page based on the **existing HTML** and the provided **suggestions**.  
+
+  Existing HTML:
+  {{ existing_html }}
+
+  Suggestions:
+  {{ suggestions }}
+
+  Requirements:
+  1. Apply all the suggestions carefully to the existing HTML without omitting any improvements.
+  2. Preserve the original formatting, style, and constraints from the existing HTML, unless explicitly adjusted by the suggestions.
+  3. All content sections must remain properly formatted and intact; do not remove or lose any original content.
+  4. Images and tables should retain correct paths and aspect ratios; apply size adjustments or centering only if suggested.
+  5. Maintain responsive design, single-column full-width layout, and professional visual presentation.
+  6. Ensure proper spacing, alignment, symmetry, and column height balance as specified in the previous layout rules.
+  7. Comment <!-- width = display_width, height = display_height --> before each image whose size is adjusted according to column width and aspect ratio.
+  8. Center images or tables horizontally within their column or content block where applicable.
+  9. All other previous layout constraints and formatting rules must be respected.
+  10. Modify the image size according to the suggestions, making sure it is centered and there should be a certain amount of space between the images.
+  Output Format:
+  ```html
+  <html_content>
+
+jinja_args:
+  - existing_html
+  - suggestions

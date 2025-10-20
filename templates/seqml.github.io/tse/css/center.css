@@ -1,0 +1,4 @@
+.centered-table {
+  margin: 0 auto;  /* 水平居中 */
+  width: 50%;      /* 设置表格宽度 */
+}

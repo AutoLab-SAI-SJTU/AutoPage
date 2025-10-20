@@ -1,0 +1,28 @@
+template: |
+  Please **revise the previously generated project page content** according to the review below:
+
+  <review_content>
+  {{review_content}}
+  <review_content>
+
+  ### Instructions:
+  1. Carefully read the `weakness`, `strength`, and `suggestion` fields in the review JSON.  
+  2. Improve the previously generated content by:
+    - Fixing weaknesses
+    - Preserving strengths
+    - Applying suggestions directly and concretely
+  3. Ensure the revised content is:
+    - **Accurate** (aligned with the original intent of the paper and figures).  
+    - **Clear and fluent** (scientifically precise, grammatically correct, and concise).  
+    - **Well-structured** (logical flow, correct figure placement).  
+  4. Please do not add or remove any sections.
+  5. Do not change the name of any section in the page content.
+  6. Do not include two identical figures in the page content.
+  7. Do not change any text content.0.
+
+  output format:
+  ```json
+  <Your output>
+  ```
+jinja_args:
+  - review_content

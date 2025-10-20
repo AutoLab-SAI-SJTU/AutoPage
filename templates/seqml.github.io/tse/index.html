@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-67F1SX9G11"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-67F1SX9G11');
+</script>
+
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.66.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet" type="text/css">
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css"> -->
+<link rel="stylesheet" href="../css/normalize.css">
+<link rel="stylesheet" href="../css/skeleton.css">
+<link rel="stylesheet" href="../css/custom.css">
+<link rel="stylesheet" href="css/center.css">
+<link rel="alternate" href="https://seqml.github.io/tse/index.xml" type="application/rss+xml" title="ML for Sequence Data">
+<!-- <link rel="shortcut icon" href="favicon.png" type="image/x-icon" /> -->
+<title>Towards Editing Time Series</title>
+</head>
+<body>
+
+<div class="container">
+
+<header role="banner">
+</header>
+
+
+<main role="main">
+<article itemscope itemtype="https://schema.org/BlogPosting">
+<h1 class="entry-title" itemprop="headline">Towards Editing Time Series</h1>
+<section itemprop="entry-text">
+<br>
+
+<p>Paper: <a target="_blank" and rel="noopener noreferrer" href="https://openreview.net/pdf?id=qu5NTwZtxA">https://openreview.net/pdf?id=qu5NTwZtxA</a></p>
+<p>Code: <a target="_blank" and rel="noopener noreferrer" href="https://github.com/seqml/TEdit">https://github.com/seqml/TEdit</a></p>
+
+
+<h2 id="authors">Authors</h2>
+<ul>
+<li>Baoyu Jing* (University of Illinois at Urbana-Champaign) <a href="mailto: baoyuj2@illinois.edu">baoyuj2@illinois.edu</a></li>
+<li>Shuqi Gu* (ShanghaiTech University) <a href="mailto: gushq2024@shanghaitech.edu.cn">gushq2024@shanghaitech.edu.cn</a></li>
+<li>Tianyu Chen (ShanghaiTech University) <a href="mailto: chenty12024@shanghaitech.edu.cn">chenty12024@shanghaitech.edu.cn</a></li>
+<li>Zhiyu Yang (ShanghaiTech University) <a href="mailto: yangzhy22022@shanghaitech.edu.cn">yangzhy22022@shanghaitech.edu.cn</a></li>
+<li>Dongsheng Li (Microsoft Research Asia) <a href="mailto: dongsli@microsoft.com"> dongsli@microsoft.com</a></li>
+<li>Jingrui He (University of Illinois at Urbana-Champaign) <a href="mailto: jingrui@illinois.edu">jingrui@illinois.edu</a></li>
+<li><a target="_blank" and rel="noopener noreferrer" href="http://www.saying.ren/">Kan Ren</a> (ShanghaiTech University) <a href="mailto: renkan@shanghaitech.edu.cn"> renkan@shanghaitech.edu.cn</a></li>
+</ul>
+
+
+<h2 id="abstract">Abstract</h2>
+
+<p>Synthesizing time series data is pivotal in modern society, aiding effective decision
+  making and ensuring privacy preservation in various scenarios. Time series are
+  associated with various attributes, including trends, seasonality, and external infor
+  mation such as location. Recent research has predominantly focused on random
+  unconditional synthesis or conditional synthesis. Nonetheless, these paradigms
+  generate time series from scratch and are incapable of manipulating existing time
+  series samples. This paper introduces a novel task, called Time Series Editing
+  (TSE), to synthesize time series by manipulating existing time series. The objec
+  tive is to modify the given time series according to the specified attributes while
+  preserving other properties unchanged. This task is not trivial due to the inade
+  quacy of data coverage and the intricate relationships between time series and their
+  attributes. To address these issues, we introduce a novel diffusion model, called
+  TEdit. The proposed TEdit is trained using a novel bootstrap learning algorithm
+  that effectively enhances the coverage of the original data. It is also equipped
+  with an innovative multi-resolution modeling and generation paradigm to capture
+  the complex relationships between time series and their attributes. Experimental
+  results demonstrate the efficacy of TEdit for editing specified attributes upon the
+  existing time series data.</p> 
+
+
+<h2 id="algorithm">Method Overview </h2>
+<!-- <p><b>Editing with Source Modeling and Target Generation:</b></p>
+<p> 
+  In this paper, we propose a diffusion based two-stage procedure for TSE: Φθ (xsrc, asrc, atgt)
+  In the first stage, we encode both the attribute semantics [ 6]
+  and the detail characteristics [10 ] of the source time series xsrc
+  0 into the latent variable xsrc
+  T via the
+  deterministic forward DDIM process [18]:
+</p> -->
+<p><b>Multi-Resolution Noise Estimator:</b></p>
+<p>
+  In this paper, we propose a multi-resolution architecture for the diffusion noise estimator considering that different attributes can influence the time
+  series on varying scales.
+</p>
+<p> 
+  <img src="figure/noise-estimator.png" alt="noise estimator architecture" style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
+</p>
+<p> 
+  As illustrated in the above Figure, our model divide the original time series into serval patch sequences with different resolutions.
+  Then we conncatenate the input patch embeddin  sequences of different resolutions into a single vector and parallelly send them into
+  the processing module with other information, e.g., attributes and diffusion step.
+  We use the attention masking mechanism to ensure that attention is only performed in the same resolution.
+</p>
+
+
+
+<p><b>Bootstrap Learning Algorithm:</b></p>
+<p> 
+To overcome the lack of source and target time series pairs in real-world dataset.
+We propose a training algorithm called bootstrap.
+Specifically, it self-scores the time series generated the model itself, and choose the top K samples with 
+the highest score. Then we use these samples to further update the diffusion model.
+</p>
+<p> 
+  <img src="figure/bootstrap.png" alt="bootstrap adapter" style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
+</p>
+
+
+<h2 id="experiment">Experiment Results </h2>
+<p> 
+We compare our method <u><b>T</b>ime series <b>Edit</b>ing</u> (<b>TEdit</b>) with the baselines 
+on a synthetic dataset <b>Synthetic</b> and two real-world datasets <b>Air</b> and <b>Motor</b>.
+As shown in the table bellow, our method significantly improve the performance of overall and edited attributes,
+while able to preserve the performance of preserved attributes.
+</p>
+<p> 
+The results also show that both the multi-resolution architecture and bootstrap training algorithm 
+play an important role in improving performance.
+</p>
+
+<p> 
+<img src="figure/main-exp-res.png" alt="Experiment results of TEdit" style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
+</p>
+
+<h2 id="case">Case Study </h2>
+
+<table class="centered-table">
+  <thead>
+    <tr>
+      <th style="text-align: center">Source attributes</th>
+      <th style="text-align: center">Target attributes</th>
+      <th style="text-align: center">Visualization</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center;vertical-align:middle;width: 200px;min-width: 200px">
+        Trend type: <b>logistic</b><br>
+        Trend direction: down 
+        Season cycle: 0
+      </td>
+      <td style="text-align: center;vertical-align:middle;width: 200px;min-width: 200px">
+        Trend type: <b>linear</b> <br>
+        Trend direction: down <br>
+        Season cycle: 0 <br>
+      </td>
+      <td style="text-align: center">
+        <video controls width="300">
+          <source src="video/trend_types.mp4" type="video/mp4" />
+        </video>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: center;vertical-align:middle;width: 200px;min-width: 200px">
+        Trend type: exponential <br>
+        Trend direction: <b>down</b> <br>
+        Season cycle: 2 <br>
+      </td>
+      <td style="text-align: center;vertical-align:middle;width: 200px;min-width: 200px">
+        Trend type: exponential<br>
+        Trend direction: <b>up</b> <br>
+        Season cycle: 2 <br>
+      </td>
+      <td style="text-align: center">
+        <video controls width="300">
+          <source src="video/trend_directions.mp4" type="video/mp4" />
+        </video>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: center;vertical-align:middle;width: 200px;min-width: 200px">
+        Trend type: quadratic <br>
+        Trend direction: up <br>
+        Season cycle: <b>0</b> <br>
+      </td>
+      <td style="text-align: center;vertical-align:middle;width: 200px;min-width: 200px">
+        Trend type: quadratic<br>
+        Trend direction: up <br>
+        Season cycle: <b>4</b> <br>
+      </td>
+      <td style="text-align: center">
+        <video controls width="300">
+          <source src="video/season_cycles.mp4" type="video/mp4" />
+        </video>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="comparison">Comparison</h2>
+
+<table class="centered-table">
+  <thead>
+    <tr>
+      <th style="text-align: center">Source attributes</th>
+      <th style="text-align: center">Target attributes</th>
+      <th style="text-align: center">Comparison</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center;vertical-align:middle;width: 200px;min-width: 200px">
+        Trend type: <b>exponential</b><br>
+        Trend direction: down 
+        Season cycle: 1
+      </td>
+      <td style="text-align: center;vertical-align:middle;width: 200px;min-width: 200px">
+        Trend type: <b>logistic</b> <br>
+        Trend direction: down <br>
+        Season cycle: 1 <br>
+      </td>
+      <td style="text-align: center">
+        <video controls width="480">
+          <source src="video/trend_types_cmp.mp4" type="video/mp4" />
+        </video>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: center;vertical-align:middle;width: 200px;min-width: 200px">
+        Trend type: linear <br>
+        Trend direction: <b>up</b> <br>
+        Season cycle: 0 <br>
+      </td>
+      <td style="text-align: center;vertical-align:middle;width: 200px;min-width: 200px">
+        Trend type: linear<br>
+        Trend direction: <b>down</b> <br>
+        Season cycle: 0 <br>
+      </td>
+      <td style="text-align: center">
+        <video controls width="480">
+          <source src="video/trend_directions_cmp.mp4" type="video/mp4" />
+        </video>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: center;vertical-align:middle;width: 200px;min-width: 200px">
+        Trend type: quadratic <br>
+        Trend direction: up <br>
+        Season cycle: <b>1</b> <br>
+      </td>
+      <td style="text-align: center;vertical-align:middle;width: 200px;min-width: 200px">
+        Trend type: quadratic<br>
+        Trend direction: up <br>
+        Season cycle: <b>4</b> <br>
+      </td>
+      <td style="text-align: center">
+        <video controls width="480">
+          <source src="video/season_cycles_cmp.mp4" type="video/mp4" />
+        </video>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="related_works">Related Works </h2>
+<p><a target="_blank" and rel="noopener noreferrer" href="https://arxiv.org/abs/2403.02682">Time Weaver: A Conditional Time Series Generation Model</a></p>
+<p><a target="_blank" and rel="noopener noreferrer" href="https://arxiv.org/abs/2107.03502">CSDI: Conditional Score-based Diffusion Models for Probabilistic Time Series Imputation</a></p>
+
+
+
+</body>
+</html>

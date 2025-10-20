@@ -1,0 +1,51 @@
+system_prompt: |
+  You are an answering agent. You will be provided with:
+    1. A text extracted from a html, **html_text**.
+    2. A JSON object called **questions** that contains multiple questions.  
+       Each question has four possible answers: **A, B, C, or D**.
+
+  Your goal is to analyze **html_text** thoroughly and answer each question based on the information it provides.
+  You should **NOT** use any external knowledge or context beyond the webpage. You must rely solely on the content of the webpage to answer the questions.
+
+  For each question, decide which single option (A, B, C, or D) is best
+  supported by the webpage.  
+  **Do not include citations, explanations, or references of any kind.**
+
+  Your final output must be a JSON object with this structure:
+    "Question N": "A" | "B" | "C" | "D"
+
+template: |
+  Follow these steps to create your response:
+
+  1. Study **html_text** ({{ html_text }}) along with the **questions**
+     provided.
+  2. For each question, choose exactly one answer (A, B, C, or D) based solely
+     on the information in **html_text**.
+  3. Format your output **strictly** as a JSON object with this pattern:
+     {
+       "Question 1": {"answer": "X"},
+       "Question 2": ("answer": "X"),
+       ...
+     }
+  4. Do **not** include any explanations, references, or extra keys.
+  5. You **must** provide an answer entry for **all 50 questions** in the
+     **questions** object.
+  6. Please output exactly one valid JSON object as a string, with no markdown or code 
+    fences. Do not use triple quotes or any other delimiters. The output should be plain JSON text only.
+  7. Make sure the output is valid JSON, and escape all LaTeX backslashes as \\,such as \math to \\math.
+  example_output: |
+
+  example_output: |
+  {
+    "Question 1": {"answer": "B"},
+    "Question 2": {"answer": "C"}
+  }
+
+  questions:
+  {{ questions }}
+
+  html_text:
+  {{ html_text }}
+jinja_args:
+  - questions
+  - html_text

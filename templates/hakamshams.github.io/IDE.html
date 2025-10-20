@@ -1,0 +1,570 @@
+<!DOCTYPE HTML>
+<!--
+	Strongly Typed by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Nerfi CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+
+	Modified by: Mohamad Hakam Shams Eddin CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+
+-->
+<html xmlns="http://www.w3.org/1999/html">
+	<head>
+		<title>IDE</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="IDE/assets/css/main.css" />
+		<link rel="stylesheet" href="IDE/assets/css/academicons.min.css" />
+		<link rel="stylesheet" href="IDE/assets/css/bulma-carousel.min.css">
+
+	</head>
+	<body class="no-sidebar is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<section id="header">
+				<!--		 style="background: url(assets/images/paper_video.png);
+								display: -moz-flex;
+								display: -webkit-flex;
+								display: -ms-flex;
+								display: flex;
+								background-attachment: fixed;
+								background-position: center;
+								background-repeat: no-repeat;
+								background-size: cover;
+								border-bottom: 0 !important;
+								cursor: default;" -->
+				>
+					<div class="container">
+
+						<!-- Logo -->
+
+							<h1 id="logo"><a><img src="IDE/assets/images/neurips-navbar-logo.svg" width="80" height="80"/></a><a href="IDE.html"> Identifying Spatio-Temporal Drivers of Extreme Events</a></h1>
+							<p>
+						 	 	<a href="https://hakamshams.github.io/">Mohamad Hakam Shams Eddin</a><sup>1,2</sup> and
+						  		<a href="http://pages.iai.uni-bonn.de/gall_juergen/">Juergen Gall</a><sup>1,2</sup>
+								<br>
+								<br>
+								<sup>1</sup>Institute of Computer Science, University of Bonn, Germany
+								<br>
+            					<sup>2</sup>Lamarr Institute for Machine Learning and Artificial Intelligence, Germany
+							</p>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li><a class="icon1 ai ai-open-access" href="https://openreview.net/forum?id=DdKdr4kqxh"><span>Paper</span></a></li>
+									<li><a class="icon1 ai ai-arxiv" href="https://arxiv.org/abs/2410.24075"><span>ArXiv</span></a></li>
+									<li><a class="icon brands alt fa-youtube" href="https://www.youtube.com/watch?v=_AD5moplxB0"><span>Video</span></a></li>
+									<li><a class="icon brands alt fa-github" href="https://github.com/HakamShams/IDEE"><span>Code</span></a></li>
+									<li><a class="icon1 ai ai-open-data" href="https://doi.org/10.60507/FK2/RD9E33"><span>Dataset</span></a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</section>
+
+
+		<!-- video -->
+		<section style="background: #f0f0f0; padding: 0em 0 0em 0">
+			<div class="container" >
+			  <!-- Paper video. -->
+				<div class="video main">
+					<!-- Youtube embed code here -->
+			<!--<a class="image featured" ><img src="assets/images/video_cover_ide.jpg" alt="Video"/> </a> -->
+				<iframe src="https://www.youtube.com/embed/_AD5moplxB0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			<!--	  </div> -->
+			</div>
+		</section>
+
+			<!-- Abstract -->
+				<section id="main">
+					<div class="container">
+						<div id="abstract content">
+							<!-- Post -->
+								<article class="box post">
+									<header>
+										<h2>Abstract</h2>
+										<p align="justify" style="color:black"> The spatio-temporal relations of extreme events impacts and their drivers in climate data are not fully understood and there is a need of machine learning approaches to identify such spatio-temporal relations from data.
+											The task, however, is very challenging since there are time delays between extremes and their drivers, and the spatial response of such drivers is inhomogeneous.
+											In this work, we propose a first approach and benchmarks to tackle this challenge.
+											Our approach is trained end-to-end to predict spatio-temporally extremes and spatio-temporally drivers in the physical input variables jointly.
+											We assume that there exist precursor drivers, primarily as anomalies in assimilated land surface and atmospheric data, for every observable impact of extremes.
+											By enforcing the network to predict extremes from spatio-temporal binary masks of identified drivers, the network successfully identifies drivers that are correlated with extremes.
+											We evaluate our approach on three newly created synthetic benchmarks where two of them are based on remote sensing or reanalysis climate data and on two real-world reanalysis datasets. </p>
+									</header>
+								</article>
+						</div>
+					</div>
+
+				</section>
+
+<!-- overview -->
+			<section style="background: #000000; padding: 1em 0 4em 0">
+					<div class="container">
+						<div class="row aln-center">
+							<!-- Content -->
+								<div class="col-9">
+									<!-- Post -->
+										<article class="box post">
+											<header>
+												<h2 style="color:#FFFFFF; text-align: center">Overeview</h2>
+											</header>
+											<a href="IDE/assets/images/overview.jpg" class="image featured"><img src="IDE/assets/images/overview.jpg" alt="Overview of the task" /></a>
+											<p style="color:#FFFFFF;">Overview of the objective of this work.
+												We are interested in identifying spatio-temporal relations between the measurable <strong><span style="color:#BC82B5"> impacts of extreme events </span></strong> like the vegetation health index and their <strong><span style="color:#ff4b4b"> drivers</span></strong>.
+												As drivers, we focus on anomalies in state variables of the land-atmosphere and hydrological cycle.
+												The task is very challenging since the drivers can occur at a different region than the extreme event and earlier in time.
+											</p>
+										</article>
+								</div>
+						</div>
+					</div>
+				</section>
+
+
+				<section style="background: #ffffff; padding: 0em 0 2em 0">
+					<div class="container">
+						<div class="row aln-center">
+							<!-- Content -->
+								<div class="col-9">
+									<!-- Post -->
+										<article class="box post">
+											<header>
+												<h2>Model architecture</h2>
+											</header>
+											<a href="IDE/assets/images/model.jpg" class="image featured"><img src="IDE/assets/images/model.jpg" alt="model design" /></a>
+											<p>An overview of the proposed model to identify the spatio-temporal relations between extreme agricultural droughts and drivers.
+												The input variables are first encoded into features.
+												In a subsequent step, a lockup free quantization layer (LFQ) takes the extracted features and classifies the variables into a binary representation of normal or anomalous events.
+												Finally, a classifier is used to predict extreme events from the identified anomalies.</p>
+
+										</article>
+								</div>
+						</div>
+					</div>
+				</section>
+
+
+<!-- Baselines -->
+
+				<section id="features" style="background: #FFFFFF; padding: 0em 0 2em 0">
+					<div class="container">
+						<header>
+							<h2>Comparison to the baselines</h2>
+						</header>
+						<div class="row aln-center">
+							<div class="col-5">
+
+								<!-- Feature -->
+									<section>
+										<a href="IDE/assets/images/table.png" class="image featured"><img src="IDE/assets/images/table.png" alt="Comparison to the baselines 1" /></a>
+									</section>
+
+							</div>
+
+							<div class="col-5">
+
+								<!-- Feature -->
+									<section>
+										<a href="IDE/assets/images/dropped_variabels.png" class="image featured"><img src="IDE/assets/images/dropped_variabels.png" alt="Comparison to the baselines 2" /></a>
+									</section>
+
+							</div>
+
+						</div>
+
+					</div>
+
+<!-- Prediction Regions -->
+
+				<section style="background: #000000; padding: 1em 0 2em 0">
+					<div class="container">
+						<header><h2 style="color:#FFFFFF; text-align: center">Results on real-world reanalysis data</h2></header>
+						<div class="row aln-center">
+							<!-- Content -->
+								<div class="col-10">
+									<!-- Post -->
+									 <div class="carousel results-carousel">
+												<div class="item">
+													<img class="image fit" src="IDE/assets/images/AFR_2017020.jpg" alt="Africa (AFR-11)"/>
+													<h3 class="header" style="color: white; text-align: center">
+															Qualitative results on <span style="color:#cd932b"> ERA5-Land </span> for <span style="color:#cd932b"> Africa (AFR-11)</span>.
+															Shown are the identified drivers and anomalies for each variable along with the prediction of extreme agricultural droughts on the top left.
+														</h3>
+												</div>
+												<div class="item">
+													<img class="image fit" src="IDE/assets/images/NAM_2018019.jpg" alt="North America (NAM-11)"/>
+														<h3 class="header" style="color: white; text-align: center">
+															Qualitative results on <span style="color:#cd932b"> ERA5-Land </span> for <span style="color:#cd932b"> North America (NAM-11)</span>.
+															Shown are the identified drivers and anomalies for each variable along with the prediction of extreme agricultural droughts on the top left.														</h3>
+												</div>
+												<div class="item">
+													<img class="image fit" src="IDE/assets/images/SAM_2019050.jpg" alt="South America (SAM-11)"/>
+														<h3 class="header" style="color: white; text-align: center">
+															Qualitative results on <span style="color:#cd932b"> ERA5-Land </span> for <span style="color:#cd932b"> South America (SAM-11)</span>.
+															Shown are the identified drivers and anomalies for each variable along with the prediction of extreme agricultural droughts on the top left.														</h3>
+												</div>
+												<div class="item">
+													<img class="image fit" src="IDE/assets/images/EAS_2020009.jpg" alt="East Asia (EAS-11)"/>
+														<h3 class="header" style="color: white; text-align: center">
+															Qualitative results on <span style="color:#cd932b"> ERA5-Land </span> for <span style="color:#cd932b"> East Asia (EAS-11)</span>.
+															Shown are the identified drivers and anomalies for each variable along with the prediction of extreme agricultural droughts on the top left.														</h3>
+												</div>
+										 		<div class="item">
+										 			<img class="image fit" src="IDE/assets/images/CAS_2021026.jpg" alt="Central Asis (CAS-11)"/>
+														<h3 class="header" style="color: white; text-align: center">
+															Qualitative results on <span style="color:#cd932b"> ERA5-Land </span> for <span style="color:#cd932b"> Central Asis (CAS-11)</span>.
+															Shown are the identified drivers and anomalies for each variable along with the prediction of extreme agricultural droughts on the top left.														</h3>
+											  	</div>
+												 <div class="item">
+															<img class="image fit" src="IDE/assets/images/EUR_2022046.jpg" alt="Europe"/>
+																<h3 class="header" style="color: white; text-align: center">
+															Qualitative results on <span style="color:#cd932b"> CERRA </span> for <span style="color:#cd932b"> Europe </span>.
+															Shown are the identified drivers and anomalies for each variable along with the prediction of extreme agricultural droughts on the top left.																</h3>
+														</div>
+												 <div class="item">
+															<img class="image fit" src="IDE/assets/images/CERRA_2020045.jpg" alt="Europe (EUR-11)"/>
+																<h3 class="header" style="color: white; text-align: center">
+															Qualitative results on <span style="color:#cd932b"> ERA5-Land </span> for <span style="color:#cd932b"> Europe (EUR-11)</span>.
+															Shown are the identified drivers and anomalies for each variable along with the prediction of extreme agricultural droughts on the top left.																</h3>
+														</div>
+									 </div>
+								</div>
+						</div>
+					</div>
+				</section>
+
+<!-- Results on real-world data NAM-11 -->
+			<section style="background: #FFFFFF; padding: 1em 0 0em 0">
+					<div class="container">
+						<header><h2 style="color:#000000; text-align: center">Results on real-world reanalysis data</h2></header>
+
+						<div class="row aln-center" >
+							<!-- Content -->
+								<div class="col-11">
+									<!-- Post -->
+										<article class="box post">
+											<a href="IDE/assets/gifs/qualitative_NAM.gif" class="image fit"><img src="IDE/assets/gifs/qualitative_NAM.gif" alt="Qualitative results on the ERA5-Land NAM-11 reanalysis"  /></a>
+											<p>Qualitative results on <strong><span style="color:#cd932b"> ERA5-Land </span></strong> for <strong><span style="color:#cd932b"> North America (NAM-11)</span></strong>.
+												Shown are the identified drivers and anomalies for two variables along with the prediction of extreme agricultural droughts on the top right.</p>
+										</article>
+								</div>
+						</div>
+					</div>
+				</section>
+
+<!-- Results on real-world data NAM-11-->
+
+<!-- Results on synthetic data -->
+			<section style="background: #FFFFFF; padding: 1em 0 3em 0">
+					<div class="container">
+						<header><h2 style="color:#000000; text-align: center">Results on synthetic data</h2></header>
+
+						<div class="row aln-center" >
+							<!-- Content -->
+								<div class="col-11">
+									<!-- Post -->
+										<article class="box post">
+											<a href="IDE/assets/gifs/baselines.gif" class="image fit"><img src="IDE/assets/gifs/baselines.gif" alt="Qualitative results on the synthetic CERRA reanalysis"  /></a>
+											<p>Qualitative results on the synthetic CERRA reanalysis from the test set.
+												Shown are the <strong><span style="color:#008080">prediction</span></strong>, the <strong><span style="color:#000080">ground truth</span></strong>, and the <strong><span style="color:#ff0000">false positive</span></strong>.
+												Albedo and relative humidity are not correlated with extremes, meaning that they do not have target anomalies but only random ones.</p>
+										</article>
+								</div>
+						</div>
+					</div>
+				</section>
+
+<!-- Results on synthetic data -->
+
+	<section style="background: #000000; padding: 2em 0 2em 0">
+					<div class="container">
+						<header><h2 style="color:#FFFFFF; text-align: center">Results on real-world reanalysis data </h2></header>
+						<div class="row aln-center">
+							<div class="col-6">
+								<!-- Feature -->
+									<section>
+										<a href="IDE/assets/images/spatial_portugal.jpg" class="image featured"><img src="IDE/assets/images/spatial_portugal.jpg" alt="The averaged spatial distribution of anomalies" /></a>
+
+										<p style="color:#FFFFFF;">The averaged spatial distribution of drivers/anomalies related to <span style="color:#f6c68e">Portugal in Europe</span>.
+											For this experiment, we use prediction on EUR-11 from ERA5-Land and select frames (weeks) within the period 2018-2024 where there were extreme drought of at least 25% of the pixels in Portugal.
+											Then we normalize the identified anomalies by the total number of frames to obtain the final map.
+										</p>
+									</section>
+							</div>
+							<div class="col-6">
+								<!-- Feature -->
+									<section>
+										<a href="IDE/assets/images/spatial_nordrhein_westfalen.jpg" class="image featured"><img src="IDE/assets/images/spatial_nordrhein_westfalen.jpg" alt="The averaged spatial distribution of anomalies" /></a>
+										<p style="color:#FFFFFF;">The averaged spatial distribution of anomalies related to a specific place in  <span style="color:#f6c68e"> Europe (North Rhine-Westphalia)</span>.
+											For this experiment, we use prediction on EUR-11 from ERA5-Land and select frames (weeks) within the period 2018-2024 where there were extreme drought of at least 25% of  the pixels in the North Rhine-Westphalia.
+											Then we normalize the identified anomalies by the total number of frames to obtain the final map.
+										</p>
+									</section>
+							</div>
+
+						</div>
+					</div>
+				</section>
+
+<!-- Reanalysis Dataset -->
+
+			<section id="features" style="background: #FFFFFF; padding: 1em 0 2em 0">
+					<div class="container">
+						<header>
+							<h2>Real-world reanalysis dataset</h2>
+						</header>
+						<div class="row aln-center">
+							<div class="col-6">
+								<!-- Feature -->
+									<section>
+									<header>
+											<h3> The definition of the domains used in the study </h3>
+										</header>
+										<a href="IDE/assets/gifs/domain_1.gif" class="image featured"><img src="IDE/assets/gifs/domain_1.gif" alt="The definition of the domains" /></a>
+
+										<p>
+											We conducted the experiments on two real-world reanalysis (ERA5-Land and CERRA) including data from five continents.
+											ERA5-Land reanalysis is mapped onto the CORDEX domains.
+											CERRA has its own domain definition.
+											</p>
+
+									</section>
+							</div>
+							<div class="col-6">
+								<!-- Feature -->
+									<section>
+									<header>
+											<h3>CORDEX Domains</h3>
+									</header>
+										<a href="IDE/assets/gifs/domain_2.gif" class="image featured"><img src="IDE/assets/gifs/domain_2.gif" alt="CORDEX Domains" /></a>
+									</section>
+							</div>
+
+						</div>
+					</div>
+				</section>
+
+
+<!-- Synthetic Data -->
+				<section id="model" style="background: #ffffff; padding: 0em 0 2em 0">
+					<div class="container">
+						<div class="row aln-center">
+							<!-- Content -->
+								<div  class="col-10">
+									<!-- Post -->
+										<article class="box post">
+											<header>
+												<h2>Synthetic dataset</h2>
+											</header>
+											<a href="IDE/assets/gifs/t_less.gif" class="image featured"><img src="IDE/assets/gifs/t_less.gif" alt="Perceptual examples of the synthetic CERRA reanalysis data" /></a>
+											<p>
+												Perceptual examples of the <strong> synthetic CERRA reanalysis data</strong>.
+												The target anomalies are visualized under each variable directly.
+												Here, albedo and relative humidity are not correlated with the extremes.
+											</p>
+										</article>
+								</div>
+						</div>
+					</div>
+				</section>
+
+<!-- Synthetic Data -->
+			<section id="features" style="background: #FFFFFF; padding: 1em 0 2em 0">
+					<div class="container">
+						<header>
+							<h3>Perceptual examples of the synthetic data</h3>
+						</header>
+						<div class="row aln-center">
+							<div class="col-6">
+								<!-- Feature -->
+									<section>
+										<header>
+											<h3>Synthetic artificial data </h3>
+										</header>
+										<a href="IDE/assets/images/1314_14_exp1.jpg" class="image featured"><img src="IDE/assets/images/1314_14_exp1.jpg" alt="Synthetic artificial data" /></a>
+										<p>	The target anomalies are visualized under each variable directly.
+											Here, variables 01 and 05 are not correlated with the extremes.</p>
+									</section>
+							</div>
+							<div class="col-6">
+								<!-- Feature -->
+									<section>
+										<header>
+											<h3>Synthetic CERRA reanalysis data </h3>
+										</header>
+										<a href="IDE/assets/images/1314_14_exp_3.jpg" class="image featured"><img src="IDE/assets/images/1314_14_exp_3.jpg" alt="Synthetic CERRA reanalysis data" /></a>
+										<p>	The target anomalies are visualized under each variable directly.
+												Here, albedo and relative humidity are not correlated with the extremes.</p>
+									</section>
+							</div>
+
+						</div>
+					</div>
+				</section>
+
+<!-- Trends -->
+
+			<section style="background: #000000; padding: 2em 0 2em 0">
+					<div class="container">
+						<header><h2 style="color:#FFFFFF; text-align: center">Visualization of the generated signals Φ</h2></header>
+
+						<div class="row aln-center">
+							<!-- Content -->
+								<div id="content" class="col-12">
+									<!-- Post -->
+									 <div id="results-carousel" class="carousel results-carousel">
+												<div class="item">
+													<img class="image fit" src="IDE/assets/images/time_series_75_75_0.jpg" alt="albedo"/>
+														<h3 class="header" style="color: white; text-align: center">
+															Synthetic signal of <span style="color:#f6c68e">albedo</span> from CERRA climatology.
+														</h3>
+												</div>
+												<div class="item">
+													<img class="image fit" src="IDE/assets/images/time_series_75_75_1.jpg" alt="2m temperature"/>
+														<h3 class="header" style="color: white; text-align: center">
+															Synthetic signal of <span style="color:#d8af80">2m temperature</span> from CERRA climatology.
+														</h3>
+												</div>
+										 		<div class="item">
+													<img class="image fit" src="IDE/assets/images/time_series_75_75_2.jpg" alt="total cloud cover"/>
+														<h3 class="header" style="color: white; text-align: center">
+															Synthetic signal of <span style="color:#d8af80">total cloud cover</span> from CERRA climatology.
+														</h3>
+												</div>
+
+												<div class="item">
+													<img class="image fit" src="IDE/assets/images/time_series_75_75_3.jpg" alt="total precipitation"/>
+														<h3 class="header" style="color: white; text-align: center">
+															Synthetic signal of <span style="color:#d8af80">total precipitation</span> from CERRA climatology.
+														</h3>
+												</div>
+												<div class="item">
+													<img class="image fit" src="IDE/assets/images/time_series_75_75_4.jpg" alt="relative humidity"/>
+														<h3 class="header" style="color: white; text-align: center">
+															Synthetic signal of <span style="color:#d8af80">relative humidity</span> from CERRA climatology.
+														</h3>
+												</div>
+										 		<div class="item">
+													<img class="image fit" src="IDE/assets/images/time_series_75_75_5.jpg" alt="volumetric soil moisture"/>
+														<h3 class="header" style="color: white; text-align: center">
+															Synthetic signal of <span style="color:#d8af80">volumetric soil moisture</span> from CERRA climatology.
+														</h3>
+											  	</div>
+									 </div>
+								</div>
+						</div>
+					</div>
+				</section>
+
+
+<!-- Poster -->
+
+
+			<section style="background: white; padding: 2em 0 0em 0">
+					<div class="container">
+						<div class="row aln-center">
+							<!-- Content -->
+								<div  class="col-11">
+									<!-- Post -->
+										<article class="box post">
+											<header>
+												<h2 align="left">Poster</h2>
+											</header>
+											<a href="IDE/assets/images/Shams_Gall_reduziert.jpg" class="image featured"><img src="IDE/assets/images/Shams_Gall_reduziert.jpg" alt="Poster" /></a>
+											  <!--<iframe  src="assets/pdfs/Shams_Gall.pdf" width="100%" height="1800px"></iframe>-->
+										</article>
+								</div>
+						</div>
+					</div>
+				</section>
+
+<!-- BibTex citation -->
+			<section class="section" id="BibTeX" style="background: #F2F2F2; padding: 1em 0 1em 0">
+				<div class="container is-max-desktop content aln-center">
+				  <h2 class="title">BibTeX</h2>
+				  <pre style="text-align: left">
+
+			@inproceedings{IDEE,
+							   author = {Shams Eddin, Mohamad Hakam and Gall, J\"{u}rgen},
+							   booktitle = {Advances in Neural Information Processing Systems},
+							   editor = {A. Globerson and L. Mackey and D. Belgrave and A. Fan and U. Paquet and J. Tomczak and C. Zhang},
+							   pages = {93714--93766},
+							   publisher = {Curran Associates, Inc.},
+							   title = {Identifying Spatio-Temporal Drivers of Extreme Events},
+							   url = {https://proceedings.neurips.cc/paper_files/paper/2024/file/aa7259c82d642e47d5661f3218cdcad2-Paper-Conference.pdf},
+							   volume = {37},
+							   year = {202d4}
+							  }
+				  </pre>
+				</div>
+			</section>
+
+
+			<section style="background: #ffffff; padding: 2em 0 3em 0">
+					<div class="container">
+						<header><h2 style="color:#000000; text-align: left">Dataset download </h2></header>
+
+					<!--<header><h2 style="color:#000000; text-align: left">BibTeX Dataset: </h2></header> -->
+					<div class="row aln-center" >
+						<!--<script src="https://bonndata.uni-bonn.de/resources/js/widgets.js?persistentId=doi:10.60507/FK2/RD9E33&amp;dvUrl=https://bonndata.uni-bonn.de&amp;widget=citation&amp;heightPx=260"></script> -->
+						<script src="https://bonndata.uni-bonn.de/resources/js/widgets.js?persistentId=doi:10.60507/FK2/RD9E33&amp;dvUrl=https://bonndata.uni-bonn.de&amp;widget=iframe&amp;heightPx=500"></script>
+					</div>
+						</div>
+			</section>
+
+
+
+			<!-- Footer -->
+				<section id="footer">
+					<div class="container">
+						<div class="columns is-centered">
+						  <div class="column is-8">
+							<div class="content">
+
+							  <p align="center">
+								This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+								Commons Attribution-ShareAlike 4.0 International License</a>. You are free to use the <a href="https://github.com/HakamShams/IDE">source code</a> of this website, we only ask you to give appropriate credits by mentioning the <a href="IDE.html">IDE</a> website and to consider the licences of the source codes.
+							  </p>
+								<h3 align="center" style="color: white; font-size:22px"> Contact: <a href="mailto:shams@iai.uni-bonn.de">shams@iai.uni-bonn.de</a>
+									&emsp;&emsp;
+												 <a href="mailto:gall@iai.uni-bonn.de">gall@iai.uni-bonn.de</a>
+								</h3>
+							</div>
+						  </div>
+						</div>
+					  </div>
+
+					<div id="copyright" class="container">
+
+						<ul class="links">
+
+							<li>&copy; All rights reserved</li>
+							<li>Design: <a href="https://hakamshams.github.io/Focal-TSMP/">Focal-TSMP</a> & <a  href="http://html5up.net">HTML5 UP</a> &
+								<a href="https://nerfies.github.io">Nerfie</a>
+							</li>
+						<!--	<li>Contact: <a style="color: white" href="mailto:shams@iai.uni-bonn.de">shams@iai.uni-bonn.de</a> or
+							 <a style="color: white" href="mailto:gall@iai.uni-bonn.de">gall@iai.uni-bonn.de</a></li> -->
+						</ul>
+					</div>
+
+				</section>
+		</div>
+
+		<!-- Scripts -->
+			<script src="IDE/assets/js/jquery.min.js"></script>
+			<script src="IDE/assets/js/jquery.dropotron.min.js"></script>
+			<script src="IDE/assets/js/browser.min.js"></script>
+			<script src="IDE/assets/js/breakpoints.min.js"></script>
+			<script src="IDE/assets/js/util.js"></script>
+			<script src="IDE/assets/js/main.js"></script>
+
+	 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		  	<script src="IDE/assets/js/bulma-carousel.min.js"></script>
+	  		<script src="IDE/assets/js/bulma-slider.min.js"></script>
+	  		<script src="IDE/assets/js/index.js"></script>-->
+
+	</body>
+</html>
+

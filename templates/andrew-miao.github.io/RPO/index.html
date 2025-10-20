@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPO Project Page</title>
+    <style>
+        /* Center align the entire page */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Box style for each section */
+        .box {
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Title style */
+        h1 {
+            font-size: 2em;
+            margin: 0 0 10px;
+            color: #333;
+        }
+
+        /* Author section style */
+        .author-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            text-align: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .author {
+            width: 30%;
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        /* Institution logos style */
+        .logos {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .logos img {
+            width: auto;
+            height: 80px;
+        }
+
+        /* Button section style */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .button {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #333333;
+            background-color: #D3D3D3;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .button img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+        .button:hover {
+            background-color: #A9A9A9;
+        }
+
+        /* Inserted image style */
+        .insert-image {
+            display: block;
+            margin: 20px auto;
+            width: 100%; /* Full width for better visual impact */
+            max-width: 800px; /* Ensure it doesn't exceed max width */
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* TL;DR style */
+        .tldr {
+            margin-top: 20px;
+            color: #000;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        /* Box style for each section */
+        .box, .abstract-box, .method-box, .recontext-box {
+            width: 100%;
+            max-width: 1000px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Abstract box style */
+        .abstract-title {
+            font-size: 1.5em;
+            font-family: 'Times New Roman', serif;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        /* Apply custom font to abstract content */
+        .abstract-content {
+            font-family: 'Times New Roman', serif; /* Custom font for abstract */
+            font-size: 1em;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Method box style */
+        .method-title {
+            font-size: 1.5em;
+            font-family: 'Times New Roman', serif;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: left; /* Left-align Method title */
+        }
+        .method-content {
+            font-family: 'Times New Roman', serif; /* Custom font for Method */
+            font-size: 1em;
+            line-height: 1.6;
+            color: #333;
+            text-align: left;
+        }
+
+        /* BibTeX content style */
+        .bibtex-content {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            color: #333;
+            background-color: #f7f7f7;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left; /* Center align the BibTeX content */
+        }
+
+        /* Acknowledgements content style */
+        .ack-content {
+            font-family: 'Times New Roman', serif;
+            font-size: 1em;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+
+    </style>
+    <!-- MathJax script to render LaTeX -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    
+    <!-- Title, Author, paper, and code Box -->
+    <div class="box">
+        <h1>Subject-driven Text-to-Image Generation via Preference-based Reinforcement Learning</h1>
+
+        <div class="author-container">
+            <div class="author">Yanting Miao</div>
+            <div class="author">William Loh</div>
+            <div class="author">Suraj Kothawade</div>
+            <div class="author">Pascal Poupart</div>
+            <div class="author">Abdullah Rashwan</div>
+            <div class="author">Yeqing Li</div>
+        </div>
+
+        <div class="logos">
+            <img src="images/uwaterloo_logo.png" alt="uwaterloo_logo">
+            <img src="images/Google_2015_logo.png" alt="Google">
+            <img src="images/Vector-Institute_Logo.png" alt="Vector">
+        </div>
+
+        <div class="buttons">
+            <a href="https://arxiv.org/abs/2407.12164" target="_blank" class="button">
+                <img src="images/pdf_logo.png" alt="Arxiv"> Paper
+            </a>
+            <a href="https://github.com/andrew-miao/RPO" target="_blank" class="button">
+                <img src="images/github_logo.png" alt="GitHub"> Code
+            </a>
+        </div>
+
+        <!-- Centered and larger Inserted Image -->
+        <img src="images/show.jpg" alt="show" class="insert-image">
+
+        <!-- TL;DR section with LaTeX rendering -->
+        <div class="tldr">
+            TL;DR: We present the \( \lambda \)-Harmonic reward function and Reward Preference Optimization (RPO) for the subject-driven text-to-image generation task.
+        </div>
+    </div>
+
+    <!-- Abstract Box -->
+    <div class="abstract-box">
+        <div class="abstract-title">Abstract</div>
+        <div class="abstract-content">
+            Text-to-image generative models have recently attracted considerable interest, enabling the synthesis of high-quality images from textual prompts. However, these models often lack the capability to generate specific subjects from given reference images or to synthesize novel renditions under varying conditions. Methods like DreamBooth and Subject-driven Text-to-Image (SuTI) have made significant progress in this area. Yet, both approaches primarily focus on enhancing similarity to reference images and require expensive setups, often overlooking the need for efficient training and avoiding overfitting to the reference images. In this work, we present the \( \lambda \)-Harmonic reward function, which provides a reliable reward signal and enables early stopping for faster training and effective regularization. By combining the Bradley-Terry preference model, the \( \lambda \)-Harmonic reward function also provides preference labels for subject-driven generation tasks. We propose Reward Preference Optimization (RPO), which offers a simpler setup (requiring only 3% of the negative samples used by DreamBooth) and fewer gradient steps for fine-tuning. Unlike most existing methods, our approach does not require training a text encoder or optimizing text embeddings and achieves text-image alignment by fine-tuning only the U-Net component. Empirically, \( \lambda \)-Harmonic proves to be a reliable approach for model selection in subject-driven generation tasks. Based on preference labels and early stopping validation from the \( \lambda \)-Harmonic reward function, our algorithm achieves a state-of-the-art CLIP-I score of 0.833 and a CLIP-T score of 0.314 on DreamBench.
+        </div>
+    </div>
+
+    <!-- Method Box -->
+    <div class="method-box">
+        <div class="method-title">Method</div>
+        <div class="method-content">
+            RPO is a preference-based reinforcement learning algorithm. First, we use pretrained diffusion models to generate images from novel textual prompts. Then, we apply the \( \lambda \)-Harmonic reward function to assign preference labels. During training, the \( \lambda \)-Harmonic function is designed to evaluate text-to-image alignment. RPO fine-tunes the UNet components by minimizing both the image-similarity loss and the preference loss, where the preference loss is formulated as a logistic regression. During validation, the \( \lambda \)-Harmonic reward function provides preference labels for both image-to-image and text-to-image alignment, serving as a reliable model selection method.
+        </div>
+         <!-- Centered and larger Inserted Image -->
+         <img src="images/rpo_overview.png" alt="overview" class="insert-image">
+    </div>
+
+    <!-- re-contextualization Box -->
+    <div class="method-box">
+        <div class="method-title">Re-Contextualization</div>
+        <div class="method-content">
+            We provide additional results for re-contextualization on this page. We generate various subject-driven images using multiple prompts. The input prompts and results are shown below.
+        </div>
+         <!-- Centered and larger Inserted Image -->
+         <img src="images/re-contextualization.jpeg" alt="re-contextualization" class="insert-image">
+    </div>
+
+    <!-- art rendition Box -->
+    <div class="method-box">
+        <div class="method-title">Art Rendition</div>
+        <div class="method-content">
+            We provide additional results for art rendition on this page. We generate various subject-driven images using multiple prompts. The input prompts and results are shown below.
+        </div>
+         <!-- Centered and larger Inserted Image -->
+         <img src="images/art_rendition.jpeg" alt="art_rendition" class="insert-image">
+    </div>
+
+    <!-- color modification Box -->
+    <div class="method-box">
+        <div class="method-title">Color Modification</div>
+        <div class="method-content">
+            We provide additional results for color modification on this page. We generate various subject-driven images using multiple prompts. The input prompts and results are shown below.
+        </div>
+         <!-- Centered and larger Inserted Image -->
+         <img src="images/color_modification.jpeg" alt="color-modification" class="insert-image">
+    </div>
+
+    <!-- accessorization Box -->
+    <div class="method-box">
+        <div class="method-title">Accessorization</div>
+        <div class="method-content">
+            We provide additional results for accessorization on this page. We generate various subject-driven images using multiple prompts. The input prompts and results are shown below.
+        </div>
+         <!-- Centered and larger Inserted Image -->
+         <img src="images/accessorization.jpeg" alt="accessorization" class="insert-image">
+    </div>
+
+    <!-- Novel prompts synthesis Box -->
+    <div class="method-box">
+        <div class="method-title">Novel Prompts Synthesis</div>
+        <div class="method-content">
+            We provide additional results for novel prompts synthesis on this page. We generate various subject-driven images using multiple prompts. The input prompts and results are shown below.
+        </div>
+         <!-- Centered and larger Inserted Image -->
+         <img src="images/novel_prompts_synthesis.jpeg" alt="novel_prompts" class="insert-image">
+    </div>
+
+    <!-- BibTex Box -->
+    <div class="method-box">
+        <div class="method-title">BibTex</div>
+        <div class="bibtex-content">
+            @inproceedings{miao2024subjectdriven,<br>
+                &nbsp;&nbsp;title={Subject-driven Text-to-Image Generation via Preference-based Reinforcement Learning},<br>
+                &nbsp;&nbsp;author={Yanting Miao and William Loh and Suraj Kothawade and Pascal Poupart and Abdullah Rashwan and Yeqing Li},<br>
+                &nbsp;&nbsp;booktitle={The Thirty-eighth Annual Conference on Neural Information Processing Systems},<br>
+                &nbsp;&nbsp;year={2024},<br>
+                }
+        </div>
+    </div>
+
+    <!-- Acknowledgements Box -->
+    <div class="method-box">
+        <div class="method-title">Acknowledgements</div>
+        <div class="ack-content">
+            We thank Shixin Luo and Hongliang Fei for providing constructive feedback. This work was supported by a Google grant with Cloud TPUs from Google’s TPU Research Cloud (TRC).  We also thank the Vector Institute, the Canada CIFAR AI Chair program and the Natural Sciences and Engineering Research Council of Canada for their support.
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+  <title>The iNaturalist Sounds Dataset</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta property="og:title" content="The iNaturalist Sounds Dataset" />
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-167124286-2', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- <script src="lib.js" type="text/javascript"></script>
+<script src="popup.js" type="text/javascript"></script> -->
+
+<script type="text/javascript">
+// redefining default features
+var _POPUP_FEATURES = 'width=500,height=300,resizable=1,scrollbars=1,titlebar=1,status=1';
+</script>
+<!-- <link media="all" href="glab.css" type="text/css" rel="StyleSheet"> -->
+<style type="text/css" media="all">
+IMG {
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	FLOAT: right;
+	PADDING-BOTTOM: 0px;
+	PADDING-TOP: 0px
+}
+#primarycontent {
+	MARGIN-LEFT: auto; ; WIDTH: expression(document.body.clientWidth >
+1000? "1000px": "auto" ); MARGIN-RIGHT: auto; TEXT-ALIGN: left; max-width:
+1000px }
+BODY {
+	TEXT-ALIGN: center
+}
+</style>
+
+<style type="text/css">
+  body {
+    font-family: "Titillium Web","HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight:300;
+    font-size:18px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    width: 100%;
+  }
+
+  h1 {
+    font-weight:300;
+  }
+
+  div {
+    max-width: 95%;
+    margin:auto;
+    padding: 10px;
+  }
+
+  .table-like {
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+
+  .disclaimerbox {
+    background-color: #eee;
+    border: 1px solid #eeeeee;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+    padding: 20px;
+  }
+
+  video.header-vid {
+    height: 140px;
+    border: 1px solid black;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+  }
+
+  img {
+    padding: 0;
+    display: block;
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+  iframe {
+    max-width: 100%;
+  }
+
+  img.header-img {
+    height: 140px;
+    border: 1px solid black;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+  }
+
+  img.rounded {
+    border: 1px solid #eeeeee;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+  }
+
+  a:link,a:visited
+  {
+    color: #1367a7;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #208799;
+  }
+
+  td.dl-link {
+    height: 160px;
+    text-align: center;
+    font-size: 22px;
+  }
+
+  .layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+    box-shadow:
+            0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+            5px 5px 0 0px #fff, /* The second layer */
+            5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+            10px 10px 0 0px #fff, /* The third layer */
+            10px 10px 1px 1px rgba(0,0,0,0.35), /* The third layer shadow */
+            15px 15px 0 0px #fff, /* The fourth layer */
+            15px 15px 1px 1px rgba(0,0,0,0.35), /* The fourth layer shadow */
+            20px 20px 0 0px #fff, /* The fifth layer */
+            20px 20px 1px 1px rgba(0,0,0,0.35), /* The fifth layer shadow */
+            25px 25px 0 0px #fff, /* The fifth layer */
+            25px 25px 1px 1px rgba(0,0,0,0.35); /* The fifth layer shadow */
+    margin-left: 10px;
+    margin-right: 45px;
+  }
+
+
+  .layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+    box-shadow:
+            0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+            5px 5px 0 0px #fff, /* The second layer */
+            5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+            10px 10px 0 0px #fff, /* The third layer */
+            10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 30px;
+    margin-bottom: 5px;
+  }
+
+  .vert-cent {
+    position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+
+  hr
+  {
+    border: 0;
+    height: 1px;
+    max-width: 1100px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  }
+
+  #authors td {
+    padding-bottom:5px;
+    padding-top:30px;
+  }
+
+  .code-block{
+    font-size:14px; 
+    text-align: left;
+    max-width:700px;
+    overflow-x: scroll;
+    background-color:azure;
+    border-color: rgb(192, 192, 192);
+    border-width: 2px;
+    border-radius: 10px;
+    border-style:solid;
+  }
+  .text-block{
+    font-size:16px; 
+    text-align: justify;
+    max-width:750px
+  }
+</style>
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+  }
+</script>
+
+<body>
+
+<div id="primarycontent">
+<center><h1 style="font-size: 225%">The iNaturalist Sounds Dataset</h1></center>
+<center>
+  <!-- First row --->
+  <div class="table-like" style="max-width:800px;margin:auto;">
+    
+    <div>
+        <center>
+          <a href="https://mustafa1728.github.io" target="_blank" style="font-size: larger">Mustafa Chasmai</a>
+        </center>
+        <center>
+            UMass Amherst
+        </center>
+      </div>
+      
+      <div>
+        <center>
+          <a href="https://www.inaturalist.org/users/44845" target="_blank" style="font-size: larger">Alexander Shepard</a>
+        </center>
+        <center>
+          iNaturalist
+        </center>
+      </div>
+      
+      <div>
+        <center>
+          <a href="https://people.cs.umass.edu/~smaji/" target="_blank" style="font-size: larger">Subhransu Maji</a>
+        </center>
+        <center>
+            UMass Amherst
+        </center>
+      </div>
+      
+      <div>
+        <center>
+          <a href="https://gvh.codes/" target="_blank" style="font-size: larger">Grant Van Horn</a>
+        </center>
+        <center>
+            UMass Amherst
+        </center>
+      </div>
+      
+    </div>
+  
+
+  <!-- Second row --->
+
+
+
+
+<div class="table-like" style="justify-content:space-evenly;max-width:900px;margin:auto;">
+  <center>
+    <table>
+      <tr>
+        <td style="font-size:20px;margin:20px;font-family:monospace">
+          <a style="margin:2px" href="https://openreview.net/pdf?id=QCY01LvyKm">[Paper]</a>
+        </td> 
+        <td style="font-size:20px;margin:20px;font-family:monospace">
+          <a style="margin:2px" href="https://github.com/cvl-umass/iNatSounds">[Code]</a>
+        </td>
+        <td style="font-size:20px;margin:20px;font-family:monospace">
+          <a style="margin:2px" href="https://github.com/visipedia/inat_sounds">[Data]</a>
+        </td>
+      </tr>
+    </table>
+  </center>
+</div>
+<center>
+<br>
+
+
+<center>
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td align="center" valign="bottom" style="max-width:800px">
+            <img class="result" src="assets/overview.jpg" style="width: 100%">
+        </td>
+      </tr>
+    </table>
+</center>
+
+<h2>Abstract</h2>
+<div style="font-size:16px; text-align: justify;max-width:700px">
+<p>
+    We present the iNaturalist Sounds Dataset (iNatSounds), a collection of 230,000 audio files capturing sounds from over 5,500 species, contributed by more than 27,000 recordists worldwide. 
+The dataset encompasses sounds from birds, mammals, insects, reptiles, and amphibians, with audio and species labels derived from observations submitted to iNaturalist, a global citizen science platform. 
+Each recording in the dataset varies in length and includes a single species annotation.
+We benchmark multiple backbone architectures, comparing multiclass classification objectives with multilabel objectives. 
+Despite weak labeling, we demonstrate that iNatSounds serves as a robust pretraining resource, achieving high performance relative to alternatives on strongly labeled downstream evaluation datasets. 
+The dataset is available as a single, freely accessible archive, promoting accessibility and research in this important domain. 
+We envision models trained on this data powering next-generation public engagement applications, and assisting biologists, ecologists, and land use managers in processing large audio collections, thereby contributing to the understanding of species compositions in diverse soundscapes. 
+</p>
+</div>
+
+
+<center>
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td align="center" valign="bottom" style="max-width:800px">
+            <img class="result" src="assets/class_counts.jpg" style="width:100%">
+        </td>
+      </tr>
+    </table>
+</center>
+
+<h2>Citation</h2>
+<pre style="font-size:14px; text-align: left;max-width:700px;overflow-x: scroll;background-color:beige;border-color: rgb(192, 192, 192);border-width: 2px;border-radius: 10px;border-style:solid;">
+    <code>
+  @article{chasmai2024inaturalist,
+      title={The iNaturalist Sounds Dataset},
+      author={Chasmai, Mustafa and Shepard, Alex and Maji, Subhransu and Van Horn, Grant},
+      journal={Advances in Neural Information Processing Systems},
+      year={2024}
+  }
+    </code>
+</pre>
+
+
+</body>
+
+</html>

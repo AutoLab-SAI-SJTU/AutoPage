@@ -1,0 +1,285 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header styles */
+header {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.header-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.authors, .affiliations, .conference {
+    margin: 0.5rem 0;
+}
+
+.header-visual {
+    margin-top: 2rem;
+}
+
+.header-visual img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Navigation styles */
+nav {
+    margin-top: 1rem;
+}
+
+.button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 0 0.5rem;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+/* Main content styles */
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    /* Removed background-color and box-shadow */
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #2c3e50;
+    padding-bottom: 0.5rem;
+}
+
+/* Code block styles */
+pre {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-left: 3px solid #4CAF50;
+    page-break-inside: avoid;
+    font-family: monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    overflow: auto;
+    padding: 1em 1.5em;
+    display: block;
+    word-wrap: break-word;
+}
+
+/* Footer styles */
+footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+/* Citation copy button styles */
+.citation-container {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.citation-container pre {
+    padding-right: 40px; /* Make space for the button */
+}
+
+#copyButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    color: #4CAF50;
+    transition: color 0.3s;
+}
+
+#copyButton:hover {
+    color: #45a049;
+}
+
+#copyButton svg {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* For links */
+.dataset-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.dataset-link:hover {
+    color: #4CAF50; /* or any color you prefer for hover state */
+}
+
+
+/* Results table styles */
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.results-table th, .results-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.results-table th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+.results-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.results-table.concise .winner-model {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.table-caption {
+    margin-top: 0.5rem;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.best-score {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.decline {
+    font-weight: bold;
+    color: #000000; /*#FF0000;*/
+}
+
+/* Responsive design for small screens */
+@media screen and (max-width: 768px) {
+    .results-table.concise td:nth-child(n+4),
+    .results-table.concise th:nth-child(n+4) {
+        display: none;
+    }
+    
+    .results-table.concise tr:last-child {
+        background-color: #e6f3e6;
+    }
+    
+    .results-table.concise tr:last-child td {
+        display: table-cell;
+    }
+}
+
+/* Figures */
+.figure {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+}
+
+.author-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.author-link:hover {
+    text-decoration: underline;
+}
+
+
+/*Tooltips*/
+
+.tooltip-trigger {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip {
+    position: absolute;  /* back to absolute */
+    left: 50%;  /* add this back */
+    transform: translateX(-50%);  /* add this back */
+    width: max-content;  /* new addition */
+    min-width: 200px;
+    max-width: 1700px;
+    bottom: 100%;  /* back to original */
+    top: auto;  /* remove the top property */
+
+    visibility: hidden;
+    background-color: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.2s;
+    margin-bottom: 5px;
+    white-space: normal;
+    text-align: center;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.tooltip-trigger:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Preserve original link styling */
+a.tooltip-trigger {
+    color: inherit;
+    text-decoration: inherit;
+}

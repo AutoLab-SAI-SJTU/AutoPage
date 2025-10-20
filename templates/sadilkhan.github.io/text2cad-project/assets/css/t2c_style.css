@@ -1,0 +1,916 @@
+.button {
+    border: none;
+    color: white;
+    padding: 8px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.title {
+    font-weight: normal;
+    font-size: 45px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.author {
+    color: rgb(52, 77, 219);
+    font-weight: lighter;
+    font-size: 18px;
+}
+
+/* .author:hover {
+    color: rgb(242, 94, 94) !important;
+  } */
+
+  .dataset_button {
+    background: linear-gradient(to right, #4caf50, #81c784); /* Gradient from green to light green */
+
+    cursor: pointer;
+}
+
+.demo_button {
+    background: linear-gradient(to right, #ff9800, #ffc107); /* Gradient from orange to yellow */
+
+    cursor: pointer;
+}
+
+.paper_button {
+    background: linear-gradient(to right, #3f51b5, #5c6bc0); /* Gradient from deep blue to soft blue */
+
+    cursor: pointer;
+}
+
+.code_button {
+    background: linear-gradient(to right, #673ab7, #9c27b0); /* Gradient from purple to vibrant pink */
+
+    cursor: pointer;
+}
+
+.arxiv_button {
+    background: linear-gradient(to right, #f44336, #e57373); /* Gradient from red to light red */
+    cursor: pointer;
+}
+
+/* .arxiv_button:hover {
+    transition: 0.5s;
+    background-color: #e04151;
+} */
+
+
+.general_button {
+    /* background-color: #3c3c3c; */
+    background-color: #EA3546
+
+}
+
+.disabled_button {
+    /* background-color: #8c8c8c; */
+    pointer-events: none; /* Disables click events */
+    cursor: default;      /* Changes cursor to default arrow */
+    /* opacity: 0.6;         Optional: Visual cue for disabled state */
+}
+
+.button:hover {
+    transition: 0.5s;
+    background-color: #383737;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: auto;
+}
+
+.teaser {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    height: auto;
+    
+}
+
+h1.h1_section {
+    color: #3c60e2;
+    font-weight: bold;
+    /* Bold text */
+    font-size: 30px;
+}
+
+body.dark-mode h1.h1_section {
+    color: #84c7e7;
+}
+
+/* body.dark-mode a {
+    color: #7198df;
+} */
+
+body.dark-mode code {
+    color: white;
+}
+
+
+
+.copy-button {
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    transition: color 0.3s ease;
+}
+
+.copy-button.success {
+    color: #28a745; /* Green color */
+}
+
+.copy-button.error {
+    color: #dc3545; /* Red color */
+}
+
+.copy-button.animate {
+    animation: bounce 0.3s;
+}
+
+@keyframes bounce {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.2); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+body.dark-mode .copy-button {
+    color: white;
+}
+
+p,span {
+    line-height: 1.5;
+}
+
+/* Add the following styles to your existing CSS */
+#toc-container {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.845);
+    /* Semi-transparent white background color */
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 1);
+    display: none;
+}
+
+
+#toc {
+    list-style: disc;
+    padding: 5;
+    color: red;
+}
+
+#toc li {
+    margin-bottom: 1px;
+    padding-bottom: 2px;
+    font-weight: normal;
+}
+
+#toc a {
+    text-decoration: none;
+    color: #0e0d0d;
+    font-size: 15px;
+    /* background-color: #ffffff; */
+    /* White background color for images */
+    padding: 3px;
+    border-radius: 5px;
+    /* Optional: Add border-radius for rounded corners */
+}
+
+#toc a.active {
+    color: #3838d0; /* Highlight color */
+    font-weight: bold; /* Make the active link bold */
+    text-decoration: underline; /* Optional: Underline for clarity */
+}
+
+
+/* #toc a:hover {
+    color: #3838d0;
+    font-weight: bold;
+} */
+
+#toc-container.visible {
+    display: block;
+}
+
+
+/* Phone Styles */
+@media (max-width: 767px) {
+    #toc-container.visible {
+        display: none;
+    }
+}
+
+#toc-container #toc a:focus,
+#toc-container #toc a:active,
+#toc-container #toc a:hover {
+    /* Color when the link is hovered, focused, or active */
+    color: #3838d0;
+    font-weight: bold; /* Make the active link bold */
+    text-decoration: underline; /* Optional: Underline for clarity */
+}
+
+/* Visible TOC */
+.toc-visible {
+    transform: translateX(0);
+}
+
+
+
+/* Footer */
+.fa {
+    margin: 0 5px;
+    /* color: rgb(11, 22, 165); */
+}
+
+.fa:hover {
+    transition: 0.3s;
+    color: #302e2e;
+}
+
+/* Toggle Switch Styles */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    
+}
+
+.slider {
+    
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    /* Default background color */
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #fff;
+    /* Default toggle color */
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+    /* Background color when toggled */
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+    /* Add focus border color when toggled */
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+
+/* Toggle Switch Styles */
+#toggle-switch-container {
+    position: fixed;
+    margin: 10px;
+    top: 0;
+    left: 0;
+    /* transform: translateX(-50%); */
+    z-index: 1000;
+    /* Adjust z-index as needed */
+}
+
+
+.canvas-container {
+    position: relative;
+    margin: 10px;
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    border: 2px solid black;
+}
+
+body.dark-mode .canvas-container {
+    border: 2px solid white;
+}
+
+/* Design History Recovery Interactive Demo*/
+#des-his-container {
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    padding: 10px;
+}
+
+#viewer {
+    display: flex;
+    flex: 1;
+}
+
+#pc-viewer {
+    flex: 1;
+    /* background-color: #e53935;  */
+    border: 2px solid #8380B6;
+    /* Dark gray border on the right */
+    /* border-radius: 5px; */
+}
+
+#step-viewer {
+    display: flex;
+    flex: 1;
+    border: 2px solid #F87666;
+    /* Dark gray border on the left */
+    border-radius: 5px;
+}
+
+#intermediate-viewer {
+    flex: 0.4;
+    border: 2px solid #81B29A;
+    /* Dark gray border on the top */
+    border-radius: 5px;
+}
+
+
+
+/* Slider Container */
+
+.webapp_container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    /* transform: translate(10%,0%); */
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: #0e0d0d;
+}
+
+.webapp_slider {
+    position: absolute;
+    cursor: ew-resize;
+
+    width: 60px;
+    height: 40px;
+    /* background-color: #F32196; */
+    background-image: url('https://sadilkhan.github.io/assets/img/arrow_red.png');
+    /* Replace 'path/to/pr-image.png' with the actual path to your image */
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+
+}
+
+.citation_metadata {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+    .citation_metadata {
+        flex-direction: column; /* Change layout to column for smaller screens */
+        align-items: flex-start; /* Optional: Align items to the left */
+    }
+}
+
+.copy_button {
+    position: relative;
+    /* Set the position to absolute */
+    top: 0;
+    /* Position from the top */
+    left: 0;
+}
+
+/* GUI Controls */
+
+#gui {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+}
+
+
+/* Web App Renderer */
+
+.webapp-renderer {
+    border: 2px solid;
+}
+
+body.dark-mode .webapp-renderer {
+    border: 2px solid rgb(234, 105, 122);
+}
+
+
+footer.dark-mode {
+    background-color: #0066cc;
+}
+
+.neurips {
+    font-size: 35px;
+    font-weight: normal;
+    /* text-transform: uppercase; */
+    letter-spacing: 1.5px; 
+    margin-top: 20px; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    /* color: #333333eb;  */
+    /* border: 2px solid rgb(180, 35, 66); */
+    /* border-radius: 10px; */
+    /* width: 20%; */
+}
+
+body.dark-mode .neurips {
+    text-shadow: 2px 2px 4px rgba(219, 216, 216, 0.1);
+}
+
+.cvpr_container {
+    padding-bottom: 20px;
+}
+
+.numbered_list{
+    line-height: 1.7;
+}
+
+body.dark-mode .numbered_list {
+    color: white;
+}
+
+body.dark-mode {
+    color: white;
+}
+
+
+
+/* Phone Styles
+@media (max-width: 767px) {
+    .webapp_slider {
+        top: 50%;
+        left: 46%;
+        transform: translate(-180%, -50%);
+    }
+} */
+
+.sup{
+    color:red; 
+    font-weight:normal;
+}
+  
+  
+/*  For Video messge */
+.message-container {
+    color: #333; /* Dark grey color for text */
+    display: flex;
+    align-items: center; /* Center align items vertically */
+    justify-content: center; /* Center align items horizontally */
+    gap: 5px; /* Space between text and image */
+    padding-bottom: 10px;
+    
+}
+.play-button {
+    width: 24px; /* Width of the play button */
+}
+
+/* For Video */
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%; /* Limits the maximum width to the container */
+    padding-top: 50%; /* 50% of the width for a 2:1 aspect ratio */
+    margin: 0 auto; /* Center the container */
+    overflow: hidden; /* Hide overflow if any */
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0; /* Remove border */
+}
+
+
+.institutions {
+    font-size: 1em;
+    color: #0066cc;
+    margin-top: 10px;
+}
+.institutions span {
+    display: block;
+    margin: 5px 0;
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Equal width columns */
+    gap: 20px; /* Space between columns */
+    padding: 20px; /* Padding around the grid */
+}
+.grid-image {
+    padding-top: 3cm; /* Top padding for image section */
+}
+
+.grid-text {
+    padding-top: 20px; /* Top padding for image section */
+}
+
+
+/* Media query for screens that are 600px wide or less */
+@media (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* One column for mobile devices */
+    }
+}
+
+.author-container {
+    display: inline-block;
+    position: relative;
+}
+
+.popup-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
+    border-radius: 8px;
+    overflow: hidden;
+
+    /* Animation properties */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.author-container:hover .popup-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.popup-menu a {
+    display: inline-block;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #2776e4;
+    transition: background-color 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+.popup-menu a:hover {
+    background-color: #404245;
+}
+
+.popup-menu a:not(:last-child) {
+    border-right: 1px solid #ffffff;
+}
+
+
+
+/* ---------------------------- Slideshow Gallery --------------------------- */
+
+.image-gallery {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    overflow: hidden;
+    
+}
+
+.slides-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    flex-wrap: nowrap;
+    width: calc(100% * [number_of_slides]);
+    height: 100%;
+}
+
+
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.gallery-image-div {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    object-fit: cover;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-100%);
+}
+
+.gallery-nav .prev,
+.gallery-nav .next {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    padding: 16px;
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.5);
+    user-select: none;
+    flex-shrink: 0; /* Prevent shrinking */
+    flex-grow: 0;   /* Prevent growing */
+}
+
+.play-pause-button {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    display: none;
+    cursor: pointer;
+    color: white;
+    font-size: 48px;
+    color: rgba(0, 0, 0, 0.5);
+    padding: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.gallery-nav,
+.play-pause-button {
+    position: absolute;
+    z-index: 10;
+}
+
+.gallery-nav .prev,
+.gallery-nav .next,
+.play-pause-button {
+    box-sizing: content-box;
+}
+
+.gallery-nav img,
+.play-pause-button img {
+    max-width: none;
+    height: auto;
+}
+
+.dark-mode .gallery-nav .prev,
+.dark-mode .gallery-nav .next,
+.dark-mode .play-pause-button {
+    color: white;
+}
+
+.image-gallery:hover .play-pause-button {
+    display: block;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+    .gallery-nav .prev, .gallery-nav .next {
+        padding: 12px;
+        font-size: 18px;
+    }
+}
+
+
+
+  /* -------------------------- More Research Button -------------------------- */
+
+/* Wrapper to center the content both horizontally and vertically */
+.more-research-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Container for the dropdown */
+.more-research-container {
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Title styling */
+.more-research-title {
+    padding: 5px 5px; /* Reduced padding */
+    margin: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px; /* Smaller font size */
+    font-weight: normal;
+    /* background-color: #f0f0f0; Optional: Button background color */
+    /* border: 1px solid #ccc; Optional: Button border */
+    border-radius: 4px;
+}
+
+/* Arrow styling */
+.dropdown-arrow {
+    transition: transform 0.3s ease;
+    margin-left: 5px; /* Space between text and arrow */
+    
+}
+
+/* Rotate arrow when active */
+.more-research-title.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* Research list styling */
+.research-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+/* Research list when active */
+.research-list.active {
+    max-height: 300px;
+    transition: max-height 0.5s ease-in;
+}
+
+/* List item styling */
+.research-list li {
+    padding: 10px;
+    font-size: 16px;
+    border-top: 1px solid #eee;
+}
+
+/* Link styling */
+.research-list li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.research-list li a:hover {
+    color: #3498db;
+}
+
+/* Light mode (default) styles */
+.teaser_video {
+    /* padding-top: 20px; */
+    width: 100%;
+    border: 6px solid #BEB7DF;
+    border-radius: 30px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 1);
+}
+
+.dark-mode .teaser_video {
+    border-color: #BEB7DF;
+    box-shadow: 0 2px 3px rgb(255, 255, 255);
+}
+
+
+#chart-container {
+    width: 800px; /* Set a specific width */
+    height: 400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+
+canvas {
+    width: auto; /* Set a fixed width */
+    height: 400px; /* Optional: Adjust this based on the aspect ratio you need */
+    display: block;
+    margin: 0 auto;
+}
+
+
+.gradient-text {
+    background: linear-gradient(to right, #ff5757, #8c52ff, #ff5757, #8c52ff); /* Extended gradient with repeating colors */
+    -webkit-background-clip: text; /* For WebKit browsers */
+    background-clip: text; /* Standard property */
+    color: transparent; /* Make the text color transparent to show gradient */
+    font-size: 120px;
+    animation: gradient-wave 20s linear infinite; /* Smooth infinite animation */
+    background-size: 400% 100%; /* Larger gradient to ensure smooth looping */
+}
+
+/* Define the animation */
+/* Define the animation */
+@keyframes gradient-wave {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
+.dark-mode .gradient-text {
+    background: linear-gradient(to right, #ff5757, #8c52ff); /* Gradient from red to purple */
+    -webkit-background-clip: text; /* For WebKit browsers */
+    background-clip: text; /* Standard property */
+    color: transparent; /* Make the text color transparent to show gradient */
+    animation: gradient-wave 20s linear infinite; /* Smooth infinite animation */
+    background-size: 400% 100%; /* Larger gradient to ensure smooth looping */
+    font-size: 90px;
+}
+
+/* Media Query for Mobile Devices */
+@media screen and (max-width: 768px) {
+    .gradient-text, .dark-mode .gradient-text {
+        font-size: 70px; /* Smaller font size for mobile */
+    }
+}
+
+.blueprint-container {
+    background-color: #002b36; /* Dark blue color to resemble blueprint */
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #0ff; /* Border to enhance blueprint feel */
+}
+
+
+.gradient_backend {
+    background: linear-gradient(to right, rgba(255, 120, 120, 0.1), rgba(128, 182, 255, 0.1));
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    color: #333; /* Dark text for contrast in light mode */
+    margin-bottom: 20px;
+}
+
+.dark-mode .gradient_backend {
+    background: linear-gradient(135deg, rgba(30, 30, 45, 0.9), rgba(80, 80, 120, 0.9));
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    color: #f0f0f0; /* Light text for contrast in dark mode */
+    margin-bottom: 20px;
+}
+
+

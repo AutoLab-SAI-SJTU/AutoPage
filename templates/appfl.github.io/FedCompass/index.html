@@ -1,0 +1,173 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0045)http://6.869.csail.mit.edu/fa19/schedule.html -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<link href="https://fonts.cdnfonts.com/css/chalkduster" rel="stylesheet">
+<style>
+    @import url('https://fonts.cdnfonts.com/css/chalkduster');
+</style>
+<script src="https://appfl.github.io/FedCompass/sm/assets/teaser-data.js"></script>
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>FedCompass: Efficient Cross-Silo Federated Learning on Heterogeneous Client Devices Using a Computing Power-Aware Scheduler</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <meta name="description"
+        content="Project page for &#39;FedCompass: Efficient Cross-Silo Federated Learning on Heterogeneous Client Devices Using a Computing Power-Aware Scheduler.&#39;">
+    <link rel="icon" href="asset/icon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <p class="title" style="text-align: center; margin-left: 10%; margin-right: 10%;">🧭 FedCompass: Efficient Cross-Silo Federated Learning on Heterogeneous Client Devices Using a Computing Power-Aware Scheduler</p>
+    <div style="text-align: center; font-size: 20pt; margin-bottom: 15px;">
+            <span><img src="asset/iclr.png" style="height: 36pt;" alt="">&nbsp;&nbsp;&nbsp;ICLR 2024</span>
+    </div>
+    <p class="author" style="text-align: center; margin-left: 10%; margin-right: 10%; font-size: large;">
+        <span class="author"><a target="_blank" href="https://www.linkedin.com/in/zilinghanli/">Zilinghan Li
+                </a>&nbsp;<sup>♠♡♢</sup></span>
+        <span class="author"><a target="_blank" href="https://www.linkedin.com/in/pranshu-chaturvedi-b71a51178/">Pranshu
+                Chaturvedi&nbsp;</a><sup>♠♡♢</sup></span>
+        <span class="author"><a target="_blank" href="https://www.linkedin.com/in/shilan-he/">Shilan
+                He&nbsp;</a><sup>♠♡♢</sup></span>
+        <span class="author">Han
+                Chen&nbsp;<sup>♡</sup></span>
+        <span class="author"><a target="_blank" href="https://ggndpsngh.github.io/">Gagandeep
+                Singh&nbsp;</a><sup>♡♣</sup></span>
+        <span class="author"><a target="_blank" href="https://cs.illinois.edu/about/people/faculty/kindrtnk">Volodymyr
+                Kindratenko&nbsp;</a><sup>♡♢</sup></span>
+        <span class="author"><a target="_blank" href="https://www.anl.gov/profile/eliu-a-huerta">Eliu A
+                Huerta&nbsp;</a><sup>♠♡†</sup></span>
+        <span class="author"><a target="_blank" href="https://kibaekkim.github.io/">Kibaek
+                Kim&nbsp;</a><sup>♠†</sup></span>
+        <span class="author"><a target="_blank" href="https://www.anl.gov/profile/ravi-k-madduri">Ravi
+                Madduri&nbsp;</a><sup>♠†</sup></span>
+    </p>
+    <p class="author" style="text-align: center; margin-left: 22%; margin-right: 22%; font-size: medium; margin-top: 10pt;">
+        <span class="author"></a>&nbsp;<sup>♠</sup> Argonne National Laboratory</span>
+        <span class="author"></a>&nbsp;<sup>♡</sup> University of Illinois at Urbana-Champaign</a></span>
+        <span class="author"></a>&nbsp;<sup>♢</sup> National Center for Supercomputing Applications</span>
+        <span class="author"></a>&nbsp;<sup>♣</sup> VMWare Research</span>
+        <span class="author"></a>&nbsp;<sup>†</sup> The University of Chicago</a></span>
+    </p>
+
+    <p style="text-align: center; margin-top: 15pt;">
+        <a style="color: #990036" href="https://arxiv.org/abs/2309.14675" target="_blank">[Paper]</a> 
+        <a style="color: #990036" href="https://openreview.net/forum?id=msXxrttLOi" target="_blank">[OpenReview]</a> 
+        <a style="color: #990036" href="https://github.com/APPFL/FedCompass" tar>[Code]</a>
+    </p>
+
+    <div class="container">
+        &nbsp;
+
+        <p><span class="section"><b>Abstract</b></span> </p>
+        <p> Cross-silo federated learning offers a promising solution to collaboratively train
+            robust and generalized AI models without compromising the privacy of local
+            datasets, e.g., healthcare, financial, as well as scientific projects that lack a centralized data facility. Nonetheless, because of the disparity of computing resources
+            among different clients (i.e., device heterogeneity), synchronous federated learning algorithms suffer from degraded efficiency when waiting for straggler clients.
+            Similarly, asynchronous federated learning algorithms experience degradation in
+            the convergence rate and final model accuracy on non-identically and independently distributed (non-IID) heterogeneous datasets due to stale local models and
+            client drift. To address these limitations in cross-silo federated learning with
+            heterogeneous clients and data, we propose FedCompass, an innovative semiasynchronous federated learning algorithm with a computing power aware scheduler on the server side, which adaptively assigns varying amounts of training tasks
+            to different clients using the knowledge of the computing power of individual
+            clients. FedCompass ensures that multiple locally trained models from clients
+            are received almost simultaneously as a group for aggregation, effectively reducing the staleness of local models. At the same time, the overall training process remains asynchronous, eliminating prolonged waiting periods from straggler
+            clients. Using diverse non-IID heterogeneous distributed datasets, we demonstrate that FedCompass achieves faster convergence and higher accuracy than
+            other asynchronous algorithms while remaining more efficient than synchronous
+            algorithms when performing federated learning on heterogeneous clients.
+
+        <!-- <p class="section"><b>ICLR 2024 Video</b></p>
+        <div style="text-align: center">
+            <iframe width="75%" height="500px" src="https://www.youtube.com/embed/eemzbXXU59E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div> -->
+        <p class="section">&nbsp;</p>
+        <p class="section" id="overview"><b>Overview</b></p>
+        <div style="text-align: center;">
+            <img src="asset/overview.png" style="width: 80%">
+        </div>
+        <p class="author" style="text-align: center; margin-left: 5%; margin-right: 5%; font-size: medium; font-weight: 550; margin-top: 2.5%;">
+            Figure: Overview of an example federated learning run using the Compass scheduler on five clients with the minimum number of local steps Qmin = 20 and maximum number of local steps Qmax = 100.
+        </p>
+
+        <p class="section">&nbsp;</p>
+
+        <p class="section" id="bibtex"><b>Bibtex</b></p>
+        <table border="0">
+            <tbody>
+                <pre style=" display: block;
+  background: #eee;
+  white-space: pre;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  min-width: 100px;
+  border-radius: 20px;
+  ">
+
+    @article{li2023fedcompass,
+        title={FedCompass: Efficient Cross-Silo Federated Learning on Heterogeneous Client Devices using a Computing Power Aware Scheduler},
+        author={Li, Zilinghan and Chaturvedi, Pranshu and He, Shilan and Chen, Han and Singh, Gagandeep and Kindratenko, Volodymyr and Huerta, EA and Kim, Kibaek and Madduri, Ravi},
+        journal={arXiv preprint arXiv:2309.14675},
+        year={2023}
+    } 
+			  </pre>
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+</body>
+
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WLX2Z5QLG8');
+ </script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script type="text/javascript">
+    $(document).ready(function () {
+
+        if (localStorage.getItem("my_app_name_here-quote-scroll") != null) {
+            $(window).scrollTop(localStorage.getItem("my_app_name_here-quote-scroll"));
+        }
+
+        $(window).on("scroll", function() {
+            localStorage.setItem("my_app_name_here-quote-scroll", $(window).scrollTop());
+        });
+
+      });
+ </script>
+
+ <script>
+    function prompt_on(prompt_element) {
+        prompt_element.classList.add("caption-active");
+    }
+
+    function prompt_off(prompt_element) {
+        prompt_element.classList.remove("caption-active");
+    }
+
+    function toggle_prompt(active_prompt_id, inactive_prompt_ids, result_id) {
+        let active_prompt = document.getElementById(active_prompt_id);
+        prompt_on(active_prompt);
+        for (let i = 0; i < inactive_prompt_ids.length; i++) {
+            let inactive_prompt = document.getElementById(inactive_prompt_ids[i]);
+            prompt_off(inactive_prompt);
+        }
+
+        let result = document.getElementById(result_id);
+        result.src = file_paths[active_prompt_id];
+    }
+ </script>
+
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</html>

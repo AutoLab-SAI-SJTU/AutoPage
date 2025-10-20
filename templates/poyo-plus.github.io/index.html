@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="author" content="Mehdi Azabou">
+    <meta name="description"
+        content="POYO+: Multi-session, multi-task neural decoding from distinct cell-types and brain regions">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>POYO+</title>
+    <link rel="shortcut icon" href="https://poyo-plus.github.io/assets/%F0%9F%A7%A0.ico" />
+    <script src="https://kit.fontawesome.com/3875b07657.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://bulma.io/css/bulma-docs.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css">
+    <link rel="stylesheet" href="build/style.css">
+
+    <!-- <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-3.2.2.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.2.2.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.2.2.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.2.2.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-3.2.2.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-api-3.2.2.min.js"></script>
+    <script src="./js/mat4js.read.min.js"></script> -->
+    <!-- <script type="module" src="./js/script.js"></script>
+    <script src="./js/spike-vis.js"></script>
+    <script src="./js/query-vis.js"></script>
+    <script src="./js/sample-vis.js"></script>
+    <script src="./js/finetune-vis.js"></script> -->
+
+    <!-- <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r153/three.module.js"></script> -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L6PHX4M5RR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-L6PHX4M5RR');
+    </script>
+    <script>
+        function resizeIframe(obj) {
+            obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+        }
+    </script>
+</head>
+
+<body>
+    <section class="section title-section">
+        <div>
+            <h1 class="page-title">
+                POYO+
+            </h1>
+            <h2 class="title page-title">
+                Multi-session, multi-task neural decoding from distinct cell-types and brain regions
+            </h2>
+        </div>
+        <div class="header authors">
+            <a href="https://www.mehai.dev">Mehdi Azabou</a><sup>1,2</sup>
+            <a href="index.html">Krystal Pan</a><sup>3</sup>
+            <a href="https://www.linkedin.com/in/vinam-arora/">Vinam Arora</a><sup>2</sup>
+            <a href="index.html">Ian J. Knight</a><sup>2</sup>
+            <a href="https://dyerlab.gatech.edu/">Eva L. Dyer</a><sup>2</sup>
+            <a href="https://linclab.mila.quebec/team/blake">Blake Richards</a><sup>3,4,5</sup>
+        </div>
+        <div class="affiliations">
+            <sup>1</sup> <img src="assets/columbia.png" alt="Columbia University logo" class="affiliation-logo">
+            Columbia University,
+            <sup>2</sup> <img src="assets/georgia_tech.png" alt="Georgia Tech logo" class="affiliation-logo"> Georgia
+            Tech,
+            <!-- </div>
+        <div class="affiliations"> -->
+            <sup>3</sup> <img src="assets/mila.png" alt="MILA logo" class="affiliation-logo"> Mila,
+            <sup>4</sup> <img src="assets/mcgill_university.png" alt="McGill University logo"
+                class="affiliation-logo"> McGill University,
+            <sup>5</sup> <img src="assets/cifar.png" alt="CIFAR logo" class="affiliation-logo"> CIFAR
+        </div>
+        <div class="links">
+            <a href="https://openreview.net/pdf?id=IuU0wcO0mo">
+                <i class="fa fa-file"></i> Paper
+            </a>
+            <a href="https://github.com/neuro-galaxy/torch_brain/tree/main/examples/poyo_plus"">
+            <i class=" fa fa-github"></i> Code
+            </a>
+        </div>
+
+
+    </section>
+
+    <aside class="sidebar">
+        <ul>
+            <li> Contents </li>
+            <li><a href="index.html#abstract">Abstract</a></li>
+            <li><a href="index.html#architecture">Architecture</a></li>
+            <!-- <li><a href="#datasets">Datasets & Challenges</a></li> -->
+            <!-- <li><a href="#heterogeneity">Data Heterogeneity</a></li> -->
+            <!-- <li><a href="#tokenization">Tokenization</a></li> -->
+            <!-- <li><a href="#tokenization">Tokenization</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#pretraining">Pretraining</a></li>
+            <li><a href="#finetuning">Finetuning</a></li> -->
+            <!-- Add more sections as needed -->
+        </ul>
+    </aside>
+
+
+    <div class="main-content">
+
+        <section class="section" id="abstract">
+            <h3 class="section-title">
+                Abstract
+            </h3>
+            <p>
+                Recent work has shown that scale is important for improved brain decoding, with more data leading to
+                greater decoding accuracy. However, large-scale decoding across many different datasets is challenging
+                because neural circuits are heterogeneous, each brain region contains a unique mix of cellular
+                sub-types, and the responses to different stimuli are diverse across regions and sub-types. It is
+                unknown whether it is possible to pre-train and transfer brain decoding models between distinct tasks,
+                cellular sub-types, and brain regions.
+            </p>
+
+            <p>
+                To address these questions, we developed a multi-task transformer
+                architecture and trained it on the entirety of the Allen Institute's Brain Observatory dataset. This
+                dataset contains responses from over 100,000 neurons in 6 areas of the brains of mice, observed with
+                two-photon calcium imaging, recorded while the mice observed different types of visual stimuli. Our
+                results demonstrate that transfer is indeed possible -combining data from different sources is
+                beneficial for a number of downstream decoding tasks. As well, we can transfer the model between regions
+                and sub-types, demonstrating that there is in fact common information in diverse circuits that can be
+                extracted by an appropriately designed model.
+            </p>
+
+            <p>
+                Interestingly, we found that the model's latent
+                representations showed clear distinctions between different brain regions and cellular sub-types, even
+                though it was never given any information about these distinctions. Altogether, our work demonstrates
+                that training a large-scale neural decoding model on diverse data is possible, and this provides a means
+                of studying the differences and similarities between heterogeneous neural circuits.
+            </p>
+
+            <!-- <p class="question">
+                &#8594 Can we [ ] ?
+            </p>
+
+            <p>
+                We introduce POYO-1 [...].
+            </p> -->
+            <!-- 
+            <div class="table-of-contents">
+                <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#section1"> Section 1</a>: Description.</li>
+                    <li><a href="#section2"> Section 2</a>: Description.</li>
+                    <li><a href="#section3">Section 3</a>: Description.</li>
+                </ul>
+            </div> -->
+        </section>
+
+        <!-- <section class="section" id="latent-space">
+            <h3 class="section-title">
+                <a href="latent-space"> </a>Latent space visualization
+            </h3>
+
+            <p>
+                Coming soon! We will be adding visualizations of the latent space here.
+            </p>
+        </section> -->
+
+
+        <section class="section" id="architecture">
+            <h3 class="section-title">
+                Architecture
+            </h3>
+
+            <p>
+                POYO+ extends the <a href="https://poyo-brain.github.io/"></a>POYO</a>
+                architecture to in the following ways:
+            </p>
+            <ul class="feature-list" style="list-style-type: none; margin-left: 1.5em; margin-bottom: 1.5em;">
+                <li style="margin-bottom: 0.5em; position: relative;"><span
+                        style="position: absolute; left: -1.2em;">&#8594;</span><strong>Time Series Support:</strong>
+                    Adds support for regular time series data through a value
+                    projection layer</li>
+                <li style="margin-bottom: 0.5em; position: relative;"><span
+                        style="position: absolute; left: -1.2em;">&#8594;</span><strong>Diverse Recordings:</strong>
+                    Handles neural recordings across multiple brain regions and
+                    cell types</li>
+                <li style="margin-bottom: 0.5em; position: relative;"><span
+                        style="position: absolute; left: -1.2em;">&#8594;</span><strong>Multi-task Decoding:</strong>
+                    Enables decoding with support for regression,
+                    classification, and segmentation tasks, allowing training on heterogeneous datasets with varying
+                    stimuli and behaviors</li>
+            </ul>
+            <div style="padding-top: 20px;">
+                <img src="assets/decoder_poyo_plus.png" alt="Decoder architecture" class="decoder-architecture">
+                <div style="padding-top: 10px;">
+                    <p class="figure-caption">Figure 1: Architecture of the POYO+ decoder model for processing calcium
+                        imaging data across multiple tasks and brain regions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3 class="section-title">
+                Cite our work
+            </h3>
+            If you find this useful for your research, please consider citing our work:
+
+            <div class="citation">
+                <pre><code>@inproceedings{
+    azabou2025multisession,
+    title={Multi-session, multi-task neural decoding from distinct cell-types and brain regions},
+    author={Mehdi Azabou and Krystal Xuejing Pan and Vinam Arora and Ian Jarratt Knight and Eva L Dyer and Blake Aaron Richards},
+    booktitle={The Thirteenth International Conference on Learning Representations},
+    year={2025},
+    url={https://openreview.net/forum?id=IuU0wcO0mo}
+}</code></pre>
+            </div>
+        </section>
+    </div>
+
+    <!-- <footer class="footer">
+    <div class="section content">
+
+        <div style="font-size: 1em;">NerDS Lab</div>
+    </div>
+</footer> -->
+
+    </div>
+
+
+
+</body>
+
+</html>

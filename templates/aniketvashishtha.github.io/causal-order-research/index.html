@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Causal Order: The Key to Leveraging Imperfect Experts in Causal Inference</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: #333;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        .authors {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .abstract {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        .citation {
+            background: #e9ecef;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 2rem 0;
+            white-space: pre-wrap;
+        }
+        .links {
+            margin: 2rem 0;
+        }
+        .links a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+        .links a:hover {
+            background: #0056b3;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Causal Order: The Key to Leveraging Imperfect Experts in Causal Inference</h1>
+    
+    <div class="authors">
+        Aniket Vashishtha, Abbavaram Gowtham Reddy, Abhinav Kumar, Saketh Bachu, Vineeth N Balasubramanian, Amit Sharma
+    </div>
+
+    <div class="abstract">
+        <h2>Abstract</h2>
+        <p>
+            Large Language Models (LLMs) have been used as experts to infer causal graphs, often by repeatedly applying a pairwise prompt that asks about the causal relationship of each variable pair. However, such experts, including human domain experts, cannot distinguish between direct and indirect effects given a pairwise prompt. Therefore, instead of the graph, we propose that causal order be used as a more stable output interface for utilizing expert knowledge. Even when querying a perfect expert with a pairwise prompt, we show that the inferred graph can have significant errors whereas the causal order is always correct. In practice, however, LLMs are imperfect experts and we find that pairwise prompts lead to multiple cycles. Hence, we propose the triplet method, a novel querying strategy that introduces an auxiliary variable for every variable pair and instructs the LLM to avoid cycles within this triplet. It then uses a voting-based ensemble method that results in higher accuracy and fewer cycles while ensuring cost efficiency. Across multiple real-world graphs, such a triplet-based method yields a more accurate order than the pairwise prompt, using both LLMs and human annotators. The triplet method enhances robustness by repeatedly querying an expert with different auxiliary variables, enabling smaller models like Phi-3 and Llama-3 8B to surpass GPT-4 with pairwise prompting. For practical usage, we show how the expert-provided causal order from the triplet method can be used to reduce error in downstream graph discovery and effect inference tasks.
+        </p>
+    </div>
+
+    <div class="links">
+        <a href="https://arxiv.org/abs/2310.15117" target="_blank">Paper</a>
+        <a href="index.html#citation">Citation</a>
+        <a href="https://github.com/AniketVashishtha/Causal_Order_Imperfect_Experts" target="_blank">Code</a>
+    </div>
+
+    <div class="citation">
+        @misc{vashishtha2025causalorderkeyleveraging,
+            title={Causal Order: The Key to Leveraging Imperfect Experts in Causal Inference}, 
+            author={Aniket Vashishtha and Abbavaram Gowtham Reddy and Abhinav Kumar and Saketh Bachu and Vineeth N Balasubramanian and Amit Sharma},
+            year={2025},
+            eprint={2310.15117},
+            archivePrefix={arXiv},
+            primaryClass={cs.AI},
+            url={https://arxiv.org/abs/2310.15117}
+        }
+    </div>
+
+    <div class="figures">
+        <img src="assets/learning_order.png" alt="Causal order visualization" />
+        <p><em>Figure: Visualization of the causal order and triplet method for leveraging imperfect experts in causal inference.</em></p>
+    </div>
+</body>
+</html> 

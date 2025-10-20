@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arithmetic Without Algorithms – Project Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+		mark {
+			-webkit-animation: 3s highlight 1.5s 1 normal forwards;
+			animation: 3s highlight 1.5s 1 normal forwards;
+			background-color: none;
+			background: linear-gradient(90deg, #f7f5bc 50%, rgba(255, 255, 255, 0) 50%);
+			background-size: 200% 100%;
+			background-position: 100% 0;
+		}
+		
+		@-webkit-keyframes highlight {
+		  to {
+			background-position: 0 0;
+		  }
+		}
+
+		@keyframes highlight {
+		  to {
+			background-position: 0 0;
+		  }
+		}
+		
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #76b5da;
+            color: #fff;
+            padding: 60px 0;
+            text-align: center;
+        }
+		
+		figure {
+		  text-align: center; /* Centers the content inside the figure */
+		  margin: 20px auto; /* Adds vertical space and centers the figure horizontally */
+		}
+		
+		figcaption {
+		  padding-top: 10px;
+		  color: #555;
+		  font-style: italic; /* Styling for the caption */
+		  font-size: smaller;
+		}
+
+        header h1 {
+			margin: 0;
+			font-size: 60px;
+			padding-bottom: 30px;
+			padding-top: 20px;
+			padding-left: 20px;
+			padding-right: 20px;
+        }
+
+        header h2 {
+            margin: 10px 0 0;
+            font-weight: 400;
+        }
+		
+		header address a {
+			font-size: 24px;
+		}
+		
+		header address {
+			color: #337ab7
+		}
+		
+		header address institute {
+			color: #000000;
+			font-size: 16px;
+		}
+		
+		header address sup {
+			color: #000000;
+		}
+
+        .container {
+            width: 60%;
+            margin: 40px auto;
+        }
+		
+        section {
+            margin-bottom: 50px;
+        }
+
+        section h2 {
+            font-size: 28px;
+            border-left: 5px solid #4a9aac;
+            padding-left: 10px;
+            color: #333;
+        }
+
+        section p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+		
+		.figure-container {
+		  display: grid;
+		  grid-template-columns: 1fr 1fr; /* Creates two columns of equal width */
+		  gap: 20px; /* Space between columns */
+		}
+		
+		.subtitle {
+		    font-size: 28px;
+            border-left: 5px solid #4a9aac;
+            padding-left: 10px;
+            color: #333;
+		}
+
+        .methodology {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			font-size: 18px;
+        }
+		
+        .methodology h3 {
+            font-size: 24px;
+            color: #444;
+        }
+
+        .methodology ul {
+            margin-left: 0px;
+        }
+
+        .methodology ul li ol {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 16px;
+        }
+		.card {
+			position: relative;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: normal;
+			-webkit-flex-direction: column;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			background-color: #fff;
+			border: 1px solid rgba(0, 0, 0, .125);
+			border-radius: .25rem;
+		.card-header {
+			padding: .75rem 1.25rem;
+			margin-bottom: 0;
+			margin-top: 0;
+			background-color: #f7f7f9;
+			border-bottom: 1px solid rgba(0, 0, 0, .125);
+			}
+		.card-block {
+			-webkit-box-flex: 1;
+			-webkit-flex: 1 1 auto;
+			-ms-flex: 1 1 auto;
+			flex: 1 1 auto;
+			padding: 1.25rem;
+		}
+		.img-inline {
+		  vertical-align: middle;
+		  max-width: 100%;
+		  height: auto;
+		}
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Arithmetic Without Algorithms: <br>Language Models Solve Math With a Bag of Heuristics</h1>
+	<address>
+	  <nobr><a href="https://yaniv.nikankin.com/" target="_blank">Yaniv Nikankin</a><sup>1</sup>,</nobr>
+	  <nobr><a href="https://scholar.google.com/citations?user=5QW4VNgAAAAJ&hl=en" target="_blank">Anja Reusch</a><sup>1</sup>,</nobr>
+	  <nobr><a href="https://aaronmueller.github.io/" target="_blank">Aaron Mueller</a><sup>1,2</sup>,</nobr>
+	  <nobr><a href="https://belinkov.com/" target="_blank">Yonatan Belinkov</a><sup>1</sup>,</nobr>
+	 <br>
+	  <nobr><sup>1</sup><institute>Technion - IIT</a></institute></nobr>;
+	  <nobr><sup>2</sup><institute>Northeastern University</a></institute></nobr>
+	</address>
+	<a href="https://arxiv.org/abs/2410.21272" target="_blank" class="btn" style="color: #fff; background-color: #198754; border-color: #136e44;"><i class="ai ai-arxiv"></i> ArXiv</a>
+    <a href="https://technion-cs-nlp.github.io/llm-arithmetic-heuristics/paper.pdf" target="_blank" class="btn" style="color: #fff; background-color: #dc3545; border-color: #b72d3a;"><i class="far fa-file-pdf"></i> PDF</a>
+    <a href="https://github.com/technion-cs-nlp/llm-arithmetic-heuristics" target="_blank" class="btn" style="color: #fff; background-color: #212529; border-color: #212529;"><i class="fab fa-github"></i> Code</a>
+</header>
+
+
+<div class="container">
+
+	<h2 class="subtitle">Abstract</h2>
+    <section>
+        <p>
+		<mark>Do large language models (LLMs) solve reasoning tasks by learning robust generalizable algorithms, or do they memorize training data?</mark>
+		To investigate this question, we use arithmetic reasoning as a representative task. 
+		Using causal analysis, we identify a subset of the model (a circuit) that explains most of the model's behavior for basic arithmetic logic and examine its functionality.
+		By zooming in on the level of individual circuit neurons, we discover a sparse set of important neurons that implement simple heuristics. Each heuristic identifies a numerical input pattern and outputs corresponding answers.
+		We hypothesize that the combination of these heuristic neurons is the mechanism used to produce correct arithmetic answers. 
+		To test this, we categorize each neuron into several heuristic types — such as neurons that activate when an operand falls within a certain range — and find that the unordered combination of these heuristic types is the mechanism that explains most of the model's accuracy on arithmetic prompts.
+		Finally, we demonstrate that this mechanism appears as the main source of arithmetic accuracy early in training.
+		Overall, our experimental results across several LLMs show that <mark>LLMs perform arithmetic using neither robust algorithms nor memorization; rather, they rely on a <i>bag of heuristics</i></mark>.
+        </p>
+    </section>
+
+	<h2 class="subtitle">Which model components participate in answering arithmetic prompts?</h2> <!-- Section 2 -->
+    <section class="methodology">
+		<p>
+			<ul>
+				<li>
+					We employ activation patching to identify model components (MLP layers and attention heads) that make up the arithmetic circuit, 
+					responsible for completion of arithmetic prompts such as "226 - 68 =".
+					We find an arithmetic circuit comprised of a spare set of attention heads and most MLPs.
+				</li>
+				<li>
+					We use linear probing to pinpoint the circuit components that promote the correct answer token.
+					We find that the later MLPs are responsible for generating the correct answer only in the last position, utilizing earlier representations.	
+				</li>
+			</ul>
+			
+		</p>
+		<div class="figure-container">
+			<figure style="display: inline-block; vertical-align: top;">
+				<img src="llm-arithmetic-heuristics/img/llama3-8b_localization.png" style="width:80%; height:auto;">
+				<figcaption style="text-align: center;">The effect of each model component on predicting the answer. The arithmetic circuit is comprised of a few attention heads 
+					that move operand and operator information to the last position, and MLPs that process this information to promote the correct answer.</figcaption>
+			</figure>
+			<figure style="display: inline-block; vertical-align: top;">
+				<img src="llm-arithmetic-heuristics/img/probing_acc.png" style="width:60%; height:auto; margin-bottom: 35px">
+				<figcaption style="text-align: center; margin-bottom: 10px;">Linear probes are only successful in extracting the answer after the later MLPs of the circuit.</figcaption>
+			</figure>
+		</div>
+		<div style="clear: both;"></div>
+    </section>
+	
+
+
+	<h2 class="subtitle">How is the correct answer generated?</h2> <!-- Section 3 & 4 -->
+    <section class="methodology">
+		<p>
+			<ul>
+				<li>
+					We dive into neuron-level resolution, and find that a <b>small set of MLP neurons (roughly 1% in each layer) is enough to explain the model's arithmetic behavior.</b>
+				</li>
+				<li>
+					<b>Each such neuron acts as a "heuristic"</b>, identifying a specific input pattern and promoting a set of corresponding answer tokens.
+				</li>
+			</ul>
+		</p>
+		<figure>
+		<img src="llm-arithmetic-heuristics/img/opening_heuristics.png" style="width:60%; height:auto; float:center;">
+		<figcaption style="clear: both; float:center; width:100%; padding-bottom: 20px;;">
+			LLMs answer arithmetic prompts by combining several unrelated heuristics, implemented by late-layer MLP neurons. <br>
+			Each heuristic activates according to rules based on the input values of operands, and boosts the logits of corresponding result tokens. 
+		</figcaption>
+		</figure>
+		<p>
+			<ul>
+				<li>
+					We hypothesize that <b>the combination of these unrelated heuristics is the mechanism used by LLMs to produce correct arithmetic answers</b>.
+				</li>
+				<li>
+					To prove this, we develop an automated method to categorize each neuron into several heuristic types, such as neurons that activate when an operand falls within a certain range.
+					We use this method to show a causal link between heuristic neurons and the model's accuracy on arithmetic prompts associated with these heuristics.
+				</li>
+			</ul>
+		</p>
+		<figure>
+		<img src="llm-arithmetic-heuristics/img/llama3_8b_70b_prompt_knockout_per_layer.png" style="width:70%; height:auto; float:center;">
+		<figcaption style="clear: both; float:center; width:100%">
+			Knocking out neurons that implement heuristics associated with each prompt (full lines) leads to a greater decrease in accuracy than knocking out the same number of neurons 
+			whose heuristics are not associated with each prompt (dashed lines). This effect occurs across model sizes.
+		</figcaption>
+	</section>
+
+
+	<h2 class="subtitle">How do arithmetic heuristics develop over training?</h2> <!-- Section 5 -->
+    <section class="methodology">
+		<p>
+			<div style="display: flex; flex-wrap: wrap;">
+				<div style="flex: 1 1 65%; padding-top: 30px;">
+					<ul>
+						<li>
+							We aim to check if the "bag of heuristics" emerges as the model's primary arithmetic mechanism early in training, or does it override some other mechanism.
+						</li>
+						<li>
+							We analyze the arithmetic heuristics across training checkpoints of Pythia-6.9B.
+						</li>
+						<li>
+							We discover that <b>the model develops the "bag of heuristics" mechanism gradually across training</b>, starting from an early checkpoint.
+						</li>
+						<li>
+							We show the heuristics mutual to the last checkpoint explain most of the model's accuracy on arithmetic prompts at each 
+							stage of training.
+							This shows that, while other heuristics also exist in some form in early checkpoints, they are less important and become vestigial
+							in later stages.
+						</li>
+						<li>
+							We show a causal link between the model's accuracy on arithmetic prompts and the heuristics associated with these prompts across training.
+							This is evidence that across training, the model relies on the bag of heuristics to complete arithmetic prompts, <b>making the existence
+							of another algorithm-based mechanism unlikely</b>.
+						</li>
+						<li>
+							The current lack of an arithmetic algorithm within LLMs suggests that improving their mathematical abilities may require fundamental 
+							changes to training and architectures, rather than post-hoc techniques like activation steering.
+						</li>
+					</ul>
+				</div>
+				<div style="flex: 1 1 25%; text-align: center;">
+					<figure>
+						<img src="llm-arithmetic-heuristics/img/heuristics_intersection_across_training.png" style="max-width: 100%; height: auto;">
+						<figcaption>The arithmetic heuristics slowly develop over training.</figcaption>
+					</figure>
+					<figure>
+						<img src="llm-arithmetic-heuristics/img/prompt_knockout_across_training.png" style="padding-left: 10px; max-width: 100%; height: auto;">
+						<figcaption>Across training, ablating a few heuristics associated with each prompt, leads to a large decrease in accuracy.</figcaption>
+					</figure>
+				</div>
+			</div>
+		</p>
+	</section>
+
+
+
+	<h2 class="subtitle">How to cite</h2>
+
+	<div class="card">
+	<h3 class="card-header">bibliography</h3>
+	<div class="card-block">
+	<p style="text-indent: -3em; margin-left: 3em;" class="card-text clickselect">
+	Yaniv Nikankin, Anja Reusch, Aaron Mueller, Yonatan Belinkov, “<em>Arithmetic Without Algorithms: Language Models Solve Math With a Bag of Heuristics</em>”.
+	</p>
+	</div>
+	<h3 class="card-header">bibtex</h3>
+	<div class="card-block">
+	<pre class="card-text clickselect">
+	@article{nikankin2024arithmetic,
+	  title={Arithmetic Without Algorithms: Language Models Solve Math With a Bag of Heuristics},
+	  author={Nikankin, Yaniv and Reusch, Anja and Mueller, Aaron and Belinkov, Yonatan},
+	  journal={arXiv preprint arXiv:2410.21272},
+	  year={2024}
+	}
+	</pre>
+	</div>
+	</div>
+	<p></p>
+
+
+<footer>
+    <p>Forked from a template by Hadas Orgad | Technion | 2024</p>
+</footer>
+
+</body>
+</html>

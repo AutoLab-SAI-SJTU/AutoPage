@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ICLR-2024-DFormer</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,800italic,400,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/project.css" media="screen" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/iconize.css" />
+    <script src="js/google-code-prettify/prettify.js"></script> -->
+  </head>
+
+  <!-- cover -->
+  <section>
+    <div class="jumbotron text-center mt-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2>DFormer:Rethinking RGBD Representation Learning <br>
+               for Semantic Segmentation
+            </h2>
+            <h4 style="color:#5a6268;">ICLR 2024 </h4>
+            <hr>
+            <h6>
+              <a href="https://scholar.google.cz/citations?user=xr_FRrEAAAAJ&hl=zh-CN&oi=ao" target="_blank">Bowen Yin</a>,<sup></sup> 
+              <a href="https://scholar.google.cz/citations?user=76_hOG0AAAAJ&hl=zh-CN" target="_blank">Xuying Zhang</a>,<sup></sup> 
+              <a href="https://scholar.google.cz/citations?user=g6WHXrgAAAAJ&hl=zh-CN" target="_blank">Zhongyu Li</a>,<sup></sup>
+              <a href="https://scholar.google.cz/citations?hl=zh-CN&user=9cMQrVsAAAAJ" target="_blank">Liu Li</a>,<sup></sup>
+              <a href="https://scholar.google.cz/citations?user=huWpVyEAAAAJ&hl=zh-CN" target="_blank">Ming-Ming Cheng</a>,<sup></sup> 
+              <a href="https://scholar.google.cz/citations?user=fF8OFV8AAAAJ&hl=zh-CN"
+                      target="_blank">Qibin Hou</a><sup></sup>✉
+            <p>
+                VCIP, Nankai University 
+            </p>
+
+            <div class="row justify-content-center">
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://arxiv.org/pdf/2309.09668.pdf" role="button"  target="_blank">
+                    <i class="fa fa-file"></i> Paper</a> </p>
+              </div>
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/VCIP-RGBD/DFormer" role="button"  target="_blank">
+                    <i class="fa fa-github-alt"></i> Code </a> </p>
+              </div>
+<!--               <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="" role="button"  target="_blank">
+                    <i class="fa fa-database"></i> Model </a> </p>
+              </div> -->
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/VCIP-RGBD/RGBD-Pretrain" role="button"  target="_blank">
+                    <i class="fa fa-desktop"></i> RGBD-Pretrain </a> </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div align="center">
+    <font size="3">
+      <td style="width: 200px;">
+      TL;DR: DFormer provide a RGBD pretraining framework to learn transferable 
+      RGB-D representations and can be applied to various RGBD downstream tasks. <br> 
+      DFormer is a baseline RGBD encoder, you can pretrain more strong RGBD encoders 
+      via the RGBD pretraining code to boost the RGBD researchs.
+      </td>
+    </font>
+  </div>
+  <!-- abstract -->
+  <br>
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Abstract</h3>
+            <hr style="margin-top:0px">
+            <h6 style="color:#8899a5">  
+              
+
+          <p class="text-left">
+            We present DFormer, a novel RGB-D pretraining framework to learn expressive representations 
+            for RGB-D segmentation tasks. DFormer has two new renovations: 1) Unlike previous 
+            works that aim to encode RGB features, DFormer comprises a sequence of RGB-D blocks, 
+            which are tailored for encoding both RGB and depth information through a novel 
+            attention module. 2) We pretrain the backbone using image-depth pairs from 
+            ImageNet-1K, and thus the DFormer is endowed with the capacity of encoding RGB-D 
+            representations. It avoids the mismatched encoding of the 3D geometry relationships 
+            in depth maps by RGB pre-trained backbones, which widely lies in existing methods but 
+            has not been resolved. We fine-tune the pre-trained DFormer on two popular RGB-D tasks,
+             i.e., RGB-D semantic segmentation and RGB-D salient object detection, with a 
+             lightweight decoder head. Experimental results show that our DFormer achieve a 
+             new state-of-the-art performance on these two tasks with lower computation cost 
+             compared to previous SOTA methods, e.g., 57.2% mIoU on the NYUv2 dataset with 39.0M 
+             parameters and 65.7G Flops.
+          <div align="center">
+            <img src="assets/DFormer_framework.jpeg" alt="Overview" width="80%">
+            <img src="assets/overview.jpg" alt="Overview" width="80%">
+          </div>
+
+        <p class="text-center">
+          The RGBD pretraining framework in DFormer.
+        </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  
+
+
+  <!-- citing -->
+  <div class="container">
+    <div class="row ">
+      <div class="col-12">
+          <h3>Citation</h3>
+          <hr style="margin-top:0px">
+              <pre style="background-color: #e9eeef;padding: 1.25em 1.5em">
+                @article{yin2023dformer,
+                  title={DFormer: Rethinking RGBD Representation Learning for Semantic Segmentation},
+                  author={Yin, Bowen and Zhang, Xuying and Li, Zhongyu and Liu, Li and Cheng, Ming-Ming and Hou, Qibin},
+                  journal={arXiv preprint arXiv:2309.09668},
+                  year={2023}
+                }
+              </pre>
+          <hr>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

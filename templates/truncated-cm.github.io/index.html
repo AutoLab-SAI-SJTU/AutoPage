@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.0.1/model-viewer.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Truncated Consistency Models (TCM) for accelerated sampling in generative models">
+    <meta name="author" content="GenAIR team">
+    <link rel="icon" href="https://truncated-cm.github.io/assets/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,500,700&display=swap" rel="stylesheet">
+
+    <title>Truncated Consistency Models</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+</head>
+
+<body>
+    <main role="main">
+        <section class="jumbotron text-center" id="banner">
+            <div class="container" id="title">
+                <h2 class="jumbotron-heading">Truncated Consistency Models</h2>
+            </div>
+
+            <div class="container" style="max-width: 840px;">
+                <div class="row row-author">
+                    <div class="col-md author">Sangyun Lee<sup>1</sup></div>
+                    <div class="col-md author">Yilun Xu<sup>2</sup></div>
+                    <div class="col-md author">Tomas Geffner<sup>2</sup></div>
+                </div>
+                
+                <div class="row row-author">
+                    <div class="col-md author">Giulia Fanti<sup>1</sup></div>
+                    <div class="col-md author">Karsten Kreis<sup>2</sup></div>
+                    <div class="col-md author">Arash Vahdat<sup>2</sup></div>
+                    <div class="col-md author">Weili Nie<sup>2</sup></div>
+                </div>
+
+                <div class="affil">
+                    <span><sup>1</sup>Carnegie Mellon University</span>
+                    <span><sup>2</sup>NVIDIA Corporation</span>
+                </div>
+                <div class="row" style="margin-top:0rem; margin-left: auto; margin-right: auto;">
+                    <div class="col-md">
+                        <div id="affiliation"><img width="20%" src="assets/nvidialogo.png"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row" id="pitch">
+                    <p style="text-align: center; font-size: 115%;">
+                        ICLR 2025
+                    </p>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <a href="https://arxiv.org/abs/2410.14895" target="_blank" class="btn btn-primary my-2">Paper</a>
+                <a href="https://github.com/NVlabs/TCM" target="_blank" class="btn btn-primary my-2">Code </a>
+            </div>
+
+            <div class="container">
+                <div class="row" id="pitch">
+                    <p style="text-align: center;">
+                        TCM is a consistency model that operates on the truncated input time range. It improves the one-step and two-step sample quality of consistency models across different datasets, establishing a new state-of-the-art among consistency models.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="container" style="padding-top: 30px;">
+        <!-- Abstract -->
+        <h5>Abstract</h5>
+        <p style="text-align: justify;">
+            Consistency models have recently been introduced to accelerate the generation speed of diffusion models by directly predicting the solution (data) of the probability flow ODE (PF ODE) from initial noise.
+            However, the training of consistency models requires learning to map all intermediate points along PF ODE trajectories to their corresponding endpoints.
+            This task is much more challenging than the ultimate objective of one-step generation, which only concerns the PF ODE's noise-to-data mapping.
+            We empirically find that this training paradigm limits the one-step generation performance of consistency models.
+            To address this issue, we generalize consistency training to the truncated time range, which allows the model to ignore denoising tasks at earlier time steps and focus its capacity on generation.
+            We propose a new parameterization of the consistency function and a two-stage training procedure that prevent the truncated-time training from collapsing to a trivial solution.
+            Experiments on CIFAR-10 and ImageNet 64x64 datasets show that our method achieves better one-step and two-step FIDs than the state-of-the-art consistency models such as iCT-deep, using more than 2x smaller networks.
+        </p>
+
+        <!-- Key Results -->
+        <hr>
+        <h5>Key Results</h5>
+        <p>
+            TCM improves both the sample quality and the training stability of consistency models across different datasets and sampling steps. On CIFAR-10 and ImageNet 64x64 datasets, TCM outperforms the iCT, the previous best consistency model, in both one-step and two-step generation using similar network size. TCM even outperforms iCT-deep that uses a 2x larger network across datasets and sampling steps. By using our largest network, we achieve a one-step FID of 2.20 on ImageNet 64x64, which is competitive with the current state-of-the-art.
+        </p>
+
+        <!-- Conceptual Illustration -->
+        <hr>
+        <h5>Conceptual Illustration of TCM</h5>
+        <img src="images/main.png" alt="Conceptual Illustration of TCM" style="width: 100%;">
+        TCM training consists of two stages. The first stage is the standard consistency training. The second stage is the truncated-time training, which is conducted over a truncated time range.
+        Here, stage-1 model serves as a boundary condition for stage-2 training. This ensures that the truncated consistency models do not collapse to a trivial solution and learn data distribution.
+        <!-- FID Improvement -->
+        <hr>
+        <h5>FID Improvement of TCM</h5>
+        <img src="images/fid_curve.png" alt="FID improvement of TCM over the standard consistency training" style="width: 100%;">
+        Truncated training improves the FID over the standard consistency training.
+        <!-- Comparison with Other Methods -->
+        <hr>
+        <h5>Comparison with Other Methods</h5>
+        <img src="images/table.png" alt="Comparison of TCM with other methods on CIFAR-10 and ImageNet 64x64 datasets" style="width: 100%;">
+        TCM achieves better FID than the previous best consistency models, iCT and iCT-deep, on CIFAR-10 and ImageNet 64x64 datasets, establishing a new state-of-the-art among consistency models.
+        <!-- Generation Results -->
+        <hr>
+        <h5>One-step and Two-step Generation Results</h5>
+        <img src="images/samples.png" alt="One-step and two-step generation results" style="width: 100%;">
+
+        <!-- Citation -->
+        <hr>
+        <h5>Citation</h5>
+        <div class="container">
+            <div class="paper">
+                <div class="paper_content">
+                    <h4>Paper: <a href="https://arxiv.org/abs/2410.14895" target="_blank">arxiv.org/abs/2410.14895</a></h4>
+                    <h4>Code: <a href="https://github.com/NVlabs/TCM" target="_blank">https://github.com/NVlabs/TCM</a> </h4>
+                    <h4>BibTex:</h4>
+                    <div id="citation">
+                        <pre><code>
+@misc{lee2024truncatedconsistencymodels,
+    title={Truncated Consistency Models}, 
+    author={Sangyun Lee and Yilun Xu and Tomas Geffner and Giulia Fanti and Karsten Kreis and Arash Vahdat and Weili Nie},
+    year={2024},
+    eprint={2410.14895},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG},
+    url={https://arxiv.org/abs/2410.14895}, 
+}
+    </code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-right">
+                <a href="index.html#">Back to top</a>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

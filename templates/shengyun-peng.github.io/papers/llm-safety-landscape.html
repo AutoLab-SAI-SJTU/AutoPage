@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang=" en-US">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VK54DX23QS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-VK54DX23QS');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="utf-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <link href="https://fonts.googleapis.com/css?family=Gaegu:300,700" rel="stylesheet">
+
+  <!-- Enable responsiveness on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Share card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@RealAnthonyPeng" />
+  <meta name="twitter:creator" content="@RealAnthonyPeng" />
+  <meta property="og:url" content="https://shengyun-peng.github.io/" />
+  <meta property="og:title" content="ShengYun Peng" />
+  <meta property="og:description"
+    content="ShengYun Peng is a PhD student at Georgia Tech working on adversarial machine learning." />
+  <!--  <meta property="og:image" content="http://fredhohman.com/images/share.png" />-->
+
+  <title>
+    
+    Navigating the Safety Landscape: Measuring Risks in Finetuning Large Language Models — ShengYun (Anthony) Peng
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../styles.css">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <!--  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=xQdLjRyXLj">-->
+  <!--  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png?v=xQdLjRyXLj">-->
+  <!--  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png?v=xQdLjRyXLj">-->
+  <!--  <link rel="manifest" href="/icons/site.webmanifest?v=xQdLjRyXLj">-->
+  <!--  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg?v=xQdLjRyXLj" color="#313131">-->
+  <!--  <link rel="shortcut icon" href="/icons/favicon.ico?v=xQdLjRyXLj">-->
+  <!--  <meta name="msapplication-TileColor" content="#313131">-->
+  <!--  <meta name="msapplication-config" content="/icons/browserconfig.xml?v=xQdLjRyXLj">-->
+  <!--  <meta name="theme-color" content="#ffffff">-->
+
+  <!-- Feed -->
+  <link type="application/atom+xml" rel="alternate" href="https://shengyun-peng.github.io//feed.xml" title="ShengYun (Anthony) Peng" />
+
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5HT7VK6" height="0" width="0"
+      style="display:none;visibility:hidden">
+    </iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <header id="masthead">
+	<h1>
+  		<a href="https://shengyun-peng.github.io/" title="Home">ShengYun (Anthony) Peng</a>
+  		<!-- <div class="mastheadspacer"/></div> -->
+   		<!-- <span class="masthead-slash">/</span> -->
+   		<!-- <small>CS PhD Student at Georgia Tech</small> -->
+	</h1>
+	<nav>
+		<a href="https://shengyun-peng.github.io//cv"><div><i class="fa fa-portrait icon icon-right-space"></i>CV</div></a>
+		<a href="https://shengyun-peng.github.io//projects"><div><i class="fa fa-shapes icon icon-right-space"></i>Projects</div></a>
+		<!-- <a href="https://shengyun-peng.github.io//everything-else"><div><i class="fa fa-list-ul icon icon-right-space"></i>Everything Else</div></a> -->
+		<!-- <a href="/cv">CV</a>
+		<a href="/projects">Projects</a>
+		<a href="/everything-else">Everything Else</a> -->
+	</nav>
+</header>
+  <main>
+    <div id="paper-title-wrapper" class="l-screen">
+
+	<h1>Navigating the Safety Landscape: Measuring Risks in Finetuning Large Language Models</h1>
+
+	<div id="venue-bar">
+		<div id="venue">NeurIPS, 2024</div>
+		
+
+		
+		
+		
+		
+		
+	</div>
+
+	<hr class="project-hr">
+
+    <div id="author-wrapper">
+        
+            <div class="author">
+                
+
+    <!-- <a href="https://shengyun-peng.github.io/"> -->
+        <img src="../images/people/shengyun-peng.jpg" class="author-image">
+    <!-- </a> -->
+
+
+                
+<a href="https://shengyun-peng.github.io/"><b>ShengYun Peng</b></a>
+            </div>
+        
+            <div class="author">
+                
+
+    <!-- <a href="https://sites.google.com/site/pinyuchenpage/"> -->
+        <img src="../images/people/pinyu-chen.png" class="author-image">
+    <!-- </a> -->
+
+
+                
+<a href="https://sites.google.com/site/pinyuchenpage/">Pin-Yu Chen</a>
+            </div>
+        
+            <div class="author">
+                
+
+    <!-- <a href="https://www.linkedin.com/in/mdhull/"> -->
+        <img src="../images/people/matthew-hull.jpeg" class="author-image">
+    <!-- </a> -->
+
+
+                
+<a href="https://www.linkedin.com/in/mdhull/">Matthew Hull</a>
+            </div>
+        
+            <div class="author">
+                
+
+    <!-- <a href="https://www.cc.gatech.edu/~dchau"> -->
+        <img src="../images/people/polo-chau.jpg" class="author-image">
+    <!-- </a> -->
+
+
+                
+<a href="https://www.cc.gatech.edu/~dchau">Duen Horng Chau</a>
+            </div>
+        
+    </div>
+
+	<!-- <hr class="project-hr"> -->
+
+	<div id="paper-materials" class="l-text">
+		
+		
+			
+		
+			
+			  <a href="llm-safety-landscape.html"><div><i class="fas fa-link" aria-hidden="true"></i> Project</div></a>
+			
+		
+			
+		
+			
+			  <a href="https://arxiv.org/abs/2405.17374"><div><i class="far fa-file-pdf" aria-hidden="true"></i> PDF</div></a>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+			  <a href="https://github.com/ShengYun-Peng/llm-landscape"><div><i class="fas fa-code" aria-hidden="true"></i> Code</div></a>
+			
+		
+			
+		
+			
+		
+			
+			
+		
+	</div>
+
+</div>
+
+<h2>Abstract</h2>
+<div><p>Safety alignment is the key to guide the behaviors of large language models ( LLMs) are in line with human preferences and restrict harmful behaviors at inference time, but recent studies show that it can be easily compromised by finetuning with only a few adversarially designed training examples. We aim to measure the risks in finetuning LLMs through navigating the LLM safety landscape. We discover a new phenomenon observed universally in the model parameter space of popular open-source LLMs, termed as “safety basin”: randomly perturbing model weights maintains the safety level of the original aligned model in its local neighborhood. Our discovery inspires us to propose the new VISAGE safety metric that measures the safety in LLM finetuning by probing its safety landscape. Visualizing the safety landscape of the aligned model enables us to understand how finetuning compromises safety by dragging the model away from the safety basin. LLM safety landscape also highlights the system prompt’s critical role in protecting a model, and that such protection transfers to its perturbed variants within the safety basin. These observations from our safety landscape research provide new insights for future work on LLM safety community.</p>
+</div>
+
+<!-- <hr class=" home-hr"> -->
+<div style="height: 3rem"></div>
+
+
+<figure class="l-text">
+    <img class="single" src="../images/papers/24_safety-landscape.png">
+    <!-- <figcaption class="single"><b>A</b>. "Safety basin", a new phenomenon observed universally in the model parameter space of popular open-source LLMs. Our discovery inspires us to propose the new VISAGE safety metric that measures the safety in LLM finetuning by probing its safety landscape. <b>B</b>. Visualizing the safety landscape of the aligned model also enables us to understand why finetuning with harmful data compromises safety but finetuning with both harmful and safe data preserves the safety.</figcaption> -->
+</figure>
+<div><b>A</b>. "Safety basin", a new phenomenon observed universally in the model parameter space of popular open-source LLMs. Our discovery inspires us to propose the new VISAGE safety metric that measures the safety in LLM finetuning by probing its safety landscape. <b>B</b>. Visualizing the safety landscape of the aligned model also enables us to understand why finetuning with harmful data compromises safety but finetuning with both harmful and safe data preserves the safety.</div>
+
+
+<div style="height: 3rem"></div>
+
+<h2>BibTeX</h2>
+
+<div class="highlighter-rouge bibtex bibtex-wrapper">
+	<div class="highlight">
+		<pre>
+			
+@article{peng2024navigating,
+  title={Navigating the Safety Landscape: Measuring Risks in Finetuning Large Language Models},
+  author={Peng, ShengYun and Chen, Pin-Yu and Hull, Matthew and Chau, Duen Horng},
+  journal={arXiv preprint arXiv:2405.17374},
+  year={2024}
+}
+		</pre>
+	</div>
+</div>
+
+  </main>
+  <footer>
+	<div id="footer-left">
+		<a href="mailto:speng65@gatech.edu"><i class="fa-lg fa fa-envelope footer-icon" aria-hidden="true"></i></a>
+		<a href="https://twitter.com/RealAnthonyPeng"><i class="fa-lg fab fa-twitter footer-icon" aria-hidden="true"></i></a>
+		<a href="https://www.linkedin.com/in/shengyun-anthony-peng/"><i class="fa-lg fab fa-linkedin-in footer-icon" aria-hidden="true"></i></a>
+		<a href="https://github.com/ShengYun-Peng"><i class="fa-lg fab fa-github footer-icon" aria-hidden="true"></i></a>
+		<a href="https://scholar.google.com/citations?user=3557QYYAAAAJ&hl=en"><i class="fa-lg fa fa-graduation-cap footer-icon" aria-hidden="true"></i></a>
+		<br>
+		<br>
+		&copy; <time datetime="May 23, 2025">2025</time> ShengYun (Anthony) Peng
+	</div>
+	<!-- <div id="footer-right">
+		Anthony Peng is a PhD student at Georgia Tech.
+	</div> -->
+</footer>
+
+</body>
+
+
+</html>

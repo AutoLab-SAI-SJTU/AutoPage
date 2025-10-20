@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta content="Ready-to-React: Online Reaction Policy for Two-Character Interaction Generation" name="title" />
+  <meta content="" name="description" />
+  <meta content="" name="keywords" />
+  <meta content="index, follow" name="robots" />
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <meta content="English" name="language" />
+  <meta content="Zhi Cen" name="author" />
+  <title>Ready-to-React: Online Reaction Policy for Two-Character Interaction Generation</title>
+  <!-- Bootstrap -->
+  <script src="js/video_comparison.js"></script>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
+
+  <link href="css/bootstrap-4.4.1.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    code {
+      white-space: pre-wrap;
+    }
+
+    body {
+      font-family: 'Jost';
+    }
+
+    b {
+      font-weight: black;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    section>h5 {
+      padding-bottom: 30px;
+    }
+
+    .col-12>h3 {
+      padding-top: 30px;
+    }
+
+    .results-section {
+      padding-bottom: 30px;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .carousel-control-prev {
+      left: 25px;
+    }
+
+    .carousel-control-next {
+      right: 25px;
+    }
+
+    .carousel-indicators {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      bottom: 0%;
+      left: 90%;
+
+      /* Adjust vertical position */
+      text-align: center;
+      /* Center the content horizontally */
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .carousel-indicators li {
+      background-color: transparent;
+      /* Hide the default Bootstrap indicators */
+      border: none;
+      /* Remove border */
+      margin: 0 25px;
+      display: inline-block;
+    }
+
+    .indicator-dot {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      text-indent: -999px;
+      border: none;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .row.sm-gutters {
+      margin-right: 5px;
+      margin-left: 5px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .row.sm-gutters>.col-md-4 {
+      padding-right: 5px;
+      padding-left: 5px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .row.sm-gutters>.col-md-6 {
+      padding-right: 5px;
+      padding-left: 5px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .row.sm-gutters>.col-md-12 {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+
+    .renbody-zoom-container {
+      width: 80%;
+      /* Or whatever size you want */
+      aspect-ratio: 0.75;
+      /* Or whatever size you want */
+      overflow: hidden;
+      /* Hide the parts of the video outside the container */
+      object-fit: cover;
+      /* Make sure the video covers the container without stretching */
+      object-position: center;
+      /* Center the video */
+      border-radius: 5px;
+    }
+
+    .mobile-zoom-container {
+      width: 100%;
+      /* Or whatever size you want */
+      aspect-ratio: 0.75;
+      /* Or whatever size you want */
+      overflow: hidden;
+      /* Hide the parts of the video outside the container */
+      object-fit: cover;
+      /* Make sure the video covers the container without stretching */
+      object-position: center;
+      /* Center the video */
+      border-radius: 5px;
+      margin: 5px
+    }
+
+    .video-zoom-container {
+      overflow: hidden;
+      /* Hide the parts of the video outside the container */
+      object-fit: cover;
+      /* Make sure the video covers the container without stretching */
+      object-position: center;
+      border-radius: 5px;
+      margin: 5px;
+    }
+
+    .zoom-element {
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .zoom-element:hover {
+      transform: scale(1.65);
+    }
+
+    .nhr-zoom {
+      transform: scale(1.45);
+    }
+
+    .renbody-zoom {
+      transform: scale(1.65) translateY(2%);
+      border-radius: 5px;
+    }
+
+    .mobile-zoom {
+      transform: scale(1.65);
+      border-radius: 5px;
+    }
+
+    .zjumocap-zoom {
+      transform: scale(1.3);
+    }
+
+    video {
+      border-radius: 5px;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .comparison-canvas {
+      padding: 0px;
+      margin: 0px;
+      border-radius: 5px;
+    }
+
+    .a16x9 {
+      aspect-ratio: 16/9;
+    }
+
+    .a4x3 {
+      aspect-ratio: 1352/1014;
+    }
+
+    .a1x1 {
+      aspect-ratio: 1;
+    }
+
+    .a16x9demo {
+      aspect-ratio: 1920/1152;
+    }
+
+    .a4x3demo {
+      aspect-ratio: 1352/1086;
+    }
+
+    .a1x1demo {
+      aspect-ratio: 1600/1672;
+    }
+  </style>
+  <script>
+
+
+
+  </script>
+  </link>
+</head>
+
+<body>
+  <!-- cover -->
+  <section>
+    <div class="jumbotron text-center mt-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1 style="font-weight: bold">
+              <b>
+                <span style="color: #6589bf">Ready-to-React</span>:
+                <span style="color: #c68b5b">Online</span> Reaction Policy for <br>
+                <span style="color: #78aa58">Two-Character</span>
+                Interaction Generation
+              </b>
+            </h1>
+            <h4 style="color:#5a6268;">ICLR 2025</h4>
+            <hr>
+            <a href="https://anitacen.github.io/">Zhi Cen<sup>1</sup></a>
+            <a href="https://phj128.github.io/">Huaijin Pi<sup>2</sup> </a>
+            <a href="https://pengsida.net" target="_blank">Sida Peng<sup>1</sup> </a>
+            <a href="https://chingswy.github.io/">Qing Shuai<sup>1</sup> </a>
+            <a href="https://shenyujun.github.io/">Yujun Shen<sup>3</sup> </a>
+            <a href="http://www.cad.zju.edu.cn/home/bao/" target="_blank">Hujun Bao<sup>1</sup> </a>
+            <a href="https://xzhou.me" target="_blank">Xiaowei Zhou<sup>1</sup> </a>
+            <a href="https://csse.szu.edu.cn/staff/ruizhenhu/" target="_blank">Ruizhen Hu<sup>4*</sup>
+            </a>
+            <p>
+              <sup>1</sup>Zhejiang University 
+              <sup>2</sup>The University of Hong Kong 
+              <sup>3</sup>Ant Group 
+              <sup>4</sup>Shenzhen University 
+              <br><sup>*</sup>Corresponding Author
+            </p>
+            <div class="row justify-content-center">
+              <div class="column">
+                <p class="mb-5">
+                  <a class="btn btn-large btn-light" href="https://drive.google.com/file/d/1nsgAV841NDyINoY0k14IdbqCMIKGCjwj/view?usp=sharing" role="button" target="_blank">
+                    <i class="fa fa-file-pdf-o"></i>
+                    <b>Paper</b>
+                  </a>
+                </p>
+              </div>
+              <div class="column">
+                <p class="mb-5">
+                  <a class="btn btn-large btn-light" href="https://drive.google.com/file/d/1JJzTs_Nq4xDoxTBJEehY1jPnJfKvYQok/view?usp=sharing" role="button" target="_blank">
+                    <i class="fa fa-file-pdf-o"></i>
+                    <b>Supp Mat</b>
+                  </a>
+                </p>
+              </div>
+              <div class="column">
+                <p class="mb-5">
+                  <a class="btn btn-large btn-light" href="https://arxiv.org/abs/2502.20370" role="button" target="_blank">
+                    <i class="ai ai-arxiv"></i>
+                    <b>arXiv</b>
+                  </a>
+                </p>
+              </div>
+              <div class="column">
+                <p class="mb-5">
+                  <a class="btn btn-large btn-light" href="https://github.com/zju3dv/ready_to_react" role="button" target="_blank">
+                    <i class="fa fa-github"></i>
+                    <b>Code</b>
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- abstract -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3>Abstract</h3>
+          <hr style="margin-top: 0px" />
+          <!-- <img src="img/overview.jpg" width="100%" /> -->
+          <p class="text-left">
+            This paper addresses the task of generating two-character online interactions. Previously, two main settings existed for two-character interaction generation: (1) generating one’s motions based on the counterpart’s complete motion sequence, and (2) jointly generating two-character motions based on specific conditions. We argue that these settings fail to model the process of real-life two-character interactions, where humans will react to their counterparts in real time and act as independent individuals. In contrast, <strong>we propose an online reaction policy, called Ready-to-React, to generate the next character pose based on past observed motions.</strong> Each character has its own reaction policy as its “brain”, enabling them to interact like real humans in a streaming manner. Our policy is implemented by incorporating a diffusion head into an auto-regressive model, which can dynamically respond to the counterpart’s motions while effectively mitigating the error accumulation throughout the generation process. We conduct comprehensive experiments using the challenging boxing task. Experimental results demonstrate that our method outperforms existing baselines and can generate extended motion sequences. Additionally, we show that our approach can be controlled by sparse signals, making it well-suited for VR and other online interactive environments.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- pipeline -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3>Method Overview</h3>
+          <hr style="margin-top: 0px" />
+          <p style="text-align:center;"> 
+            <img src="img/pipeline.jpg" width="80%"/>
+          </p>
+          <p>
+            <strong>Overview of our online reaction policy.</strong> Given a boxing scene at the leftmost figure, where the <strong><span style="color: #6E8BC5">blue agent</span></strong> is thinking about its next move. The reaction policy follows these steps: first, based on the observations, the history encoder encodes the current state and observations; then, the next latent predictor predicts the upcoming motion latent; and finally, an online motion decoder decodes this motion latent into the actual next pose. The same reaction policy can be applied to the <strong><span style="color: #D0A7C9">pink agent</span></strong>. Through a streaming process for both agents, our reaction policy enables the continuous generation of two-character motion sequences without length limit.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- reactive -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3>Reactive Motion Generation</h3>
+          <hr style="margin-top: 0px" />
+          <p>Here we present our method in the context of generating reactive motions. The opponent’s motion is provided as <span style="color: #79CC60">ground truth.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+          <div class="carousel slide" data-interval="10000" data-ride="carousel" id="bkgdCarousel">
+            <ol class="carousel-indicators">
+              <li class="active" data-slide-to="0" data-target="#bkgdCarousel">
+                <span class="indicator-dot"></span>
+              </li>
+              <li data-slide-to="1" data-target="#bkgdCarousel">
+                <span class="indicator-dot"></span>
+              </li>
+              <!-- <li data-slide-to="2" data-target="#bkgdCarousel">
+                <span class="indicator-dot"></span>
+              </li> -->
+              <!-- <li data-slide-to="3" data-target="#bkgdCarousel">
+                <span class="indicator-dot"></span>
+              </li> -->
+              <!-- Additional indicators... -->
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row sm-gutters">
+                  <div class="col-md-12">
+                    <video width="40%" controls="controls">
+                      <source src="video/reactive/reactive_0.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row sm-gutters">
+                  <div class="col-md-12">
+                    <video width="40%" controls="controls">
+                      <source src="video/reactive/reactive_1.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </div>
+              <!-- Additional carousel items... -->
+            </div>
+            <a class="carousel-control-prev" data-slide="prev" href="index.html#bkgdCarousel" role="button">
+              <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" data-slide="next" href="index.html#bkgdCarousel" role="button">
+              <span aria-hidden="true" class="carousel-control-next-icon"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- two -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3>Two-character Motion Generation</h3>
+          <hr style="margin-top: 0px" />
+          <p> Our method enables the simultaneous generation of motion for both agents. Starting with the first <span style="color: #79CC60">four frames</span>, each agent’s subsequent motion is generated by leveraging the interaction between their own and their opponent’s past motions. </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+          <div class="carousel slide" data-interval="10000" data-ride="carousel" id="bkgdCarousel1">
+            <ol class="carousel-indicators">
+              <li class="active" data-slide-to="0" data-target="#bkgdCarousel1">
+                <span class="indicator-dot"></span>
+              </li>
+              <li data-slide-to="1" data-target="#bkgdCarousel1">
+                <span class="indicator-dot"></span>
+              </li>
+              <!-- <li data-slide-to="2" data-target="#bkgdCarousel1">
+                <span class="indicator-dot"></span>
+              </li> -->
+              <!-- <li data-slide-to="3" data-target="#bkgdCarousel1">
+                <span class="indicator-dot"></span>
+              </li> -->
+              <!-- Additional indicators... -->
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row sm-gutters">
+                  <div class="col-md-12">
+                    <video width="40%" controls="controls">
+                      <source src="video/two/two_0.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row sm-gutters">
+                  <div class="col-md-12">
+                    <p>Walk to the chair that is near the bed.</p>
+                    <video width="40%" controls="controls">
+                      <source src="video/two/two_1.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </div>
+              <!-- Additional carousel items... -->
+            </div>
+            <a class="carousel-control-prev" data-slide="prev" href="index.html#bkgdCarousel1" role="button">
+              <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" data-slide="next" href="index.html#bkgdCarousel1" role="button">
+              <span aria-hidden="true" class="carousel-control-next-icon"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- long -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3>Long-term Two-character Motion Generation</h3>
+          <hr style="margin-top: 0px" />
+          <p> Given the first <span style="color: #79CC60">four frames</span> of the two-character motion sequence, our method can successfully generate <strong>1800 frames</strong> of the two-character motion.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+          <div class="carousel slide" data-interval="10000" data-ride="carousel" id="bkgdCarousel2">
+            <ol class="carousel-indicators">
+              <li class="active" data-slide-to="0" data-target="#bkgdCarousel2">
+                <span class="indicator-dot"></span>
+              </li>
+              <li data-slide-to="1" data-target="#bkgdCarousel2">
+                <span class="indicator-dot"></span>
+              </li>
+              <!-- <li data-slide-to="2" data-target="#bkgdCarousel1">
+                <span class="indicator-dot"></span>
+              </li> -->
+              <!-- <li data-slide-to="3" data-target="#bkgdCarousel1">
+                <span class="indicator-dot"></span>
+              </li> -->
+              <!-- Additional indicators... -->
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row sm-gutters">
+                  <div class="col-md-12">
+                    <video width="40%" controls="controls">
+                      <source src="video/long/long_0.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row sm-gutters">
+                  <div class="col-md-12">
+                    <video width="40%" controls="controls">
+                      <source src="video/long/long_1.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </div>
+              <!-- Additional carousel items... -->
+            </div>
+            <a class="carousel-control-prev" data-slide="prev" href="index.html#bkgdCarousel2" role="button">
+              <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" data-slide="next" href="index.html#bkgdCarousel2" role="button">
+              <span aria-hidden="true" class="carousel-control-next-icon"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- sparse -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3>Application: Generating Reactive Motion with Sparse Signals</h3>
+          <hr style="margin-top: 0px" />
+          <p> Introducing sparse control is essential for making our method practical in VR online interactive environments. Our approach successfully generates realistic motion while effectively adhering to the <span style="color: #ff0000">sparse signals</span>. The <span style="color: #6E8BC5">blue agent</span> is controlled by a combination of <span style="color: #ff0000">sparse signals</span> and our reaction policy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+          <div class="carousel slide" data-interval="10000" data-ride="carousel" id="bkgdCarousel3">
+            <ol class="carousel-indicators">
+              <li class="active" data-slide-to="0" data-target="#bkgdCarousel3">
+                <span class="indicator-dot"></span>
+              </li>
+              <li data-slide-to="1" data-target="#bkgdCarousel3">
+                <span class="indicator-dot"></span>
+              </li>
+              <li data-slide-to="2" data-target="#bkgdCarousel3">
+                <span class="indicator-dot"></span>
+              </li>
+              <!-- <li data-slide-to="3" data-target="#bkgdCarousel1">
+                <span class="indicator-dot"></span>
+              </li> -->
+              <!-- Additional indicators... -->
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row sm-gutters">
+                  <div class="col-md-12">
+                    <video width="40%" controls="controls">
+                      <source src="video/sparse/sparse_control_0.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row sm-gutters">
+                  <div class="col-md-12">
+                    <video width="40%" controls="controls">
+                      <source src="video/sparse/sparse_control_1.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row sm-gutters">
+                  <div class="col-md-12">
+                    <video width="40%" controls="controls">
+                      <source src="video/sparse/sparse_control_2.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </div>
+              <!-- Additional carousel items... -->
+            </div>
+            <a class="carousel-control-prev" data-slide="prev" href="index.html#bkgdCarousel3" role="button">
+              <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" data-slide="next" href="index.html#bkgdCarousel3" role="button">
+              <span aria-hidden="true" class="carousel-control-next-icon"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+    <!-- Full Supp Video -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h3>Supplementary Video</h3>
+            <hr style="margin-top: 0px" />
+            <p style="text-align:center;">
+            <video width="90%" controls="controls">
+              <source src="video/supplementary_video.mp4" type="video/mp4">
+            </video>
+          </p>
+          </div>
+        </div>
+      </div>
+
+  <!-- citing -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        </br>
+        </br>
+        <h3>Citation</h3>
+        <hr style="margin-top: 0px" />
+        <pre style="background-color: #e9eeef; padding: 1.5em 1.5em; border-radius: 20px">
+<code>@inproceedings{cen2025ready_to_react,
+  title={Ready-to-React: Online Reaction Policy for Two-Character Interaction Generation},
+  author={Cen, Zhi and Pi, Huaijin and Peng, Sida and Shuai, Qing and Shen, Yujun and Bao, Hujun and Zhou, Xiaowei and Hu, Ruizhen},
+  booktitle={ICLR},
+  year={2025}
+}</code></pre>
+        <hr />
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center" style="margin-bottom: 10px">
+    Thanks to
+    <a href="https://lioryariv.github.io/" target="_blank">Lior Yariv</a>
+    and <a href="https://zhenx.me/" target="_blank">Zhen Xu</a>
+    for the website template.
+  </footer>
+
+  <!-- Default Statcounter code for 4K4D: Real-Time 4D View
+Synthesi http://zju3dv.github.io/4k4d -->
+  <script type="text/javascript">
+    var sc_project = 12931644;
+    var sc_invisible = 1;
+    var sc_security = '012c8c76';
+  </script>
+  <script async src="https://www.statcounter.com/counter/counter.js" type="text/javascript"></script>
+  <noscript>
+    <div class="statcounter">
+      <a href="https://statcounter.com/" target="_blank" title="Web Analytics
+  Made Easy - Statcounter"><img alt="Web Analytics Made Easy - Statcounter" class="statcounter" referrerpolicy="no-referrer-when-downgrade" src="https://c.statcounter.com/12931644/0/012c8c76/1/" /></a>
+    </div>
+  </noscript>
+  <!-- End of Statcounter Code -->
+  <script>
+    var buttonIds = [
+      'mobilestage-results-button',
+      'outdoor-results-button',
+      'renbody-results-button',
+      'n3dv-results-button',
+      'nhr-results-button',
+      'zjumocap-results-button',
+      'mobilestage-single-results-button',
+
+      'nhr-demos-button',
+      'zjumocap-demos-button',
+      'mobilestage-demos-button',
+      'n3dv-demos-button',
+     /* ...other button ids... */];
+    var sectionIds = [
+      'mobilestage-results',
+      'outdoor-results',
+      'renbody-results',
+      'n3dv-results',
+      'nhr-results',
+      'zjumocap-results',
+      'mobilestage-single-results',
+
+      'nhr-demos',
+      'zjumocap-demos',
+      'mobilestage-demos',
+      'n3dv-demos',
+      /* ...other section ids... */];
+    for (var i = 0; i < buttonIds.length; i++) {
+      (function (index) {
+        var button = document.getElementById(buttonIds[index]);
+        var section = document.getElementById(sectionIds[index]);
+        button.addEventListener('click', function () {
+          if (section.classList.contains('show')) {
+            button.innerText = 'Click to Expand';
+            var videos = section.getElementsByTagName('video');
+            for (var j = 0; j < videos.length; j++) {
+              if (videos[j].readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+                videos[j].pause();
+              }
+            }
+          } else {
+            button.innerText = 'Click to Collapse';
+            var videos = section.getElementsByTagName('video');
+            for (var j = 0; j < videos.length; j++) {
+              videos[j].play();
+            }
+          }
+        });
+      })(i);
+    }
+
+    var compare_button_ids = [
+      'enerf-comparisons-button',
+      'kplanes-comparisons-button',
+     /* ...other button ids... */];
+    var compare_section_ids = [
+      'enerf-comparisons',
+      'kplanes-comparisons',
+      /* ...other section ids... */];
+    for (var i = 0; i < compare_button_ids.length; i++) {
+      (function (index) {
+        var button = document.getElementById(compare_button_ids[index]);
+        var section = document.getElementById(compare_section_ids[index]);
+        button.addEventListener('click', function () {
+          if (section.classList.contains('show')) {
+            button.innerText = 'Click to Expand';
+            var videos = section.getElementsByTagName('video');
+            for (var j = 0; j < videos.length; j++) {
+              if (videos[j].readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+                videos[j].pause();
+              }
+            }
+            var merge = $(document.getElementById(compare_section_ids[index]))[0].getElementsByTagName('canvas')[0];
+            if (merge.hasAttribute('animation_id')) {
+              cancelAnimationFrame(merge.getAttribute('animation_id'));
+            }
+          } else {
+            button.innerText = 'Click to Collapse';
+            var videos = section.getElementsByTagName('video');
+            for (var j = 0; j < videos.length; j++) {
+              videos[j].play();
+              // if (videos[j].readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+              // playVids(videos[j].id)
+              resizeAndPlay(videos[j])
+              // }
+            }
+          }
+        });
+      })(i);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: "$", right: "$", display: false },
+          { left: "$$", right: "$$", display: true }
+        ]
+      });
+    });
+
+
+
+    function handleCarouselSlide(event) {
+      // Reference to the current carousel
+      var currentCarousel = $(event.target);
+
+      // Check each video in the current carousel
+      currentCarousel.find('video').each(function () {
+        var isVideoInActiveItem = $(this).closest('.carousel-item').hasClass('active');
+        if (isVideoInActiveItem) {
+          if (this.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+            this.height = (this.videoHeight / this.videoWidth) * $(this).parent().width();
+          }
+          this.play();
+        } else {
+          if (this.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+            this.pause();
+          }
+        }
+      });
+    }
+
+    $('.carousel').on('slid.bs.carousel', handleCarouselSlide);
+
+    $(document).ready(function () {
+      $('video').each(function () {
+        var $video = $(this);
+        var $carousel = $video.closest('.carousel');
+        if ($carousel.length > 0) {
+          $video.on('ended', function () {
+            $carousel.carousel('next');
+          });
+        }
+      });
+    });
+
+    function update_video_shape() {
+      this.height = (this.videoHeight / this.videoWidth) * $(this).parent().width();
+    }
+
+    // fix the element's width and height properties to the current video ones
+    $("video").each(function () {
+      if (!this.classList.contains('comparison-video')) {
+        $(this).on('loadeddata', update_video_shape);
+      }
+    });
+
+    // $("#renbody-results-button").click()
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // Get all videos
+      var videos = document.querySelectorAll('video');
+
+      // Add source to video tag
+      function addSourceToVideo(element, src) {
+        var source = document.createElement('source');
+        source.src = src;
+        source.type = 'video/mp4';
+        element.appendChild(source);
+      }
+
+      // Determine screen size and select appropriate videos
+      function whichSizeVideo(element) {
+        var windowWidth = window.innerWidth || window.innerWidth;
+        var prefix = windowWidth > 1200 ? "desktop" : "mobile";
+
+        // Get all data attributes for the given prefix (e.g., data-mobile-vid1, data-mobile-vid2, ...)
+        var i = 1;
+        while (element.dataset[prefix + "Vid" + i]) {
+          addSourceToVideo(element, element.dataset[prefix + "Vid" + i]);
+          i++;
+        }
+      }
+
+      // Initialize only if the page has videos
+      function videoSize() {
+        if (videos) {
+          videos.forEach(whichSizeVideo);
+        }
+      }
+
+      videoSize();
+
+      setInterval(function () {
+        // 选择所有comparison-video类型的视频
+        let videos = document.querySelectorAll('.comparison-video');
+
+        videos.forEach(video => {
+          // 如果id没有以After结尾
+          if (!video.id.endsWith('After')) {
+            resizeAndPlay(video);
+          }
+        });
+      }, 10000);  // 每500毫秒检测一次
+
+    });
+  </script>
+</body>
+
+</html>

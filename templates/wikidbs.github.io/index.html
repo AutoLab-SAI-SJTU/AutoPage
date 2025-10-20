@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>WikiDBs | A corpus of relational databases.</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="WikiDBs" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A corpus of relational databases." />
+<meta property="og:description" content="A corpus of relational databases." />
+<link rel="canonical" href="index.html" />
+<meta property="og:url" content="https://wikidbs.github.io/" />
+<meta property="og:site_name" content="WikiDBs" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="WikiDBs" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","description":"A corpus of relational databases.","headline":"WikiDBs","name":"WikiDBs","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://wikidbs.github.io/Logo.png"}},"url":"https://wikidbs.github.io/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="assets/css/style.css%3Fv=bc26231e7f7e28f373e2d2db598715b30bc82b50.css">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="index.html">WikiDBs</a></h1>
+
+        
+          <img src="Logo.png" alt="Logo" />
+        
+
+        <p>A corpus of relational databases.</p>
+
+        
+
+        
+      </header>
+      <section>
+
+      <p><img src="WikiDBs.png" alt="WikiDBs logo" />
+<img src="authors.png" alt="WikiDBs authors" /></p>
+
+<p><a href="https://zenodo.org/record/11559814">Download WikiDBs</a></p>
+
+<h1 id="a-corpus-of-100000-real-world-databases">A corpus of 100,000 real-world databases</h1>
+
+<p>WikiDBs is a large-scale corpus containing 100,000 relational databases from various domains. WikiDBs is based on data from <a href="https://www.wikidata.org/">Wikidata</a>. Each database consists of multiple tables that are connected by foreign keys.</p>
+
+<p>WikiDBs was published as a <a href="https://openreview.net/pdf?id=abXaOcvujs">spotlight paper</a> at the Dataset &amp; Benchmarks track at NeurIPS 2024.</p>
+
+<p><img src="WikiDBs_header.png" alt="WikiDBs overview" /></p>
+
+<p>With WikiDBs, we aim to support the development of foundation models for tabular data and relational databases, as existing work on tabular representation learning so far mostly focuses on individual tables. 
+WikiDBs contains the database schemas, as well as table contents.</p>
+
+<h2 id="download-wikidbs">Download WikiDBs</h2>
+<p>In WikiDBs, the database tables are provided as CSV files, and each database schema as JSON. The 100,000 databases are available in five splits, containing 20k databases each. In total, around 165 GB of disk space are needed for the full corpus.
+We also provide a script to convert the databases into SQLite.</p>
+
+<p>Download WikiDBs via Zenodo here: <a href="https://zenodo.org/record/11559814">https://zenodo.org/record/11559814</a>.</p>
+
+<p>Datasheet: <a href="https://wikidbs.github.io/WikiDBs_Datasheet.pdf">WikiDBs_Datasheet.pdf</a></p>
+
+<h2 id="renaming">Renaming</h2>
+<p>The property names in Wikidata that we use as table and column names are often rather generic.
+To better reflect the domain language of each database, we use GPT-4o to rename the table and column names in WikiDBs and increase the variety of names.
+Our corpus includes both, the original names as well as the new names.</p>
+
+<p><img src="data/Renaming.png" alt="WikiDBs renaming" /></p>
+
+<h2 id="license-information">License Information</h2>
+<p>We release WikiDBs under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attributions 4.0 International</a> license (CC BY 4.0). Information regarding the license of data in Wikidata can be found <a href="https://www.wikidata.org/wiki/Wikidata:Licensing">on this page</a>.</p>
+
+<h2 id="publication">Publication</h2>
+<p>WikiDBs paper: <a href="https://openreview.net/pdf?id=abXaOcvujs">https://openreview.net/pdf?id=abXaOcvujs</a></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@inproceedings{vogel2024wikidbs,
+  title={WikiDBs: A Large-Scale Corpus Of Relational Databases From Wikidata},
+  author={Vogel, Liane and Bodensohn, Jan-Micha and Binnig, Carsten},
+  booktitle={The Thirty-eight Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+  year = {2024}
+  url={https://openreview.net/pdf?id=abXaOcvujs}
+}
+
+</code></pre></div></div>
+
+<h2 id="code-adapt-wikidbs-to-your-needs">Code: Adapt WikiDBs to your needs</h2>
+<p>The code of WikiDBs can be found on GitHub here: <a href="https://github.com/DataManagementLab/wikidbs-public">https://github.com/DataManagementLab/wikidbs-public</a></p>
+
+<p>You can adapt WikiDBs depending on your use case, e.g. by creating databases with particular data characteristics or in other languages that are included in Wikidata.</p>
+
+<h2 id="10k-version-of-wikidbs">10k Version of WikiDBs</h2>
+<p>A preliminary version of WikiDBs (<a href="https://ceur-ws.org/Vol-3462/TADA3.pdf">WikiDBs 10k</a>) was published at the first TaDA workshop at VLDB in 2023. 
+The dataset of 10,000 databases is available via Zenodo here: <a href="https://zenodo.org/record/8227452">https://zenodo.org/record/8227452</a>.</p>
+
+<p>To give a first impression of WikiDBs 10k, we offer a couple of sample databases for download here: <a href="https://wikidbs.github.io/data/Sample_WikiDBs.zip">Sample_WikiDBs.zip</a></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@inproceedings{Vogel2023WikiDBs,
+  title        = {WikiDBs: {A} Corpus of Relational Databases From Wikidata},
+  author       = {Liane Vogel and Carsten Binnig},
+  booktitle    = {Joint Proceedings of Workshops at the 49th International Conference
+                  on Very Large Data Bases {(VLDB} 2023), Vancouver, Canada, August
+                  28 - September 1, 2023},
+  series       = {CEUR Workshop Proceedings},
+  volume       = {3462},
+  publisher    = {CEUR-WS.org},
+  url          = {https://ceur-ws.org/Vol-3462/TADA3.pdf},
+  year         = {2023},
+}
+</code></pre></div></div>
+<h2 id="contact">Contact</h2>
+<p>WikiDBs is developed by Liane Vogel, Jan-Micha Bodensohn and Carsten Binnig from the Data &amp; AI Systems Lab at TU Darmstadt and DFKI.</p>
+
+<p>Mail: liane.vogel(at)cs.tu-darmstadt.de</p>
+
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>We thank Till Döhmen and Madelon Hulsebos for generously providing the table statistics from their <a href="https://github.com/tdoehmen/gitschemas">GitSchemas dataset</a>.
+This work has been supported by the BMBF and the state of Hesse as part of the NHR Program and the HMWK cluster project 3AI. It was also partially funded by the LOEWE Spitzenprofessur of the state of Hesse. We also thank DFKI Darmstadt and hessian.AI for their support.</p>
+
+
+      </section>
+      <footer>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="assets/js/scale.fix.js"></script>
+  </body>
+</html>

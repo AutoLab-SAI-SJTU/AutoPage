@@ -1,0 +1,376 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #333;
+    }
+    
+    header {
+    background: #154734;
+    color: #fff;
+    padding-top: 5rem;
+    padding-bottom: 1rem;
+    margin-top: 0rem;
+    }
+    
+    header .container {
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    flex-direction: column;
+    }
+    
+    header .main-container {
+        display: flex;
+        justify-content: center; /* Center the content horizontally */
+        align-items: center; /* Align items vertically */
+        gap: 1em; /* Add gap between logo and title */
+        width: 100%;
+        text-align: center;
+        position: relative;
+    }
+
+    header .title-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    header .authors-container {
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    flex-direction: column;
+    }
+    
+    header .title-text {
+        display: inline-block; /* Make it inline-block to center it based on its content */
+    }
+    
+    header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    }
+    
+    header .logo {
+    height: 8.5em;
+    width: auto; 
+    margin-right: 1em; /* Ensure no margin between logo and title */
+    padding: 0; /* Ensure no padding */
+    position: absolute;
+    left: 5%;
+    top: 0%;
+    transform: translateX(-5%);
+    margin-left: -calc(5% + 3.5em); /* Adjust the position based on the logo size */
+    }
+    
+    header .authors{
+    font-family: 'EB Garamond', serif;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    text-align: center; /* Center the text */
+    text-decoration: none;
+    }
+    header .affiliation {
+        font-family: 'EB Garamond', serif;
+        font-size: 1.5rem;
+        margin-top: 0.2rem;
+        margin-bottom: 0;
+        text-align: center; /* Center the text */
+    }
+
+header .author-link {
+    color: inherit; /* Use the same color as the parent element */
+    text-decoration: none; /* Remove the underline */
+    transition: color 0.1s ease; /* Smooth transition for color change */
+}
+
+
+header .author-link:hover{
+    color: #D50032; /* Change to desired color on hover or focus */
+}
+
+header .author-link:focus {
+    color: #D50032; /* Change to desired color on hover or focus */
+    text-decoration: underline; /* Add underline on focus */
+    outline: none; /* Remove default outline */
+}
+
+
+/* Media query for smaller screens */
+@media (max-width: 1024px) {
+    header .main-container {
+        flex-direction: column;
+    }
+
+    header .logo {
+        position: static;
+        transform: none;
+        margin-left: 0;
+        margin-bottom: 1em;
+    }
+
+    header .title-text {
+        text-align: center;
+    }
+}
+
+.navbar {
+    background-color: #237555;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 0.5rem 0; /* Add padding to the navbar */
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar ul li {
+    margin: 0 1rem;
+}
+
+.navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: block;
+    border-radius: 5px;
+    transition: background 0.1s;
+}
+
+.header, .navbar {
+    width: 100%;
+}
+
+.navbar ul li a:hover {
+    background: #154734;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+main {
+    padding: 2rem 0;
+}
+
+h2 {
+    color: #173F4F;
+}
+
+.examples img, .performance-comparison img, .results img {
+    width: 10%; /* Reduce the width to 60% */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure it's a block-level element */
+    margin: 1rem auto; /* Center the image with margin auto and give some vertical space */
+}
+
+.custom-width {
+    width: 90% !important; /* Force the width to 10% */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure it's a block-level element */
+    margin: auto; /* Center the image with margin auto and give some vertical space */
+    margin-top: 3rem; 
+}
+
+figcaption {
+    font-family: 'Quicksand', sans-serif; /* Change the font */
+    font-size: 1rem; /* Adjust font size */
+    color: #333F48; /* Change color for clarity */
+    text-align: center; /* Center the text */
+    margin-top: 0.5rem; /* Add some margin on top for spacing */
+}
+
+.btn {
+    display: inline-block;
+    background: #235E76;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.1s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0.5rem; /* Add margin to separate buttons */
+}
+
+.btn:hover {
+    background: #004F71;
+    transform: translateY(-2px); /* Add a slight lift effect on hover */
+}
+
+.btn:active {
+    transform: translateY(0); /* Return to original position on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin: 0.5rem 0 0.2rem;
+}
+
+form input, form textarea {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form input[type="submit"] {
+    background: #154734;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 0.7rem;
+    transition: background 0.1s;
+}
+
+form input[type="submit"]:hover {
+    background: #004494;
+}
+
+footer {
+    text-align: center;
+    padding: 0.25rem 0;
+    background: #154734;
+    color: #fff;
+}
+
+footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+
+.paper-title {
+    font-size: 1.3rem;
+    text-decoration: none; /* Remove the underline */
+    color: #235E76; /* Ensure the color matches your desired color scheme */
+    margin-bottom: 0rem;
+    transition: color 0.1s ease,  text-decoration 0.1s ease; /* Smooth transition for color change */
+}
+
+.paper-title:hover,
+.paper-title:focus {
+color: #D50032; /* Change to desired color on hover or focus */
+}
+
+
+.paper-title:focus {
+    text-decoration: underline; /* Add underline on focus */
+    outline: none; /* Remove default outline */
+}
+
+.paper-authors {
+    font-size: 1.2rem;
+    margin-top: 0rem;
+}
+
+.paper-conference {
+    font-size: 1rem;
+    margin-top: 0rem;
+}
+
+.link {
+    color: #004F71; /* Use the same color as the parent element */
+    text-decoration: none; /* Remove the underline */
+    transition: color 0.1s ease, text-decoration 0.1s ease; /* Smooth transition for color change */
+}
+
+.link:hover,
+.link:focus {
+color: #D50032; /* Change to desired color on hover or focus */
+}
+
+.link:focus {
+    text-decoration: underline; /* Add underline on focus */
+    outline: none; /* Remove default outline */
+}
+
+
+blockquote {
+    border-left: 4px solid #004F71;
+    padding-left: 1rem;
+    margin: 0;
+}
+
+blockquote p {
+    margin: 0.2rem 0; /* Reduce margin between paragraphs */
+}
+
+.results-table {
+    width: 60%;
+    border-collapse: collapse;
+    margin: 2rem auto; /* Center the table */
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.results-table th, .results-table td {
+    padding: 0.75rem;
+    text-align: center;
+    border-bottom: 1px solid #ddd; /* Add this line for delimiter */
+}
+
+.results-table thead {
+    background-color: #235E76;
+    color: #fff;
+}
+
+.results-table th {
+    font-weight: bold;
+}
+
+.results-table tbody tr {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd; /* Add this line for delimiter */
+}
+
+.results-table tbody tr:hover {
+    background-color: #fff;
+}
+
+
+.results-table caption {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #173F4F;
+}
+
+#about, #paper, #data-code, #results, #contact {
+    scroll-margin-top: 2rem; /* Adjust based on the height of the navbar */
+}
+
+.no-copy {
+    user-select: none;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -o-user-select: none;
+}

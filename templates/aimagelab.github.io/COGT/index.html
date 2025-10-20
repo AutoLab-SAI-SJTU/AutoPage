@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Causal Graphical Models for Vision-Language Compositional Understanding">
+    <meta name="keywords" content="Vision-and-Language, Compositionality, Retrieval">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Causal Graphical Models for Vision-Language Compositional Understanding</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="static/css/bulma.min.css">
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <link rel="icon" href="static/images/favicon.png">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="static/js/fontawesome.all.min.js"></script>
+    <script src="static/js/bulma-carousel.min.js"></script>
+    <script src="static/js/bulma-slider.min.js"></script>
+    <script src="static/js/index.js"></script>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e8f5e9;
+            color: #333;
+            line-height: 1.6;
+        }
+        .jumbotron {
+            background: linear-gradient(135deg, #388e3c, #66bb6a);
+            color: white;
+            padding: 2rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.3rem;
+        }
+        .display-4 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        .lead {
+            font-size: 1rem;
+            font-weight: 300;
+            color: white;
+        }
+        .section {
+            padding: 1.5rem 0;
+        }
+        .section-title {
+            border-bottom: 2px solid #2e7d32;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            color: #1b5e20;
+        }
+        .qualitative-img {
+            max-width: 100%;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .qualitative-img:hover {
+            transform: scale(1.05);
+        }
+        .bibtex-block {
+            background-color: #c8e6c9;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            overflow-x: auto;
+            font-family: monospace;
+        }
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #a5d6a7;
+        }
+        .lead a {
+            color: white;
+            text-decoration: none;
+        }
+        .lead a:hover {
+            text-decoration: underline;
+        }
+        .author-link {
+            font-family: monospace;
+            font-style: italic;
+            margin: 0 10px;
+        }
+        .iclr-space {
+            margin: 10px 0;
+            font-size: 20px;
+            color: #333;
+        }
+        title {
+            font-weight: bold;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .icon-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .icon {
+            height: 20px;
+        }
+        .section-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    
+        .init-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+    <img src="static/images/logo.png" alt="ICLR 2025 Logo" class="img-fluid mb-3" style="max-height: 80px;">
+    <h1 class="display-4">Causal Graphical Models for Vision-Language Compositional Understanding</h1>
+    <p class="lead">
+        <span class="iclr-space" style="margin-bottom: 2rem;">ICLR 2025<br></span>
+        <span class="author-link"><a href="https://github.com/FiorenzoParascandolo1" target="_blank">Fiorenzo Parascandolo</a></span>
+        <span class="author-link"><a href="https://nicholasmoratelli.github.io" target="_blank">Nicholas Moratelli</a></span>
+        <span class="author-link"><a href="https://aimagelab.ing.unimore.it/imagelab/person.asp?idpersona=144" target="_blank">Enver Sangineto</a></span>
+        <span class="author-link"><a href="https://www.lorenzobaraldi.com/" target="_blank">Lorenzo Baraldi</a></span>
+        <span class="author-link"><a href="https://aimagelab.ing.unimore.it/imagelab/person.asp?idpersona=1" target="_blank">Rita Cucchiara</a></span> <br>
+        University of Modena and Reggio Emilia <br>
+    </p>
+
+    <div class="button-container">
+        <span class="link-block">
+            <a href="https://github.com/aimagelab/COGT" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                <i class="fab fa-github"></i>
+                </span>
+                <span>Code</span>
+            </a>
+        </span>
+        <span class="link-block">
+            <a href="https://arxiv.org/pdf/2412.09353" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <i class="ai ai-arxiv"></i>
+              </span>
+              <span>arXiv</span>
+            </a>
+        </span>
+        <span class="link-block">
+        <a class="external-link button is-normal is-rounded is-dark">
+            🤗 Models
+        </a>
+        </span>
+    </div>
+</div>
+
+<div class="container section">
+    <div class="init-content">
+        
+        <p><i>
+            This paper introduces <u><b>COGT</b></u>, a novel approach for enhancing the compositional understanding of Vision-Language Models 
+            by modeling the dependency relations among textual and visual tokens using a Causal Graphical Model (CGM).
+        </i></p>
+    </div>
+</div>
+
+<div class="container section">
+    <div class="section-content">
+        <h1 class="section-title">Abstract</h1>
+        <p>
+            Recent work has empirically shown that Vision-Language Models (VLMs) struggle to fully understand the compositional 
+            properties of the human language, usually modeling an image caption as a "bag of words". In this paper, we model 
+            the dependency relations among textual and visual tokens using a <i><b>Causal Graphical Model (CGM)</b></i>, built using a 
+            <i><b>dependency parser</b></i>, and we train a decoder conditioned by the VLM visual encoder. Differently from standard 
+            autoregressive or parallel predictions, our decoder's generative process is partially-ordered following the CGM 
+            structure. This structure encourages the decoder to learn only the main causal dependencies in a sentence 
+            discarding spurious correlations. Using extensive experiments on five compositional benchmarks, we show that 
+            our method significantly outperforms all the state-of-the-art compositional approaches by a large margin, 
+            and it also improves over methods trained using much larger datasets.
+        </p>
+    </div>
+</div>
+
+<div class="container section">
+    <div class="section-content">
+        <h1 class="section-title">Method</h1>
+        
+        <h3 class="section-title" style="font-size: 1.5em; margin-top: 2rem;">Causal Graphical Model (CGM) Construction</h3>
+        <p>
+            <div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
+                <img src="static/images/method.png" alt="Qualitative Result 1" class="qualitative-img">
+            </div>
+            <p>
+                We use an off-the-shelf <i>dependency parser</i>, which creates a syntactic tree from a given textual sentence. Specifically, given a caption, a dependency parser automatically builds a <i>Dependency Tree</i> (DT), in which each node is associated with a caption word and each edge represents a syntactic dependency relation between two words.
+                The DT, jointly with the visual features extracted from the image using a frozen visual encoder, are used to build a CGM, which describes the dependency relations among image patches and textual tokens. Our token prediction strategy is based on the dependency relations contained in this CGM.
+                The rationale behind this approach is illustrated in the figure using the caption "A brown bird has a small yellow head". For instance, in the resulting DT, the adjective "brown" depends on the noun "bird".
+            </p>
+        </p>
+        
+        <h3 class="section-title" style="font-size: 1.5em; margin-top: 2rem;">Dependency Guided Attention for Token Prediction</h3>
+        <p>
+            <div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
+                <img src="static/images/architecture.png" alt="Qualitative Result 1" class="qualitative-img">
+            </div>
+            This figure presents a high-level architecture of our decoder. Each block of \(\mathcal{D}\) is composed of two layers.
+            In the first layer, we compute the self-attention of each masked embedding \(\mathbf{m}_j\) with itself, jointly with the attention of \(\mathbf{m}_j\) with all the visible embeddings \(\mathbf{v}_{i_1}, ..., \mathbf{v}_{i_k}\), where
+            \[\mathbf{PA}(W_j) = \{ W_{i_1}, ..., W_{i_k}, S_j, Z_1, ..., Z_m \}.\]
+            Note that there is no attention between \(\mathbf{m}_{j_1}\) and \(\mathbf{m}_{j_2}\), with \(j_1 \neq j_2\).
+            In the same layer, we compute the self-attention of each visible embedding \(\mathbf{v}_j\) with itself, jointly with the attention of \(\mathbf{v}_j\) with \(\mathbf{v}_{i_1}, ..., \mathbf{v}_{i_k}\).
+            Note that there is no information leak, since \(\mathbf{m}_j\), later used for the final prediction, has no direct or indirect access to \(\mathbf{v}_j\).
+            We call this <em>Dependency Guided Attention</em> to differentiate it from the standard self-attention.
+            In the second layer of each block of \(\mathcal{D}\), both the masked (\(\mathbf{m}_j\)) and the visible (\(\mathbf{v}_j\)) embeddings pay attention to the visual features in \(\mathcal{Z}\) using cross-attention, in this way implementing the dependence between \(W_j\) and \(Z_1, ..., Z_m\).
+            Finally, after the last block of \(\mathcal{D}\) we discard the visible-token embeddings and we feed each masked-token final embedding to a linear layer computing a posterior distribution over the vocabulary of textual terms.
+        </p>
+    </div>
+</div>
+
+<div class="container section">
+    <div class="section-content">
+        <h1 class="section-title">Qualitative Results</h1>
+        <div style="text-align: center; margin-top: 2rem;">
+            <img src="static/images/sugar_crepe.png" alt="Qualitative Result 1" class="qualitative-img">
+            <p class="caption">Qualitative results on sample images of SugarCrepe.</p>
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <img src="static/images/color_swap.png" alt="Qualitative Result 2" class="qualitative-img">
+            <p class="caption">Qualitative results on sample images of ColorSwap.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container section">
+    <h1 class="section-title">BibTeX</h1>
+    <div class="bibtex-block">
+        <pre>
+    @InProceedings{parascandolo2024causal,
+        title={Causal Graphical Models for Vision-Language Compositional Understanding},
+        author={Parascandolo, Fiorenzo and Moratelli, Nicholas and Sangineto, Enver and Baraldi, Lorenzo and Cucchiara, Rita},
+        booktitle={Proceedings of The Thirteenth International Conference on Learning Representations, ICLR},
+        year={2025}
+    }
+        </pre>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>© 2025 Causal Graphical Models for Vision-Language Compositional Understanding</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

@@ -1,0 +1,469 @@
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
+
+
+
+
+#social-platforms {
+  position:relative;
+  font-size:1.2rem;
+  text-align:center;
+  height:auto;
+  overflow:hidden;
+}
+
+#social-platforms a {
+  background: rgba(230, 230, 230, 0.1);
+  text-align:center;
+  position:relative;
+  display:inline-block;
+  width:1.4em;
+  height:1.4em;
+  font-size:1.75em;
+  color:#fff;
+  line-height:1.05em;
+  border:0;
+  cursor:pointer;
+  margin:0.9em 0.2em;
+  padding:0.15em;
+  box-shadow: 0em 0.5em 0.5em 0em rgba(0, 0, 0, 0.55);
+  border-radius:0.2em 0.2em 0.2em 0.2em;
+  -webkit-transition:all .5s;
+  -moz-transition:all .5s;
+  transition:all .5s;
+}
+
+#social-platforms a span {
+  display:none;
+}
+
+#social-platforms a:after {
+  opacity:0;
+  font-size:.5em;
+  font-weight:30em;
+  color:#fff;
+  background:#000;
+  content:attr(data-title);
+  white-space:nowrap;
+  display:block;
+  position:absolute;
+  left:0;
+  bottom:60em;
+  z-index:-5;
+  cursor:help;
+  padding:3em 8em;
+  -webkit-transition:all .5s;
+  -moz-transition:all .5s;
+  transition:all .5s;
+}
+
+#social-platforms a:before {
+  opacity:0;
+  display:block;
+  position:absolute;
+  bottom:5em;
+  left:50%;
+  margin-left:-5em;
+  z-index:9;
+  cursor:help;
+  content:'';
+  width:0;
+  height:0;
+  border-left:5em solid transparent;
+  border-right:5em solid transparent;
+  border-top:5em solid #000;
+  -webkit-transition:all .5s;
+  -moz-transition:all .5s;
+  transition:all .5s;
+  }
+
+#social-platforms a:hover {
+  background-color: #1E4258;
+  box-shadow: 0 0.1em 0.1em 0 rgba(0, 0, 0, 0.45);
+  }
+
+#social-platforms a:hover:before, #social-platforms a:hover:after {
+  opacity:1;
+  z-index:50;
+}
+
+
+
+
+
+
+#project-platforms {
+  position:relative;
+  font-size:1.2rem;
+  text-align:center;
+  height:auto;
+  overflow:hidden;
+}
+
+#project-platforms a {
+  background: rgba(170, 170, 170, 0.1);
+  text-align:center;
+  position:relative;
+  display:inline-block;
+  width:1.4em;
+  height:1.4em;
+  font-size:1.75em;
+  color:#000;
+  line-height:1.05em;
+  border:0;
+  cursor:pointer;
+  margin:0.9em 0.2em;
+  padding:0.15em;
+  box-shadow: 0em 0.3em 0.3em 0em rgba(170, 170, 170, 0.65);
+  border-radius:0.2em 0.2em 0.2em 0.2em;
+  -webkit-transition:all .5s;
+  -moz-transition:all .5s;
+  transition:all .5s;
+}
+
+#project-platforms a span {
+  display:none;
+}
+
+#project-platforms a:after {
+  opacity:0;
+  font-size:.5em;
+  font-weight:30em;
+  color:#000;
+  background:#000;
+  content:attr(data-title);
+  white-space:nowrap;
+  display:block;
+  position:absolute;
+  left:0;
+  bottom:60em;
+  z-index:-5;
+  cursor:help;
+  padding:3em 8em;
+  -webkit-transition:all .5s;
+  -moz-transition:all .5s;
+  transition:all .5s;
+}
+
+#project-platforms a:before {
+  opacity:0;
+  display:block;
+  position:absolute;
+  bottom:5em;
+  left:50%;
+  margin-left:-5em;
+  z-index:9;
+  cursor:help;
+  content:'';
+  width:0;
+  height:0;
+  border-left:5em solid transparent;
+  border-right:5em solid transparent;
+  border-top:5em solid #000;
+  -webkit-transition:all .5s;
+  -moz-transition:all .5s;
+  transition:all .5s;
+  }
+
+#project-platforms a:hover {
+  background-color: #1E4258;
+  color:#fff;
+  box-shadow: 0 0.1em 0.1em 0 rgba(70, 70, 70, 0.45);
+  }
+
+
+.facebook:hover{
+    background:#00ff00;
+}
+
+
+.back{
+    background-color: #000;
+}
+
+
+*{
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+html{
+	-ms-text-size-adjust:100%;
+	-webkit-text-size-adjust:100%;
+}
+
+body{
+	margin:0;
+}
+
+a{
+	background-color:transparent;
+}
+
+a:active,a:hover{
+	outline:0;
+}
+
+
+img{
+	border:0;
+}
+
+html,body{
+	font-family:Verdana,sans-serif;
+	font-size:14px;
+	line-height:1.5;
+}
+
+html{
+	overflow-x:hidden;
+}
+
+h1,h2,h3,h4,h5,h6{
+	font-family:"Segoe UI",Arial,sans-serif;
+}
+
+h1{
+	font-size:36px;
+}
+
+h2{
+	font-size:30px;
+}
+
+h3{
+	font-size:24px;
+}
+
+h4{
+	font-size:20px;
+}
+
+h5{
+	font-size:18px;
+}
+
+h6{
+	font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6{
+	font-weight:400;
+	margin:10px 0
+}
+
+
+h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{
+	font-weight:inherit;
+}
+
+
+img{
+	margin-bottom:-5px;
+}
+
+a{
+	color:inherit;
+}
+
+footer {
+	background-color: black;
+	color: #ADADAD;
+}
+
+
+@media only screen {
+.col.m6{width:40%
+}
+
+.row-padding,.row-padding>.col{padding:0 8px}
+
+.section{
+	margin-top:.5em;
+	margin-bottom:1em;
+}
+
+@media (max-width:600px){
+	.hide-small{
+		display:none;
+	}
+}
+
+.wide {
+	letter-spacing: .1em;
+}
+.hover-opacity {
+	cursor: pointer;
+}
+
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+
+/* The Modal (background) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100em;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.6);
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #ACACAC;
+    margin: auto;
+    padding: 6em;
+    border: 1em solid #ADADAD;
+}
+
+.modal-content-horizontal-50 {
+    width: 50%;
+}
+
+.modal-content-horizontal-40 {
+    width: 40%;
+}
+
+.modal-content-vertical-23{
+	width: 23%
+}
+
+/* The Close Button */
+.close {
+    color: #000;
+    float: right;
+    font-size: 8em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #ADADAD;
+}
+
+
+.display-m{
+	position:absolute;top:50%;left:50%;
+	transform:translate(-50%,-50%);
+
+}
+
+
+.display-container{
+	position:relative
+}
+
+
+.content{
+	max-width:80em;
+	margin:auto;
+  background-color: #fff
+}
+
+.container:after,.row:after,.row-padding:after{
+	content:"";
+	display:table;
+	clear:both;
+	}
+
+.container{
+	padding:0.01em 3em
+}
+
+.padding{
+	padding-top:1em;
+	padding-bottom:1em;
+}
+
+.col{
+	float:left;
+	width:100%
+}
+
+.fade{
+   animation: fadein 6s;
+    -webkit-animation: fadein 6s; /* Safari & Chrome */
+    -moz-animation: fadein 6s; /* Firefox*/
+    -ms-animation: fadein 6s; /* IE*/
+    -o-animation: fadein 6s; /* Opera*/
+
+
+}
+
+.fadex3{
+   animation: fadein 2s;
+    -webkit-animation: fadein 2s; /* Safari & Chrome */
+    -moz-animation: fadein 2s; /* Firefox*/
+    -ms-animation: fadein 2s; /* IE*/
+    -o-animation: fadein 2s; /* Opera*/
+
+
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari & Chrome*/
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox*/
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+
+/* IE */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.drop {
+    margin-top: 5em;
+    position: relative;
+    -webkit-animation-name: drp; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
+    animation-name: drp;
+    animation-duration: 2s;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes drp {
+    0%  {top:-100em;}
+    100% {top:0em;}
+}
+/*Firefox*/
+@-moz-keyframes drp{
+	0%  {top:-100em;}
+    100% {top:0em;}
+}
+
+@keyframes drp {
+    0%  {top:-100em;}
+    100% {top:0em;}
+}

@@ -1,0 +1,300 @@
+/* Base styles */
+.header-container {
+  background-color: #079ecb; /* Dark teal background */
+  color: #fcf6e9;
+  text-align: center; /* Center content on small screens */
+  padding: 20px; /* Reduced padding for small screens */
+}
+
+
+.header-content h1 {
+  font-size: 1.5em; /* Adjust font size for small screens */
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+.header-image img {
+  max-width: 100%; /* Ensure the image is never more than 100% of its container */
+  height: auto; /* Maintain the aspect ratio of the image */
+  display: block; /* Prevent inline spacing issues */
+  margin: 0 auto 20px; /* Center the image horizontally and add margin below */
+}
+
+.button-container {
+  margin-top: 20px; /* Add margin above the buttons */
+  margin-bottom: 20px; /* Add margin below the buttons */
+}
+
+.button-container a.button {
+  display: inline-block; /* Make buttons inline */
+  margin: 10px; /* Space around buttons */
+  padding: 10px 20px; /* Increase tap area for touch screens */
+}
+
+.button-container a.button {
+  background-color: #fbf6e8; /* Yellow background */
+  color: #5c4b46; /* Black text */
+  border: 2px solid #5b494a; /* Orange border */
+  border-radius: 25px; /* Rounded borders */
+  padding: 10px 20px; /* Top and bottom padding, left and right padding */
+  margin: 5px; /* Space between the buttons */
+  text-decoration: none; /* Remove the underline from links */
+  display: inline-block; /* Display links as inline blocks */
+  font-weight: bold; /* Make the text bold */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+}
+
+.button-container a.button:hover {
+  background-color: #EAB682; /* Darker yellow background on hover */
+  color: #fff; /* White text on hover */
+}
+
+/* Styles for larger screens using a media query */
+@media (min-width: 600px) {
+  .header-container {
+    display: flex; /* Use flexbox for positioning on larger screens */
+    justify-content: space-between; /* Space between the content and image */
+    align-items: center; /* Align items vertically */
+    padding: 50px 50px; /* Increase padding for larger screens */
+  }
+
+  .header-content {
+    max-width: calc(50% - 20px); /* Adjust width to include margin */
+    text-align: left; /* Align text to the left for larger screens */
+    margin-right: 20px; /* Add margin to the right of the header content */
+  }
+
+  .header-content h1 {
+    font-size: 3em; /* Increase font size for larger screens */
+  }
+
+  .header-image {
+    max-width: calc(50% - 20px); /* Adjust width to include margin */
+  }
+
+  .header-image img {
+    max-width: 100%; /* Image should be responsive within the container */
+    height: auto; /* Maintain the aspect ratio */
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  d-contents {
+      display: none;
+  }
+}
+
+.byline {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0 5px 10px; /* Add padding to the top and bottom */
+  margin-bottom: 20px;
+}
+
+.byline-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align columns by the top */
+  max-width: 1000px; /* Adjust as needed for your design */
+  margin: 0 auto; /* Center the container */
+}
+
+.byline-container {
+    display: flex; /* Aligns children of byline-container horizontally */
+    align-items: center; /* Vertically centers the items */
+    justify-content: space-around; /* Distributes space around items */
+    flex-wrap: wrap; /* Allows items to wrap onto the next line if space is insufficient */
+}
+
+.author-name, .affiliation, .contribution {
+    flex: 1; /* Gives each child element an equal opportunity to grow if necessary */
+    margin: 10px; /* Adds some space around each section for clarity */
+    text-align: center; /* Centers the text inside each section */
+}
+
+.affiliation span {
+    margin-right: 10px; /* Adds spacing between each affiliation item */
+}
+
+
+.byline-column h3 {
+  margin-bottom: 10px; /* Space between the header and the content */
+  color: #333; /* Dark grey color for the text */
+  font-size: 16px; /* Adjust the font size as needed */
+}
+
+.byline-column p {
+  color: #666; /* Lighter grey color for the text */
+  font-size: 14px; /* Adjust the font size as needed */
+  margin: 5px 0; /* Space between paragraphs */
+}
+
+.author-link, .affiliation-link {
+  color: #666; /* Set the color to match the other text */
+  text-decoration: none; /* Removes the underline */
+  border-bottom: none;
+  cursor: pointer; /* Changes cursor to pointer to indicate link */
+}
+
+.author-link:hover, .affiliation-link:hover {
+  text-decoration: underline; /* Adds underline on hover for visual feedback */
+  border-bottom: none;
+}
+
+.code-link, .standard-link {
+    color: #1b7ff2; /* Set the color to match the other text */
+    text-decoration: none; /* Removes the underline */
+    border-bottom: none;
+    cursor: pointer; /* Changes cursor to pointer to indicate link */
+}
+
+  .code-link:hover, .standard-link:hover {
+    text-decoration: underline; /* Adds underline on hover for visual feedback */
+    border-bottom: none;
+}
+
+
+.byline-horizontal {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 20px;
+background-color: #ffffff; /* Light grey background for visibility */
+margin-top: 20px;
+}
+
+.authors, .affiliations, .contributions {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 0px; /* Space between rows */
+}
+
+.authors {
+    font-size: 0.8em;
+    color: #000000; /* Dark grey text */
+}
+
+.authors p {
+    margin-bottom: 0px; /* Adjust this value to increase or decrease the space between the <p> tags */
+}
+
+/* Optional: Remove margin from the last <p> tag if you do not want extra space at the bottom */
+.authors p:last-child {
+    margin-bottom: 0;
+}
+
+
+.affiliations {
+    font-size: 0.8em;
+    color: #999; /* Medium grey text */
+}
+
+.contributions {
+    font-size: 0.6em;
+    color: #999; /* Light grey text */
+}
+
+
+d-article {
+  contain: none;
+}
+
+d-article d-contents {
+  max-width: 100%; /* Or the maximum width you want it to have */
+  box-sizing: border-box; /* Include padding in the width calculation */
+  align-self: start;
+  grid-column: 1 / 4;
+  grid-row: auto / span 4;
+  justify-self: end;
+  margin-top: 5em;
+  padding-right: 3em;
+  padding-left: 2em;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+
+d-article d-contents nav {
+  display: block;
+}
+
+d-article d-contents nav h4 {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+d-article d-contents nav div {
+  color: rgba(91, 184, 73, 0.8);
+  font-weight: bold;
+}
+
+d-article d-contents nav a {
+  color: rgba(0, 0, 0, 0.8);
+  border-bottom: none;
+  text-decoration: none;
+}
+
+d-article d-contents li {
+  list-style-type: none;
+}
+
+d-article d-contents ul {
+  padding-left: 1em;
+}
+
+d-article d-contents nav ul li {
+  margin-bottom: 0.25em;
+}
+
+d-article d-contents nav a:hover {
+  text-decoration: underline solid rgba(0, 0, 0, 0.6);
+}
+
+d-article d-contents nav ul {
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+d-article d-contents nav > div {
+  display: block;
+  outline: none;
+  margin-bottom: 0.5em;
+}
+
+d-article d-contents nav > div > a {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+d-article d-contents nav > div > a:hover,
+d-article d-contents nav > ul > li > a:hover {
+  text-decoration: none;
+}
+
+.active-nav-item {
+  color: #0d6efd; /* Change as per your preference */
+}
+
+.shaded-figure {
+  background-color: hsl(0, 0%, 97%);
+  border-top: 1px solid hsla(0, 0%, 0%, 0.1);
+  border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+  padding: 30px 0;
+}
+
+.pointer {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  top: 26px;
+  left: -48px;
+}
+
+.sidebar {
+  position: sticky;
+}
+
+d-article section{
+  margin: 0 !important;
+}

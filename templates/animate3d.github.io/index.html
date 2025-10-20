@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Animate3D: Animating Any 3D Model with Multi-view Video Diffusion</title>
+    <!-- 引入Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+    <!-- 引入FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Section 1: Title -->
+        <section id="title">
+            <video id="background-video" autoplay muted loop>
+                <source src="videos/bg_video/bg.mp4" type="video/mp4">
+                您的浏览器不支持 HTML5 视频。
+            </video>
+            <div class="title-content">
+                <h1>Animate3D: Animating Any 3D Model with Multi-view Video Diffusion</h1>
+                <p class="authors"> 
+                    <span class="author-name">Yanqin Jiang<sup>1*</sup>,</span>
+                    <span class="author-name">Chaohui Yu,<sup>2*</sup></span>
+                    <span class="author-name">Chenjie Cao<sup>2</sup>,</span>
+                    <span class="author-name">Fan Wang<sup>2</sup>,</span>
+                    <span class="author-name">Weiming Hu<sup>1</sup>,</span>
+                    <span class="author-name">Jin Gao<sup>1</sup></span>
+                </p>
+                <p class="institute"> <sup>1</sup>CASIA<br>
+                    <sup>2</sup>DAMO Academy, Alibaba Group</p>
+                <p class="accept">NeurIPS 2024</p>
+                <div class="links">
+                    <a href="https://arxiv.org/abs/2407.11398" target="_blank">
+                        <i class="fas fa-file-pdf icon"></i> Arxiv
+                    </a>
+                    <a href="https://youtu.be/qkaeeGzLnY8" target="_blank">
+                        <i class="fas fa-video icon"></i> Video
+                    </a>
+                    <a href="https://huggingface.co/datasets/yanqinJiang/MV-Video" target="_blank">
+                        <i class="fas fa-database icon"></i> Data
+                    </a>
+                    <a href="https://github.com/yanqinJiang/Animate3D" target="_blank">
+                        <i class="fab fa-github icon"></i> Code
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Abstract -->
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <div class="content-center-abstract">
+                <p>
+                    Recent advances in 4D generation mainly focus on generating 4D content by distilling pre-trained text or single-view image-conditioned models. 
+                    It is inconvenient for them to take advantage of various off-the-shelf 3D assets with multi-view attributes, and their results suffer from spatiotemporal inconsistency owing to the inherent ambiguity in the supervision signals.
+                    In this work, we present Animate3D, a novel framework for animating any static 3D model.
+                    The core idea is two-fold:
+                    1) We propose a novel multi-view video diffusion model (MV-VDM) conditioned on multi-view renderings of the static 3D object, which is trained on our presented large-scale multi-view video dataset (MV-Video). 
+                    2) Based on MV-VDM, we introduce a framework combining reconstruction and 4D Score Distillation Sampling (4D-SDS) to leverage the multi-view video diffusion priors for animating 3D objects.
+                    Specifically, for MV-VDM, we design a new spatiotemporal attention module to enhance spatial and temporal consistency by integrating 3D and video diffusion models. 
+                    Additionally, we leverage the static 3D model's multi-view renderings as conditions to preserve its identity.
+                    For animating 3D models, an effective two-stage pipeline is proposed: we first reconstruct motions directly from generated multi-view videos, followed by the introduced 4D-SDS to refine both appearance and motion.
+                    Benefiting from accurate motion learning, we could achieve straightforward mesh animation.
+                    Qualitative and quantitative experiments demonstrate that Animate3D significantly outperforms previous approaches.
+                    Data, code, and models will be open-released.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 3: Video, 16:9 Youtube视频 -->
+        <section id="youtube-video">
+            <h2>Video</h2>
+            <div class="content-center">
+                <p>The video is best viewed in <span class="highlight"> 4K mode</span>.</p>
+            </div>
+            <div class="video-container">
+                <div class="video-wrapper-16-9">
+                    <iframe 
+                        src="https://www.youtube.com/embed/qkaeeGzLnY8?si=ahBAiCBjfeKLeptj" 
+                        title="YouTube video player" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section> 
+
+        <!-- Section 4: Animating 3D Mesh -->
+        <section id="animate-generated">
+            <h2>Animate Generated 3D Mesh</h2>
+            <div class="content-center">
+                <p>We animate <span class="highlight"> 6 mesh assets</span>. Models are generated using commerical 3D generation tools (<span class="highlight"><a href="https://hyperhuman.deemos.com/rodin">Rodin Gen-1</a></span>, <span class="highlight"><a href="https://www.meshy.ai/">Meshy</a></span>, <span class="highlight"><a href="https://www.tripo3d.ai/">Tripo3D</a></span>).
+                    Each model is with <span class="highlight">multiple animations</span>, and you can <span class="highlight">switch between different animations by clicking the thumbnails below the video</span>. 
+                    Click the thumbnail above the video to see the input 3D model. When you hover your mouse over the video, a <span class="highlight">full screen button</span> button will appear in the bottom right corner. 
+                    Click it to watch the video in 2048&times;1024; resolution.</p>
+            </div>
+            <div class="video-container">
+                <img id="reference-thumbnail-group4" class="thumbnail" onclick="playReference('group4')">
+                <div class="video-wrapper-other">
+                    <div class="controls">
+                        <div class="button left" onclick="switchGroup(-1, 'group4')"></div>
+                        <div class="button right" onclick="switchGroup(1, 'group4')"></div>
+                    </div>
+                    <video id="main-video-group4" autoplay muted controls preload="auto" loop>
+                        <source id="main-video-source-group4" src="index.html" type="video/mp4">
+                        您的浏览器不支持播放此视频。
+                    </video>
+                </div>
+                <div class="video-thumbnails" id="thumbnails-group4">
+                    <!-- 缩略图会动态添加到这里 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Animating Reconstructed 3D Model -->
+        <section id="animate-reconstructed">
+            <h2>Animate Reconstructed 3D Model</h2>
+            <div class="content-center">
+                <p>We animate <span class="highlight"> 40 reconstructed 3D models</span>. Some models have more than one animation results, and you can <span class="highlight">switch between different animations by clicking the thumbnails below the video</span>. 
+                    Click the thumbnail above the video to see the input 3D model. When you hover your mouse over the video, a <span class="highlight">full screen button</span> button will appear in the bottom right corner. 
+                    Click it to watch the video in 1024 resolution.</p>
+            </div>
+            <div class="video-container">
+                <img id="reference-thumbnail-group1" class="thumbnail" onclick="playReference('group1')">
+                <div class="video-wrapper-1-1">
+                    <div class="controls">
+                        <div class="button left" onclick="switchGroup(-1, 'group1')"></div>
+                        <div class="button right" onclick="switchGroup(1, 'group1')"></div>
+                    </div>
+                    <video id="main-video-group1" autoplay muted controls preload="auto" loop>
+                        <source id="main-video-source-group1" src="index.html" type="video/mp4">
+                        您的浏览器不支持播放此视频。
+                    </video>
+                </div>
+                <div class="video-thumbnails" id="thumbnails-group1">
+                    <!-- 缩略图会动态添加到这里 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Animating Real-world 3D Scan -->
+        <section id="animate-real-world">
+            <h2>Animate Real-world 3D Scan</h2>
+            <div class="content-center">
+                <p>We animate <span class="highlight"> 10 real-world 3D scans</span>. Some model have more than one animation results, and you can <span class="highlight">switch between different animations by clicking the thumbnails below the video</span>. 
+                    Click the thumbnail above the video to see the input 3D model. When you hover your mouse over the video, a <span class="highlight">full screen button</span> button will appear in the bottom right corner. 
+                    Click it to watch the video in 1024 resolution.</p>
+            </div>
+            <div class="video-container">
+                <img id="reference-thumbnail-group2" class="thumbnail" onclick="playReference('group2')">
+                <div class="video-wrapper-1-1">
+                    <div class="controls">
+                        <div class="button left" onclick="switchGroup(-1, 'group2')"></div>
+                        <div class="button right" onclick="switchGroup(1, 'group2')"></div>
+                    </div>
+                    <video id="main-video-group2" autoplay muted controls preload="auto" loop>
+                        <source id="main-video-source-group2" src="index.html" type="video/mp4">
+                        您的浏览器不支持播放此视频。
+                    </video>
+                </div>
+                <div class="video-thumbnails" id="thumbnails-group2">
+                    <!-- 缩略图会动态添加到这里 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Animating Generated 3D Model -->
+        <section id="animate-generated">
+            <h2>Animate Generated 3D Model</h2>
+            <div class="content-center">
+                <p>We animate <span class="highlight"> 10 generated models</span>. 
+                    Models are generated using commerical 3D generation tools (<span class="highlight"><a href="https://hyperhuman.deemos.com/rodin">Rodin Gen-1</a></span>, <span class="highlight"><a href="https://www.meshy.ai/">Meshy</a></span>, <span class="highlight"><a href="https://www.tripo3d.ai/">Tripo3D</a></span>). 
+                    Some models have more than one animation results, and you can <span class="highlight">switch between different animations by clicking the thumbnails below the video</span>. 
+                    Click the thumbnail above the video to see the input 3D model. When you hover your mouse over the video, a <span class="highlight">full screen button</span> will appear in the bottom right corner. 
+                    Click it to watch the video in 1024 resolution.</p>
+            </div>
+            <div class="video-container">
+                <img id="reference-thumbnail-group3" class="thumbnail" onclick="playReference('group3')">
+                <div class="video-wrapper-1-1">
+                    <div class="controls">
+                        <div class="button left" onclick="switchGroup(-1, 'group3')"></div>
+                        <div class="button right" onclick="switchGroup(1, 'group3')"></div>
+                    </div>
+                    <video id="main-video-group3" autoplay muted controls preload="auto" loop>
+                        <source id="main-video-source-group3" src="index.html" type="video/mp4">
+                        您的浏览器不支持播放此视频。
+                    </video>
+                </div>
+                <div class="video-thumbnails" id="thumbnails-group3">
+                    <!-- 缩略图会动态添加到这里 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Other Section -->
+        <section id="other">
+            <h2>Ablation for 4D-SDS</h2>
+            <div class="content-center">
+                <p>We compare our <span class="highlight"> motion reconstruction results (left) </span> and those <span class="highlight"> w/ 4D-SDS (right) </span> as below. Best viewed in <span class="highlight">full screen</span></p>
+            </div>
+            <div class="video-container">
+                <div class="video-wrapper-other">
+                    <div class="controls">
+                        <div class="button left" onclick="switchVideo(-1)"></div>
+                        <div class="button right" onclick="switchVideo(1)"></div>
+                    </div>
+                    <video id="other-video" autoplay muted controls preload="auto" loop>
+                        <source id="other-video-source" src="index.html" type="video/mp4">
+                        您的浏览器不支持播放此视频。
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Our Training Data -->
+        <section id="training-data">
+            <h2>Training Data</h2>
+            <div class="content-center">
+                <p>
+                    Our training dataset, <span class="highlight">MV-Video</span>, comprises <span class="highlight">115K animations</span> that are available under a public license, consisting of about <span class="highlight">53K animated 3D objects</span> at all,
+                    which are rendered into over <span class="highlight">1.8M multi-view videos</span>. <br>
+                    Notably, our training data is manually selected and with <span class="highlight">high-quality</span>. It includes <span class="highlight">the highest quality part of <a href="https://objaverse.allenai.org/objaverse-1.0/" target="_blank">Objaverse</a> (around 29K animated 3D objects)</span>, while the rest <span class="highlight">(around 24K animated 3D objects)</span> are collected by ourselves.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 9: Relevant Works -->
+        <section id="relevant-work">
+            <h2>Relevant Works</h2>
+            <div class="content-center">
+                <p>
+                    [1] <a href="https://sc4d.github.io/" target="_blank">SC4D: Sparse-Controlled Video-to-4D Generation and Motion Transfer</a> (ECCV 2024) <br>
+                    [2] <a href="https://nju-3dv.github.io/projects/STAG4D/" target="_blank">STAG4D: Spatial-Temporal Anchored Generative 4D Gaussians</a> (ECCV 2024) <br>
+                    [3] <a href="https://consistent4d.github.io/" target="_blank">Consistent4D: Consistent 360° Dynamic Object Generation from Monocular Video</a> (ICLR 2024)
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 10: Acknowledgements -->
+        <section id="acknowledgements">
+            <h2>Acknowledgements</h2>
+            <div class="content-center">
+                <p>Some 3D assets for animation are downloaded from <span class="highlight"><a href="https://sketchfab.com/" target="_blank">sketchfab</a></span>, under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC Attribution</a> and <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC Attribution-NonCommercial</a>.
+                We would like to thank <span class="highlight"><a href="https://animate3d.github.io/assets/acknowledgements.txt">the creators</a></span>for sharing great 3D assets.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <script src="scripts/scripts.js"></script>
+</body>
+</html>

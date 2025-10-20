@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="RAD DFA Embeddings" />
+    <meta property="og:description" content="Compositional Automata Embeddings for Goal-Conditioned Reinforcement Learning." />
+    <meta property="og:image" content="https://rad-embeddings.github.io/assets/splash.png" />
+    <title>RAD DFA Embeddings</title>
+    <!-- Minified version -->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+
+        <h1><img id="logo" src="assets/logo.svg" alt="L*LM"/></h1>
+        <h2>Compositional Automata Embeddings for Goal-Conditioned Reinforcement Learning</h2>
+        <h3>Neurips 2024</h3>
+
+        <img id="splash" alt="Illustration of embedding a conjunctive DFA and then using it to plan." src="assets/splash.svg"/>
+        <nav>
+            <ul>
+                <li><a href="index.html#abstract">Abstract</a></li>
+                <li><a href="https://openreview.net/pdf?id=6KDZHgrDhG">Camera Ready</a></li>
+                <li><a href="https://arxiv.org/abs/2411.00205">arXiv</a></li>
+                <li><a href="https://github.com/RAD-Embeddings/neurips24">Code (paper)</a></li>
+                <li><a href="https://github.com/RAD-Embeddings/rad-embeddings">Code (RAD Embeddings)</a></li>
+                <li><a href="https://rad-embeddings.github.io/slides">Slides</a></li>
+                <li><a href="https://rad-embeddings.github.io/assets/neurips_rad_poster.pdf">Poster</a></li>
+            </ul>
+        </nav>
+
+
+        <ol>
+                <li>Beyazit Yalcinkaya<sup>*</sup><sup>1</sup></li>
+                <li>Niklas Lauffer<sup>*</sup> <sup>1</sup></li>
+                <li>Marcell Vazquez-Chanlatte<sup>*</sup><sup>2</sup></li>
+            <li>Sanjit A. Seshia<sup>1</sup></li>
+        </ol>
+
+        <p>
+        <sup>*</sup>: Equal contribution</br>
+        <sup>1</sup>: University of California, Berkeley</br>
+        <sup>2</sup>: Nissan Advanced Technology Center - Silicon Valley
+        </p>
+
+    </header>
+    <main>
+        <section id="abstract">
+            <h2>Abstract</h2>
+        
+            <p> Goal-conditioned reinforcement learning is a powerful way to control an AI agent’s
+                behavior at runtime. That said, popular goal representations, e.g., target states
+                or natural language, are either limited to Markovian tasks or rely on ambiguous
+                task semantics. We propose representing temporal goals using compositions of
+                deterministic finite automata (cDFAs) and use cDFAs to guide RL agents. cDFAs
+                balance the need for formal temporal semantics with ease of interpretation. If
+                one can understand a flow chart, one can understand a cDFA. On the other hand,
+                cDFAs form a countably infinite concept class with Boolean semantics, and subtle
+                changes to the automaton can result in very different tasks, making them difficult
+                to condition agent behavior on. To address this, we observe that all paths through a
+                DFA correspond to a series of reach-avoid tasks and propose pre-training graph
+                neural network embeddings on “reach-avoid derived” DFAs. Through empirical
+                evaluation, we demonstrate that the proposed pre-training method enables zero-shot
+                generalization to various cDFA task classes and accelerated policy specialization
+                without the myopic suboptimality of hierarchical methods.</p>
+        </section>
+    </main>
+</body>
+</html>

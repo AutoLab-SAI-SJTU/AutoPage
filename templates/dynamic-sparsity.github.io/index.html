@@ -1,0 +1,256 @@
+<!doctype html>
+<html>
+  <head>
+  <title>
+    
+      Dynamic  Sparsity  in  Machine  Learning | NeurIPS 2024 Tutorial
+    
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/syntax.css">
+  <!-- Use Atom -->
+  <link type="application/atom+xml" rel="alternate" href="https://dynamic-sparsity.github.io/feed.xml" title="Dynamic  Sparsity  in  Machine  Learning" />
+  <!-- Use RSS-2.0 -->
+  <!--<link href="https://dynamic-sparsity.github.io/rss-feed.xml" type="application/rss+xml" rel="alternate" title="Dynamic  Sparsity  in  Machine  Learning | NeurIPS 2024 Tutorial"/>
+  //-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      });
+  </script>
+  <!-- Google Analytics -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  <!-- Use Jekyll SEO plugin -->
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Home | Dynamic Sparsity in Machine Learning</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Home" />
+<meta name="author" content="Edoardo Ponti and Andre Martins" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="NeurIPS 2024 Tutorial" />
+<meta property="og:description" content="NeurIPS 2024 Tutorial" />
+<link rel="canonical" href="index.html" />
+<meta property="og:url" content="https://dynamic-sparsity.github.io/" />
+<meta property="og:site_name" content="Dynamic Sparsity in Machine Learning" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Home" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Edoardo Ponti and Andre Martins"},"description":"NeurIPS 2024 Tutorial","headline":"Home","name":"Dynamic Sparsity in Machine Learning","url":"https://dynamic-sparsity.github.io/"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+  <body>
+    <div class="container">
+      <header class="header">
+  <h3 class="header-title">
+    <a href="index.html">Dynamic  Sparsity  in  Machine  Learning</a>
+    <br>
+    <small>Routing Information through Neural Pathways</small>
+    <br>
+    <small class="header-subtitle">NeurIPS 2024 Tutorial</small>
+    <div class="menu">
+  <nav class="menu-content">
+    
+      
+      <a href="https://dynamic-sparsity.github.io/authors.html">Authors</a>
+      
+    
+      
+      <a href="index.html#slides">Slides</a>
+      
+    
+      
+      <a href="index.html#notebooks">Notebooks</a>
+      
+    
+      
+      <a href="https://dynamic-sparsity.github.io/program.html">Program</a>
+      
+    
+      
+      <a href="https://dynamic-sparsity.github.io/biblio.html">Bibliography</a>
+      
+    
+      
+      <a href="https://neurips.cc/virtual/2024/tutorial/99527">NeurIPS 2024</a>
+      
+    
+  </nav>
+  <nav class="social-icons">
+    
+  </nav>
+</div>
+
+  </h3>
+</header>
+
+      <div class="content-container">
+        <section>
+  <h2><a id="summary">Summary</a></h2>
+<p>
+Recent advancements in machine learning have caused a shift from traditional sparse modeling, which focuses on static feature selection in neural representations, to dynamic sparsity, where different neural pathways are activated depending on the input.
+This line of work is fueling, among other directions, new architectures for foundation models (such as sparse Mixtures of Experts). In this tutorial, we explore how 
+dynamic sparsity provides several advantages, especially: i) incorporating structural constraints in model representations and predictions; ii) performing conditional computation, adaptively adjusting the model architecture or representation size based on the input complexity; iii) routing to mixtures of experts to attain the performance of dense models while accelerating training and inference or to better generalize to new tasks.
+This tutorial connects these lines of work through a unified perspective, including pedagogical materials with concrete examples in a wide array of applications (including Natural Language Processing, Computer Vision, and Reinforcement Learning) to familiarise general research audiences with this new, emerging paradigm and to foster future research.
+</p>
+</section>
+
+<section>
+  <h2><a id="slides">Slides</a></h2>
+  <iframe src="assets/slides/slides.pdf" width="100%" height="600px">
+    This browser does not support PDFs. Please download the PDF to view it: <a href="assets/slides/slides.pdf">Download PDF</a>.
+</iframe>
+</section>
+
+<section>
+  <h2><a id="notebooks">Notebooks</a></h2>
+
+
+  <div class="post-container" style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+    
+      <div class="image-container" style="margin-right: 20px;">
+        <img src="assets/img/sparse_transformations.ppm" alt="Sparse Transformations" style="max-width: 300px; height: auto;">
+      </div>
+    
+    <div class="text-container">
+      <h1>
+        Sparse Transformations
+      </h1>
+      <h2>
+        André Martins
+      </h2>
+      <h4>
+        <a href="https://dynamic-sparsity.github.io/assets/notebooks/sparse_transformations.ipynb">Download Jupyter notebook</a>
+      </h4>
+      <h4>
+        <a href="https://colab.research.google.com/github/dynamic-sparsity/dynamic-sparsity.github.io/blob/main/docs/assets/notebooks/sparse_transformations.ipynb">Open in Colab</a>
+      </h4>
+    </div>
+  </div>
+
+
+
+  <div class="post-container" style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+    
+      <div class="image-container" style="margin-right: 20px;">
+        <img src="assets/img/smoe.png" alt="Sparse Mixtures of Experts" style="max-width: 300px; height: auto;">
+      </div>
+    
+    <div class="text-container">
+      <h1>
+        Sparse Mixtures of Experts
+      </h1>
+      <h2>
+        Duarte Alves
+      </h2>
+      <h4>
+        <a href="https://dynamic-sparsity.github.io/assets/notebooks/moes.ipynb">Download Jupyter notebook</a>
+      </h4>
+      <h4>
+        <a href="https://colab.research.google.com/github/dynamic-sparsity/dynamic-sparsity.github.io/blob/main/docs/assets/notebooks/moes.ipynb">Open in Colab</a>
+      </h4>
+    </div>
+  </div>
+
+
+
+  <div class="post-container" style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+    
+      <div class="image-container" style="margin-right: 20px;">
+        <img src="assets/img/memory_heatmap.png" alt="Sparse Memory" style="max-width: 300px; height: auto;">
+      </div>
+    
+    <div class="text-container">
+      <h1>
+        Sparse Memory
+      </h1>
+      <h2>
+        Piotr Nawrot
+      </h2>
+      <h4>
+        <a href="https://github.com/PiotrNawrot/nano-sparse-attention/blob/main/notebooks/tutorial.ipynb">Download Jupyter notebook</a>
+      </h4>
+      <h4>
+        <a href="https://colab.research.google.com/github/PiotrNawrot/nano-sparse-attention/blob/main/notebooks/tutorial.ipynb">Open in Colab</a>
+      </h4>
+    </div>
+  </div>
+
+
+
+  <div class="post-container" style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+    
+      <div class="image-container" style="margin-right: 20px;">
+        <img src="assets/img/hopfield.png" alt="Sparse Associative Memories" style="max-width: 300px; height: auto;">
+      </div>
+    
+    <div class="text-container">
+      <h1>
+        Sparse Associative Memories
+      </h1>
+      <h2>
+        Saul Santos
+      </h2>
+      <h4>
+        <a href="https://dynamic-sparsity.github.io/assets/notebooks/hopfield.ipynb">Download Jupyter notebook</a>
+      </h4>
+      <h4>
+        <a href="https://colab.research.google.com/github/dynamic-sparsity/dynamic-sparsity.github.io/blob/main/docs/assets/notebooks/hopfield.ipynb">Open in Colab</a>
+      </h4>
+    </div>
+  </div>
+
+
+
+  <div class="post-container" style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+    
+      <div class="image-container" style="margin-right: 20px;">
+        <img src="assets/img/mixture-adapters.png" alt="Mixtures of Adapters" style="max-width: 300px; height: auto;">
+      </div>
+    
+    <div class="text-container">
+      <h1>
+        Mixtures of Adapters
+      </h1>
+      <h2>
+        Alessandro Sordoni
+      </h2>
+      <h4>
+        <a href="https://github.com/sordonia/pg_mbc_arrow_tutorial/blob/master/pg_mbc_arrow_tutorial.ipynb">Download Jupyter notebook</a>
+      </h4>
+      <h4>
+        <a href="https://colab.research.google.com/github/sordonia/pg_mbc_arrow_tutorial/blob/master/pg_mbc_arrow_tutorial.ipynb">Open in Colab</a>
+      </h4>
+    </div>
+  </div>
+
+
+</section>
+      </div>
+      <footer class="footer">
+  
+  <div class="footer-description"><a href="index.html">Dynamic  Sparsity  in  Machine  Learning | NeurIPS 2024 Tutorial by Edoardo Ponti and Andre Martins</a></div>
+</footer>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KEDJFQ6MS9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KEDJFQ6MS9');
+</script>
+    <meta charset="UTF-8">
+
+    <title>DTLR General Detection-based Text Line Recognition</title>
+    <style>
+        /* General styles */
+        code {
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            font-size: 14px;
+            width: 100%;
+            
+        }
+        pre {
+            border-radius: 50px;
+        }
+
+        /* pre {
+            white-space: pre-wrap;
+            background-color: #f4f4f4;
+        } */
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            margin: 10px 5px !important;
+            padding: 10px;
+
+            /* Adjusted from 5-px */
+        }
+
+        /* 
+        .header-bkg {
+            background-image: url('eida_background.png');
+            background-size: cover;
+            background-position: top center;
+            color: white;
+            padding: 100px;
+        } */
+
+        header {
+            text-align: center;
+            color: #333;
+        }
+
+        header h1 {
+            font-size: 38px;
+        }
+
+        /* Center authors */
+        .authors {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 18px;
+        }
+        .authors a {
+            color: inherit; /* Make the link color inherit from its parent */
+            text-decoration: none;
+        }
+        .authors a:hover {
+            text-decoration: underline; /* Optionally, add underline on hover for accessibility */
+        }
+
+        .content {
+            display: flex;
+            /* flex-direction: row; */
+            justify-content: space-between;
+        }
+
+        /* Center affiliations */
+        .affiliations {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .conference {
+            text-align: center;
+        }
+
+        /* Center icon links */
+    .icon-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px; /* Adds spacing between the buttons */
+}
+
+.icon-links a {
+    text-decoration: none; /* Removes underline from links */
+    background-color: #02A4D3; /* Cute pink background color */
+    color: white; /* Text color */
+    width: 100px; /* Fixed width */
+    height: 40px; /* Fixed height */
+    line-height: 40px; /* Centers text vertically */
+    border-radius: 8px; /* Rounded corners */
+    font-weight: bold; /* Bold text */
+    text-align: center; /* Centers text horizontally */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effects */
+}
+
+    .icon-links a:hover {
+        background-color: #02A4D3; /* Darker pink on hover */
+        transform: translateY(-3px); /* Slight lift effect on hover */
+    }
+
+    .icon-links a:active {
+        transform: translateY(1px); /* Subtle push effect on click */
+}
+
+        /* Container styles */
+        .container {
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    }   
+        .title__ {
+            color: #02A4D3;
+        }
+
+        code, pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            white-space: pre-wrap; /* Allows long lines to wrap */
+            overflow-x: auto;      /* Adds horizontal scroll if needed */
+        }
+
+        pre {
+            margin: 20px 0;
+            border: 1px solid #ccc;
+        }
+
+
+        .container h1 {
+            text-align: center;
+            font-size: 38px;
+            margin-right: 20px;
+            margin-left:  40px;
+        }
+
+        /* Image styles */
+        .img-with-text {
+            width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Icon styles */
+        .icon {
+            width: 80px;
+            /* Adjusted icon size */
+            height: 80px;
+            /* Adjusted icon size */
+            background-color: #ddd;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .right-aligned-image {
+            margin-left: auto;
+            /* Pushes the image to the right */
+            align-self: flex-start;
+            /* Aligns the image with the top of the container */
+            margin-top: 0;
+            /* Adjust the top margin as needed */
+        }
+
+        .right-aligned-image img {
+            max-width: 300px;
+            /* Adjust the maximum width as needed */
+            height: auto;
+        }
+
+
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+
+
+        h1 {
+            font-size: 2rem;
+            /* Adjusted font size */
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.0rem;
+            color: #333;
+    
+        }
+
+        .icon-label {
+            margin-top: 5px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .References p ul li {
+            font-size: 0.8rem;
+        }
+
+        .teaser-image img {
+            display: block;
+            margin: 0 auto;
+            /* Centered image */
+            max-width: 100%;
+            /* Ensure image doesn't overflow container */
+            height: auto;
+        }
+
+        .centered-image {
+            text-align: center;
+
+        }
+
+        .centered-image img {
+            max-width: 800px;
+            /* Adjust width as needed */
+            margin: 0 auto;
+            /* Center horizontally */
+            padding: 20px;
+            /* Add some padding */
+            text-align: justify;
+            /* Justify text */
+        }
+
+        .logo-image {
+            text-align: center;
+        }
+
+        .logo-image img {
+            margin: 0 auto;
+            /* Centered image */
+            max-width: 90%;
+            /* Adjusted width */
+            height: 6;
+        }
+
+        .conference-image img {
+            margin: 0 auto;
+            /* Centered image */
+            width: 100px;
+            /* Adjusted width */
+            height: auto;
+        }
+        .blue-line {
+            border: none; /* Removes the default border */
+            border-top: 3px solid #02A4D3; /* Adds a blue top border */
+            width: 100%; /* Adjust the width of the line */
+            margin: -10px 0; /* Adds some spacing around the line */
+        }
+
+        .abstract {
+            max-width: 1000px;
+            /* Adjust width as needed */
+            margin: 0 auto;
+            /* Center horizontally */
+            /* Add some padding */
+            text-align: justify;
+            /* Justify text */
+        }
+
+        .abstract h2 {
+            text-align: center;
+            /* Center the heading */
+            font-size: 1.5rem;
+            /* Adjust heading size */
+            margin-bottom: 20px;
+            /* Add some space below the heading */
+            color: #02A4D3;
+
+        }
+        
+        .method h2 {
+            text-align: center;
+            /* Center the heading */
+            font-size: 1.5rem;
+            /* Adjust heading size */
+            margin-bottom: 20px;
+            /* Add some space below the heading */
+            color: #02A4D3;
+
+        }
+
+
+
+        .para p {
+            max-width: 90%;
+            /* Ensure paragraph doesn't overflow */
+            line-height: 1.6;
+            /* Adjust line height for better readability */
+            /* center the paragraph */
+            margin: 0 auto;
+            /* Add some vertical spacing */
+            margin-top: 20px;
+        }
+
+        .row::after {
+            content: "";
+            clear: both;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            display: table;
+        }
+        .imgcontainer {
+    max-width: 950px; /* Limit the maximum width */
+    margin: 0 auto; /* Center horizontally */
+    text-align: justify; /* Justify text inside .imgcontainer */
+    }
+    .Teaser {
+        max-width: 1000px;
+            /* Adjust width as needed */
+            margin: 0 auto;
+}
+
+    /* Grid container styles */
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* 2 columns */
+        gap: 20px; /* Space between grid items */
+    }
+
+    /* Grid item styles */
+    .grid-item {
+        display: flex; /* Align items inside the grid item */
+        justify-content: center; /* Center the image horizontally */
+        align-items: center; /* Center the image vertically */
+    }
+
+    .grid-item img {
+        width: 100%; /* Make the image fill the column width */
+        height: auto; /* Maintain the aspect ratio */
+        display: block; /* Ensure images do not have extra spacing below */
+    }
+        .image-pair {
+            flex: 1;
+            margin-bottom: 2px;
+            /* Adjust margin between image pairs */
+        }
+
+        .image-pair img {
+            max-width: 100%;
+            /* Ensure images don't exceed container width */
+            height: auto;
+        }
+        figcaption {
+            max-width: 800px;
+            /* Adjust width as needed */
+            margin: 0 auto;
+            /* Center horizontally */
+            padding: 20px;
+            /* Add some padding */
+            text-align: justify;
+            /* Justify text */
+        }
+        .centered-image img {
+    max-width: 90%; /* Set the image width to 90% of the container */
+    height: auto; /* Maintain the aspect ratio */
+    display: block; /* Remove any extra space below the image */
+    margin: 0 auto; /* Center the image horizontally within the container */
+}
+
+    </style>
+</head>
+
+
+
+<body>
+    <!-- <div class="header-bkg"> -->
+
+    <!-- </div> -->
+    <!-- <header>
+        
+    </header> -->
+    <div class="container">
+        <div class = "title__">
+            <h1> General Detection-based Text Line Recognition <br>
+            <span style="color: black;font-size: 0.8em;">(NeurIPS 2024)</span>
+            </h1>
+        </div>
+        <!-- <div class="conference">
+            <p>IAMAHA 2023</p>
+            <figure class="conference-image">
+                <img src="logo_iamaha.png" alt="Description of image">
+            </figure>
+        </div> -->
+
+        <div class="authors">
+            <b> <a href="https://raphael-baena.github.io/" target="_blank">Raphael Baena</a>, <a href="https://imagine-lab.enpc.fr/staff-members/syrine-kalleli/" target="_blank">Syrine Kalleli</a>, <a href="https://imagine.enpc.fr/~aubrym/" target="_blank">Mathieu Aubry</a> </b> 
+        </div>
+   
+        <div class="affiliations">
+            <i> LIGM, Ecole des Ponts, Univ Gustave Eiffel, CNRS, Marne-la-Vall&eacute;e, France</i>
+
+
+        </div>
+
+        <div class="icon-links">
+            <a href="https://arxiv.org/pdf/2409.17095"
+                target="_blank">
+                <div class="center-content">
+                    <b>Paper </b>
+                </div>
+
+            </a>
+            <a href="https://github.com/raphael-baena/DTLR" target="_blank">
+                <div class="center-content">
+                    <b>Code</b>
+                </div>
+            </a>
+
+            <a href="index.html" target="_blank">
+                <div class="center-content">
+                <b> Presentation </b>
+                </div>
+            </a>
+
+
+
+        </div>
+
+
+        <div class="Teaser">
+            <div class="para">
+                <figure class="centered-image">
+                    <img src="teaser.png" alt="Description of image">
+                    <figcaption>
+                        Our HTR model is general and can be used on diverse datasets, including challenging handwritten script, Chinese script, and ciphers. From left to right and top to bottom we show results on Google1000, IAM, READ, RIMES, CASIA, and Cipher datasets.
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+        <div class="abstract">
+            <h2>Abstract</h2>
+            <hr class="blue-line">
+            <div class="para">
+                <p>
+                    We introduce a general detection-based approach to text line recognition, be it printed (OCR) or handwritten (HTR), with Latin, Chinese, or ciphered characters. Detection-based approaches have until now been largely discarded for HTR because reading characters separately is often challenging, and character-level annotation is difficult and expensive. We overcome these challenges thanks to three main insights:
+                    (i) synthetic pre-training with sufficiently diverse data enables learning reasonable character localization for any script; (ii) modern transformer-based detectors can jointly detect a large number of instances, and, if trained with an adequate masking strategy, leverage consistency between the different detections; (iii) once a pre-trained detection model with approximate character localization is available, it is possible to fine-tune it with line-level annotation on real data, even with a different alphabet. Our approach builds on a completely different paradigm than state-of-the-art HTR methods, which rely on autoregressive decoding, predicting character values one by one, while we treat a complete line in parallel. Remarkably, we demonstrate good performance on a large range of scripts, usually tackled with specialized approaches. We surpass state-of-the-art results for Chinese script on the CASIA v2 dataset, and for ciphers such as Borg and Copiale, while also performing well with Latin scripts.
+                </p>
+            </div>
+        </div>
+        
+        <div class="abstract">
+            <h2>Method</h2>
+            <hr class="blue-line">
+            <div class="para">
+                <p>
+                    Given an input text-line image, our goal is to predict its transcription, i.e., a sequence of characters. 
+                    We tackle this problem as a character detection task and build on the DINO-DETR architecture, 
+                    shown in the Figure below, to simultaneously detect all characters. 
+                <figure class="centered-image">
+                    <img src="architecture_figure.png" alt="Description of image">
+                </figure>
+                Given an input image, the backbone extracts multi-scale
+                features which are fed to the Transformer encoder along with a positional encoding. The
+                primitive queries, composed of content (filled) and modified positional (empty) queries, go
+                through the Transformer decoder where they probe the enhanced encoder features through
+                deformable cross-attention. Queries are refined layer-by-layer in the decoder, to finally
+                predict the characters and associated bounding boxes.
+                </p>
+            </div>
+        </div>
+        <div class="abstract" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+            <h2>Qualitative Results</h2>
+            <hr class="blue-line">
+            <!-- IAM Section -->
+            <h3>IAM</h3>
+            <div class="imgcontainer">
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <img src="IAM/40.png" alt="IAM Image 1">
+                    </div>
+                    <div class="grid-item">
+                        <img src="IAM/105.png" alt="IAM Image 2">
+                    </div>
+                    <div class="grid-item">
+                        <img src="IAM/111.png" alt="IAM Image 3">
+                    </div>
+                    <div class="grid-item">
+                        <img src="IAM/125.png" alt="IAM Image 4">
+                    </div>
+                </div>
+            </div>
+        
+            <!-- READ Section -->
+            <h3>READ</h3>
+            <div class="imgcontainer">
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <img src="READ/223.png" alt="IAM Image 1">
+                    </div>
+                    <div class="grid-item">
+                        <img src="READ/235.png" alt="IAM Image 2">
+                    </div>
+                    <div class="grid-item">
+                        <img src="READ/273.png" alt="IAM Image 3">
+                    </div>
+                    <div class="grid-item">
+                        <img src="READ/479.png" alt="IAM Image 4">
+                    </div>
+                </div>
+            </div>
+        
+        
+            <!-- RIMES Section -->
+            <h3>RIMES</h3>
+            <div class="imgcontainer">
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <img src="RIMES/21.png" alt="IAM Image 1">
+                    </div>
+                    <div class="grid-item">
+                        <img src="RIMES/38.png" alt="IAM Image 2">
+                    </div>
+                    <div class="grid-item">
+                        <img src="RIMES/47.png" alt="IAM Image 3">
+                    </div>
+                    <div class="grid-item">
+                        <img src="RIMES/69.png" alt="IAM Image 4">
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Copiale Section -->
+            <h3>Copiale</h3>
+            <div class="imgcontainer">
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <img src="Copiale/226.png" alt="IAM Image 1">
+                    </div>
+                    <div class="grid-item">
+                        <img src="Copiale/228.png" alt="IAM Image 2">
+                    </div>
+                    <div class="grid-item">
+                        <img src="Copiale/229.png" alt="IAM Image 3">
+                    </div>
+                    <div class="grid-item">
+                        <img src="Copiale/405.png" alt="IAM Image 4">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+       
+        <div class="abstract"
+            style="display: flex; margin-top: 40px;justify-content: center; flex-direction: column; align-items: center;">
+            
+            <h2>Acknowledgements</h2>
+            <hr class="blue-line">
+            <div class="para">
+                <p>
+                    This work was funded by ANR project EIDA ANR-22-CE38-0014, ANR project VHS ANR-21-CE38-0008, ANR project sharp ANR-23-PEIA-0008, in the context of the PEPR IA, and  ERC project DISCOVER funded by
+                    the European Union’s Horizon Europe Research and Innovation program under grant agreement No. 101076028. We thank Ségolène Albouy, Zeynep Sonat Baltacı, Ioannis Siglidis, Elliot Vincent  and Malamatenia Vlachou for feedback and fruitful discussions.
+                </p>
+            </div>
+        </div>
+
+        <div class="abstract"
+            style="display: flex; flex-direction: column;">
+            <h2>BibTeX</h2> 
+            <pre style="text-align: center; margin-top: -15px;">
+                <p style="margin-top: -20px;margin-bottom: -30px; margin-left:  20px; margin-right:  20px; text-align: left;">@article{baena2024DTLR, title={General Detection-based Text Line Recognition}, <br>author={Raphael Baena and Syrine Kalleli and Mathieu Aubry}, <br>booktitle={NeurIPS},<br>year={2024},<br>url={https://arxiv.org/abs/2409.17095}}
+                </p>
+                </pre>
+        </div>
+               
+
+
+</body>
+
+</html>

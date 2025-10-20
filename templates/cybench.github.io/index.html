@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Cybench: Evaluating Language Models on Cybersecurity Challenges">
+    <title>Cybench</title>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.0.8/sorting/absolute.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.2.0/mustache.min.js"></script>
+    </head>
+<body>
+    <div class="menu">
+        <h1 class="header"><a href="https://cybench.github.io/index.html">Cybench</a></h1>
+        <div class="content-wrapper header button-group">
+            <a target="_blank" href=
+            "https://arxiv.org/abs/2408.08926"
+            ><button class="outline">
+                <img src="img/bxs-paper-plane.svg"></img>
+                <span class="outline">Paper</span>
+            </button></a>
+            <a target="_blank" href="https://github.com/andyzorigin/cybench"><button class="outline">
+                <img src="img/icons8-github.svg"></img>
+                <span class="outline">GitHub</span>
+            </button></a>
+            <a target="_blank" href="https://crfm.stanford.edu/2024/08/19/cybench.html"><button class="outline">
+                <img src="img/bxs-window-alt.svg"></img>
+                <span class="outline">Blog</span>
+            </button></a>
+            <a href="index.html#leaderboard_title" id="scrollToLeaderboard"><button class="outline">
+                <img src="img/bxs-medal.svg"></img>
+                <span class="outline">Leaderboard</span>
+            </button></a>
+            <a target="_blank" href="https://drive.google.com/drive/u/1/folders/1xkA8wdAhSSYNQERQ2B7Gpzp87qP1Wgyl"><button class="outline">
+                <img src="img/bxs-file-blank.svg"></img>
+                <span class="outline">Logs</span>
+            </button></a>
+            <a href="index.html#ethics_statement" id="scrollToEthics"><button class="outline">
+                <img src="img/bxs-book-bookmark.svg"></img>
+                <span class="outline">Ethics</span>
+            </button></a>
+            <a href="index.html#impact" id="scrollToImpact"><button class="outline">
+                <img src="img/bxs-network-chart.svg"></img>
+                <span class="outline">Impact</span>
+            </button></a>
+        </div>
+    </div>
+
+    <div id="website-body">
+        <section class="main-container">
+            <div class="content-box visual">
+                <h4 class="catchphrase">A benchmark for evaluating the cybersecurity capabilities and risks of language models.</h4>
+            </div>
+            <div class="content-wrapper">
+                <div class="content-box visual">
+                    <p class="web-blurb">
+                        <strong>Cybench</strong> 
+                        includes 
+                        40 professional-level Capture the Flag (CTF) tasks from 4 distinct CTF competitions, chosen to be recent, meaningful, and spanning a wide range of difficulties. 
+                        We add <i>subtasks</i>, which break down a task into intermediary steps for more gradated evaluation, to these tasks.
+                    </p>
+
+                        <div class="content-box visual" style="margin-top: 2rem; max-width: 100%">
+                            <div class="text-swatch bountybench" style="width:50rem; max-width: 100%;">
+                                <p class="text-content" style="padding:1.5rem;">
+                                    There's an all-new, real-world <a href="https://bountybench.github.io/" target="_blank">BountyBench</a> that evaluates offensive and defensive cybersecurity agents on vulnerability detection, exploitation, and patching with dollar impact. Check it out <a href="https://bountybench.github.io/" target="_blank">here</a>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="content-box visual" style="margin-bottom: 0rem;">
+                            <h2 class="text-title" id="leaderboard_title">Leaderboard
+                            </h2>
+                            <div class="table-container" style="max-width: 100%;">
+                                <div class="tabcontent tabcontentall">
+                                    <table class="table scrollable" id="leaderboard">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width:60rem; max-width: 100%; padding: 0rem 4rem; margin: 0; font-size: .9rem;">
+                            <p><i>
+                                * Results from <a target="_blank" class="leaderboard-notes" href="https://hal.cs.princeton.edu/cybench">HAL</a> leaderboard evaluation
+                            </i></p>
+                            <p style="padding-top: 0.5rem;"><i>
+                                † The scores for OpenAI o3-mini and OpenAI o1-mini are inflated because HAL likely ran on a fork of the Inspect framework that <a target="_blank" class="leaderboard-notes" href="https://transluce.org/introducing-docent#task-vulnerability-in-cybench-port">leaked the answer</a> to a task that both models completed successfully. Their Unguided % Solved scores have been adjusted downward by 2.5% (to 22.5% and 10% respectively) and their FSTs have been updated to reflect their most difficult tasks solved excluding the leaked task (42 min for o3-mini and 11 min for o1-mini).
+                            </i></p>
+                        </div>
+                        <div class="text-swatch" style="width:60rem; max-width: 100%; padding: 1rem; margin-top: 1rem;">
+                            <ul class="metrics-list">
+                                <li><strong>Unguided % Solved:</strong> Success rate without subtask guidance.</li>
+                                <li><strong>Subtask-Guided % Solved:</strong> Success rate with subtask guidance.</li>
+                                <li><strong>Subtasks % Solved:</strong> Percentage of subtasks solved per task, macro-averaged across the tasks.</li>
+                                <li><strong>Most Difficult Task Solved (First Solve Time by Humans):</strong> The highest first solve time of successfully solved tasks. First solve time is the time it takes for the first team to solve a given challenge in a CTF competition.</li>
+                            </ul>
+                        </div>
+                </div>
+            </div>
+            <div class="content-wrapper visual">
+                <div class="text-swatch visual" style="padding: 0rem; margin-top: 3rem; max-width: 100%;">
+                    <h3 class="text-title about">About
+                    </h3>
+                    <div class="visual" style="background-color: white; padding: 0.9rem; margin-bottom: 0.9rem; border-radius: 0.4rem; max-width: 95%;"><img src="img/cybench_updated.jpeg" style="max-width: 95%; width: 45rem"></img></div>
+                    <div class="text-swatch" style="width:50rem; max-width: 100%;">
+                        <p class="text-content context small">
+                            Each task includes a <span style="color: #c7b05a; font-weight: bold;">task description</span>, 
+                            <span style="color: #d39090; font-weight: bold;">starter files</span>, and an <span style="color: #7f9fb3; font-weight: bold;">evaluator</span>. 
+                            A task can also have subtasks, each with an associated question and answer which are scored sequentially for incremental progress. 
+                            The environment <i>(S)</i> consists of the Kali Linux container containing any task-specific  
+                            <span style="color: #db6c5b; font-weight: bold;">local files</span> and any task server(s) instantiated by  
+                            <span style="color: #9b3c3c; font-weight: bold;">remote files</span>. The 
+                            <span style="color: #9c77ad; font-weight: bold;">agent</span> can directly interact through bash commands with the 
+                            <span style="color: #db6c5b; font-weight: bold;">local files</span> and/or indirectly interact through network calls with the 
+                            <span style="color: #9b3c3c; font-weight: bold;">remote files</span>.
+                            The agent provides a response <i>(R)</i>, which contains an action <i>(A)</i>, which yields an observation <i>(O)</i>
+                            that is added to the agent's <span style="color: #939393; font-weight: bold;">memory</span> <i>(M)</i>. 
+                            Later, the agent can submit its 
+                            <span style="color: #8bbb8d; font-weight: bold;">answer</span>, which the 
+                            <span style="color: #7f9fb3; font-weight: bold;">evaluator</span> will compare against the answer key.
+                        </p>
+                    </div>
+                </div>
+
+                
+                <h3 class="text-title challs">Categories
+                </h3>
+                <div class="content-box visual">
+                    <p class="subtext">
+                        For task selection, we targeted tasks across 6 categories commonly found in CTF competitions.
+                    </p>
+                    <div class="challenge-links">
+                        <div class="challenge-des">
+                            <a style="width: 100%">
+                                <button class="categories">
+                                    <p class="cat">Crypto</p>
+                                    <p class="aka">(cryptography)</p>
+                                </button>
+                                <!-- <p class="count">16 challenges</p> -->
+                            </a>
+                            <p>Identify and exploit misuse or flaws in the implementation of cryptographic primitives and protocols to recover plaintext or keys.</p>
+                        </div>
+                        <div class="challenge-des">
+                            <a style="width: 100%">
+                                <button class="categories">
+                                    <p class="cat">Web</p>
+                                    <p class="aka">(web security)</p>
+                                </button>
+                                <!-- <p class="count">8 challenges</p> -->
+                            </a>
+                            <p>Identify and exploit vulnerabilities in web applications, including but not limited to Cross-Site Scripting (XSS), Cross-Site Request Forgery (CSRF), SQL Injection, and other web-based attack vectors.</p>
+                        </div>
+                        <div class="challenge-des">
+                            <a style="width: 100%">
+                                <button class="categories">
+                                    <p class="cat">Rev</p>
+                                    <p class="aka">(reverse engineering)</p>
+                                </button>
+                                <!-- <p class="count">6 challenges</p> -->
+                            </a>
+                            <p>Analyze and understand the functionality of a binary executable to uncover hidden details, vulnerabilities, or undocumented features, often leading to exploit development.</p>
+                        </div>
+                        <div class="challenge-des">
+                            <a style="width: 100%">
+                                <button class="categories">
+                                    <p class="cat">Forensics</p>
+                                </button>
+                                <!-- <p class="count">4 challenges</p> -->
+                            </a>
+                            <p>Analyze and extract hidden or deleted information from data files, memory dumps, or network traffic to uncover secrets or reconstruct events.</p>
+                        </div>
+                        <div class="challenge-des">
+                            <a style="width: 100%">
+                                <button class="categories">
+                                    <p class="cat">Misc</p>
+                                    <p class="aka">(miscellaneous)</p>
+                                </button>
+                                <!-- <p class="count">4 challenges</p> -->
+                            </a>
+                            <p>Identify and exploit vulnerabilities that do not fit into the other categories, often involving unconventional or creative task-solving techniques.
+                        </div>
+                        <div class="challenge-des">
+                            <a style="width: 100%">
+                                <button class="categories">
+                                    <p class="cat">Pwn</p>
+                                    <p class="aka">(exploitation)</p>
+                                </button>
+                                <!-- <p class="count">2 challenges</p> -->
+                            </a>
+                            <p>Perform privilege escalation, gain shell access, or execute arbitrary code by exploiting vulnerabilities in software or systems.</p>
+                        </div>                            
+                    </div>
+                </div>
+
+                <div class="content-box visual" id="ethics_statement" style="max-width: 100%;">
+                    <h3 class="text-title challs" style="font-size: 1.5rem;">Ethics Statement
+                    </h3>
+                    <div class="text-swatch" style="width:45rem; max-width: 100%; background: none">
+                        <p class="text-content context small ethics">
+                            Agents for offensive cybersecurity are dual use, both for white hat actors to do penetration testing and improve system security and for black hat actors to mount attacks and do other misdeeds. We have chosen to release our code publicly along with all the details of our runs because our testing did not reveal significant risks, and we believe that releasing code publicly will do more to benefit security than cause harm. Releasing our framework can significantly mitigate risks of new LMs and agents. The framework can be used to track the progress of LMs for penetration testing, and can help other researchers evaluate any risks relating to their work.
+                            <span class="paragraph">
+                                For a more detailed ethics statement explaining our decision to release our framework, please see Section Ethics Statement in the paper.
+                            </span>
+                        </p>                                                          
+                    </div>
+                </div>
+
+
+                <div class="content-box visual" id="impact" style="max-width: 100%; ">
+                    <h3 class="text-title challs" style="font-size: 1.5rem; padding-top: 2rem;">Impact
+                    </h3>
+                    <div class="text-swatch" style="width:45rem; max-width: 100%; background: none">
+                        <div class="context impact" style="padding-left: 1rem; padding-top:0;">
+                            <ul style="list-style-type: disc; padding-left: 1.5rem;">
+                                <li style="margin-bottom: 15px;">
+                                    The US AISI and UK AISI leveraged Cybench as the only open source cybersecurity benchmark on their <a href="https://www.nist.gov/system/files/documents/2024/11/19/Upgraded%20Sonnet-Publication-US.pdf" target="_blank">Joint Pre-Deployment Test on Anthropic's Claude 3.5 Sonnet</a> and <a href="https://www.nist.gov/system/files/documents/2024/12/18/US_UK_AI%20Safety%20Institute_%20December_Publication-OpenAIo1.pdf#page8" target="_blank">Joint Pre-Deployment Test on OpenAI o1</a>.
+                                 </li>
+                                 <li style="margin-bottom: 15px;">
+                                     The UK AISI has incorporated Cybench in its <a href="https://ukgovernmentbeis.github.io/inspect_evals/evals/cybersecurity/cybench/" target="_blank">Inspect Evals framework</a>.
+                                 </li>
+                                 <li style="margin-bottom: 15px;">
+                                     Anthropic featured Cybench results in its <a href="https://assets.anthropic.com/m/785e231869ea8b3b/original/claude-3-7-sonnet-system-card.pdf" target="_blank">Claude 3.7 Sonnet System Card</a>, <a href="https://www-cdn.anthropic.com/6be99a52cb68eb70eb9572b4cafad13df32ed995.pdf" target="_blank">Claude 4 System Card</a>, and <a href="https://assets.anthropic.com/m/4c024b86c698d3d4/original/Claude-4-1-System-Card.pdf" target="_blank">Claude Opus 4.1 System Card</a>.
+                                 </li>
+                                 <li style="margin-bottom: 15px;">
+                                     Amazon featured Cybench in its evaluation suite for the <a href="https://assets.amazon.science/f6/c5/79dceb124593b3356566ad6723af/the-amazon-nova-premier-technical-report-and-model-card.pdf" target="_blank">Amazon Nova Premier Model Card</a>.
+                                 </li>
+                                 <li style="margin-bottom: 15px;">
+                                     xAI featured Cybench in its <a href="https://x.ai/documents/2025.02.20-RMF-Draft.pdf" target="_blank">xAI Risk Management Framework</a>.
+                                 </li>
+                                 <li style="margin-bottom: 15px;">
+                                     OWASP leveraged Cybench as only benchmark for its <a href="https://genai.owasp.org/resource/owasp-llm-exploit-generation-v1-0-pdf/" target="_blank">LLM Exploit Generation Whitepaper</a>.
+                                 </li>
+                                 <li style="margin-bottom: 15px;">
+                                     The Center for AI Safety selected Cybench as a First Prize winning benchmark in the <a href="https://www.mlsafety.org/safebench/winners#winners" target="_blank">SafeBench competition</a>.
+                                 </li>
+                                <li style="margin-bottom: 15px;">
+                                     The <a href="https://www.jstage.jst.go.jp/article/pjsai/JSAI2025/0/JSAI2025_3F5OS42b02/_pdf" target="_blank">Japan AISI</a> and the 
+                                     <a href="https://www.sgdsn.gouv.fr/files/files/Publications/International-Network-of-AI-Safety-Institutes-Joint-Testing-Exercise-Improving-Methodologies-for-AI-Model-Evaluations-Across-Global-Languages.pdf" target="_blank">Republic of Korea AISI</a>
+                                     leveraged Cybench, providing Japanese and Korean translations to evaluate effect of language on the benchmark.
+                                </li>
+                            </ul>
+                        </div> 
+                    </div>
+                </div>
+
+                <div class="content-box visual" style="margin-top: 2rem; max-width: 100%">
+                    <div class="text-swatch" style="width:50rem; max-width: 100%;">
+                        <p class="text-content" style="padding:1.5rem;">
+                            If you rely on Cybench and artifacts, we request that you cite to the underlying paper.
+                        </p>
+                        <div class="citation">
+                                                       
+                            <div class="bibtex-field">
+                                @inproceedings{
+                            </div>
+                            <div class="bibtex-entry">
+                                <div class="bibtex-field">
+                                    <span class="bibtex-label">zhang2025cybench,</span>
+                                </div>
+                                <div class="bibtex-field">
+                                    <span class="bibtex-label">title</span>
+                                    <span class="bibtex-equals">=</span>
+                                    <span class="bibtex-value">{Cybench: A Framework for Evaluating Cybersecurity Capabilities and Risks of Language Models},</span>
+                                </div>
+                                <div class="bibtex-field">
+                                    <span class="bibtex-label">author</span>
+                                    <span class="bibtex-equals">=</span>
+                                    <span class="bibtex-value">{Andy K Zhang and Neil Perry and Riya Dulepet and Joey Ji and Celeste Menders and Justin W Lin and Eliot Jones and Gashon Hussein and Samantha Liu and Donovan Julian Jasper and Pura Peetathawatchai and Ari Glenn and Vikram Sivashankar and Daniel Zamoshchin and Leo Glikbarg and Derek Askaryar and Haoxiang Yang and Aolin Zhang and Rishi Alluri and Nathan Tran and Rinnara Sangpisit and Kenny O Oseleononmen and Dan Boneh and Daniel E. Ho and Percy Liang},</span>
+                                </div>
+                                <div class="bibtex-field">
+                                    <span class="bibtex-label">booktitle</span>
+                                    <span class="bibtex-equals">=</span>
+                                    <span class="bibtex-value">{The Thirteenth International Conference on Learning Representations},</span>
+                                </div>
+                                <div class="bibtex-field">
+                                    <span class="bibtex-label">year</span>
+                                    <span class="bibtex-equals">=</span>
+                                    <span class="bibtex-value">{2025},</span>
+                                </div>
+                                <div class="bibtex-field">
+                                    <span class="bibtex-label">url</span>
+                                    <span class="bibtex-equals">=</span>
+                                    <span class="bibtex-value">{https://openreview.net/forum?id=tc90LV0yRL},</span>
+                                </div>
+                                <div class="bibtex-field">
+                                    <span class="bibtex-end">}</span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+    <footer class="footer-container">
+        <div class="container-wrapper">
+            <div class="footer-text">
+                <a target="_blank"href="https://stanford.edu/">© 2025. Stanford University.</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          var bibtexElement = document.getElementById('bibtex-time');
+          var currentDate = new Date();
+          var formattedDate = currentDate.toISOString().split('T')[0]; // Formats as YYYY-MM-DD
+          var bibtexContent = bibtexElement.innerHTML;
+      
+          // Replace the placeholder with the current date
+          bibtexContent = bibtexContent.replace('PLACEHOLDER_ACCESS_DATE', formattedDate);
+      
+          // Update the content of the pre element
+          bibtexElement.innerHTML = bibtexContent;
+        });
+    </script>      
+    <script src="js/homeSetup.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setupHome();
+        });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('scroll', () => {
+            const menu = document.querySelector('.menu');
+            const header = document.querySelector('h1.header');
+            
+            const scrollDistance = window.scrollY;
+            var isScrolled = scrollDistance >= 70;
+
+            if (isScrolled) {
+                menu.classList.add('scrolled');
+                header.classList.add('scrolled');
+            } else {
+                menu.classList.remove('scrolled');
+                header.classList.remove('scrolled');
+            }
+
+            const buttons = document.querySelectorAll('.outline');
+            buttons.forEach(button => {
+                if (isScrolled) {
+                    button.classList.add('scrolled');
+                } else {
+                    button.classList.remove('scrolled');
+                }
+            });
+        });
+    });
+    document.getElementById('scrollToLeaderboard').addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent the default anchor click behavior
+
+        // Get the target element
+        var target = document.getElementById('leaderboard_title');
+
+        var remOffset = 5; // Change this value to your desired rem offset
+        var remInPx = remOffset * parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+        // Calculate the position to scroll to (rem offset converted to px)
+        var offsetTop = target.getBoundingClientRect().top + window.pageYOffset - remInPx;
+
+        // Scroll to the calculated position
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+    });
+    document.getElementById('scrollToEthics').addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent the default anchor click behavior
+
+        // Get the target element
+        var target = document.getElementById('ethics_statement');
+
+        var remOffset = 3; // Change this value to your desired rem offset
+        var remInPx = remOffset * parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+        // Calculate the position to scroll to (rem offset converted to px)
+        var offsetTop = target.getBoundingClientRect().top + window.pageYOffset - remInPx;
+
+        // Scroll to the calculated position
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+    });
+    document.getElementById('scrollToImpact').addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent the default anchor click behavior
+
+        // Get the target element
+        var target = document.getElementById('impact');
+
+        var remOffset = 3; // Change this value to your desired rem offset
+        var remInPx = remOffset * parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+        // Calculate the position to scroll to (rem offset converted to px)
+        var offsetTop = target.getBoundingClientRect().top + window.pageYOffset - remInPx;
+
+        // Scroll to the calculated position
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>

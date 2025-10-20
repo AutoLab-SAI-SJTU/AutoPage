@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEVIL Project Rebuttal</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .title h1 {
+            font-size: 2.7em;
+            text-align: center;
+        }
+
+        .title a {
+            text-decoration: none;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.4em;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .figure_1 {
+            text-align: center;
+        }
+
+        .figure_1 img {
+            margin-top: 50px;
+            width: 85%;
+            height: auto; 
+        }
+
+        .figure_1 figcaption {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #737373;
+        }
+
+
+        .figure_board {
+            text-align: center;
+        }
+
+        .figure_board img {
+            margin-top: 40px;
+            width: 60%;
+            height: auto; 
+        }
+
+        .figure_board figcaption {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #737373;
+        }
+
+        .text_abstract {
+            background: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            /* box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px; */
+            width: 80%;
+            margin: 20px auto;
+            text-align: justify;
+        }
+        .text_abstract h2 {
+            font-size: 2.2em;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .abstract-content {
+            font-size: 1.2em;
+            color: #666;
+            line-height: 1.5;
+            text-align: justify;
+            /* text-align: left; */
+        }
+
+
+        .figure_dscore {
+            text-align: center;
+        }
+        .figure_dscore img {
+            margin-top: 50px;
+            width: 60%;
+            height: auto; 
+        }
+        .figure_dscore figcaption {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #737373;
+        }
+        
+        .text_dscore {
+            margin-top: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            width: 64%;
+            margin: 20px auto;
+        }
+
+        .row {
+            margin-top: 20px;
+            text-align: justify;
+            width: 90%;
+        }
+        .text_video {
+            flex: 1;
+            text-align: right;
+            font-size: 0.9em;
+            color: #7d7d7d;
+            margin-right: 5px; /* �������ֺ͵�һ����Ƶ֮��ļ�� */
+            text-align: justify;
+        }
+        .video {
+            /* flex: 1; */
+            /* text-align: left; */
+            margin: 0 0px; /* ����������Ƶ֮��ļ�� */
+        }
+        .video video {
+            width: 80%; /* ����Ϊ����Ҫ�İٷֱ� */
+            height: auto; /* ������Ƶ�Ŀ�߱� */
+        }
+        
+        .bibtex-container {
+            background: #f5f5f5; /* ǳ��ɫ���� */
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px; /* Բ�� */
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* ��ӰЧ�� */
+            font-family: "Courier New", Courier, monospace; /* ���õȿ����� */
+            font-size: 1.4em; /* ����������С */
+        }
+
+        .bibtex-title {
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+        }
+
+        .separator {
+            border-top: 3px solid #d3d3d3; /* ��ɫ�ĺ��� */
+            margin: 40px auto; /* �������ĵľ��� */
+            width: 100%; /* �����ݵĿ�ȱ���һ�� */
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        
+        <header class="title">
+            <h1>DEVIL: Evaluation of Text-to-Video Generation Models: <br> A Dynamics Perspective</h1>
+            <!-- <p class="subtitle">Anonymous Submission</p> -->
+            <p class="subtitle">
+                <a href="index.html"><span>Mingxiang Liao</span></a><sup>1*</sup>, 
+                <a href="index.html"><span>Hannan Lu</span></a><sup>2*</sup>, 
+                <a href="index.html"><span>Xinyu Zhang</span></a><sup>3,4*</sup>, 
+                <a href="index.html"><span>Fang Wan</span></a><sup>1</sup>, 
+                <a href="index.html"><span>Tianyu Wang</span></a><sup>1</sup>, 
+                <a href="index.html"><span>Yuzhong Zhao</span></a><sup>1</sup>, 
+                <a href="index.html"><span>Wangmeng Zuo</span></a><sup>2</sup>, 
+                <a href="index.html"><span>Qixiang Ye</span></a><sup>1</sup>, 
+                <a href="index.html"><span>Jingdong Wang</span></a><sup>4</sup><br>
+                <sup>1</sup>University of Chinese Academy of Sciences, 
+                <sup>2</sup>Harbin Institute of Technology, <br>
+                <sup>3</sup>The University of Adelaide, 
+                <sup>4</sup>Baidu Inc.
+            </p>
+
+            <p class="conference-info" style="margin-top: 20px; text-align: center; font-size: 1.7em;">
+                Neurips 2024
+            </p>
+        
+            <p class="equal-contribution" style="text-align: center; font-size: 1em; color: #666;">
+                *Indicates Equal Contribution
+            </p>
+
+            <p class="links" style="text-align: center; margin-top: 20px; font-size: 1.9em;">
+                <a href="https://arxiv.org/abs/2407.01094" style="margin-right: 20px;">
+                    <span>ArXiv</span>
+                </a>
+                <a href="https://github.com/MingXiangL/DEVIL">
+                    <span>GitHub</span>
+                </a>
+            </p>
+
+        </header>
+
+        <div class="separator"></div>
+
+        <section class="figure_1">
+            <img src="figures/fig_flowchart.png" alt="Figure">
+            <figcaption>Figure 1. Flowchart to calculate dynamics metrics based on dynamics scores and text prompts.</figcaption>
+        </section>
+        
+        <section class="text_abstract">
+            <h2>Abstract</h2>
+            <p class="abstract-content">
+                <!-- Comprehensive and constructive evaluation protocols play an important role when developing sophisticated text-to-video (T2V) generation models. 
+                Existing evaluation protocols primarily focus on temporal consistency and content continuity, yet largely ignore dynamics of video content. 
+                Such dynamics is an essential dimension measuring the visual vividness and the honesty of video content to text prompts. 
+                In this study, we propose an effective evaluation protocol, termed DEVIL, which centers on the dynamics dimension to evaluate T2V generation models, as well as improving existing evaluation metrics. In practice, we define a set of dynamics scores corresponding to multiple temporal granularities, and a new benchmark of text prompts under multiple dynamics grades. Upon the text prompt benchmark, we assess the generation capacity of T2V models, characterized by metrics of dynamics ranges and T2V alignment. Moreover, we analyze the relevance of existing metrics to dynamics metrics, improving them from the perspective of dynamics. Experiments show that DEVIL evaluation metrics enjoy up to about 90% consistency with human ratings, demonstrating the potential to advance T2V generation models. -->
+                Comprehensive and constructive evaluation protocols play an important role in the development of sophisticated text-to-video (T2V) generation models. Existing evaluation protocols primarily focus on temporal consistency and content continuity, yet largely ignoring the dynamics of video content. Dynamics are an essential dimension for measuring the visual vividness and the honesty of video content to text prompts. In this study, we propose an effective evaluation protocol, termed DEVIL, which centers on the dynamics dimension to evaluate T2V models. For this purpose, we establish a new benchmark comprising text prompts that fully reflect multiple dynamics grades, and define a set of dynamics scores corresponding to various temporal granularities to comprehensively evaluate the dynamics of each generated video. Based on the new benchmark and the dynamics scores, we assess T2V models with the design of three metrics: dynamics range, dynamics controllability, and dynamics-based quality. Experiments show that DEVIL achieves a Pearson correlation exceeding 90% with human ratings, demonstrating its potential to advance T2V generation models. 
+            </p>
+        </section>
+
+        <section class="figure_board">
+            <img src="figures/board.png" alt="Figure">
+            <figcaption> Figure 2. Leaderboard, still updating.</figcaption>
+        </section>
+        
+        <section class="figure_dscore">
+            <img src="figures/dynamic_score_2.png" alt="Figure">
+            <figcaption> Figure 3. Illustration of dynamics at multiple temporal granularities, and video quality distribution w.r.t. dynamic scores.</figcaption>
+        </section>
+
+        <section class="text_abstract">
+            <h2>Dynamics score</h2>
+            <p class="abstract-content">
+                By altering the temporal granularities, video dynamics can be categorized into three: (i) Inter-frame dynamics, which describes the variations between successive frames. The dynamics score at this level reflects rapid and prominent content variations. (ii) Inter-segment dynamics, which refers to the changes between video segments which contains K video frames. Define on a middle-level, this score captures middle-speed transitions and motion patterns. (iii) Video-level dynamics, which encompasses the overall content diversity and the frequency of changes throughout the video.
+            </p>
+        </section>
+
+        <section class="text_abstract">
+            <h2>Evaluating Generated Videos</h2>
+        </section>
+
+        <div class="row">
+            <section class="text_video">
+                <h2>Dynamics score: 0.163, 0.152</h2>
+                <!-- <p> Generated videos, dynamics score: 5.4, 5.5. <br> The video content is mostly static. </p> -->
+                <p> The video content is mostly static. </p>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos/5.40_st2v_urban_medium_0012.mp4" type="video/mp4">
+                </video>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos/5.50_st2v_car_static_0012.mp4" type="video/mp4">
+                </video>
+            </section>
+        </div>
+
+        <div class="row">
+            <section class="text_video">
+                <h2>Dynamics score: 0.249, 0.294</h2>
+                <!-- <p> Generated videos, dynamics score: 7.0, 7.2. <br> The video features a single type of movement, lighting change, or morphological change. </p> -->
+                <p> The video features a single type of dynamics, such as lighting change and object motion. </p>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos/7.03_st2v_zebra_high_0004.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos/7.15_st2v_natural_static_0015.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </section>
+        </div>
+
+        <div class="row">
+            <section class="text_video">
+                <h2>Dynamics score: 0.517, 0.451</h2>
+                <!-- <p> Generated videos, dynamics score: 9.0, 9.0. The video includes various types of movements and morphological changes, as well as diverse patterns of change.<br> </p> -->
+                <p> The video includes various types of movements and morphological changes, as well as diverse patterns of change.<br> </p>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos/9.01_st2v_giraffe_high_0000.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos/9.03_st2v_cow_high_0005.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </section>
+        </div>
+
+        <div class="row">
+            <section class="text_video">
+                <h2>Dynamics score: 0.656, 0.648</h2>
+                <!-- <p> Generated videos, dynamics score: 11.0, 11.0. <br> The video either contains intense movements and morphological changes or features a wide range of change patterns. </p> -->
+                <p> The video either contains intense movements and morphological changes or features a wide range of change patterns. </p>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos/11.72_st2v_indoor_high_0000.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos/11.01_st2v_bird_medium_0002.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </section>
+        </div>
+
+        <div class="row">
+            <section class="text_video">
+                <h2>Dynamics score: 0.826, 0.872</h2>
+                <!-- <p> Generated videos, dynamics score: 11.0, 11.0. <br> The video either contains intense movements and morphological changes or features a wide range of change patterns. </p> -->
+                <p> As the camera swiftly navigates through different scenes, the rapid changes in the viewpoint and surrounding environment contribute to an extremely high level of dynamics. </p>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos/0.826_50-60.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos/0.872_25-35.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </section>
+        </div>
+
+
+        <section class="text_abstract">
+            <h2>Evaluating Real Videos</h2>
+        </section>
+
+        <div class="row">
+            <section class="text_video">
+                <h2>Dynamics score: 0.129, 0.141</h2>
+                <!-- <p> Generated videos, dynamics score: 11.0, 11.0. <br> The video either contains intense movements and morphological changes or features a wide range of change patterns. </p> -->
+                <p> The video content is mostly static. </p>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos_real/0.1287_6412436.mp4.mp4" type="video/mp4">
+                </video>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos_real/0.1410_32936770.mp4.mp4" type="video/mp4">
+                </video>
+            </section>
+        </div>
+
+        <div class="row">
+            <section class="text_video">
+                <h2>Dynamics score: 0.209, 0.256</h2>
+                <!-- <p> Generated videos, dynamics score: 11.0, 11.0. <br> The video either contains intense movements and morphological changes or features a wide range of change patterns. </p> -->
+                <p> The video features a single type of dynamics, such as lighting change and camera motion.  </p>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos_real/0.2086_1041222895.mp4.mp4" type="video/mp4">
+                </video>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos_real/0.2562_8820019.mp4.mp4" type="video/mp4">
+                </video>
+            </section>
+        </div>
+
+        <div class="row">
+            <section class="text_video">
+                <h2>Dynamics score: 0.463, 0.474</h2>
+                <!-- <p> Generated videos, dynamics score: 11.0, 11.0. <br> The video either contains intense movements and morphological changes or features a wide range of change patterns. </p> -->
+                <p> The video contains various types of changes, such as camera motion and object motion, or multi-instance dynamics.  </p>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos_real/0.4627_1036391783.mp4.mp4" type="video/mp4">
+                </video>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos_real/0.4739_1012982333.mp4.mp4" type="video/mp4">
+                </video>
+            </section>
+        </div>
+
+        <div class="row">
+            <section class="text_video">
+                <h2>Dynamics score: 0.600, 0.650</h2>
+                <!-- <p> Generated videos, dynamics score: 11.0, 11.0. <br> The video either contains intense movements and morphological changes or features a wide range of change patterns. </p> -->
+                <p> The video features a wide range of change patterns, or intense lightning change.   </p>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos_real/0.5975_32889094.mp4.mp4" type="video/mp4">
+                </video>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos_real/0.6496_29480971.mp4.mp4" type="video/mp4">
+                </video>
+            </section>
+        </div>
+
+        <div class="row">
+            <section class="text_video">
+                <h2>Dynamics score: 0.769, 0.845</h2>
+                <!-- <p> Generated videos, dynamics score: 11.0, 11.0. <br> The video either contains intense movements and morphological changes or features a wide range of change patterns. </p> -->
+                <p> The video exhibits a high degree of dynamics due to its rich content, rapid motion, and complex motion patterns.   </p>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos_real/0.7693_1022089237.mp4.mp4" type="video/mp4">
+                </video>
+            </section>
+            <section class="video">
+                <video controls>
+                    <source src="videos_real/0.8454_9065315.mp4.mp4" type="video/mp4">
+                </video>
+            </section>
+        </div>
+
+    <div class="separator"></div>
+    <section class="bibtex">
+        <div class="bibtex-title">BibTeX</div>
+        <div class="bibtex-container">
+            <!-- <pre>
+                @article{liao2024evaluation,
+                title={Evaluation of text-to-video generation models: A dynamics perspective},
+                author={Liao, Mingxiang and Lu, Hannan and Zhang, Xinyu and Wan, Fang and Wang, Tianyu and Zhao, Yuzhong and 
+                    Zuo, Wangmeng and Ye, Qixiang and Wang, Jingdong},
+                journal={arXiv preprint arXiv:2407.01094},
+                year={2024}}
+            </pre> -->
+            <p style="font-size: 0.8em;">
+                @article{liao2024evaluation,<br>
+                title={Evaluation of text-to-video generation models: A dynamics perspective},<br>
+                author={Liao, Mingxiang and Lu, Hannan and Zhang, Xinyu and Wan, Fang and Wang, Tianyu and Zhao, Yuzhong and Zuo, Wangmeng and Ye, Qixiang and Wang, Jingdong},<br>
+                journal={arXiv preprint arXiv:2407.01094},<br>
+                year={2024}}<br>
+            </p>
+        </div>
+    </section>
+
+    </div>
+</body>
+</html>

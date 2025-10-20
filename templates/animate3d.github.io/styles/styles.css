@@ -1,0 +1,341 @@
+/* 公共样式 */
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+.container {
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px;
+}
+section {
+    margin: 50px 0;
+    border-bottom: 1px solid #555;
+    padding-bottom: 20px;
+}
+section:last-child {
+    border-bottom: none;
+}
+h1 {
+    font-size: 3.6rem; /* 调整字体大小 */
+    line-height: 1.2; /* 调整行间距 */
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 0 2px #ff9900, 0 0 4px #ff9900, 0 0 6px #ffdd00;
+    margin-bottom: 40px;
+}
+h2 {
+    font-size: 2.0rem;
+    text-align: center;
+}
+p {
+    font-size: 1.2rem;
+}
+.highlight {
+    font-weight: bold; /* 加粗 */
+    color: #00ffc8; /* 更改字体颜色 */
+    background-color: #333; /* 更改背景颜色 */
+    padding: 3px 3px; /* 增加内边距 */
+    border-radius: 5px; /* 圆角 */
+}
+
+.authors {
+    color: #67f19e;
+    text-align: center;
+    margin: 5px 0;
+}
+
+.institute {
+    color: #82cff3;
+    text-align: center;
+    margin: 5px 0;
+}
+
+.accept {
+    font-size: 1.6rem;
+    color: #ffffff;
+    text-align: center;
+    margin: 5px 0;
+}
+
+/* 链接文本的样式 */
+.links {
+    text-align: center;
+    margin-top: 60px;
+}
+.links a {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #8be4e3;
+    border: 1px solid #8be4e3;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.links a:link {
+    color: #8be4e3; /* 未访问的链接颜色 */
+}
+.links a:visited {
+    color: #8be4e3; /* 已访问的链接颜色 */
+}
+.links a:hover {
+    background-color: #8be4e3;
+    color: #000;
+}
+.links a .icon {
+    margin-right: 5px;
+}
+.links a .custom-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* 高亮文本与链接组合样式 */
+.highlight a {
+   color: #00ffc8; /* 高亮文本的颜色 */
+   background-color: #333; /* 高亮文本的背景颜色 */
+   padding: 3px 5px; /* 高亮文本的内边距 */
+   border-radius: 5px; /* 高亮文本的圆角 */
+   text-decoration: underline; /* 链接的下划线效果 */
+}
+.highlight a:visited {
+   color: #00ffc8; /* 确保访问后的高亮链接颜色相同 */
+}
+
+/* 针对特定章节中的高亮文本与链接组合样式 */
+#acknowledgements .highlight a,
+#training-data .highlight a {
+   color: #00ffc8; /* 高亮文本的颜色 */
+   background-color: #333; /* 高亮文本的背景颜色 */
+   padding: 3px 5px; /* 高亮文本的内边距 */
+   border-radius: 5px; /* 高亮文本的圆角 */
+   text-decoration: underline; /* 链接的下划线效果 */
+}
+#acknowledgements .highlight a:visited,
+#training-data .highlight a:visited {
+   color: #00ffc8; /* 确保访问后的高亮链接颜色相同 */
+}
+
+/* 其他现有样式 */
+.video-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+/* 16:9 video wrapper 样式 */
+.video-wrapper-16-9 {
+    width: 100%;
+    margin: 20px 0;
+    position: relative;
+    background-color: black;
+    overflow: hidden;
+    padding: 0;
+}
+.video-wrapper-16-9 iframe {
+    width: 100%;
+    height: 100%; /* 确保16:9比例 */
+    border: none;
+    aspect-ratio: 16 / 9;
+}
+/* 1:1 video wrapper 样式 */
+.video-wrapper-1-1 {
+    width: 50%;
+    margin: 0;
+    position: relative;
+    background-color: white; /* 修改背景颜色为白色 */
+    overflow: visible; /* 允许溢出内容显示 */
+    border: 5px solid white; /* 添加白色边框 */
+    box-sizing: border-box; /* 包括边框和内边距在宽度和高度计算内 */
+}
+.video-wrapper-1-1 video {
+    width: 100%;
+    height: auto; /* 确保视频完整展示 */
+    display: block; /* 确保视频块级元素 */
+}
+
+.video-mesh-container {
+    position: relative;
+    width: 100%; /* 宽度根据父元素调整，实现自适应 */
+    padding-top: 50%; /* 16:9宽高比的padding-top值 */
+    overflow: hidden;
+}
+
+/* 视频实际尺寸，会被container缩放以保持宽高比 */
+.video-mesh-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 保持视频宽高比并填充容器 */
+}
+
+.controls {
+    position: absolute;
+    top: 50%; /* 将控件移动到视频中间 */
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 10;
+    padding: 0 60px; /* 增加左右间距 */
+    box-sizing: border-box;
+}
+.button {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    cursor: pointer;
+    z-index: 1;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+    position: absolute; /* 使用绝对定位 */
+    top: 50%; /* 确保按钮在控件的垂直中心 */
+    transform: translateY(-50%);
+}
+.button:hover {
+    opacity: 1;
+}
+.button.left {
+    border-width: 60px 30px 60px 0; /* 修改为更大且更扁 */
+    border-color: transparent #ffffff transparent transparent;
+    left: -60px; /* 更远离容器 */
+}
+.button.right {
+    border-width: 60px 0 60px 30px; /* 修改为更大且更扁 */
+    border-color: transparent transparent transparent #ffffff;
+    right: -60px; /* 更远离容器 */
+}
+.thumbnail {
+    width: 15vh;
+    height: 15vh;
+    object-fit: cover;
+    cursor: pointer;
+    background-color: #ddd;
+}
+.video-thumbnails {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0; /* 取消间隙 */
+}
+#reference-thumbnail {
+    cursor: pointer;
+    width: 15vh;
+    height: 15vh;
+    object-fit: cover;
+}
+.subtitle {
+    font-size: 1rem;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+/* Other Section 样式 */
+.video-wrapper-other {
+    width: 90%;
+    max-width: 2048px;
+    position: relative;
+    background-color: white; /* 修改背景颜色为白色 */
+    overflow: visible; /* 允许溢出内容显示 */
+    border: 5px solid white; /* 添加白色边框 */
+    box-sizing: border-box; /* 包括边框和内边距在宽度和高度计算内 */
+}
+.video-wrapper-other video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+/* Title Section 背景视频 */
+#title {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* 使用90%的视口高度 */
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+#background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* 覆盖整个区域，保持宽高比 */
+    object-position: center; /* 居中显示 */
+    opacity: 0.9;
+    z-index: -1;
+    background-color: black;
+}
+.title-content {
+    position: relative;
+    z-index: 1;
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
+    max-width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+/* 新增的背景色和字体颜色样式 */
+/* Abstract Section 样式 */
+#abstract {
+    background-color: #000000; /* 深蓝灰色背景 */
+    color: #ffcc00; /* 浅灰色字体 */
+}
+#abstract h2 {
+    color: #ffcc00; /* 设置标题为黄色 */
+}
+#abstract p,
+#abstract a {
+    color: #ffffff; /* 设置段落内容和链接为白色 */
+}
+/* Training Data Section 样式 */
+#training-data {
+    background-color: #000000; /* 深蓝灰色背景 */
+}
+#training-data h2 {
+    color: #ffcc00; /* 设置标题为黄色 */
+}
+#training-data p,
+#training-data a {
+    color: #ffffff; /* 设置段落内容和链接为白色 */
+}
+/* Relevant Works Section 样式 */
+#relevant-work {
+    background-color: #000000; /* 深灰色背景 */
+}
+#relevant-work h2 {
+    color: #8be4e3;
+}
+#relevant-work p,
+#relevant-work a, /* 设置链接为白色 */
+#relevant-work span {
+    color: #ffffff; /* 设置段落内容为白色 */
+}
+/* Acknowledgements Section 样式 */
+#acknowledgements {
+    background-color: #000000; /* 深蓝灰色背景 */
+}
+#acknowledgements h2 {
+    color: #8be4e3;
+}
+#acknowledgements p,
+#acknowledgements a, /* 设置链接为白色 */
+#acknowledgements span {
+    color: #ffffff; /* 设置段落内容为白色 */
+}

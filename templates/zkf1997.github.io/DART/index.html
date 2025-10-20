@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="DART">
+       <meta name="keywords" content="motion generation">
+      <meta name="author" content="Kaifeng Zhao">
+      <title>DartControl: A Diffusion-Based Autoregressive Motion Model for Real-Time Text-Driven Motion Control</title>
+
+      <!--<meta property="og:title" content="EgoBody: ..." />-->
+      <!--<meta property="og:description" content="EgoBody is a ... ">-->
+      <!--<meta property="og:image" content="images/teaser.jpg" />-->
+
+      <!--<meta name="twitter:card" content="summary_large_image" />-->
+      <!--<meta name="twitter:title" content="EgoBody: ..." />-->
+      <!--<meta name="twitter:description" content="EgoBody is a ..." />-->
+      <!--<meta name="twitter:image" content="https://neuralbodies.github.io/LEAP/images/teaser1200x630.jpg" />-->
+      <!--<meta name="twitter:image:alt" content="EgoBody" />-->
+
+      <!-- Bootstrap core CSS -->
+      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <!-- Custom styles for this template -->
+      <link href="css/scrolling-nav.css" rel="stylesheet">
+      <!-- nice figures  -->
+      <link rel="stylesheet" href="https://zkf1997.github.io/DART/css/font-awesome.css">
+      <!-- <link rel="icon" type="image/png" href="images/icon.png"> -->
+      
+      <style>
+         .video-container-2x2 {
+           display: grid;
+           grid-template-columns: repeat(2, 1fr);
+           grid-gap: 10px; /* Adjust the gap between videos */
+         }
+         
+         .video-container-2x2 video {
+           width: 100%; /* Adjust the width as needed */
+         }
+
+         .video-container-2 {
+            display: flex;
+            justify-content: space-between;
+         }
+         
+         .video-container-2 video {
+            width: 48%; /* Adjust the width as needed */
+         }
+
+         .caption-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px; /* Adjust the margin as needed */
+         }
+         
+         .caption {
+            width: 48%; /* Adjust the width as needed */
+            text-align: center;
+         }
+
+         .video-container-3 {
+            display: flex;
+            justify-content: space-between;
+         }
+         
+         .video-container-3 video {
+            width: 32%; /* Adjust the width as needed */
+         }
+
+         .caption-container-3 {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px; /* Adjust the margin as needed */
+         }
+
+         .caption-container-3 caption {
+            width: 32%; /* Adjust the width as needed */
+            text-align: center;
+         }
+
+         .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+         }
+         
+         /* Optional: Match the tab content border to the tab bar color */
+         .tab-content {
+         border: 1px  solid #dee2e6;
+         border-top: none;
+         padding: 15px;
+         }
+       </style>
+   </head>
+   <body id="page-top">
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+         <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="index.html#page-top">DartControl</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+               <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="index.html#about">Overview</a>
+                  </li>
+                  
+                  <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="index.html#method">Method</a>
+                  </li>
+                  
+                  
+                  <!-- <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="#results">Results</a>
+                  </li> -->
+
+                  <li class="nav-item dropdown"> <!-- Add 'dropdown' class -->
+                     <a 
+                       class="nav-link js-scroll-trigger dropdown-toggle" 
+                       href="index.html#results" 
+                       id="resultsDropdown" 
+                       role="button" 
+                       data-toggle="dropdown" 
+                       aria-haspopup="true" 
+                       aria-expanded="false"
+                     >
+                       Results
+                     </a>
+                     <!-- Dropdown menu -->
+                     <div class="dropdown-menu" aria-labelledby="resultsDropdown">
+                       <a class="dropdown-item" href="index.html#results-online">Online Generation</a>
+                       <a class="dropdown-item" href="index.html#results-opt">Optimization Control</a>
+                       <a class="dropdown-item" href="index.html#results-rl">RL Control</a>
+                       <a class="dropdown-item" href="index.html#results-more">More Results</a>
+                     </div>
+                   </li>
+                  
+                  <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="index.html#video">Video</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="index.html#citation">Citation</a>
+                  </li>
+
+                  <!-- <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="#related_projects">Related Projects</a>
+                  </li> -->
+                  <!-- <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+                  </li> -->
+               </ul>
+            </div>
+         </div>
+      </nav>
+
+
+      <header class="bg-light text-black">
+          <div class="container text-center">
+             <h1>DartControl</h1>
+             <h2>A Diffusion-Based Autoregressive Motion Model for Real-Time Text-Driven Motion Control</h2><br>
+              <div id="content">
+          <div id="content-inner">
+
+            <div class="section head">
+
+                <div class="authors">
+                    <h5>
+                        <a href="https://vlg.inf.ethz.ch/team/Kaifeng-Zhao.html">Kaifeng Zhao</a>&nbsp;
+                        <a href="https://vlg.inf.ethz.ch/team/Gen-Li.html">Gen Li</a>&nbsp;
+                        <a href="https://vlg.inf.ethz.ch/team/Prof-Dr-Siyu-Tang.html">Siyu Tang</a>
+                        <h5>
+                </div>
+
+                <div class="affiliations">
+                    <h5>
+                        <a href="https://ethz.ch/en.html">ETH Zürich</a>&nbsp; &nbsp;&nbsp;
+                        <h5>
+                </div>
+
+                <div class="venue"><h5>The Thirteenth International Conference on Learning Representations (<a href="https://iclr.cc/Conferences/2025" target="_blank">ICLR 2025</a>), <b>Spotlight </b><h5></div>
+                <!-- <div class="venue"><h5> <font color="#EE0303 "><b>Spotlight </b></font> <h5></div> -->
+
+                <div class="downloads">
+                    <br><h3>
+                    <a class="publink" href="https://arxiv.org/abs/2410.05260" target="_blank" style="text-decoration: none"> arXiv <i class="fa fa-print"></i></a> &nbsp;
+                    &nbsp;&nbsp;
+                    <a class="publink" href="https://github.com/zkf1997/DART" target="_blank" style="text-decoration: none"> Code <i class="fa fa-github"></i></a>
+                    <h3>
+                </div>
+
+            </div>
+
+
+            <!-- <br> -->
+
+
+        </div>
+      </header>
+
+
+      <section id="about" class="about-section">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-10 mx-auto">
+
+                  <br><br>
+                  <h2>Overview</h2>
+                  <p class="lead text-justify">
+                     In this work, we present <b>DartC</b>ontrol, in short <b>DART</b>, a <b>D</b>iffusion-based <b>A</b>utoregressive motion model for <b>R</b>eal-time <b>T</b>ext-driven motion <b>C</b>ontrol. 
+                     DART achieves high-quality and efficient (<b> > 300 frames per second </b> on a single RTX 4090 GPU) motion generation conditioned on online streams of text prompts. 
+                     Furthermore, by integrating latent space optimization and reinforcement learning-based controls, DART enables various motion generation applications with <b>spatial constraints and goals</b>, including motion in-between, waypoint goal reaching, and human-scene interaction generation.
+                  </p>
+                 
+                  <!-- <p><img class="img-fluid" alt="teaser" width="100%" src="images/teaser_canonical.png"></p> -->
+                  <figure>
+                     <video class="centered" width="100%" controls="" muted="" loop=true autoplay=true>
+                         <source src="videos/teaser.mp4" type="video/mp4">
+                     </video>
+                 </figure>              
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <section id="method" class="method-section">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-10 mx-auto">
+                  <br>
+                  <h2>Method</h2>
+                  <!-- <p class="lead text-justify">
+                     We formulate synthesizing human behaviors in 3D scenes as a Markov decision process with a latent action space, which is learned from motion capture datasets.
+                     We train scene-aware and goal-driven agent policies to synthesize various human behaviors in indoor scenes including wandering in the room, sitting or lying on an object, and sequential combinations of these actions.
+                  </p>
+                  <br>
+                  <br> -->
+                  <h3>Autoregressive Motion Primitive Representation</h3>
+                  <p class="lead text-justify">
+                     DART represents infinitely long motion sequences as a series of overlapping motion primitives, with each primitive containing <font color="blue">H history frames</font> that overlap with the previous primitive, and <font color="blue">F future frames</font>.
+                  </p> 
+                  <p><img class="img-fluid" alt="opt" width="100%" src="images/primitive.png"></p>
+                
+
+                  <p class="lead text-justify">
+                  Each frame of the motion primitives is represented using an overparameterized representation based on the SMPL-X parametric body model, including <b>joint rotations</b> compatible with <font color="blue">real-time animation </font>pipelines,  <b>joint locations</b> that form the basis for further <font color="blue">spatial control tasks</font>, and the <b>first-order temporal differences</b> of the location and rotation features.
+                  </p>
+                  <figure>
+                     <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                         <source src="videos/frame.mp4" type="video/mp4">
+                     </video>
+                 </figure>
+
+                  <h3>DART Architechture</h3>
+                  <p><img class="img-fluid" alt="pipeline" width="100%" src="images/arch_new.png"></p>
+                  <p class="lead text-justify">
+                     DART uses an architechture of autoregressive latent diffusion to learn a motion primitive space jointly conditioned on the text prompts and motion history. The encoder and decoder networks are frozen during the training of the denoiser network.
+                  </p> 
+                  <br>
+                  <!-- <br> -->
+                  <p class="lead text-justify">
+                     Illustration of online text-to-motion using DART:
+                  </p>
+                  <figure>
+                     <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                         <source src="videos/rollout.mp4" type="video/mp4">
+                     </video>
+                 </figure>
+                 <p class="lead text-justify">
+                  An example rollout result:
+               </p>
+                  <figure>
+                     <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                         <source src="videos/text_move_cam.mp4" type="video/mp4">
+                     </video>
+                 </figure>
+                 <br>
+                 <br>
+
+                 <h3>Motion control in latent space</h3>
+                 <p class="lead text-justify">
+                  Text-conditioned motion generation offers a user-friendly interface for controlling motions through
+natural language. However, <b>relying solely on text limits precise spatial control</b>, such as walking to
+a specific location or sitting in a designated spot. Therefore, it is necessary to incorporate motion
+control mechanisms to achieve precise spatial goals, including reaching a keyframe body pose,
+following joint trajectories, and interacting with scene objects. 
+<br>
+                  We formulate motion control as a minimization problem, aiming to identify motion sequences that are <b>closest to the spatial objectives while adhering to regularization terms derived from scene and physical constraints</b>.
+                  We explore two methods leveraging the latent motion space of DART to solve this problem: gradient descent-based <font color="blue">latent diffusion noise optimization</font>, and <font color="blue">reinforcement learning </font> with the learned latent action space. 
+               </p>
+                  <center><p><img class="img-fluid" alt="pipeline" width="75%" src="images/latent_control.png"></p></center>
+                  <p class="lead text-center">
+                     Formulation of motion generation with spatial goals and constraints.
+                  </p>
+                  <br>
+                  <br>
+                  <p><img class="img-fluid" alt="opt" width="100%" src="images/opt.png"></p>
+                  <p class="lead text-center">
+                  Algorithm of motion control via latent diffusion noise optimization.
+                  </p>
+                  <br>
+                  <br>
+                  <p><img class="img-fluid" alt="rl" width="100%" src="images/rl_new.png"></p>
+                  <p class="lead text-center">
+                     Illustration of the reinforcement-learning policy-based control.
+                  </p>
+
+                  <!-- <ul class="nav nav-tabs">
+                     <li class="nav-item">
+                     <a class="nav-link active" data-toggle="tab" href="#latent_opt">Latent diffusion noise optimization</a>
+                     </li>
+                     <li class="nav-item">
+                     <a class="nav-link" data-toggle="tab" href="#latent_rl">Reinforcement learning</a>
+                     </li>
+                  </ul>
+
+                  <div class="tab-content">
+                     <div id="latent_opt" class="tab-pane active">
+                        <div>
+                           
+                        </div>
+                     </div>   
+
+                     <div id="latent_rl" class="tab-pane">
+                        <div>
+                           
+                        </div>
+                     </div>   
+                  </div> -->
+                  
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <section id="results-online" class="">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-10 mx-auto">
+                  <h2 class="section-title-tc">Results</h2>
+                  <h3>Text-conditioned temporal motion composition</h3>
+                  <figure>
+                     <video class="centered" width="100%" controls="" muted="" loop=true autoplay=true>
+                         <source src="videos/text_compare.mp4" type="video/mp4">
+                     </video>
+                  </figure>
+                  <h3>Command-line text-driven interactive demo</h3>
+                  <figure>
+                     <video class="centered" width="100%" controls="" muted="" loop=true autoplay=true>
+                        <source src="videos/0927.mp4" type="video/mp4">
+                  </video>
+              </figure>
+
+
+                 
+             
+            <br>
+                 
+           
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <section id="results-opt" class="">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-10 mx-auto">
+                  <h3>Motion control via latent diffusion noise optimization</h3>
+                  <!-- <br> -->
+                  <h4>Text-conditioned motion in-between</h4>
+                  <p class="lead text-justify">
+                     Integrating DART with latent space optimization-based control enables the generation of high-quality intermediate motions that smoothly transition between the keyframes conditioned on the text semantics. 
+                     Our method outperforms the baseline <a href="https://korrawe.github.io/dno-project/">DNO</a>, particularly in terms of <b>semantic alignment with the text prompts</b>.
+                  </p>
+                  <!-- <div class="video-container-3">
+                     <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                        <source src="videos/inbetween/walk our.mp4" type="video/mp4">
+                     </video>
+                  
+                     <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                        <source src="videos/inbetween/jump_ours.mp4" type="video/mp4">
+                     </video>
+                           
+                     <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                        <source src="videos/inbetween/climb down our.mp4" type="video/mp4">
+                     </video>
+                     
+               </div>
+               <div class="caption-container-3">
+                  <div class="caption">"walk"</div>
+                  <div class="caption">"jump forward"</div>
+                  <div class="caption">"climb down stairs"</div>
+               </div> -->
+               <!-- <br> -->
+               
+               <!-- <p class="lead text-justify">
+                  Our method outperforms the baseline <a href="https://korrawe.github.io/dno-project/">DNO</a>, particularly in terms of <b>semantic alignment with the text prompts</b>.
+               </p> -->
+               <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="index.html#pair1">Pace-DNO</a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="index.html#pair2">Dance-DNO</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="tab" href="index.html#pair3">Crawl-DNO</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="tab" href="index.html#pair4">Climb-OmniControl</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="tab" href="index.html#pair5">Crawl-OmniControl</a>
+                  </li>
+               </ul>
+               
+               <!-- Content -->
+               <div class="tab-content">
+                  <div id="pair1" class="tab-pane active">
+                     <div class="video-container-2">
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/cam_ready/pace_our.mp4" type="video/mp4">
+                        </video>
+                        
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/cam_ready/pace_dno.mp4" type="video/mp4">
+                        </video>
+                     </div>
+                     <div class="caption-container">
+                        <div class="caption">Ours</div>
+                        <div class="caption"><a href="https://korrawe.github.io/dno-project/">DNO</a></div>
+                     </div>
+                     <p class="lead text-center">
+                        <b>"A person paces in circles"</b> <br> 20 FPS, duration 4 seconds
+                     </p>
+                  </div>
+
+                  <div id="pair2" class="tab-pane">
+                     <div class="video-container-2">
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/cam_ready/dance_our.mp4" type="video/mp4">
+                        </video>
+                        
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/cam_ready/dance_dno.mp4" type="video/mp4">
+                        </video>
+                     </div>
+                     <div class="caption-container">
+                        <div class="caption">Ours</div>
+                        <div class="caption"><a href="https://korrawe.github.io/dno-project/">DNO</a></div>
+                     </div>
+                     <p class="lead text-center">
+                        <b>"A person dances"</b><br> 20 FPS, duration 4 seconds (initial frame not visualized to reduce occlusion)
+                     </p>
+                  </div>
+
+                  <div id="pair3" class="tab-pane">
+                     <div class="video-container-2">
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/cam_ready/crawl_our.mp4" type="video/mp4">
+                        </video>
+                        
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/cam_ready/crawl_dno.mp4" type="video/mp4">
+                        </video>
+                     </div>
+                     <div class="caption-container">
+                        <div class="caption">Ours</div>
+                        <div class="caption"><a href="https://korrawe.github.io/dno-project/">DNO</a></div>
+                     </div>
+                     <p class="lead text-center">
+                        <b>"A person crawls"</b><br> 20 FPS, duration 4 seconds (initial frame not visualized to reduce occlusion)
+                     </p>
+                  </div>
+
+                  <div id="pair4" class="tab-pane">
+                     <div class="video-container-2">
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/inbetween_20fps/climbdown_our_light.mp4" type="video/mp4">
+                        </video>
+                        
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/inbetween_20fps/climbdown_omnicontrol_light.mp4" type="video/mp4">
+                        </video>
+                     </div>
+                     <div class="caption-container">
+                        <div class="caption">Ours</div>
+                        <div class="caption"><a href="https://neu-vi.github.io/omnicontrol/">OmniControl</a></div>
+                     </div>
+                     <p class="lead text-center">
+                        <b>"A person climbs down stairs"</b><br> 20 FPS, duration 2.25 seconds 
+                     </p>
+                  </div>
+
+                  <div id="pair5" class="tab-pane">
+                     <div class="video-container-2">
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/cam_ready/crawl_our.mp4" type="video/mp4">
+                        </video>
+                        
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/cam_ready/crawl_omnicontrol.mp4" type="video/mp4">
+                        </video>
+                     </div>
+                     <div class="caption-container">
+                        <div class="caption">Ours</div>
+                        <div class="caption"><a href="https://neu-vi.github.io/omnicontrol/">OmniControl</a></div>
+                     </div>
+                     <p class="lead text-center">
+                        <b>"A person crawls"</b> <br> 20 FPS, duration 4 seconds, (initial frame not visualized to reduce occlusion) 
+                     </p>
+                  </div>
+               </div>
+            
+                  <br>
+                  <br>
+                  <h4>Human-scene interaction</h4>
+                  <p class="lead text-justify">
+                  We present preliminary results of synthesizing human-scene interactions by inputting text prompts, scene SDF (signed distance field), and a goal pelvis joint location. The red sphere in the visualizations represents the given goal pelvis joint location.
+                  </p>
+                  <div class="video-container-3">
+                     <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                        <!-- <source src="videos/interaction/sit.mp4" type="video/mp4"> -->
+                        <source src="videos/cam_ready/sit_new_2.mp4" type="video/mp4">
+                     </video>
+                  
+                     <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                        <source src="videos/interaction/climb&#32;up.mp4" type="video/mp4">
+                     </video>
+                           
+                     <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                        <!-- <source src="videos/interaction/climb down 1.mp4" type="video/mp4"> -->
+                        <source src="videos/cam_ready/climb_down_new.mp4" type="video/mp4">
+                     </video> 
+                        
+                  </div>
+                  <div class="caption-container-3">
+                     <div class="caption">walk-turn left-sit on the chair</div>
+                     <div class="caption">climb up stairs</div>
+                     <div class="caption">climb down stairs</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      
+      <section id="results-rl" class="">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-10 mx-auto">
+                  <h3>Motion control via reinforcement learning</h3>
+                  <h4>Text-conditioned waypoint goal reaching</h4>
+                  <p class="lead text-justify">
+                     The waypoint reaching task requires the human agent to sequentially reach dynamically updated goals, each visualized as a yellow torus. A new goal waypoint is given to the human agent only after the current waypoint has been successfully reached.
+                     <!-- <br> -->
+                  </p>
+      
+                  <!-- Tabs -->
+                  <ul class="nav nav-tabs">
+                     <li class="nav-item">
+                     <a class="nav-link active" data-toggle="tab" href="index.html#rl_walk">Walk</a>
+                     </li>
+                     <li class="nav-item">
+                     <a class="nav-link" data-toggle="tab" href="index.html#rl_run">Run</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="index.html#rl_hop">Hop</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="index.html#rl_misc">Misc</a>
+                     </li>
+                  </ul>
+                  
+                  <!-- Content -->
+                  <div class="tab-content">
+                     <div id="rl_walk" class="tab-pane active">
+                        <div class="video-container-2">
+                           <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                              <source src="videos/cam_ready/walk_cam.mp4" type="video/mp4">
+                           </video>
+                           
+                           <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                              <source src="videos/cam_ready/walk_fast.mp4" type="video/mp4">
+                           </video>
+                        </div>
+                        <p class="lead text-center">
+                           Ours: "walk"
+                        </p>
+                     </div>
+      
+                     <div id="rl_run" class="tab-pane">
+                        <div class="video-container-2">
+                           <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                              <source src="videos/cam_ready/run.mp4" type="video/mp4">
+                           </video>
+                           
+                           <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                              <source src="videos/cam_ready/run2.mp4" type="video/mp4">
+                           </video>
+                        </div>
+                        <p class="lead text-center">
+                           Ours: "run"
+                        </p>
+                     </div>
+      
+                     <div id="rl_hop" class="tab-pane">
+                        <div class="video-container-2">
+                           <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                              <source src="videos/cam_ready/hop_cam.mp4" type="video/mp4">
+                           </video>
+            
+                           <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                              <source src="videos/cam_ready/hop1.0.mp4" type="video/mp4">
+                           </video>
+                        </div>
+                        <p class="lead text-center">
+                           Ours: "hop on left leg"
+                        </p>
+                     </div>
+      
+                     <div id="rl_misc" class="tab-pane">
+                        <figure>
+                           <video class="centered" width="100%" controls="" muted="" loop=true autoplay=true>
+                               <source src="videos/cam_ready/diverse_trim.mp4" type="video/mp4">
+                           </video>
+                       </figure>   
+                       <p class="lead text-align">
+                        Random goal-reaching generation results conditioned on the text prompt "walk". The <font color="red">red sphere</font> represents the goal location which is dynamically updated upon reaching. (The time of goal-reaching can be different among sequences. We visulize the goals according to the reaching time of the white body in this video.)
+                        </p>
+                     </div>
+                  </div>
+                  <!-- <div class="video-container-2">
+                     <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                        <source src="videos/goal_reach/walk.mp4" type="video/mp4">
+                     </video>
+                     
+                     <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                        <source src="videos/goal_reach/gamma.mp4" type="video/mp4">
+                     </video>
+                  </div>
+                  <div class="caption-container">
+                     <div class="caption">Ours: "walk"</div>
+                     <div class="caption"><a href="https://yz-cnsdqz.github.io/eigenmotion/GAMMA/">GAMMA</a></div>
+                     </div> -->
+      
+      
+                     <!-- <div class="video-container-2">
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/goal_reach/new/hop1.0.mp4" type="video/mp4">
+                        </video>
+                        
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/goal_reach/new/hop0.5.mp4" type="video/mp4">
+                        </video>
+                     </div>
+                     <p class="lead text-center">
+                        Ours: "hop on left leg" new
+                        </p> -->
+                     
+                     <!-- <div class="video-container-2">
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/goal_reach/random_walk.mp4" type="video/mp4">
+                        </video>
+                     
+                        <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                           <source src="videos/goal_reach/random_run.mp4" type="video/mp4">
+                        </video>
+                     </div>
+                     <div class="caption-container">
+                        <div class="caption">Ours: "walk"</div>
+                        <div class="caption">Ours: "run"</div>
+                     </div> -->
+                     <p class="lead text-justify">
+                        Our method, combining DART with RL-based control, can generate 240 frames per second when tested on a single RTX 4090 GPU.
+                      <!-- and it outperforms the baseline <a href="https://yz-cnsdqz.github.io/eigenmotion/GAMMA/">GAMMA</a> in motion quality and goal reach success rate. -->
+                     Moreover, our method enables the selection of locomotion styles by conditioning the policy with various text prompts, a capability that extends beyond the scope of existing works.
+                     </p>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <section id="results-more" class="">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-10 mx-auto">
+                  <h3>More Results</h3>
+
+                  <h4>Combination with physics-based motion tracking</h4>
+                  <p class="lead text-align">
+                     As a kinematic-based approach, DART may produce physically inaccurate motions with artifacts such as skating and floating. To address this, we demonstrate that DART can be integrated with physically simulated motion tracking methods, specifically <a href="https://www.zhengyiluo.com/PHC-Site/">PHC</a>, to generate more physically plausible motions. 
+                     <br><br>
+                     In the video below, we present an example sequence of a person crawling.
+                     The raw generation results from DART exhibit artifacts such as hand-floor penetration. Applying physics-based tracking to refine the raw motion successfully produces more physically plausible results, improving joint-floor contact and eliminating penetration artifacts. This integration combines the versatile text-driven motion generation of DART with the physical accuracy provided by the physics-based simulation.
+                  </p>
+                  <figure>
+                     <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                        <source src="videos/physics.mp4" type="video/mp4">
+                     </video>
+                  </figure>
+                  
+                  
+                  <h4>Perpetual rollout given the same text prompt</h4>
+                  <p class="lead text-align">
+                                    Our DART can autoregressively generate perpetual rollouts of actions that are inherently repeatable
+                  and extendable. For example, DART can produce minutes-long sequences of continuous human
+                  motion, such as <b>jogging in circles</b>, <b>performing cartwheels</b>, or <b>dancing</b> as shown in the videos below. These actions are inherently
+                  repeatable, and such extensions are also represented in the AMASS dataset.
+                  DART can stably generate minutes-long rollouts of the same action, enabled by its autoregressive
+                  motion primitive modeling and scheduled training scheme. <br>
+                  Some other actions, however, have inherent boundary states that mark the completion of the action.
+                  For instance, <b>“kneel down”</b> reaches a boundary state where the knees achieve contact with the floor, as shown in the tab of <i>Kneel down</i> below.
+                  Further extrapolation of “kneel down” beyond this boundary state is not represented in the dataset and
+                  is not intuitively anticipatable by humans, as no further motion logically extends within the action
+                  semantics. Continuing rollout using the “kneel down” text prompt results in motions exhibiting
+                  fluctuations around the boundary state.
+                  </p>
+                  <ul class="nav nav-tabs">
+                     <li class="nav-item">
+                     <a class="nav-link active" data-toggle="tab" href="index.html#long_jog">Jog</a>
+                     </li>
+
+                     <li class="nav-item">
+                     <a class="nav-link" data-toggle="tab" href="index.html#long_cartwheel">Cartwheel</a>
+                     </li>
+
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="index.html#long_dance">Dance</a>
+                     </li>
+
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="index.html#long_kneel">Kneel down</a>
+                     </li>
+                  </ul>
+
+                  <div class="tab-content">
+                     <div id="long_jog" class="tab-pane active">
+                        <div style="text-align: center;">
+                           <video class="centered" width="50%" controls="" muted="" loop="" autoplay="">
+                              <source src="videos/long/jog_in_circles_30fps.mp4" type="video/mp4">
+                           </video>
+                        </div>
+                        <p class="lead text-center">"jog in circels", 30 FPS</p>
+                     </div>
+
+                     <div id="long_cartwheel" class="tab-pane">
+                        <div style="text-align: center;">
+                           <video class="centered" width="50%" controls="" muted="" loop="" autoplay="">
+                              <source src="videos/long/cartwheel_30fps.mp4" type="video/mp4">
+                           </video>
+                        </div>
+                        <p class="lead text-center">"cartwheel", 30 FPS</p>
+                     </div>
+
+                     <div id="long_dance" class="tab-pane">
+                        <!-- center the video -->
+                        <div style="text-align: center;">
+                           <video class="centered" width="50%" controls="" muted="" loop="" autoplay="">
+                              <source src="videos/long/dance_30fps.mp4" type="video/mp4">
+                           </video>
+                        </div>
+                        <p class="lead text-center">"dance", 30 FPS</p>
+                     </div>
+
+                     <div id="long_kneel" class="tab-pane">
+                        <figure>
+                           <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                              <source src="videos/long/boundary.mp4" type="video/mp4">
+                           </video>
+                        </figure>
+                        <p class="lead text-center">"Kneel down", 30 FPS</p>
+                     </div>
+                  </div>
+                  <p class="lead text-align">
+                     In summary, long rollout results given a single text prompt will repeat naturally or fluctuate around a
+                     boundary state, depending on the inherent nature of the action and its representation in the dataset.
+                  </p>
+
+
+                  <h4>Semantic ambiguity in using coarse sequence label</h4>
+                  <p class="lead text-align">
+                     We demonstrate in the video below an example of random action execution due to semantic ambiguity in using coarse sequence-level text prompts. Given text prompts describing all actions in one sentence, our generated result shows random transitions among actions, disregarding the specified action orders. This issue arises from the semantic ambiguity of using global sequence-level text prompts to guide the generation of short, local motion primitives. The primitive model may generate any one of the actions in the sentence label that is locally feasible, leading to unpredictable transitions.
+
+                     However, we also show in the video below that our method can generate motion results adhering to the intended action order by explicitly decomposing the sentence prompt into a sequence of individual action prompts. This explicit prompt decomposition could potentially be achieved through a hierarchical model design or by leveraging common-sense reasoning in language models, such as GPT-4.
+                  </p>
+                  <figure>
+                     <video class="centered" width="100%" controls="" muted="" loop="" autoplay="">
+                        <source src="videos/limitation.mp4" type="video/mp4">
+                     </video>
+                  </figure>
+                  <p class="lead text-align">
+                     
+                  </p>
+
+                  <h4>Dense and sparse joint control</h4>
+                  <p class="lead text-align">
+                     Examples of dense and sparse joint control using the proposed motion control via latent diffusion noise optimization.
+                  </p>
+                  <ul class="nav nav-tabs">
+                     <li class="nav-item">
+                     <a class="nav-link active" data-toggle="tab" href="index.html#joint_sparse">Sparse</a>
+                     </li>
+
+                     <li class="nav-item">
+                     <a class="nav-link" data-toggle="tab" href="index.html#joint_dense">Dense</a>
+                     </li>
+                  </ul>
+
+                  <div class="tab-content">
+                     <div id="joint_sparse" class="tab-pane active">
+                        <div class="video-container-2">
+                           <video class="centered" width="100%" controls="" muted="" autoplay="">
+                              <source src="videos/joint/punch_our.mp4" type="video/mp4">
+                           </video>
+                           
+                           <video class="centered" width="100%" controls="" muted="" autoplay="">
+                              <source src="videos/joint/punch_omnicontrol.mp4" type="video/mp4">
+                           </video>
+                        </div>
+                        <div class="caption-container">
+                           <div class="caption">Ours</div>
+                           <div class="caption"><a href="https://neu-vi.github.io/omnicontrol/">OmniControl</a></div>
+                        </div>
+                        <p class="lead text-center">
+                           "a person punches", 20 FPS<br>
+                           Joint control: left wrist location at 2s (colored as <font color="red">red</font> dot)
+                        </p>
+                     </div>
+
+                     <div id="joint_dense" class="tab-pane">
+                        <div class="video-container-2">
+                           <video class="centered" width="100%" controls="" muted="" autoplay="">
+                              <source src="videos/joint/wave_our.mp4" type="video/mp4">
+                           </video>
+                           
+                           <video class="centered" width="100%" controls="" muted="" autoplay="">
+                              <source src="videos/joint/wave_omnicontrol.mp4" type="video/mp4">
+                           </video>
+                        </div>
+                        <div class="caption-container">
+                           <div class="caption">Ours</div>
+                           <div class="caption"><a href="https://neu-vi.github.io/omnicontrol/">OmniControl</a></div>
+                        </div>
+                        <p class="lead text-center">
+                           "a person is waving his right hand", 20 FPS<br>
+                           Joint control: right wrist trajectory, 30th-90th frame (colors from dark to <font color="red">red</font> indicate time)
+                        </p>
+                     </div>
+
+                  </div>
+
+               </div>
+            </div>
+         </div>
+      </section>
+
+       <section id="video" class="video-section">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-10 mx-auto">
+                  <h2 class="section-title-tc">Video</h2>
+
+                  <ul class="nav nav-tabs">
+                     <li class="nav-item">
+                     <a class="nav-link active" data-toggle="tab" href="index.html#youtube">Youtube source</a>
+                     </li>
+                     <li class="nav-item">
+                     <a class="nav-link" data-toggle="tab" href="index.html#bilibili">bilibili source</a>
+                     </li>
+                  </ul>
+                  
+                  <!-- Content -->
+                  <div class="tab-content">
+                     <div id="youtube" class="tab-pane active">
+                        <div class="embed-responsive embed-responsive-16by9">
+                           <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Sb8BQhOoOcA?si=t5ZWdCvaebsIwcjm" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                        </div>
+                     </div>
+
+                     <div id="bilibili" class="tab-pane">
+                        <div class="embed-responsive embed-responsive-16by9">
+                           <iframe src="https://player.bilibili.com/player.html?bvid=BV1ds5SzJE6F&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+                        </div>
+                     </div>
+                  </div>
+
+                  
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <section id="citation" class="">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-10 mx-auto">
+                  <h2 class="section-title-tc">Citation</h2>
+<pre style="display: block; background-color: #f5f5f5; border: 1px solid #ccc; border-radius: 4px">
+@inproceedings{Zhao:DartControl:2025,
+   title = {{DartControl}: A Diffusion-Based Autoregressive Motion Model for Real-Time Text-Driven Motion Control},
+   author = {Zhao, Kaifeng and Li, Gen and Tang, Siyu},
+   booktitle = {The Thirteenth International Conference on Learning Representations (ICLR)},
+   year = {2025}
+}</pre>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <!-- <section id="related_projects" class="">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-10 mx-auto">
+	              
+                    
+               </div>
+            </div>
+         </div>
+      </section> -->
+
+      <section id="thanks" class="">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-10 mx-auto">
+	               <h2>Acknowledgements</h2>
+		            <br> We sincerely acknowledge the anonymous reviewers for their insightful feedback. We thank Korrawe Karunratanakul for helpful discussion and suggestions, and Siwei Zhang for meticulous proofreading. This work is supported by the SNSF project grant 200021 204840 and SDSC PhD fellowship.
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <section id="contact" class="">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-10 mx-auto">
+	                <h2>Contact</h2>
+		            <br>For questions, please contact Kaifeng Zhao:<br><a href="mailto:kaifeng.zhao@inf.ethz.ch">kaifeng.zhao@inf.ethz.ch</a>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="py-5 bg-dark">
+         <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; VLG 2025</p>
+             <p style="text-align:right;font-size:small;" class="text-white">
+            template from <a href="https://neuralbodies.github.io/LEAP/index.html">LEAP</a>
+         </div>
+         <!-- /.container -->
+      </footer>
+      <!-- Bootstrap core JavaScript -->
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <!-- Plugin JavaScript -->
+      <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+      <!-- Custom JavaScript for this theme -->
+      <script src="js/scrolling-nav.js"></script>
+   </body>
+</html>

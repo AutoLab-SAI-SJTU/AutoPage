@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>UAV3D: A Large-scale 3D Perception Benchmark for Unmanned Aerial Vehicles</title>
+
+  <!-- Google Tag Manager -->
+  <script async="" src="http://www.google-analytics.com/analytics.js"></script>
+  <script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-THP5XBK"></script>
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+          'gtm.start':
+              new Date().getTime(), event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', 'GTM-THP5XBK');</script>
+  <!-- End Google Tag Manager -->
+
+  <link href="static/css/fontawesome.all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet">
+  <link href="static/css/bulma.min.css" rel="stylesheet">
+  <link href="static/css/index.css" rel="stylesheet">
+
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="https://huiyegit.github.io/UAV3D_Benchmark/static/js/index.js"></script>
+
+  <script>
+      (function (i, s, o, g, r, a, m) {
+          i['GoogleAnalyticsObject'] = r;
+          i[r] = i[r] || function () {
+              (i[r].q = i[r].q || []).push(arguments)
+          }, i[r].l = 1 * new Date();
+          a = s.createElement(o),
+              m = s.getElementsByTagName(o)[0];
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-72422365-1', 'auto');
+      ga('send', 'pageview');
+  </script>
+</head>
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+
+<section class="hero publication-header">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div class="column has-text-centered">
+          
+          <!-- <div class="is-size-6 publication-venue">CVPR 2020</div> -->
+
+            <h3 class="title is-1 publication-title">UAV3D: A Large-scale 3D Perception Benchmark for Unmanned Aerial Vehicles</h3>
+        <div class="column has-text-centered">
+           <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://tcv.gsu.edu/profile/hui-ye/">Hui Ye</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://tinman.cs.gsu.edu/~raj/">Raj Sunderraman</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://sji.soc.uconn.edu">Shihao Ji</a><sup>2</sup>
+              </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Georgia State University,</span>
+            <span class="author-block"><sup>2</sup>University of Connecticut</span>
+          </div>
+
+
+
+          <div class="publication-links">
+          <!-- <span class="link-block link-block-">
+            <a class="external-link button is-small is-rounded is-link" href="https://arxiv.org/pdf/1912.00416.pdf">
+              <span class="icon"> <i class="fas fa-file-pdf"></i> </span>
+              <span>PDF</span>
+            </a>
+          </span> -->
+
+            <span class="link-block link-block-">
+            <a class="external-link button is-small is-rounded is-link" href="https://arxiv.org/abs/2410.11125">
+              <span class="icon"><i class="ai ai-arxiv"></i></span>
+              <span>arXiv</span>
+            </a>
+            </span>
+
+            <span class="link-block link-block-">
+            <a class="external-link button is-small is-rounded is-link" href="https://github.com/huiyegit/UAV3D">
+              <span class="icon"><i class="fas fab fa-github"></i></span>
+              <span>UAV3D Code</span>
+            </a>
+            </span>
+
+            <span class="link-block link-block-">
+              <a class="external-link button is-small is-rounded is-link" href="https://drive.google.com/drive/folders/1dr0TSTDSmWV1FUn_kuXcrG_pMVoPpKuj?usp=share_link">
+                <span class="icon"><i class="fas fa-images"></i></span>
+                <span>UAV3D</span>
+              </a>
+            </span>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted controls playsinline height="100%">
+        <source src="static/videos/uav3d.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">UAV3D</span> Demo
+      </h2>
+    </div>
+  </div>
+</section>
+      
+<section class="section">
+  <div class="container">
+    <div class="content">
+
+      <!-- <div class="columns is-centered"> -->
+        <!-- <div class="column is-two-thirds"> -->
+          <!-- <h2 class="is-2">Video</h2> -->
+          <!-- <div class="publication-video"> -->
+            <!-- <iframe allow="autoplay; encrypted-media" -->
+                    <!-- allowfullscreen frameborder="0" -->
+                    <!-- src="https://www.youtube.com/embed/tlzcq1KYXd8?rel=0&amp;showinfo=0"></iframe> -->
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+
+      <div class="columns is-centered">
+        <!-- <div class="column is-half"> -->
+        <div class="column is-two-thirds">
+          <h2>Introduction</h2>
+          <p> UAV3D is a public large-scale benchmark designed for 3D perception tasks from Unmanned Aerial Vehicle (UAV) platforms. 
+		      This benchmark comprises the synthetic data and 3D perception algorithms, aiming to facilitate research in both single UAV and collaborative UAVs 3D perception tasks.
+          </p>
+          <p>  The UAV3D dataset comprises 1,000 scenes (700 scenes for training, 150 scenes for validation, and 150 scenes for test) with 500k RGB images
+            and 3.3 million 3D boxes. The dataset is organized in the format of nuScenes dataset, with the compatibility to the well-established nuScenes-devkit.
+          </p>
+
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-two-thirds">
+          <img alt="UAV3D dataset" src="static/images/town10.jpg" width="1024"/>
+        </div>
+      </div>
+
+
+      <div class="columns is-centered">
+        <div class="column is-two-thirds">
+          <h2>Scene Planning</h2>
+          <!-- <p>We operate drones in Towns 3, 6, 7, and 10 of CARLA, with Town 10 being particularly known for its dense traffic and highly challenging driving situations. 
+            We emphasize the variations between urban (Towns 3 and 10) and suburban (Towns 6 and 7) settings, particularly in
+            terms of traffic flow, vegetation, architecture, vehicles, and road markings. For each town in CARLA,
+            we have established 25 flight routes to cover a diverse range of locations from the bottom left to the
+            top right of the map.
+          </p> -->
+
+          <div class="content">
+            <ul>
+              <li>  <span style="font-weight: bold;">Locations: </span> urban areas (Towns 3 and 10) and suburban areas (Towns 6 and 7) in Carla.</li>
+              <li>  <span style="font-weight: bold;">Flight routes: </span>  250 routes from the bottom left to the
+                top right of each map. </li>
+              <li>  <span style="font-weight: bold;">Scenes: </span>  700 training, 150 for validation, and 150 for testing.</li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <img alt="UAV3D dataset" src="static/images/town.jpg" width="512"/>
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-two-thirds">
+          <h2>Sensor Setup</h2>
+          <!-- <p>we equip each drone with five RGB cameras to capture
+            both RGB and semantic images. Four of these cameras face the front, left, right, and back with
+            a pitch angle of -45 degrees, while the bottom camera provides a bird’s eye view. The resolution
+            of the images is 800x450 pixels.
+          </p> -->
+          <div class="content">
+            <ul>
+              <li>  <span style="font-weight: bold;">Positions of RGB cameras: </span>    front, left, right, center, and back.</li>
+              <li>  <span style="font-weight: bold;">Rotation angle: </span>  bottom camera provides a bird’s eye view, while the other four are
+                a pitch angle of -45 degrees.</li>
+              <li>  <span style="font-weight: bold;">Resolution: </span>  800x450 pixels.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <img alt="Sensor Setup" src="static/images/sensor.jpg" width="400"/>
+        </div>
+      </div>
+
+
+      <div class="columns is-centered">
+        <div class="column is-two-thirds">
+          <h2>UAV Formation</h2>
+          <!-- <p>We configure a swarm of five UAVs in a cross-shaped
+            formation with the positions at the front, left, right, center, and back, each with 20 meters from
+            the center drone. The swarm of UAVs maintains the formation, while performing perception and
+            collaboration tasks at an altitude of 60 meters.
+          </p>
+          <p>We configure a swarm of five UAVs in a cross-shaped
+            formation with the positions at the front, left, right, center, and back, each with 20 meters from
+            the center drone. The swarm of UAVs maintains the formation, while performing perception and
+            collaboration tasks at an altitude of 60 meters.
+          </p> -->
+
+          <div class="content">
+            <ul>
+              <li>  <span style="font-weight: bold;">Cross-shaped formation: </span>    front, left, right, center, and back.</li>
+              <li>  <span style="font-weight: bold;">Distance: </span>   each with 20 meters from the center drone.</li>
+              <li>  <span style="font-weight: bold;">Altitude: </span>  the UAV swarm maintains an altitude of 60 meters.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <img alt="Sensor Setup" src="static/images/formation.jpg" width="700"/>
+        </div>
+      </div>
+
+
+      <div class="columns is-centered">
+        <div class="column is-two-thirds">
+          <h2>Data Format</h2>
+          <!-- <p>We offer various annotations, including 3D
+             bounding boxes, and pixel-wise semantic labels. Each 3D box is defined by the location of its center 
+             in x, y, and z coordinates, along with dimensions of width, length, height, and orientation angles
+            (yaw, pitch, roll). There are 27 vehicle categories in the dataset. UAV3D comprises 500k images
+            and 3.3 million 3D boxes, divided into training, validation, and test splits. The dataset is organized
+            in a similar format as the popular nuScenes dataset, with the compatibility to the well-established
+            nuScenes-devkit.
+          </p> -->
+
+          <div class="content">
+            <ul>
+              <li>  <span style="font-weight: bold;">Database schema: </span> nuScenes schema.</li>
+              <li>  <span style="font-weight: bold;">Annotations: </span> 3D bounding boxes, pixel-wise semantic labels.</li>
+              <!-- <li>  <span style="font-weight: bold;">Altitude: </span>  the swarm of UAVs maintains an altitude of 60 meters.</li> -->
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="columns is-centered">
+        <div class="column is-two-thirds">
+          <h2>Experiments</h2>
+          <p>We benchmark four standard perception tasks for UAVs: 
+            single-UAV 3D object detection, single-UAV object tracking, 
+            collaborative-UAV 3D object detection, and collaborative-UAV object tracking. 
+          </p>
+          <!-- <p>We configure a swarm of five UAVs in a cross-shaped -->
+            <!-- formation with the positions at the front, left, right, center, and back, each with 20 meters from -->
+            <!-- the center drone. The swarm of UAVs maintains the formation, while performing perception and -->
+            <!-- collaboration tasks at an altitude of 60 meters. -->
+          <!-- </p> --> 
+
+          <!-- <div class="content">
+            <ul>
+              <li>  <span style="font-weight: bold;">Cross-shaped formation: </span>    front, left, right, center, and back.</li>
+              <li>  <span style="font-weight: bold;">Distance: </span>   each with 20 meters from the center drone.</li>
+              <li>  <span style="font-weight: bold;">Altitude: </span>  the UAV swarm maintains an altitude of 60 meters.</li>
+            </ul>
+          </div> -->
+
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <figcaption style="text-align: center; margin-top: 0px;">Table 1: 3D object detection results on the validation set of UAV3D.</figcaption>
+          <img alt="detection" src="static/images/detection.png" width="1200"/>
+          
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <figcaption style="text-align: center; margin-top: 1px;">Table 2: 3D object tracking results on the validation set of UAV3D.</figcaption>
+          <img alt="tracking" src="static/images/tracking.png" width="1200"/>
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <!-- <div class="column is-half"> -->
+        <div class="column is-half" style="display: flex; flex-direction: column; align-items: center;">
+          <figcaption style="text-align: center; margin-top: 0px;">Table 3: Collaborative 3D object detection results on the validation set of UAV3D.</figcaption>
+          <img alt="detection" src="static/images/detection_com.png" width="500"/>
+          
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <!-- <div class="column is-half"> -->
+        <div class="column is-half" style="display: flex; flex-direction: column; align-items: center;">
+          <figcaption style="text-align: center; margin-top: 1px;">Table 4: Collaborative 3D object tracking results on the validation set of UAV3D.</figcaption>
+          <img alt="tracking" src="static/images/tracking_com.png" width="500"/>
+        </div>
+      </div>
+
+      <!-- <div class="columns is-centered">
+        <div class="column is-half">
+          <img alt="Sensor Setup" src="./static/images/tracking.png" width="700"/>
+        </div>
+      </div> -->
+
+
+      <div class="columns is-centered">
+        <div class="column is-two-thirds">
+          <div class="publication-body">
+            <h2 class="is-2">Code</h2> 
+            <p>You can find our code from <a href="https://github.com/huiyegit/UAV3D">Github</a>.</p>
+            <h2 class="is-2">Dataset</h2>
+            <div class="columns">
+              <!-- <div class="column is-half"> -->
+                <!-- <img alt="MOPED dataset" src="./static/images/background.jpg"/> -->
+              <!-- </div> -->
+              <div class="column">
+                <p>The dataset is available for download from <a
+                    href="https://drive.google.com/drive/folders/1dr0TSTDSmWV1FUn_kuXcrG_pMVoPpKuj?usp=share_link">Google Drive</a> or <a
+                    href="https://pan.baidu.com/s/1qou0C-WXDfFpvih5OmFnVg?pwd=a6ha#list/path=%2F">Baidu Netdisk</a>.
+                </p>
+              </div>
+            </div>
+            <h2 class="is-2">Citation</h2>
+            <p>If you find the UAV3D dataset and/or code useful, please consider citing this paper.</p>
+            <pre><code class="lang-bibtex">@inproceedings{uav3d2024,
+    title={UAV3D: A Large-scale 3D Perception Benchmark for Unmanned Aerial Vehicles},
+    author={Hui Ye and Raj Sunderraman and Shihao Ji},
+    booktitle={The 38th Conference on Neural Information Processing Systems (NeurIPS)},
+    year={2024}
+}</code></pre>
+
+            <h3 class="is-3">Acknowledgement</h3>
+              <p>The software and data were created by Georgia State University Research Foundation under 
+			  Army Research Laboratory (ARL) Award Numbers W911NF-22-2-0025 and W911NF-23-2-0224. ARL, 
+			  as the Federal awarding agency, reserves a royalty-free, nonexclusive and irrevocable right 
+			  to reproduce, publish, or otherwise use this software for Federal purposes, and to authorize 
+			  others to do so in accordance with 2 CFR 200.315(b).</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <footer class="footer"> -->
+  <!-- <div class="container"> -->
+    <!-- <div class="content has-text-centered"> -->
+      <!-- <a href="mailto:46Aik2sugTKFHX92@keunhong.com"> -->
+        <!-- <i class="fas fa-envelope"></i> -->
+      <!-- </a> -->
+      <!-- <a class="external-link" href="https://github.com/keunhong"> -->
+        <!-- <i class="fab fa-github"></i> -->
+      <!-- </a> -->
+      <!-- <a class="external-link" -->
+         <!-- href="https://scholar.google.com/citations?hl=en&view_op=list_works&gmla=AJsN-F6ma662dZahhSxXWh4usLcc9Y_4mLjlVZIydlL0F9lJgXde_tlP9Cws3dnoyrqppSz81tUGCG-RqawbVWHuOyy9PdPm3iZuxDLbCuYMem8YLzTQ1VA&user=HVZb-5oAAAAJ"> -->
+        <!-- <i class="ai ai-google-scholar"></i> -->
+      <!-- </a> -->
+    <!-- </div> -->
+<!-- </footer> -->
+
+
+</body>
+</html>

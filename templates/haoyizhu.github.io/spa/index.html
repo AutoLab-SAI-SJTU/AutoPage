@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="SPA is a novel framework that enhances 3D spatial awareness in embodied AI representation learning, outperforming existing models across 268 tasks and 8 simulators.">
+  <meta name="keywords" content="SPA, Embodied AI, Representation Learning, Robot Learning, 3D Spatial Awareness, Neural Rendering, Multi-View Image">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SPA: 3D Spatial-Awareness Enables Effective Embodied Representation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="icon" href="https://haoyizhu.github.io/spa/static/images/loopy_spa.jpg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <style>
+    .pink {
+      color: #FF7096;
+    }
+    .logo {
+      height: 50px; /* Smaller size */
+      margin-right: 5px;
+    }
+    h2.title.is-3 {
+      color: #FF7096;
+    }
+    h3.title.is-4 {
+      color: #FF7096;
+      text-align: center;
+    }
+    /* Styling for the specific experiment videos */
+    .experiment-video-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .experiment-video-category {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .experiment-video-category h3 {
+      margin-bottom: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .experiment-video-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .experiment-video-item {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    /* Apply styles only to the experiment videos */
+    .experiment-video-1 {
+      width: 210px;
+      height: auto;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+    }
+    .experiment-video-2 {
+      width: 215px;
+      height: auto;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>  
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://www.haoyizhu.site/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://haoyizhu.github.io/pcm/">
+            PointCloudMatters
+          </a>
+          <a class="navbar-item" href="https://github.com/OpenGVLab/PonderV2">
+            PonderV2
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title jumbotron-heading">
+            <img src="static/images/loopy_spa.png" alt="Logo" class="logo">
+            <span class="pink"> SPA</span>: 3D <span class="pink">SP</span>atial-<span class="pink">A</span>wareness Enables <br> 
+            Effective Embodied Representation
+          </h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://www.haoyizhu.site/">Haoyi Zhu</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://hhyangcs.github.io/">Honghui Yang</a><sup>1,3</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=5SuBWh0AAAAJ">Yating Wang</a><sup>1,4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://yangjiangeyjg.github.io/">Jiange Yang</a><sup>1,5</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://wanglimin.github.io/">Limin Wang</a><sup>1,5</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://tonghe90.github.io/">Tong He</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Shanghai AI Lab,</span>
+            <span class="author-block"><sup>2</sup>University of Science and Technology of China,</span><br>
+            <span class="author-block"><sup>3</sup>Zhejiang University,</span>
+            <span class="author-block"><sup>4</sup>Tongji University,</span>
+            <span class="author-block"><sup>5</sup>Nanjing University,</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://haoyizhu.github.io/spa/static/images/paper.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2410.08208"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/HaoyiZhu/SPA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Twitter Link. -->
+              <span class="link-block">
+                <a href="https://x.com/HaoyiZhu/status/1844675411760013471"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fa-brands fa-x-twitter"></i>
+                  </span>
+                  <span>Twitter/X</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+        free-viewpoint
+        portraits.
+      </h2>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <video id="teaser" autoplay controls muted loop preload playsinline width="100%">
+        <source src="static/videos/teaser_v3.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="pink"><b>SPA</b></span> conducts the largest-scale evaluation
+        of embodied representation learning to date, <br>
+        encompassing <b>268</b> tasks across <b>8</b> simulators
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" >Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            In this paper, we introduce SPA, a novel representation learning framework that
+            emphasizes the importance of 3D spatial awareness in embodied AI. 
+            Our approach leverages differentiable neural rendering on multi-view images 
+            to endow a vanilla Vision Transformer (ViT) with intrinsic spatial understanding. 
+            We present the most comprehensive evaluation of embodied representation learning 
+            to date, covering 268 tasks across 8 simulators with diverse policies in both 
+            single-task and language-conditioned multi-task scenarios. The results are 
+            compelling: SPA consistently outperforms more than 10 state-of-the-art 
+            representation methods, including those specifically designed for embodied AI, 
+            vision-centric tasks, and multi-modal applications, while using less training data. 
+            Furthermore, we conduct a series of real-world experiments to confirm its 
+            effectiveness in practical scenarios. These results highlight the critical role 
+            of 3D spatial awareness for embodied representation learning. Our strongest model 
+            takes more than 6000 GPU hours to train and we are committed to open-sourcing all 
+            code and model weights to foster future research in embodied representation learning.
+          </p>
+          <img src="static/images/radar.png"
+                 class="interpolation-image"
+                 alt="Radar image."/>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Methodology</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            Given a set of multi-view images as input, we first mask out them and use a ViT with an upsampler 
+            to extract feature maps. Subsequently, we construct an explicit feature volume from these multi-view
+            features. Finally, RGB-D images and feature maps are rendered from the feature volume for loss computation.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 loop
+                 preload
+                 playsinline
+                 width="100%">
+            <source src="static/videos/spa_pretrain.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Large-Scale Embodied Evaluation</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            We conduct the largest-scale evaluation of embodied representation learning to date. 
+            Our study encompasses 268 tasks across 8 simulators, including both single-task 
+            and language-conditioned multi-task settings. We evaluate diverse policy architectures 
+            and assess various state-of-the-art representation methods. This thorough evaluation
+            allows us to provide a comprehensive and unbiased analysis of different representations.
+          </p>
+          <img src="static/images/evaluation.png"
+            class="interpolation-image"
+            alt="Evaluation image."/>
+          
+        </div>
+        <div class="content has-text-centered">
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Evidence on 3D Awareness</h2>
+
+        <div class="content has-text-justified">
+          <!-- <p>
+            We provide both quantitative and qualitative evidence to demonstrate that SPA has acquired 3D awareness.
+          </p> -->
+          <h3 class="title is-4">Qualitative Analysis</h3>
+          <p>
+            For qualitative analysis, we visualize the zero-shot feature maps on multiview images of different encoder output.
+            The features produced by SPA are cleaner and more coherent, demonstrating its 3D awareness.
+          </p>
+          <img src="static/images/feature_map.png"
+            class="interpolation-image"
+            alt="Feature map."/>
+
+          <h3 class="title is-4">Quantitative Analysis</h3>
+          <p>
+            For quantitative analysis, we evaluate the zero-shot 3D awareness of various methods using a camera pose estimation task.
+            We identify a clear positive correlation between camera pose estimation and embodied evaluation performance.
+          </p>
+          <img src="static/images/camera_pose.png"
+            class="interpolation-image"
+            alt="Camera pose."/>
+          
+        </div>
+        <div class="content has-text-centered">
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Real-World Experiments</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            We conduct 3 real-world experiments: picking cube, stacking cube and folding cloth. 
+            The pre-trained SPA representation serves as a powerful frozen encoder, 
+            surpassing previous SOTA representation learning methods.
+          </p>
+        </div>
+
+        <!-- First row: Pick and Stack videos in the same line -->
+        <div class="experiment-video-row">
+          <!-- Pick videos -->
+          <div class="experiment-video-category">
+            <h3 class="title is-4">Picking Cube</h3>
+            <div class="experiment-video-list">
+              <div class="experiment-video-item">
+                <video class="experiment-video-1" autoplay controls muted loop playsinline>
+                  <source src="static/videos/pick_1.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div class="experiment-video-item">
+                <video class="experiment-video-1" autoplay controls muted loop playsinline>
+                  <source src="static/videos/pick_2.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stack videos -->
+          <div class="experiment-video-category">
+            <h3 class="title is-4">Stacking Cube</h3>
+            <div class="experiment-video-list">
+              <div class="experiment-video-item">
+                <video class="experiment-video-1" autoplay controls muted loop playsinline>
+                  <source src="static/videos/stack_1.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div class="experiment-video-item">
+                <video class="experiment-video-1" autoplay controls muted loop playsinline>
+                  <source src="static/videos/stack_2.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Second row: Fold videos -->
+        <div class="experiment-video-category">
+          <h3 class="title is-4">Folding Cloth</h3>
+          <div class="experiment-video-list">
+            <div class="experiment-video-item">
+              <video class="experiment-video-2" autoplay controls muted loop playsinline>
+                <source src="static/videos/fold_1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="experiment-video-item">
+              <video class="experiment-video-2" autoplay controls muted loop playsinline>
+                <source src="static/videos/fold_2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="experiment-video-item">
+              <video class="experiment-video-2" autoplay controls muted loop playsinline>
+                <source src="static/videos/fold_3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="experiment-video-item-2">
+              <video class="experiment-video-2" autoplay controls muted loop playsinline>
+                <source src="static/videos/fold_4.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      
+      <figcaption>Fully Autonomous</figcaption>
+
+
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{zhu2024spa,
+  title = {SPA: 3D Spatial-Awareness Enables Effective Embodied Representation},
+  author = {Zhu, Haoyi and and Yang, Honghui and Wang, Yating and Yang, Jiange and Wang, Limin and He, Tong},
+  journal = {arXiv preprint arxiv:2410.08208},
+  year = {2024},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+          <p>
+            Website source based on this <a href="https://github.com/nerfies/nerfies.github.io">source code</a>. We also incorporated design elements from <a href="https://diffusion-with-forward-models.github.io/">DFM</a>.
+          </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,411 @@
+<script src="http://www.google.com/jsapi" type="text/javascript"></script> 
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+		<!-- font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;  -->
+<style type="text/css">
+	body {
+		font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+		font-weight:300;
+		font-size:26px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 1400px;
+	}
+	
+	h1 {
+		font-size:32px;
+		font-weight:300;
+	}
+	
+	.disclaimerbox {
+		background-color: #eee;		
+		border: 1px solid #eeeeee;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+		padding: 20px;
+	}
+
+	video.header-vid {
+		height: 140px;
+		border: 1px solid black;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+	
+	img.header-img {
+		height: 140px;
+		border: 1px solid black;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+	
+	img.rounded {
+		border: 1px solid #eeeeee;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+	
+	a:link,a:visited
+	{
+		color: #1367a7;
+		text-decoration: none;
+	}
+	a:hover {
+		color: #208799;
+	}
+	
+	td.dl-link {
+		height: 160px;
+		text-align: center;
+		font-size: 22px;
+	}
+	
+	.layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		5px 5px 0 0px #fff, /* The second layer */
+		5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		10px 10px 0 0px #fff, /* The third layer */
+		10px 10px 1px 1px rgba(0,0,0,0.35), /* The third layer shadow */
+		15px 15px 0 0px #fff, /* The fourth layer */
+		15px 15px 1px 1px rgba(0,0,0,0.35), /* The fourth layer shadow */
+		20px 20px 0 0px #fff, /* The fifth layer */
+		20px 20px 1px 1px rgba(0,0,0,0.35), /* The fifth layer shadow */
+		25px 25px 0 0px #fff, /* The fifth layer */
+		25px 25px 1px 1px rgba(0,0,0,0.35); /* The fifth layer shadow */
+		margin-left: 10px;
+		margin-right: 45px;
+	}
+
+	.paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		0px 0px 1px 1px rgba(0,0,0,0.35); /* The top layer shadow */
+
+		margin-left: 10px;
+		margin-right: 45px;
+	}
+
+
+	.layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		5px 5px 0 0px #fff, /* The second layer */
+		5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		10px 10px 0 0px #fff, /* The third layer */
+		10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+		margin-top: 5px;
+		margin-left: 10px;
+		margin-right: 30px;
+		margin-bottom: 5px;
+	}
+	
+	.vert-cent {
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	
+	hr
+	{
+		border: 0;
+		height: 1px;
+		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+	}
+</style>
+
+<html>
+<head>
+	<title>Scaling transformer neural networks for skillful and reliable medium-range weather forecasting</title>
+	<meta property="og:image" content="./resources/cover.pdf"/> <!-- Facebook automatically scrapes this. Go to https://developers.facebook.com/tools/debug/ if you update and want to force Facebook to rescrape. -->
+	<meta property="og:title" content="Scaling transformer neural networks for skillful and reliable medium-range weather forecasting" />
+	<meta property="og:description" content="Scaling transformer neural networks for skillful and reliable medium-range weather forecasting" />
+
+	<!-- Get from Google Analytics -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="index.html"></script> 
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-75863369-6');
+	</script>
+</head>
+
+<body>
+	<br>
+	<center>
+		<span style="font-size:36px">Scaling transformer neural networks for <br> skillful and reliable medium-range weather forecasting</span>
+		<br>
+		<br>
+		<table align=center width=1500px>
+			<table align=center width=1200px>
+				<tr>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:26px"><a href="https://tung-nd.github.io/">Tung Nguyen</a></span>
+						</center>
+					</td>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:26px"><a href="https://www.linkedin.com/in/rohan-shah13/">Rohan Shah</a></span>
+						</center>
+					</td>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:26px"><a href="https://sites.google.com/view/hbansal">Hritik Bansal</a></span>
+						</center>
+					</td>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:26px"><a href="https://scholar.google.com/citations?user=SBeD6doAAAAJ&hl=en">Troy Arcomano</a></span>
+						</center>
+					</td>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:26px"><a href="https://www.anl.gov/profile/sandeep-r-madireddy">Sandeep Madireddy</a></span>
+						</center>
+					</td>
+					<!-- <br></tr> -->
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:26px"><a href="https://romit-maulik.github.io/">Romit Maulik</a></span>
+						</center>
+					</td>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:26px"><a href="https://www.anl.gov/profile/rao-kotamarthi">Rao Kotamarthi</a></span>
+						</center>
+					</td>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:26px"><a href="https://cs.uchicago.edu/people/ian-foster/">Ian <br> Foster</a></span>
+						</center>
+					</td>
+					<td align=center width=100px>
+						<center>
+							<span style="font-size:26px"><a href="https://aditya-grover.github.io/">Aditya Grover</a></span>
+						</center>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<table align=center width=500px>
+
+				<tr>
+					<td align=center width=120px>
+						<center>
+							<span style="font-size:26px"><a href='https://arxiv.org/abs/2312.03876'>[Paper]</a></span>
+						</center>
+					</td>
+					<td align=center width=120px>
+						<center>
+							<span style="font-size:26px"><a href='https://github.com/tung-nd/Stormer'>[GitHub]</a></span><br>
+						</center>
+					</td>
+					<td align=center width=120px>
+						<center>
+							<span style="font-size:26px"><a href='https://tung-nd.github.io/Stormer/'>[Demo]</a></span><br>
+						</center>
+					</td>
+				</tr>
+			</table>
+		</table>
+	</center>
+	<center>
+		<span style="font-size:26px"> <i>Preprint</i></span>
+	</center>
+	<center>
+		<br>
+		<table align=center width=1000px style="font-size:20px">
+			<tr>
+				<td width=400px>
+					<center>
+						<img style="width:1000px; height:auto; margin-bottom: 15px;" src="resources/cover.jpg"/>
+						<!-- <object type="application/pdf" data="./resources/cover.jpg" width="1000px"></object> -->
+					</center>
+				</td>
+			</tr>
+			<br>
+			<td style="text-align: justify;">
+				Illustration of an example 5-day forecast of near-surface wind speed (color-fill) and mean sea level
+				pressure (contours). On December 31, 2020, an extratropical cyclone impacted Alaska setting a new North
+				Pacific low-pressure record. Here, we evaluate the ability of Stormer to predict this record-breaking event 5
+				days in advance. Using initial conditions from 0000 UTC, 26 December 2011, Stormer was able to successfully
+				forecast both the location and strength of this extreme event with great accuracy.
+			</td>
+		</table>
+
+	</center>
+
+	<hr>
+
+	<table align=center width=1000px style="font-size:20px">
+		<center><h1>Abstract</h1></center>
+		<tr>
+			<td style="text-align: justify;">
+				Weather forecasting is a fundamental problem for anticipating and mitigating the impacts
+				of climate change. Recently, data-driven approaches for weather forecasting based on deep
+				learning have shown great promise, achieving accuracies that are competitive with operational
+				systems. However, those methods often employ complex, customized architectures without
+				sufficient ablation analysis, making it difficult to understand what truly contributes to their
+				success. Here we introduce Stormer, a simple transformer model that achieves state-of-the-
+				art performance on weather forecasting with minimal changes to the standard transformer
+				backbone. We identify the key components of Stormer through careful empirical analyses,
+				including weather-specific embedding, randomized dynamics forecast, and pressure-weighted
+				loss. At the core of Stormer is a randomized forecasting objective that trains the model to
+				forecast the weather dynamics over varying time intervals. During inference, this allows us to
+				produce multiple forecasts for a target lead time and combine them to obtain better forecast
+				accuracy. On WeatherBench 2, Stormer performs competitively at short to medium-range
+				forecasts and outperforms current methods beyond 7 days, while requiring orders-of-magnitude
+				less training data and compute. Additionally, we demonstrate Stormer’s favorable scaling
+				properties, showing consistent improvements in forecast accuracy with increases in model size
+				and training tokens. Code and checkpoints will be made available.
+			</td>
+		</tr>
+	</table>
+	<br>
+
+	<hr>
+
+
+	<table align=center width=1000px style="font-size:20px">
+		<center><h1>Reliable Weather Forecasts Via Randomized Iterative Forecasting</h1></center>
+		<tr>
+			<td width=300px>
+				<center>
+					<img class="round" style="width:600px; margin-bottom: 15px;" src="resources/approach.png"/>
+				</center>
+			</td>
+		</tr>
+		<!-- <br> -->
+		<tr> 
+			<td width=300px style="text-align: justify;">
+				The key innovation of Stormer is a randomized forecasting objective that trains the model to forecast the weather dynamics over varying time intervals of 6, 12, and 24 hours.
+				The 6 and 12-hour values help to encourage the model to learn and resolve the
+				diurnal cycle (day-night cycle), one of the most important oscillations in the atmosphere driving short-term
+				dynamics, while the 24-hour value filters the effects of the diurnal cycle and allows the model to learn longer, synoptic-scale dynamics.
+				This objective enables a single model, once trained, to generate various forecasts for a specified lead time 𝑇 and combine them to obtain better forecast
+				accuracy.
+			</td>
+		</tr>
+	</table>
+	<br> 
+
+	<hr> 
+
+	<table align=center width=1000px style="font-size:20px">
+			<center><h1>Model Architecture</h1></center>
+		<tr>
+			<td width=300px>
+				<center>
+					<img class="round" style="width:700px; margin-bottom: 15px;" src="resources/arc.png"/>
+				</center>
+			</td>
+		</tr>
+		<!-- <br> -->
+		<tr> 
+			<td width=300px style="text-align: justify;">
+				<!-- ExPT has an encoder-decoder architecture. A transformer-based encoder takes in context points <i>(y<sub>1</sub>,x<sub>1</sub>), ... (y<sub>m</sub>, x<sub>m</sub>)</i> as well as target <i>y</i> values <i> y<sub>m+1</sub>, ... , y<sub>N</sub> </i>to produce embeddings <i>h<sub>m+1</sub>, ... , h<sub>N</sub></i>. Then a VAE decoder generates designs <i>x<sub>m+1</sub>, ... , x<sub>N</sub></i> corresponding to the target objective values.  -->
+				Stormer architecture consists of two components, a weather-specific embedding and the Stormer backbone. 
+				The weather-specific embedding module embeds the input <i>𝑋<sub>0</sub> ∈ R<sup>𝑉×𝐻×W</sup></i> to a sequence of <i>(H/p) × (W/p)</i> tokens, while modeling the non-linear interactions between climate variables in the input.
+				The tokens are fed to the Stormer backbone together with the time interval embedding 𝛿𝑡, and finally go through a linear and reshape module to produce the dynamics forecast.
+				Each Stormer block employs adaptive layer normalization to condition on 𝛿𝑡. 
+			</td>
+		</tr>
+	</table>
+	<br> 
+
+	<hr> 
+
+	<center><h1>Empirical Highlights</h1></center>
+	<table align=center width=1000px style="font-size:20px">
+		<tr> 
+			<td width=300px style="text-align: justify;">
+				We evaluate the performance of Stormer on Weatherbench 2 using RMSE (top) and ACC (bottom) metrics. For short-range, 1–5 day forecasts, Stormer accuracy is on par with Pangu-Weather and GraphCast. 
+				At longer lead times, Stormer excels, consistently outperforming both baseline methods from day 6 onwards by a large margin. Moreover, the performance gap increases as we increase
+				the lead time. At 14 day forecasts, Stormer performs better than GraphCast by 10% − 20% across all 9 key variables.
+				Stormer is also the only model in this comparison that performs better than Climatology at long lead times, while other methods approach or even do worse than this simple baseline.
+			</td>
+		</tr>
+		<tr style="height: 15px;">
+			<td></td>
+		</tr>
+		<tr>
+			<td width=1000px>
+				<center>
+					<img style="width:1000px; height:auto;" src="resources/main_rmse.jpg"/>
+				</center>
+			</td>
+		</tr>
+		<tr> 
+			<td width=300px style="text-align: center; font-size:20px">
+				Comparison with the deep learning baselines on Root Mean Squared Error (RMSE) metric. Lower RMSE is better.
+			</td>
+		</tr>
+		<tr style="height: 40px;">
+			<td></td>
+		</tr>
+		<tr>
+			<td width=1000px>
+				<center>
+					<img style="width:1000px; height:auto;" src="resources/main_acc.jpg"/>
+				</center>
+			</td>
+		</tr>
+		<tr> 
+			<td width=300px style="text-align: center; font-size:20px">
+				Comparison with the deep learning baselines on Anomaly Correlation Coefficient (ACC) metric. Higher ACC is better.
+			</td>
+		</tr>
+	</table>
+	
+	<!-- <br>  -->
+
+
+	<!-- Further details about these experiments as well as other experimental setups, such as synthetic tasks, multi-objective tasks, and ablation studies comparing forward and inverse modeling can be found in Section 3 of the paper.   -->
+
+	<hr> 
+
+
+	<table align=center width=750 style="font-size:20px">
+		<center><h1>BibTeX</h1></center>
+		<tr>
+			<td><a href="index.html"><img class="layered-paper-big" style="height:250px" src="resources/first_page.jpg"/></a></td>
+			<td><span style="font-size:20px">Tung Nguyen, Rohan Shah, Hritik Bansal, Troy Arcomano, Sandeep Madireddy, Romit Maulik, Rao Kotamarthi, Ian Foster, Aditya Grover<br>
+				<b>Scaling transformer neural networks for <br> skillful and reliable medium-range weather forecasting</b><br>
+				Preprint, 2023.<br>
+				<!-- (<a href="./resources/camera-ready.pdf">camera ready</a>)<br> -->
+				<br>
+				If you find our work useful, please consider citing us using the following BibTeX: 
+			</td>
+		</tr>
+	</table>
+	<table align=center width=600px>
+		<tr>
+			<td><span style="font-size:24px"><center>
+				<a href="https://tung-nd.github.io/stormer/resources/bibtex.txt">[BibTeX]</a>
+			</center></td>
+		</tr>
+	</table>
+
+	<hr>
+	<br>
+
+	<table align=center width=900px style="font-size:20px">
+		<tr>
+			<td width=400px>
+				<center>
+					This website was made using a template which can be found <a href="https://github.com/richzhang/webpage-template">here</a>. 
+				</center>
+			</td>
+		</tr>
+	</table>
+
+<br>
+</body>
+</html>
+

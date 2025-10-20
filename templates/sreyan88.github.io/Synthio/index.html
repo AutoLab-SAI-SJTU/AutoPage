@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Synthio - Research Paper</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://sreyan88.github.io/Synthio/helper-v2.js" defer=""></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html#">Synthio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html#abstract">Abstract</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#methodology">Methodology</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#results">Results</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#download">Download</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="text-center text-light bg-dark py-5">
+        <div class="container">
+            <h1 class="display-4">Synthio: Augmenting Small-Scale Audio Classification</h1>
+            <p class="lead">A Novel Approach for Enhancing Audio Classification with Synthetic Data</p>
+        </div>
+    </header>
+
+    <!-- Author Section -->
+    <section class="text-center my-4">
+        <div class="container">
+            <h3 class="section-title">Authors</h3>
+            <p><strong>Sreyan Ghosh<sup>♦♠*</sup></strong> &nbsp; 
+               <strong>Sonal Kumar<sup>♠*</sup></strong> &nbsp; 
+               <strong>Zhifeng Kong<sup>♦</sup></strong> &nbsp; 
+               <strong>Rafael Valle<sup>♦</sup></strong> &nbsp; 
+               <strong>Bryan Catanzaro<sup>♦</sup></strong> &nbsp; 
+               <strong>Dinesh Manocha<sup>♠</sup></strong>
+            </p>
+            <p class="affiliations">
+                <sup>♦</sup> NVIDIA, CA, USA &nbsp;&nbsp;
+                <sup>♠</sup> University of Maryland, College Park, USA &nbsp;&nbsp;
+                <sup>*</sup> Equal Technical Contribution
+            </p>
+        </div>
+    </section>
+
+    <div class="button-container">
+        <a href="https://openreview.net/forum?id=bR1J7SpzrD" class="button">
+            <i class="fas fa-file-pdf"></i> Paper
+        </a>
+        <a href="https://github.com/Sreyan88/Synthio" class="button">
+            <i class="fab fa-github"></i> Code
+        </a>
+        <!-- <a href="" class="button">
+            <i class="fas fa-database"></i> Dataset
+        </a> -->
+
+    </div>
+
+
+    <!-- Abstract Section -->
+    <section id="abstract" class="container my-5">
+        <h2 class="section-title">Abstract</h2>
+        <p class="text-justify"><p>We present <strong>Synthio</strong>, a novel approach for augmenting small-scale audio<sup><a href="index.html#footnote1">[1]</a></sup> classification datasets with synthetic data. Our goal is to improve audio classification accuracy with limited labeled data. Traditional data augmentation techniques, which apply artificial transformations (e.g., adding random noise or masking segments), struggle to create data that captures the true diversity present in real-world audios.</p>
+
+        <p>To address this shortcoming, we propose to augment the dataset with synthetic audio generated from text-to-audio (T2A) diffusion models. However, synthesizing effective augmentations is challenging because not only should the generated data be <em>acoustically consistent</em> with the underlying small-scale dataset, but they should also have sufficient <em>compositional diversity</em>.</p>
+    
+        <p>To overcome the first challenge, we align the generations of the T2A model with the small-scale dataset using preference optimization. This ensures that the acoustic characteristics of the generated data remain consistent with the small-scale dataset.</p>
+    
+        <p>To address the second challenge, we propose a novel caption generation technique that leverages the reasoning capabilities of Large Language Models to:</p>
+        <ol>
+            <li>Generate diverse and meaningful audio captions.</li>
+            <li>Iteratively refine their quality.</li>
+        </ol>
+    
+        <p>The generated captions are then used to prompt the aligned T2A model. We extensively evaluate Synthio on ten datasets and four simulated limited-data settings. Results indicate our method consistently outperforms all baselines by 0.1%–39% using a T2A model trained only on weakly-captioned AudioSet.</p>
+    
+        <p class="footnote" id="footnote1"><strong>[1]</strong> We use “audio” to refer to acoustic events comprising non-verbal speech, non-speech sounds, and music.</p>
+    </p>
+    </section>
+
+    <!-- Methodology -->
+    <section id="methodology" class="container my-5">
+        <h2 class="section-title">Methodology</h2>
+        <p>Synthio leverages Text-to-Audio (T2A) models to generate synthetic data. We apply preference optimization to align generated audio with small-scale datasets...</p>
+        <img src="static/methodology_synthio.png" alt="Methodology Diagram" class="img-fluid shadow rounded">
+    </section>
+
+    <!-- Results -->
+    <section id="results" class="container my-5">
+        <h2 class="section-title">Results & Evaluation</h2>
+        <p>Our experiments demonstrate that Synthio outperforms traditional augmentation techniques by up to 39%. Below is a comparison of our method with existing techniques:</p>
+        <img src="static/result_chart.png" alt="Results Chart" class="img-fluid shadow rounded">
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center bg-dark text-light py-3">
+        <p>&copy; 2024 Synthio | <a href="https://github.com/Sreyan88/Synthio" class="text-light">GitHub</a></p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

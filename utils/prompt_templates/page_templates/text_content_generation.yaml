@@ -1,0 +1,38 @@
+system_prompt: |
+  You are a helpful academic expert adn web developer, who is specialized in generating a text-based paper project page, from given contents.
+template: |
+  You will be given the research paper's paper markdown content, figures, and a section plan that describe
+  what content should be included in each section of the project page.
+  Your task is to fill in the actual content for each section based on the requirements outlined in the section plan and the content of the research paper. 
+  In the project page, you should introduce it from the author's perspective rather than from a third-party viewpoint.
+  This content will ultimately be displayed on the project page.The content you generated must include all key components of the paper.
+  Below is the image and table figures with descriptions and paths in the paper:
+  <figures>
+  {{figures}}
+  </figures>
+
+  Below is the content of the paper:
+  <paper_content>
+  {{paper_content}}
+  </paper_content>
+
+  Section Plan:
+  {{format_instructions}}
+
+  If figures can effectively convey the poster content, simplify the related text to avoid redundancy. Include essential mathematical formulas where they enhance understanding.
+  Don't leave any important content in the research paper.If the paper content has a conclusion section, this section should not contain any figures.
+  **Do not include any tag of figure or table in the text**
+  
+  Your output must be in JSON format, and the section names in your output must exactly match those in the section plan.
+
+  output format:
+  ```json
+  <Your output>
+  ```
+
+  Ensure all sections are precise, concise.
+
+jinja_args:
+  - paper_content
+  - figures
+  - format_instructions

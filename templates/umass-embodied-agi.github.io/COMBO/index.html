@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <!---
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+--->
+<script src="load-mathjax.js"></script>
+
+
+<style type="text/css">
+  body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    max-width: 940px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+
+  .title {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    font-family: 'Varela Round', sans-serif;
+    color: #4d4d4d;
+    font-size: 50px;
+    line-height: 65px;
+    font-weight: 700;
+    letter-spacing: -4;
+  }
+
+  .subheader {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    font-size: 25px;
+    line-height: 44px;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  .author-row {
+    text-align: center;
+    height: 25px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .author-text {
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  .affiliations {
+    font-size: 16px;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 30px;
+  } 
+
+  .paragraph {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-align: left;
+  }
+
+  .caption {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    font-size: 14px;
+    /* line-height: 24px; */
+    font-weight: 400;
+    letter-spacing: 0;
+    text-align: left;
+  }
+
+  .paper-btn {
+    position: relative;
+    text-align: center;
+
+    display: inline-block;
+    margin: 8px;
+    padding: 8px 8px;
+
+    border-width: 0;
+    outline: none;
+    border-radius: 2px;
+    
+    background-color: #5364cc;
+    color: white !important;
+    font-size: 20px;
+    width: 130px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .paper-btn-parent {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0px;
+  }
+
+  .material-icons {
+    vertical-align: -6px;
+  }
+
+  span {
+    white-space: nowrap;
+  }
+
+
+</style>
+<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,600,400italic,600italic,300,300italic'
+  rel='stylesheet' type='text/css'>
+
+<head>
+  <title> COMBO: Compositional World Models for Embodied Multi-Agent Cooperation </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:description" content="COMBO: Compositional World Models for Embodied Multi-Agent Cooperation" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic%7CMontserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic%7CUbuntu:300,300italic,400,400italic,500,500italic,700,700italic%7COpen+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic%7CChanga+One:400,400italic%7CVarela+Round:400%7CBungee+Shade:regular%7CRoboto:300,regular,500%7CBungee+Outline:regular"
+    media="all">
+  <meta name="twitter:title" content="COMBO: Compositional World Models for Embodied Multi-Agent Cooperation">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="main.js"></script>
+</head>
+
+<body style="margin: auto;">
+
+  <div class="container">
+    <h1 class="title">
+      <span style="color:#50c3ea">C</span>
+      <span style="color:#50c3ea">O</span>
+      <span style="color:#50c3ea">M</span>
+      <span style="color:#e0732a">B</span>
+      <span style="color:#e0732a">O</span>
+    </h1>
+    <h2 class="mt-0 subheader">Compositional World Models for Embodied Multi-Agent Cooperation</h2>
+
+    <div class="row author-row" style="align-items: center;">
+      <div class="col author-col">
+        <span>
+          <a class="author-text" href="https://icefoxzhx.github.io/">Hongxin Zhang<sup>1*</sup></a>,
+          <a class="author-text" href="https://waaadreamer.github.io">Zeyuan Wang<sup>2*</sup></a>,
+          <a class="author-text" href="https://lqs2020.github.io/">Qiushi Lyu<sup>3*</sup></a>,
+          <a class="author-text" href="https://cozheyuanzhangde.github.io/">Zheyuan Zhang<sup>4</sup></a>,
+          <a class="author-text" href="https://eeeeeerickkk.github.io/">Sunli Chen<sup>2</sup></a> <br>
+          <a class="author-text" href="https://www.tshu.io/">Tianmin Shu<sup>5</sup></a>,
+          <a class="author-text" href="https://www.linkedin.com/in/behzaddariush/">Behzad Dariush<sup>6</sup></a>,
+          <a class="author-text" href="https://www.linkedin.com/in/kwonjoon-lee-062309a3/">Kwonjoon Lee<sup>6</sup></a>,
+          <a class="author-text" href="https://yilundu.github.io/">Yilun Du<sup>7</sup></a>,
+          <a class="author-text" href="https://people.csail.mit.edu/ganchuang/">Chuang Gan<sup>1</sup></a> <br>
+        </span>
+      </div>
+    </div>
+    <br>
+    <center>
+      <div class="affiliations">
+        <span><sup>1</sup> University of Massachusetts Amherst</span>
+        <span><sup>2</sup> Tsinghua University</span>
+        <span><sup>3</sup> Peking University</span>
+        <span><sup>4</sup> University of Michigan</span>
+        <span><sup>5</sup> Johns Hopkins University</span>
+        <span><sup>6</sup> Honda Research Institute USA</span>
+        <span><sup>7</sup> MIT</span><br>
+      </div>
+
+      <div class="affil-row">
+            <div class="venue text-center"><b>ICLR 2025 </b></div>
+        </div>
+    </center>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <div style="clear: both">
+      <div class="paper-btn-parent">
+      <a class="paper-btn" href="https://arxiv.org/abs/2404.10775">
+        <span class="material-icons"> description </span>
+        Paper
+      </a>
+      <a class="paper-btn" href="https://github.com/UMass-Embodied-AGI/COMBO">
+        <span class="material-icons"> code </span>
+        Code
+      </a>
+      </div>
+  </div>
+
+    <video class="centered mb-2" width="100%" autoplay="" loop="" controls="" muted="" id="teaser">
+      <source src="video/teaser.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    
+    <p class="paragraph">
+      <h2>Overview</h2>
+      In this work, we investigate the problem of embodied multi-agent cooperation, where decentralized agents must cooperate given only partial egocentric views of the world. To effectively plan in this setting, in contrast to learning world dynamics in a single-agent scenario, we must simulate world dynamics conditioned on an arbitrary number of agents' actions given only partial egocentric visual observations of the world. To address this issue of partial observability, we first train generative models to estimate the overall world state given partial egocentric observations. To enable accurate simulation of multiple sets of actions on this world state, we then propose to learn a compositional world model for multi-agent cooperation by factorizing the naturally composable joint actions of multiple agents and compositionally generating the video. By leveraging this compositional world model, in combination with Vision Language Models to infer the actions of other agents, we can use a tree search procedure to integrate these modules and facilitate online cooperative planning. To evaluate the efficacy of our methods, we create two challenging embodied multi-agent long-horizon cooperation tasks using the ThreeDWorld simulator and conduct experiments with 2-4 agents. The results show our compositional world model is effective and the framework enables the embodied agents to cooperate efficiently with different agents across various tasks and an arbitrary number of agents, showing the promising future of our proposed framework. Our codes and models are open source and will be released upon acceptance.
+    </p>
+
+    <hr>
+
+    <p class="paragraph">
+      <h2>How to build a world model for multi-agent cooperation?</h2>
+
+      <figure>
+        <video class="centered mb-2" width="100%" autoplay="" loop="" controls="" muted="" id="teaser">
+          <source src="video/method.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </figure>
+      
+      We propose <strong><em>COMBO</em></strong>, a novel <strong>C</strong>ompositional w<strong>O</strong>rld <strong>M</strong>odel-based em<strong>BO</strong>died multi-agent planning framework, shown in the figure below.
+      After receiving the egocentric observations during the last execution step, <em>COMBO</em> first estimates the overall world state to plan on. <em>COMBO</em> then utilizes Vision Language Models to act as an Action Proposer to propose possible actions, an Intent Tracker to infer other agents' intents, and an Outcome Evaluator to evaluate the different possible outcomes. In combination with the compositional world model to simulate the effect of joint actions on the world state, we use the tree search procedure to integrate these planning sub-modules. <em>COMBO</em> empowers embodied agents to imagine how different plans may affect the world with other agents in the long run and plan cooperatively.
+    </p>
+
+    <hr>
+    <p class="paragraph">
+      <h2>Demo</h2>
+      Here are video demos showing our <strong><em>COMBO</em></strong> agent cooperates well with arbitrary number of
+      agents to finish the <em>TDW-Cook</em> and <em>TDW-Game</em> tasks.
+    </p>
+
+    <div class="row">
+      <div class="col">
+        <figure>
+          <video class="centered" width="100%" autoplay loop controls muted class="video-background">
+            <source src="video/cook.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p class="caption text-center mt-2">(a) TDW-Cook</p>
+        </figure>
+      </div>
+      <div class="col">
+        <figure>
+          <video class="centered" width="100%" autoplay loop controls muted class="video-background">
+            <source src="video/game.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p class="caption text-center mt-2">(b) TDW-Game</p>
+        </figure>
+      </div>
+      <div class="col">
+        <figure>
+          <video class="centered" width="100%" autoplay loop controls muted class="video-background">
+            <source src="video/game_3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p class="caption text-center mt-2">(c) TDW-Game with 3 agents</p>
+        </figure>
+      </div>
+    </div>
+
+    <hr>
+
+    <p class="paragraph">
+      <h2>Compositional World Model</h2>
+    </p>
+    
+    <p class="caption mb-2" style="color: gray;">*All videos are generated by the Compositional World Model.</p>
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            Inference Results of <em>TDW-Cook</em>
+          </div>
+          <div class="card-body">
+            <div class="container">
+              <div class="caption mb-2" style="color: gray;">*Totally <span id="cook-number">54</span> possible action combinations</div>
+              <div class="row">
+                <span class="col-2 mt-auto mb-auto" style="min-width: 140px;">Initial Frame:</span>
+                <select class="form-select col" id="cook-init"><option value="0">0</option><option value="1">1</option><option value="2">2</option></select>
+              </div>
+              <figure class="row mt-2 ms-auto me-auto" id="cook-image" style="width: 336px;">
+                <img src="video/cook_inference/0/init.png">
+                <p class="caption text-center mt-2">Initial frame</p>
+            </figure>
+              <div class="row mt-2">
+                <select class="form-select col" id="cook-alice"><option value="Alice wait.">Alice wait.</option><option value="Alice pick up the whole_onion.">Alice pick up the whole_onion.</option><option value="Alice pick up the lettuce.">Alice pick up the lettuce.</option><option value="Alice pick up the hamburger_patty.">Alice pick up the hamburger_patty.</option><option value="Alice pick up the brown_bread_slice.">Alice pick up the brown_bread_slice.</option></select>
+              </div>
+              <div class="row mt-2">
+                <select class="form-select col" id="cook-bob"><option value="Bob wait.">Bob wait.</option><option value="Bob pick up the pickle_slice.">Bob pick up the pickle_slice.</option><option value="Bob pick up the burger_top.">Bob pick up the burger_top.</option><option value="Bob pick up the burger_bottom.">Bob pick up the burger_bottom.</option><option value="Bob pick up the black_bread_slice.">Bob pick up the black_bread_slice.</option></select>
+              </div>
+              <div class="text-center mt-2" id="cook-video">
+        <video class="centered" autoplay="" muted="" playsinline="">
+            <source src="video/cook_inference/0/0/superres_output.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p class="caption text-center mt-2">Generated video</p>
+        </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            Inference Results of <em>TDW-Game</em>
+          </div>
+          <div class="card-body">
+            <div class="container">
+              <div class="caption mb-2" style="color: gray;">*Totally <span id="game-number">80</span> possible action combinations</div>
+              <div class="row">
+                <span class="col-2 mt-auto mb-auto" style="min-width: 140px;">Initial Frame:</span>
+                <select class="form-select col" id="game-init"><option value="0">0</option><option value="1">1</option></select>
+              </div>
+              <figure class="row mt-2 ms-auto me-auto" id="game-image" style="width: 336px;">
+                <img src="video/game_inference/0/init.png">
+                <p class="caption text-center mt-2">Initial frame</p>
+            </figure>
+              <div class="row mt-2">
+                <select class="form-select col" id="game-alice"><option value="Alice wait.">Alice wait.</option><option value="Alice pick up the green-brown piece.">Alice pick up the green-brown piece.</option><option value="Alice pick up the aqua-black piece.">Alice pick up the aqua-black piece.</option></select>
+              </div>
+              <div class="row mt-2">
+                <select class="form-select col" id="game-bob"><option value="Bob wait.">Bob wait.</option><option value="Bob pick up the yellow-purple piece.">Bob pick up the yellow-purple piece.</option><option value="Bob pick up the blue-brown piece.">Bob pick up the blue-brown piece.</option></select>
+              </div>
+              <div class="row mt-2">
+                <select class="form-select col" id="game-charlie"><option value="Charlie wait.">Charlie wait.</option><option value="Charlie pick up the red-blue piece.">Charlie pick up the red-blue piece.</option><option value="Charlie pick up the green-purple piece.">Charlie pick up the green-purple piece.</option></select>
+              </div>
+              <div class="row mt-2">
+                <select class="form-select col" id="game-david"><option value="David wait.">David wait.</option><option value="David pick up the green-black piece.">David pick up the green-black piece.</option><option value="David pick up the aqua-yellow piece.">David pick up the aqua-yellow piece.</option></select>
+              </div>
+              <div class="text-center mt-2" id="game-video">
+        <video class="centered" autoplay="" muted="" playsinline="">
+            <source src="video/game_inference/0/0/superres_output.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p class="caption text-center mt-2">Generated video</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <p class="paragraph">
+      <h2>Citation</h2>
+      <pre class="p-4 mb-5 bg-light rounded" style="text-wrap: wrap; color: #555;">
+@article{zhang2024combo,
+  title={COMBO: Compositional World Models for Embodied Multi-Agent Cooperation}, 
+  author={Hongxin Zhang and Zeyuan Wang and Qiushi Lyu and Zheyuan Zhang and Sunli Chen and Tianmin Shu and Behzad Dariush and Kwonjoon Lee and Yilun Du and Chuang Gan},
+  journal={arXiv preprint arXiv:2404.10775},
+  year={2024},
+}</pre>
+    </p>
+
+  </div>
+
+
+<svg id="MJX-SVG-global-cache" style="display: none;"><defs></defs></svg>
+
+</body>
+</html>

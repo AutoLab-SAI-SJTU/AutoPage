@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)https://seggenerator.github.io/ -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="description" content="SegGen">
+    <meta name="keywords" content="SegGen">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--    <meta property="og:image" content="./static/img/logo.png">-->
+    <style type="text/css">svg:not(:root).svg-inline--fa {
+        overflow: visible
+    }
+
+    .svg-inline--fa {
+        display: inline-block;
+        font-size: inherit;
+        height: 1em;
+        overflow: visible;
+        vertical-align: -.125em
+    }
+
+    .svg-inline--fa.fa-lg {
+        vertical-align: -.225em
+    }
+
+    .svg-inline--fa.fa-w-1 {
+        width: .0625em
+    }
+
+    .svg-inline--fa.fa-w-2 {
+        width: .125em
+    }
+
+    .svg-inline--fa.fa-w-3 {
+        width: .1875em
+    }
+
+    .svg-inline--fa.fa-w-4 {
+        width: .25em
+    }
+
+    .svg-inline--fa.fa-w-5 {
+        width: .3125em
+    }
+
+    .svg-inline--fa.fa-w-6 {
+        width: .375em
+    }
+
+    .svg-inline--fa.fa-w-7 {
+        width: .4375em
+    }
+
+    .svg-inline--fa.fa-w-8 {
+        width: .5em
+    }
+
+    .svg-inline--fa.fa-w-9 {
+        width: .5625em
+    }
+
+    .svg-inline--fa.fa-w-10 {
+        width: .625em
+    }
+
+    .svg-inline--fa.fa-w-11 {
+        width: .6875em
+    }
+
+    .svg-inline--fa.fa-w-12 {
+        width: .75em
+    }
+
+    .svg-inline--fa.fa-w-13 {
+        width: .8125em
+    }
+
+    .svg-inline--fa.fa-w-14 {
+        width: .875em
+    }
+
+    .svg-inline--fa.fa-w-15 {
+        width: .9375em
+    }
+
+    .svg-inline--fa.fa-w-16 {
+        width: 1em
+    }
+
+    .svg-inline--fa.fa-w-17 {
+        width: 1.0625em
+    }
+
+    .svg-inline--fa.fa-w-18 {
+        width: 1.125em
+    }
+
+    .svg-inline--fa.fa-w-19 {
+        width: 1.1875em
+    }
+
+    .svg-inline--fa.fa-w-20 {
+        width: 1.25em
+    }
+
+    .svg-inline--fa.fa-pull-left {
+        margin-right: .3em;
+        width: auto
+    }
+
+    .svg-inline--fa.fa-pull-right {
+        margin-left: .3em;
+        width: auto
+    }
+
+    .svg-inline--fa.fa-border {
+        height: 1.5em
+    }
+
+    .svg-inline--fa.fa-li {
+        width: 2em
+    }
+
+    .svg-inline--fa.fa-fw {
+        width: 1.25em
+    }
+
+    .fa-layers svg.svg-inline--fa {
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        position: absolute;
+        right: 0;
+        top: 0
+    }
+
+    .fa-layers {
+        display: inline-block;
+        height: 1em;
+        position: relative;
+        text-align: center;
+        vertical-align: -.125em;
+        width: 1em
+    }
+
+    .fa-layers svg.svg-inline--fa {
+        -webkit-transform-origin: center center;
+        transform-origin: center center
+    }
+
+    .fa-layers-counter, .fa-layers-text {
+        display: inline-block;
+        position: absolute;
+        text-align: center
+    }
+
+    .fa-layers-text {
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        -webkit-transform-origin: center center;
+        transform-origin: center center
+    }
+
+    .fa-layers-counter {
+        background-color: #ff253a;
+        border-radius: 1em;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        color: #fff;
+        height: 1.5em;
+        line-height: 1;
+        max-width: 5em;
+        min-width: 1.5em;
+        overflow: hidden;
+        padding: .25em;
+        right: 0;
+        text-overflow: ellipsis;
+        top: 0;
+        -webkit-transform: scale(.25);
+        transform: scale(.25);
+        -webkit-transform-origin: top right;
+        transform-origin: top right
+    }
+
+    .fa-layers-bottom-right {
+        bottom: 0;
+        right: 0;
+        top: auto;
+        -webkit-transform: scale(.25);
+        transform: scale(.25);
+        -webkit-transform-origin: bottom right;
+        transform-origin: bottom right
+    }
+
+    .fa-layers-bottom-left {
+        bottom: 0;
+        left: 0;
+        right: auto;
+        top: auto;
+        -webkit-transform: scale(.25);
+        transform: scale(.25);
+        -webkit-transform-origin: bottom left;
+        transform-origin: bottom left
+    }
+
+    .fa-layers-top-right {
+        right: 0;
+        top: 0;
+        -webkit-transform: scale(.25);
+        transform: scale(.25);
+        -webkit-transform-origin: top right;
+        transform-origin: top right
+    }
+
+    .fa-layers-top-left {
+        left: 0;
+        right: auto;
+        top: 0;
+        -webkit-transform: scale(.25);
+        transform: scale(.25);
+        -webkit-transform-origin: top left;
+        transform-origin: top left
+    }
+
+    .fa-lg {
+        font-size: 1.3333333333em;
+        line-height: .75em;
+        vertical-align: -.0667em
+    }
+
+    .fa-xs {
+        font-size: .75em
+    }
+
+    .fa-sm {
+        font-size: .875em
+    }
+
+    .fa-1x {
+        font-size: 1em
+    }
+
+    .fa-2x {
+        font-size: 2em
+    }
+
+    .fa-3x {
+        font-size: 3em
+    }
+
+    .fa-4x {
+        font-size: 4em
+    }
+
+    .fa-5x {
+        font-size: 5em
+    }
+
+    .fa-6x {
+        font-size: 6em
+    }
+
+    .fa-7x {
+        font-size: 7em
+    }
+
+    .fa-8x {
+        font-size: 8em
+    }
+
+    .fa-9x {
+        font-size: 9em
+    }
+
+    .fa-10x {
+        font-size: 10em
+    }
+
+    .fa-fw {
+        text-align: center;
+        width: 1.25em
+    }
+
+    .fa-ul {
+        list-style-type: none;
+        margin-left: 2.5em;
+        padding-left: 0
+    }
+
+    .fa-ul > li {
+        position: relative
+    }
+
+    .fa-li {
+        left: -2em;
+        position: absolute;
+        text-align: center;
+        width: 2em;
+        line-height: inherit
+    }
+
+    .fa-border {
+        border: solid .08em #eee;
+        border-radius: .1em;
+        padding: .2em .25em .15em
+    }
+
+    .fa-pull-left {
+        float: left
+    }
+
+    .fa-pull-right {
+        float: right
+    }
+
+    .fa.fa-pull-left, .fab.fa-pull-left, .fal.fa-pull-left, .far.fa-pull-left, .fas.fa-pull-left {
+        margin-right: .3em
+    }
+
+    .fa.fa-pull-right, .fab.fa-pull-right, .fal.fa-pull-right, .far.fa-pull-right, .fas.fa-pull-right {
+        margin-left: .3em
+    }
+
+    .fa-spin {
+        -webkit-animation: fa-spin 2s infinite linear;
+        animation: fa-spin 2s infinite linear
+    }
+
+    .fa-pulse {
+        -webkit-animation: fa-spin 1s infinite steps(8);
+        animation: fa-spin 1s infinite steps(8)
+    }
+
+    @-webkit-keyframes fa-spin {
+        0% {
+            -webkit-transform: rotate(0);
+            transform: rotate(0)
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg)
+        }
+    }
+
+    @keyframes fa-spin {
+        0% {
+            -webkit-transform: rotate(0);
+            transform: rotate(0)
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg)
+        }
+    }
+
+    .fa-rotate-90 {
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg)
+    }
+
+    .fa-rotate-180 {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg)
+    }
+
+    .fa-rotate-270 {
+        -webkit-transform: rotate(270deg);
+        transform: rotate(270deg)
+    }
+
+    .fa-flip-horizontal {
+        -webkit-transform: scale(-1, 1);
+        transform: scale(-1, 1)
+    }
+
+    .fa-flip-vertical {
+        -webkit-transform: scale(1, -1);
+        transform: scale(1, -1)
+    }
+
+    .fa-flip-both, .fa-flip-horizontal.fa-flip-vertical {
+        -webkit-transform: scale(-1, -1);
+        transform: scale(-1, -1)
+    }
+
+    :root .fa-flip-both, :root .fa-flip-horizontal, :root .fa-flip-vertical, :root .fa-rotate-180, :root .fa-rotate-270, :root .fa-rotate-90 {
+        -webkit-filter: none;
+        filter: none
+    }
+
+    .fa-stack {
+        display: inline-block;
+        height: 2em;
+        position: relative;
+        width: 2.5em
+    }
+
+    .fa-stack-1x, .fa-stack-2x {
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        position: absolute;
+        right: 0;
+        top: 0
+    }
+
+    .svg-inline--fa.fa-stack-1x {
+        height: 1em;
+        width: 1.25em
+    }
+
+    .svg-inline--fa.fa-stack-2x {
+        height: 2em;
+        width: 2.5em
+    }
+
+    .fa-inverse {
+        color: #fff
+    }
+
+    .sr-only {
+        border: 0;
+        clip: rect(0, 0, 0, 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px
+    }
+
+    .sr-only-focusable:active, .sr-only-focusable:focus {
+        clip: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        position: static;
+        width: auto
+    }
+
+    .svg-inline--fa .fa-primary {
+        fill: var(--fa-primary-color, currentColor);
+        opacity: 1;
+        opacity: var(--fa-primary-opacity, 1)
+    }
+
+    .svg-inline--fa .fa-secondary {
+        fill: var(--fa-secondary-color, currentColor);
+        opacity: .4;
+        opacity: var(--fa-secondary-opacity, .4)
+    }
+
+    .svg-inline--fa.fa-swap-opacity .fa-primary {
+        opacity: .4;
+        opacity: var(--fa-secondary-opacity, .4)
+    }
+
+    .svg-inline--fa.fa-swap-opacity .fa-secondary {
+        opacity: 1;
+        opacity: var(--fa-primary-opacity, 1)
+    }
+
+    .svg-inline--fa mask .fa-primary, .svg-inline--fa mask .fa-secondary {
+        fill: #000
+    }
+
+    .fad.fa-inverse {
+        color: #fff
+    }</style>
+
+
+    <title>
+        SUM: Uncertainty-aware Fine-tuning of Segmentation Foundation Models
+    </title>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-EDF010G6PN');
+
+
+    </script>
+
+
+    <script src="files/jquery.min.js"></script>
+    <script type="text/javascript" src="files/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="files/jquery-migrate-1.2.1.min.js"></script>
+    <script src="files/interact.min.js"></script>
+
+    <link href="files/css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="files/slick.css">
+    <link rel="stylesheet" type="text/css" href="files/slick-theme.css">
+
+    <link rel="stylesheet" href="files/bulma.min.css">
+    <link rel="stylesheet" href="files/bulma-slider.min.css">
+    <link rel="stylesheet" href="files/fontawesome.all.min.css">
+    <link rel="stylesheet" href="files/academicons.min.css">
+    <link rel="stylesheet" href="files/index.css">
+
+    <script defer="" src="files/fontawesome.all.min.js"></script>
+    <script src="files/bulma-slider.min.js"></script>
+    <script src="files/index.js"></script>
+
+</head>
+<body style="">
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="navbar-menu">
+        <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+            <!-- <a class="navbar-item" href="https://sites.google.com/site/yhrspace/">
+            <span class="icon">
+                <i class="fas fa-home"></i>
+            </span>
+            </a> -->
+
+            <!-- <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                More Research
+              </a>
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href="https://hypernerf.github.io">
+                  HyperNeRF
+                </a>
+                <a class="navbar-item" href="https://nerfies.github.io">
+                  Nerfies
+                </a>
+                <a class="navbar-item" href="https://latentfusion.github.io">
+                  LatentFusion
+                </a>
+                <a class="navbar-item" href="https://photoshape.github.io">
+                  PhotoShape
+                </a>
+              </div>
+            </div> -->
+        </div>
+
+    </div>
+</nav>
+
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns is-centered">
+                <!--        <div class="column is-2 has-text-centered">-->
+                <!--          <img src="./files/logo.svg" height="100%" alt="logo">-->
+                <!--        </div>-->
+            </div>
+            <div class="container has-text-centered">
+                <h1 class="title is-1 publication-title">
+                    <span style="color: #711c3d"> Uncertainty-aware Fine-tuning of Segmentation Foundation Models (NeurIPS 2024)</span>
+                </h1>
+                <div class="is-size-5 publication-authors">
+                    <div class="author-block">
+                        <a href="https://kangning-liu.github.io/">Kangning Liu</a><sup>1,2</sup>,
+                    </div>
+                    <div class="author-block">
+                        <a href="https://research.adobe.com/person/brian-price/">Brian Price</a><sup>2</sup>,
+                    </div>
+                    <div class="author-block">
+                        <a href="https://research.adobe.com/person/jason-kuen/">Jason Kuen</a><sup>2</sup>,
+                    </div>
+                    <div class="author-block">
+                        <a href="https://openreview.net/profile?id=~Yifei_Fan1">Yifei Fan</a><sup>2</sup>,
+                    </div>
+                    <div class="author-block">
+                        <a href="https://scholar.google.com/citations?user=8l3bFYYAAAAJ&hl=en">Zijun Wei</a><sup>2</sup>,
+                    </div>
+                    <div class="author-block">
+                        <a href="https://luisf.me/">Luis Figueroa</a><sup>2</sup>,
+                    </div>
+                    <div class="author-block">
+                        <a href="https://cs.nyu.edu/~kgeras/">Krzysztof J. Geras</a><sup>1</sup>,
+                    </div>
+                    <div class="author-block">
+                        <a href="https://math.nyu.edu/~cfgranda/">Carlos Fernandez-Granda</a><sup>1</sup>,
+                    </div>
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block"><sup>1</sup>New York University</span>
+                        <span class="author-block"><sup>2</sup>Adobe</span>
+                    </div>
+                    <!-- <div class="is-size-6 publication-authors">
+                      <span class="author-block"><sup>*</sup>Most work done during internship at Adobe Research</span>
+                    </div> -->
+
+                    <div class="column has-text-centered">
+                        <div class="publication-links">
+                            <!-- PDF Link. -->
+                            <!-- <span class="link-block">
+                                <a href="https://arxiv.org/pdf/2106.13228.pdf"
+                                   class="external-link button is-normal is-rounded is-dark">
+                                  <span class="icon">
+                                      <i class="fas fa-file-pdf"></i>
+                                  </span>
+                                  <span>Paper</span>
+                                </a>
+                              </span> -->
+                            <span class="link-block">
+
+                <a href="https://openreview.net/pdf?id=qNXRXUC90b" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <svg class="svg-inline--fa fa-file-pdf fa-w-12" aria-hidden="true" focusable="false"
+                           data-prefix="fas" data-icon="file-pdf" role="img" xmlns="http://www.w3.org/2000/svg"
+                           viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor"
+                                                                        d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z"></path></svg>
+                                <!-- <i class="fas fa-file-pdf"></i> Font Awesome fontawesome.com -->
+                  </span>
+                  <span>Paper</span>
+                </a>
+            </span>
+
+
+
+                            <span class="link-block">
+              <a href="https://github.com/Kangningthu/SUM"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="fab fa-github"></i>
+                </span>
+                <span>Github</span>
+                </a>
+            </span>
+                            <!-- Dataset Link. -->
+                            <!-- <span class="link-block">
+                              <a href="https://github.com/google/hypernerf/releases/tag/v0.1"
+                                 class="external-link button is-normal is-rounded is-dark">
+                                <span class="icon">
+                                    <i class="far fa-images"></i>
+                                </span>
+                                <span>Data</span>
+                                </a>
+                              </span> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hero teaser">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <!-- <video id="teaser" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/images/teaser.mp4"
+                      type="video/mp4">
+            </video> -->
+            <img src="files/overall_result.jpg" height="100%">
+            <h2 class="subtitle has-text">
+                <font color="#9e2e23"><b><i>Segmentation with Uncertainty Model (SUM)</i></b></font> improves SAM
+                without forgetting to ''segment anything.''
+                <br>
+                <b>Left:</b> Both HQ-SAM and SUM show qualitative improvements over SAM, particularly in salient-object
+                segmentation of complex structures (top row). HQ-SAM, however, struggles with background entities
+                (middle row) and part segmentation (bottom row), often erroneously prioritizing objects in the
+                foreground or entire objects.
+                <br>
+                <b>Right:</b> SUM consistently outperforms SAM and HQ-SAM in quantitative comparisons, achieving the
+                highest mean boundary IoU across diverse evaluation sets and interactive segmentation rounds.
+            </h2>
+        </div>
+    </div>
+</section>
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-full">
+                <h2 class="title is-3">Abstract</h2>
+                <div class="content has-text-justified" style="font-size: 20px;">
+                    <p>
+                        The Segment Anything Model (SAM) is a large-scale foundation model that has revolutionized
+                        segmentation methodology. Despite its impressive generalization ability, the segmentation
+                        accuracy of SAM on images with intricate structures is often unsatisfactory. Recent works have
+                        proposed lightweight fine-tuning using high-quality annotated data to improve accuracy on such
+                        images. However, here we provide extensive empirical evidence that this strategy leads to
+                        forgetting how to "segment anything": these models lose the original generalization abilities of
+                        SAM, in the sense that they perform worse for segmentation tasks not represented in the
+                        annotated fine-tuning set.
+                    </p>
+                    <p>
+                        To improve performance without forgetting, we introduce a novel framework that combines
+                        high-quality annotated data with a large unlabeled dataset. The framework relies on two
+                        methodological innovations. First, we quantify the uncertainty in the SAM pseudo labels
+                        associated with the unlabeled data and leverage it to perform uncertainty-aware fine-tuning.
+                        Second, we encode the type of segmentation task associated with each training example using a
+                        task prompt to reduce ambiguity.
+                    </p>
+                    <p>
+                        We evaluated the proposed Segmentation with Uncertainty Model (SUM) on a diverse test set
+                        consisting of 14 public benchmarks, where it achieves state-of-the-art results. Notably, our
+                        method consistently surpasses SAM by 3-6 points in mean IoU and 4-7 in mean boundary IoU across
+                        point-prompt interactive segmentation rounds.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--/ Abstract. -->
+
+        <!-- Paper video. -->
+        <!-- <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-2">Video</h2>
+            <div class="publication-video">
+              <iframe width="640" height="480" src="https://www.youtube.com/embed/qzgdE_ghkaI"
+                      title="YouTube video player" frameborder="0"
+                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen></iframe>
+            </div>
+          </div>
+        </div> -->
+        <!--/ Paper video. -->
+    </div>
+</section>
+
+
+<section class="hero teaser">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <h2 class="title is-3 centered">Framework</h2>
+            </div>
+            <div class="container is-max-desktop">
+                <img src="files/unifiedpseudoannotedtrainingv12.png" height="100%">
+                <h2 class="subtitle has-text">
+                    <b>Framework of SUM </b>:
+                    <b>Top</b>: When processing human-annotated examples, interactive prompts are sampled based on the
+                    binary-mask labels and fed iteratively into the model along with the image. Since this binary mask
+                    depends on the type of segmentation task desired by the user, SUM incorporates a task prompt that
+                    specifies the task relevant to each annotation (1 for salient-object segmentation and 2 for entity
+                    segmentation).
+                    <br>
+                    <b>Bottom</b>: For unlabeled images, the iterative prompts are sampled based on model-generated
+                    binary pseudo-labels, which may be inaccurate. SUM includes an uncertainty-quantification module
+                    that processes the pseudo-labels, generating an uncertainty map. This map is leveraged within an
+                    uncertainty-aware loss function used for training, and also informs how the interactive prompts are
+                    sampled. For all unlabeled data, the task prompt is set to 0.
+                </h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="hero teaser">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <h2 class="title is-3 centered">Generation of Uncertainty Map</h2>
+            </div>
+            <div class="container is-max-desktop">
+                <img src="files/uncertaintyquantification.png" height="100%">
+                <h2 class="subtitle has-text">
+                    <b>Generation of uncertainty maps</b>: (1) The mask-refinement module receives as input the
+                    segmentation prediction produced by SAM. (2) The module produces a refined segmentation mask. (3)
+                    The uncertainty map equals the absolute difference between the SAM and refined predictions.
+                </h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="hero teaser">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <h2 class="title is-3 centered">Better Quality</h2>
+            </div>
+
+            <div class="block">
+                <h2 class="subtitle has-text">
+                    Comparative visualization of segmentation outcomes using single-box prompts.
+                </h2>
+                <div style="display: grid; place-items: center;">
+                    <img src="files/example3.jpg" style="width: 85%; height: auto;"></div>
+            </div>
+            <hr>
+            <div class="block">
+                <h2 class="subtitle has-text">
+                    Comparative visualization of segmentation outcomes using point prompts, where blue points signify
+                    positive prompts and red points indicate negative prompts. We adhere to the same point prompt
+                    sampling evaluation strategy as SAM.
+                </h2>
+                <div style="display: grid; place-items: center;">
+                    <img src="files/example2.jpg" style="width: 85%; height: auto;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="hero teaser">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <h2 class="title is-3 centered">Dataset</h2>
+            </div>
+            <h2 class="subtitle has-text">
+                Fine-tuning under different human annotation budget: FT-Small, FT-Medium, FT-Large
+            </h2>
+            <img src="files/fig_dataset.jpg" height="100%">
+        </div>
+    </div>
+</section>
+
+
+<section class="hero teaser">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <h2 class="title is-3 centered">Experiments</h2>
+            </div>
+
+            <div class="block">
+                <h2 class="subtitle has-text">
+                    <b> Comparison of HQ-SAM with Vanilla and SUM fine-tuned Using the Same Lightweight
+                        Scheme as HQ-SAM</b> SUM Matches HQ-SAM and outperforms Vanilla in salient-object segmentation
+                    and is superior in entity and part segmentation.
+                </h2>
+                <div style="display: grid; place-items: center;">
+                    <img src="files/merged_iou_clean_HQSeg-44k-f1.png" style="width: 85%; height: auto;">
+                </div>
+            </div>
+            <hr>
+
+            <div class="block">
+                <h2 class="subtitle has-text">
+                    <b> Comparison with Other Light-weight Fine-tuning Methods</b> single point-prompt segmentation mIoU
+                    for SUM versus models
+                    fine-tuned using various strategies on the HQSeg-44K dataset. All competing models improve on the
+                    salient-object segmentation task associated with this dataset but deteriorate on other segmentation
+                    tasks.</h2>
+                <div style="display: grid; place-items: center;">
+                    <img src="files/table_lw_ft.jpg" style="width: 50%; height: auto;">
+                </div>
+            </div>
+
+            <hr>
+            <div class="block">
+                <h2 class="subtitle has-text">
+                    <b>Comparison with Semi-supervised Methods</b> 3 point-prompt segmentation evaluation of models
+                    fine-tuned on FT-Small dataset with various strategies. SUM clearly outperforms all other
+                    strategies.
+                </h2>
+                <img src="files/Semi_3point_seg_w_sum.png">
+<!--                 <img src="./files/table_ft_small.jpg">-->
+            </div>
+
+            <hr>
+
+            <div class="block">
+                <h2 class="subtitle has-text">
+                    <b> Comparison of SAM with SUM Fine-tuned Under Different Human Annotation Budget</b> 5
+                    point-prompt
+                    segmentation evaluation. SUM consistently outperforms SAM, showing even greater improvement as the
+                    budget of human-annotated data increases.
+                </h2>
+                <img src="files/table_sum_diff_budgets.jpg" style="width: 100%; height: auto;">
+            </div>
+
+            <hr>
+
+            <div class="block">
+                <h2 class="subtitle has-text">
+                    <b> Additional Evaluation</b> To test the generalization ability of SUM to a broader range of
+                    segmentation tasks, we provided 8 additional datasets.
+                    The mIoU comparison results, reported in the following tables, confirm that SUM consistently
+                    outperforms
+                    SAM. For reproducibility, SUM is fine-tuned on the Public dataset FT-Medium.
+                </h2>
+                <div style="display: grid; place-items: center;">
+                    <img src="files/table_additional_evaluation.jpg" style="width: 65%; height: auto;">
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="block">
+                <h2 class="subtitle has-text">
+                    <b>Ablation Study</b>. This table reports interactive segmentation mean IoU of different ablated
+                    versions of SUM fine-tuned on FT-Medium, showing individual gains provided by uncertainty-aware
+                    fine-tuning and task prompts.
+                </h2>
+                <img src="files/table_ablation.jpg">
+            </div>
+        </div>
+    </div>
+    <!--    </div>-->
+</section>
+
+
+<section class="section" id="BibTeX">
+    <div class="container content is-max-desktop">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>@inproceedings{
+liu2024uncertaintyaware,
+title={Uncertainty-aware Fine-tuning of Segmentation Foundation Models},
+author={Kangning Liu and Brian L. Price and Jason Kuen and Yifei Fan and Zijun Wei and Luis Figueroa and Krzysztof J. Geras and Carlos Fernandez-Granda},
+booktitle={The Thirty-eighth Annual Conference on Neural Information Processing Systems},
+year={2024},
+url={https://openreview.net/forum?id=qNXRXUC90b}
+}
+</code></pre>
+    </div>
+</section>
+
+<!--<section class="section" id="BibTeX">-->
+<!--  <div class="container content is-max-desktop">-->
+<!--    <h2 class="title">BibTeX</h2>-->
+<!--    <pre><code>@article{liu,-->
+<!--  title={Uncertainty-aware Fine-tuning of Segmentation Foundation Models},-->
+<!--  author={Liu, Kangning; Price, Brian; Kuen, Jason; Fan, Yifei; Wei, Zijun; Figueroa, Luis; J. Geras, Krzysztof; Fernandez-Granda., Carlos},-->
+<!--  journal={NeurIPS},-->
+<!--  year={2024}-->
+<!--}</code></pre>-->
+<!--  </div>-->
+<!--</section>-->
+
+<section class="hero teaser">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <h2 class="title is-3 centered">Acknowledgements</h2>
+            </div>
+            <h2 class="subtitle has-text">
+            The authors acknowledge Markus Woodson for valuable discussions and feedback.
+            </h2>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="section" id="acknowledgements">
+    <div class="container content is-max-desktop">
+        The website template was adapted from
+        <a href="https://seggenerator.github.io/">SegGen</a>.
+    </div>
+</section>
+
+
+<script type="text/javascript" src="files/slick.min.js"></script>
+
+
+</body>
+</html>

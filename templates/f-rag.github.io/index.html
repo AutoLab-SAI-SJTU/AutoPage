@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Molecule Generation with Fragment Retrieval Augmentation</title>
+  <meta name="description" content="">
+  
+
+  <link rel="stylesheet" href="assets/main.css">
+  <link rel="canonical" href="index.html">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Seul Lee" href="https://f-rag.github.io/feed.xml">
+
+  
+
+  
+  <meta property="og:title" content="Molecule Generation with Fragment Retrieval Augmentation">
+  <meta property="og:site_name" content="Seul Lee">
+  <meta property="og:url" content="https://f-rag.github.io/">
+  <meta property="og:description" content="">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Molecule Generation with Fragment Retrieval Augmentation">
+  <meta name="twitter:description" content="">
+  
+  
+
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <!-- <a class="site-title" href="/">Seul Lee</a> -->
+
+    <nav class="site-nav">
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">Molecule Generation with Fragment Retrieval Augmentation</h1>
+    
+    <!-- <p class="post-meta"><time datetime="" itemprop="datePublished"></time> •
+  
+
+
+ •
+  
+
+</p> -->
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p style="text-align:center">
+    <span style="font-weight:bold">
+    Conference on Neural Information Processing Systems (NeurIPS), 2024<br />
+    </span>
+    Seul Lee<sup>1*</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Karsten Kreis<sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Srimukh Prasad Veccham<sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Meng Liu<sup>2</sup><br />
+    Danny Reidenbach<sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Saee Paliwal<sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Arash Vahdat<sup>2†</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Weili Nie<sup>2†</sup><br />
+    <span style="color:gray">
+        1 <img height="25px" alt="KAIST" src="assets/2024-09-17-f-rag/kaist.svg" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        2 <img height="20px" alt="NVIDIA" src="assets/2024-09-17-f-rag/nvidia.svg" /><br />
+        * Work done during an internship at NVIDIA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        † Equal advising<br />
+        seul.lee@kaist.ac.kr<br />
+        {kkreis, sveccham, menliu, dreidenbach, saeep, avahdat, wnie}@nvidia.com<br />
+    </span>
+    <a href="https://arxiv.org/abs/2411.12078" style="color:teal">[Paper]</a>
+</p>
+
+<p><br /></p>
+
+<p align="center"><img width="800px" alt="f-RAG" src="assets/2024-09-17-f-rag/concept.png" /></p>
+
+<h3><em>f</em>-RAG: Fragment Retrieval-Augmented Generation</h3>
+<hr />
+<p>Many fragment-based molecule generation methods show limited exploration beyond the existing fragments in the database as they only reassemble or slightly modify the given ones. To tackle this problem, we propose a new fragment-based molecule generation framework with retrieval augmentation, namely <strong>Fragment Retrieval-Augmented Generation (<em>f</em>-RAG)</strong>. <em>f</em>-RAG is based on a pre-trained molecular generative model (<a href="https://arxiv.org/abs/2310.10773"><span style="color:teal">SAFE-GPT</span></a>) that proposes additional fragments from input fragments to complete and generate a new molecule. Given a fragment vocabulary, <em>f</em>-RAG retrieves two types of fragments: (1) <strong>hard fragments</strong>, which serve as building blocks that will be explicitly included in the newly generated molecule, and (2) <strong>soft fragments</strong>, which serve as reference to guide the generation of new fragments through a trainable <strong>fragment injection module</strong>. To extrapolate beyond the existing fragments, <em>f</em>-RAG updates the fragment vocabulary with generated fragments via an iterative refinement process which is further enhanced with post-hoc genetic fragment modification. <em>f</em>-RAG can achieve an improved exploration-exploitation trade-off by maintaining a pool of fragments and expanding it with novel and high-quality fragments through a strong generative prior.</p>
+
+<p><br /></p>
+
+<h3>Fragment-based Drug Discovery with <em>f</em>-RAG</h3>
+<hr />
+<p>On the <a href="https://arxiv.org/abs/2206.12411"><span style="color:teal">PMO benchmark</span></a>, <em>f</em>-RAG outperforms the previous methods in terms of the sum of the AUC top-10 values and achieves the highest AUC top-10 values in 12 out of 23 tasks. Furthermore, even though the essential considerations in drug discovery (e.g., diversity, novelty, and synthesizability) often conflict with each other, <em>f</em>-RAG exhibits the best balance across them, demonstrating its applicability as a promising tool for drug discovery.</p>
+
+<p align="center"><img width="700px" src="assets/2024-09-17-f-rag/table.png" /></p>
+<p align="center"><img width="100%" src="assets/2024-09-17-f-rag/tradeoff.png" /></p>
+
+<p><br /></p>
+
+<h3>Evolution of Generated Molecules over Iterations</h3>
+<hr />
+<p><em>f</em>-RAG dynamically updates the fragment vocabulary with newly generated fragments. The fragment vocabulary and therefore the generated molecules are iteratively refined throughout generation.</p>
+
+<p align="center">
+    <img width="300px" src="assets/2024-09-17-f-rag/frag.gif" />
+    <img width="300px" src="assets/2024-09-17-f-rag/frag.png" />
+    <br />
+    <img width="300px" src="assets/2024-09-17-f-rag/mol.gif" />
+    <img width="300px" src="assets/2024-09-17-f-rag/mol.png" />
+</p>
+
+<p><br /></p>
+
+<h3>Exploration with Dynamic Vocabulary Update</h3>
+<hr />
+<p><em>f</em>-RAG effectively improves the exploration-exploitation trade-off in drug discovery by utilizing existing fragments while dynamically updating the fragment vocabulary with newly proposed fragments. <em>f</em>-RAG can discover molecules that have better target properties than the top molecule in the training set with the dynamic update.</p>
+
+<p align="center"><img width="250px" src="assets/2024-09-17-f-rag/kde.png" /></p>
+
+<h3>Citation</h3>
+<hr />
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@article{lee2024frag,
+    title   = {Molecule Generation with Fragment Retrieval Augmentation},
+    author  = {Seul Lee and Karsten Kreis and Srimukh Prasad Veccham and Meng Liu and
+               Danny Reidenbach and Saee Paliwal and Arash Vahdat and Weili Nie},
+    journal = {Advances in Neural Information Processing Systems},
+    year    = {2024}
+}
+</code></pre></div></div>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; Seul Lee</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

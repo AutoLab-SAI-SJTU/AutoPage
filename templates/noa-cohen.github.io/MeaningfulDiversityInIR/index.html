@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+	<title>From Posterior Sampling to Meaningful Diversity in Image Restoration</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+	<link rel="shortcut icon" type="image/x-icon" href="resources/favicon.ico">
+  	<link href="style.css" rel="stylesheet" type="text/css">
+	<meta property="og:image" content="resources/Teaser.png"/> 
+	<meta property="og:title" content="From Posterior Sampling to Meaningful Diversity in Image Restoration" />
+	<meta property="og:description" content="We highlight the inherent conceptual problem in posterior sampling for image restoration. We examine the source of the problem and propose different ways to obtain more meaningfully diverse restorations, as confirmed by an extensive user study." />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/ad96f96272.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	
+	<!-- navigation bar on the top, nav bar stick to the top -->
+	<nav id="navbar_top" class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary" style="margin-bottom: 15px;">
+		<div class="container">
+				<a class="navbar-brand" href="index.html">Meaningful Diversity in IR</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="main_nav">
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item"><a class="nav-link" href="index.html#posterior_sampling">Posterior Sampling</a></li>
+				<li class="nav-item"><a class="nav-link" href="index.html#meaningful_diversity">Meaningful Diversity</a></li>
+				<li class="nav-item"><a class="nav-link" href="index.html#bibtex">Bibtex</a></li>
+			</ul>
+			</div> 
+		</div> 
+		</nav>
+	<!-- end nav bar -->
+
+	<div class="container-xl"> 
+		<!-- top button -->
+		<button type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
+			<i class="fas fa-arrow-up"></i>
+		</button>
+		<!-- end top button -->
+
+		<!-- top - author names, affiliation and links -->
+		<center>
+			<h1>From Posterior Sampling to Meaningful Diversity in Image Restoration</h1>
+			<div class="container">
+				<div class="row justify-content-md-center">
+					<div class="col-md-auto">
+						<span style="font-size:24px"><a href="https://www.linkedin.com/in/noa-cohen1/" target="_blank" rel="noopener noreferrer">Noa Cohen&sup1;</a></span>
+					</div>
+					<div class="col-md-auto">
+						<span style="font-size:24px"><a href="https://www.linkedin.com/in/hilamanor/" target="_blank" rel="noopener noreferrer">Hila Manor&sup1;</a></span>
+					</div>
+					<div class="col-md-auto">
+						<span style="font-size:24px"><a href="https://www.linkedin.com/in/yuvalbahat" target="_blank" rel="noopener noreferrer">Yuval Bahat&sup2;</a></span>
+					</div>
+					<div class="col-md-auto">
+						<span style="font-size:24px"><a href="https://tomer.net.technion.ac.il/" target="_blank" rel="noopener noreferrer">Tomer Michaeli&sup1;</a></span>
+					</div>
+				</div>
+				<p class="text-center affilation" style="font-size: 15pt;">&sup1;Technion – Israel Institute of Technology&Tab;&Tab; &sup2;Princeton University<p>
+				<h4>ICLR 2024</h4>
+			</div>
+			
+
+			<div class="container">
+				<div class="row justify-content-md-center">
+					<div class="col-md-auto">
+						<!-- <span style="font-size:24px"><a href='https://arxiv.org/abs/2310.16047' target="_blank" rel="noopener noreferrer">[<i class="ai ai-arxiv"></i> Arxiv]</a></span> -->
+						<span style="font-size:24px"><a class="btn btn-outline-primary" href='https://arxiv.org/abs/2310.16047' role="button"><i class="ai ai-arxiv"></i> Arxiv</a></span>
+					</div>
+					<div class="col-md-auto">
+						<span style="font-size:24px"><a class="btn btn-outline-primary" href="https://openreview.net/forum?id=ff2g30cZxj" target="_blank" rel="noopener noreferrer"><i class="fa fa-file-o"></i> OpenReview</a></span>
+					</div>
+					<div class="col-md-auto">
+						<!-- <span style="font-size:24px"><a href="https://github.com/noa-cohen/MeaningfulDiversityInIR" target="_blank" rel="noopener noreferrer">[<i class="fab fa-github"></i> Code]</a></span> -->
+						<span style="font-size:24px"><a class="btn btn-outline-primary" href="https://github.com/noa-cohen/MeaningfulDiversityInIR" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> Code</a></span>
+					</div>
+				</div>
+			</div>
+		<br>
+		</center>
+		<!-- end top -->
+
+		<!-- abstract and teaser image -->
+		<center>
+			<div class="container" style="margin-top: 20px;">
+				<div class="row justify-content-md-center">
+					<img alt="" id="teaser" src="resources/Teaser.png" class="resimage"/>
+				</div>
+			</div>
+		<br>
+		<h1 style="margin-top: 10px;">Abstract</h1>
+		</center>
+		<p>
+			Image restoration problems are typically ill-posed in the sense that each degraded image can be restored in infinitely many valid ways. To accommodate this, many works generate a diverse set of outputs by attempting to randomly sample from the posterior distribution of natural images given the degraded input. Here we argue that this strategy is commonly of limited practical value because of the heavy tail of the posterior distribution. Consider for example inpainting a missing region of the sky in an image. Since there is a high probability that the missing region contains no object but clouds, any set of samples from the posterior would be entirely dominated by (practically identical) completions of sky. However, arguably, presenting users with only one clear sky completion, along with several alternative solutions such as airships, birds, and balloons, would better outline the set of possibilities.
+			In this paper, we initiate the study of <b>meaningfully diverse</b> image restoration. We explore several post-processing approaches that can be combined with any diverse image restoration method to yield semantically meaningful diversity. Moreover, we propose a practical approach for allowing diffusion based image restoration methods to generate meaningfully diverse outputs, while incurring only negligent computational overhead. We conduct extensive user studies to analyze the proposed techniques, and find the strategy of reducing similarity between outputs to be significantly favorable over posterior sampling.
+		</p>
+		<!-- end abstract and teaser image -->
+
+		<!-- Posterior sampling -->
+		<hr id="posterior_sampling">
+		<center><h1 class="burger_h1">What's wrong with posterior sampling?</h1></center>
+		<center>
+			<div class="container">
+				<div class="row justify-content-md-center">
+					<div class="col-md-auto" style="padding: 1px;">
+						<img alt="" src="resources/heavytail.png" style="max-width: 800px; width: 100%;"/>
+					</div>
+				</div>
+			</div>
+		</center>
+		<p>
+			When sampling multiple times from diverse restoration models, the samples tend to repeat themselves, exhibiting only minor semantic variability. This is illustrated in the figure above which depicts two masked images with corresponding 10 random samples each, obtained from RePaint. As can be seen, none of the 10 completions corresponding to the eye region depict glasses, and none of the 10 samples corresponding to the mouth region depict a closed mouth. Yet, when examining 100 samples from the model, it is evident that such completions are possible; they are simply rare (2 out of 100 samples). 
+			We argue that this phenomenon is due to the fact that the posterior distribution is often heavy-tailed along semantically interesting directions. Heavy-tailed distributions are characterized by a non-negligible probability of obtaining very distinct "outliers", and in the context of image restoration, these outliers often correspond to different semantic meanings. 
+			In our paper we show that cases in which the posterior is heavy tailed are not rare, and therefore initiate the study of <i>meaningfully diverse image restoration</i>, which aims at reflecting to a user the perceptual range of plausible solutions rather than adhering to their likelihood. 
+		</p>
+		<!-- end Posterior sampling -->
+
+		<!-- Meaningful diversity -->
+		<hr id="meaningful_diversity">
+		<center><h1 class="burger_h1">Our guidance based meaningfully diverse restorations</h1></center>
+		<p>
+			We focus on restoration techniques that are based on diffusion models, as they achieve state-of-the-art results, and run the diffusion process to simultaneously generate N images all conditioned on the same degraded input image.
+			We use each of the methods either as-is (left), or by augmenting it with our diversity guidance mechanism (right).
+			Additional information can be found in the paper.
+		</p>
+		<center>
+			<h2 style="margin-top: 10px;">Inpainting</h2>
+			<div class="container">
+				<div class="row justify-content-md-center">
+					<div class="col-md-auto" style="padding: 1px;">
+						<img alt="" src="resources/INPfaces.png" class="resimage"/>
+					</div>
+				</div>
+				<div class="row justify-content-md-center">
+					<div class="col-md-auto" style="padding: 1px;">
+						<img alt="" src="resources/INPInet.png" class="resimage"/>
+					</div>
+				</div>
+			</div>
+			<!-- <br> -->
+			<h2 style="margin-top: 10px;">Super Resolution</h2>
+			<div class="container">
+				<div class="row justify-content-md-center">
+					<div class="col-md-auto" style="padding: 1px;">
+						<img alt="" src="resources/SRfaces.png" class="resimage"/>
+					</div>
+				</div>
+				<div class="row justify-content-md-center">
+					<div class="col-md-auto" style="padding: 1px;">
+						<img alt="" src="resources/SRInet.png" class="resimage"/>
+					</div>
+				</div>
+			</div>
+		</center>
+		<!-- end Meaningful diversity -->
+
+		<!-- bibtex citation -->
+		<hr id="Bibtex">
+		<p class="section" id="bibtex"><b>Bibtex</b></p>
+		<table border="0">
+		<tbody>
+			<pre class="command-copy" 
+			style=" display: block;
+					background: #eee;
+					white-space: pre;
+					-webkit-overflow-scrolling: touch;
+					max-width: 100%;
+					min-width: 100px;
+					border-radius: 20px;
+					padding: 0;;">
+	
+	@inproceedings{
+		cohen2024from,
+		title={From Posterior Sampling to Meaningful Diversity in Image Restoration},
+		author={Noa Cohen and Hila Manor and Yuval Bahat and Tomer Michaeli},
+		booktitle={The Twelfth International Conference on Learning Representations},
+		year={2024},
+		url={https://openreview.net/forum?id=ff2g30cZxj}
+	}
+		</pre>
+		</tbody>
+		</table>
+		<!-- end bibtex citation -->
+
+		<hr>
+		<br>
+
+		<!-- acknowledgement -->
+		<div class="container">
+			<center><h4>Acknowledgements</h4></center>
+			<p style="font-size: 11pt;">
+				This webpage was originally made by <a href="https://www.linkedin.com/in/matan-kleiner/" target="_blank" rel="noopener noreferrer">Matan Kleiner</a> with the 
+				help of <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/hilamanor/">Hila Manor</a> 
+				for <a target="_blank" rel="noopener noreferrer" href="https://matankleiner.github.io/sinddm/">SinDDM</a> and can be used as a <a target="_blank" rel="noopener noreferrer" href="https://github.com/matankleiner/academic-webpage-template/tree/main">template</a>.
+                It is inspired by the template that was originally made by <a target="_blank" rel="noopener noreferrer" href="http://web.mit.edu/phillipi/">Phillip Isola</a> and
+				<a target="_blank" rel="noopener noreferrer" href="http://richzhang.github.io/">Richard Zhang</a> for a <a target="_blank" rel="noopener noreferrer" href="http://richzhang.github.io/colorization/">colorful</a> ECCV project;
+				the code for the original template can be found <a target="_blank" rel="noopener noreferrer" href="https://github.com/richzhang/webpage-template">here</a>.<br>
+				<br>
+				</a>
+			</p>
+		</div>
+	<br>
+
+</div>
+
+<script src="functionality.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+

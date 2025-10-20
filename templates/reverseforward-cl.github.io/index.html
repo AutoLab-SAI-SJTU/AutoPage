@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="RFCL: Reverse Forward Curriculum Learning"
+    />
+    <meta
+      name="keywords"
+      content="Curriculum, Reinforcement Learning, Deep Learning"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Reverse Forward Curriculum Learning for Extreme Demo Efficiency in RL
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="./public/index.css" rel="stylesheet" />
+    <link href="./public/media.css" rel="stylesheet" />
+    <link href="./public/sidebars.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="./public/js/base.js"></script>
+  </head>
+
+  <body>
+    <div class="sidebarsWrapper">
+      <div class="sidebars">
+        <a class="barWrapper" clear href="#abstract-a" id="bar2"
+          ><span>Abstract</span>
+          <div class="bar"></div
+        ></a>
+        <a class="barWrapper" clear href="#rfcl-a" id="bar3"
+          ><span>RFCL</span>
+          <div class="bar"></div
+        ></a>
+        <a class="barWrapper" clear href="#results-a" id="bar4"
+          ><span>Results</span>
+          <div class="bar"></div
+        ></a>
+        <a class="barWrapper" clear href="#task-visuals-a" id="bar5"
+          ><span>Task Visuals</span>
+          <div class="bar"></div
+        ></a>
+      </div>
+    </div>
+    <main class="content">
+      <section class="heading">
+        <h1 class="title">
+          <span blue>RFCL: </span><span blue>R</span>everse
+          <span blue>F</span>orward <span blue>C</span>urriculum
+          <span blue>L</span>earning for Extreme Sample and Demonstration
+          Efficiency in RL
+        </h1>
+        <h3>ICLR 2024</h3>
+        <!-- <h3>TODO</h3> -->
+        <section class="authors">
+          <ul>
+            <li><a href="https://www.stoneztao.com/">Stone Tao</a>,</li>
+            <li><a href="https://www.arth.website/">Arth Shukla</a>,</li>
+            <li><a href="http://tsekaichan.com">Tse-kai Chan</a>,</li>
+            <li><a href="https://cseweb.ucsd.edu/~haosu/">Hao Su</a></li>
+          </ul>
+        </section>
+        <section class="affiliations">
+          <ul>
+            <li>UC San Diego</li>
+          </ul>
+        </section>
+        <section class="links">
+          <ul>
+            <a
+              href="https://arxiv.org/abs/2405.03379"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <li>
+                <span class="icon"> <img src="./public/paper.svg" /> </span
+                ><span>Paper</span>
+              </li>
+            </a>
+            <a
+              href="https://twitter.com/Stone_Tao/status/1788113898710732962"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <li>
+                <span class="icon"> <img src="./public/twitter.svg" /> </span
+                ><span>Twitter</span>
+              </li>
+            </a>
+            <a
+              href="https://github.com/stonet2000/rfcl"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <li>
+                <span class="icon">
+                  <img src="./public/github.svg" />
+                </span>
+                <span>Code</span>
+              </li>
+            </a>
+            <!-- <a><li>Video</li></a> -->
+          </ul>
+        </section>
+        <hr />
+        <section>
+          <img src="./public/figures/figure_main.png" />
+          <img src="./public/figures/figure_main_hard.png" />
+          <p>
+            Our novel reverse forward curriculum learning (RFCL) algorithm
+            achieves much
+            <strong>higher sample and demonstration efficiency</strong> compared
+            to other model-free baselines, in addition to solving previously
+            unsolvable tasks (like PegInsertionSide and PlugCharger) from just
+            1-10 demonstrations and sparse rewards without much hyperparameter
+            tuning. RFCL can solve nearly 70% of hard MetaWorld tasks and all of Adroit from just 1 demo!
+          </p>
+        </section>
+        <a class="anchor" id="abstract-a"></a>
+        <h2>Abstract</h2>
+        <p class="abstract">
+          Reinforcement learning (RL) presents a promising framework to
+          autonomously learn policies through environment interaction to solve
+          tasks, but often requires an infeasible amount of interaction data to
+          solve complex tasks from sparse rewards. One direction has been to
+          augment RL with offline data demonstrating how to solve the desired
+          task, but past work in this area often require a lot of high quality
+          demonstration data that is difficult to obtain especially for domains
+          such as robotics. Our approach consists of a two-stage training
+          process starting with a reverse curriculum followed by a forward
+          curriculum. Unique to our approach compared to past work is the
+          ability to efficiently leverage more than one demonstration
+          efficiently via a per-demonstration reverse curriculum generated via
+          state resets. The result of our reverse curriculum is an initial
+          policy that performs well on a narrow initial state distribution and
+          helps overcome difficult exploration problems. A forward curriculum is
+          then used to accelerate the training of the initial policy to perform
+          well on the full initial state distribution of the task and helps
+          improve demonstration and sample efficiency. We show how the
+          combination of a reverse curriculum and forward curriculum in our
+          method, RFCL, enables significant improvements on demonstration and
+          sample efficiency comparing against various state-of-the-art
+          learning-from-demonstration baselines, even solving previously
+          unsolvable tasks that require high precision and control.
+        </p>
+      </section>
+      <a class="anchor" id="rfcl-a"></a>
+      <section class="details">
+        <h2>Reverse Forward Curriculum Learning</h2>
+
+        <p>
+          Below is a simple visual representation of the reverse forward
+          curriculums. The
+          <span style="color: #6096fe">blue arrows</span> represent the given
+          demonstration trajectories (2 in this example), starting from an
+          initial state and moving towards the goal marked by a
+          <span style="color: gold">gold star</span>. Area covered by
+          <span style="color: #48d681">dashed green lines</span> represents
+          states in which agent achieves high return from. Area
+          <span style="color: #ff6060">shaded in red</span> represents the most
+          frequently sampled initial states.
+        </p>
+        <!-- <img src="./public/videos/reverse-cl-demo.gif" width="50%" /> -->
+        <div class="media">
+          <video autoplay="" muted="" loop="" controls>
+            <source
+              src="./public/videos/reverse-cl-demo.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <video autoplay="" muted="" loop="" controls>
+            <source
+              src="./public/videos/forward-cl-demo.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+        <p>
+          On the left is the per-demonstration reverse curriculum, which starts
+          by prioritizing initial states from the demonstration that are close
+          to the goal, which are likely to yield sparse reward signals. The
+          reverse curriculum gradually increases the difficulty by initializing
+          the agent to earlier states in each demonstration which are farther
+          away from goal. The result is a specialist policy capable of solving
+          the desired task from a narrow initial state distribution marked by
+          the dashed green lines. Note that some demonstrations are
+          "reverse-solved" earlier and this arises as a result of our
+          per-demonstration reverse curriculum which through ablations is shown
+          to be more efficient than alternatives.
+        </p>
+        <p>
+          On the right is the forward curriculum that is a simple adaption of
+          Prioritized Level Replay, which always prioritizes initial states not
+          from the demonstration, but from the original task that have high
+          learning potential. Learning potential is computed as a sum of a score
+          and a staleness weight. The score we assign an initial state is either
+          1, 2 or 3 based on the current policy's performance starting from that
+          state. We assign 1 if the initial state frequently receives nonzero
+          return, 2 if the initial state always receives zero return, and 3 if
+          the initial state sometimes receives nonzero return. The staleness
+          score further ensures we occasionally revisit previously seen initial
+          states and update the score appropriately. By prioritizing initial
+          states with high score + staleness, we frequently sample initial
+          states that have "signs of life," and aggressively sample them until
+          the agent can capably achieve high return from these initial states.
+          In general we observe that inital states with signs of life tend to be
+          close to the set of states from whch the policy is already achieving
+          high return on. Over the course of training, the forward curriculum
+          enables the initially weak policy to efficiently generalize to a much
+          larger initial state distribution.
+        </p>
+        <a class="anchor" id="results-a"></a>
+        <h2>Results</h2>
+        <section>
+          <p>
+            We rigorously evaluate RFCL against several baselines, including
+            <a href="https://arxiv.org/abs/2302.02948" target="_blank">RLPD</a>
+            (state-of-the-art on Adroit at the time of writing),
+            <a href="https://arxiv.org/abs/2303.05479" target="_blank"
+              >Cal-QL</a
+            >
+            (state-of-the-art offline-to-online RL),
+            <a href="https://jumpstart-rl.github.io/" target="_blank">JSRL</a>
+            (recent reverse curriculum method), and
+            <a href="https://arxiv.org/abs/1709.10087">DAPG</a> (demonstration
+            augmented policy gradient). We benchmark across 22 tasks, with 3
+            from Adroit, 15 from MetaWorld, and 4 from ManiSkill2.
+          </p>
+          <img src="./public/figures/figure_main.png" />
+          <p>
+            The main results show the algorithm performance over time when using
+            sparse rewards and just 5 demonstrations. The shaded area shows the
+            95% confidence intervals over 5 seeds averaged across each task in
+            each of the three suites. RFCL significantly outperforms prior
+            methods. This is especially evident on harder tasks like
+            PegInsertionSide and PlugCharger from ManiSkill2, which are more
+            difficult due to their high initial state randomization and precise
+            manipulation requirements, see the
+            <a href="#task-visuals-a">visualizations</a> to see it visually.
+          </p>
+          <h3>Demonstration Ablations</h3>
+          <img src="./public/figures/figure_demo_ablation.png" />
+          <p>
+            We've seen the sample efficency earlier, to get a sense of the
+            demonstration efficiency we ablate on the number of demonstrations
+            given during training on the ManiSkill2 tasks. We benchmark on
+            ManiSkill2 as they are the most realistic tasks (high initial state
+            randomization, higher fidelity simulation). Our method RFCL again
+            significantly outperforms baselines in terms of demonstration
+            efficiency, being capable of solving environments from as little as
+            1 demonstration! Critically, we observe that the forward curriculum
+            is most helpful in the low demonstration regime, which can be
+            attributed to the fact that with fewer demonstrations, the reverse
+            curriculum trained policy is succesful on a even narrow set of
+            initial states, meaning initial state prioritization from the
+            forward curriculum is more crucial.
+          </p>
+
+          <h3>Curriculum Ablations</h3>
+          <div id="heatmaps">
+            <video autoplay="" muted="" loop="" controls>
+              <source
+                src="./public/videos/heatmap_animation_all_sr_12x12.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
+          <p>
+            Above is an animation of the success rate heatmap on a pointmaze
+            which shows how the reverse forward curriculum improves the agent
+            over time compared to using only a forward curriculum or no
+            curriculum. <span style="color: blue">Blue line</span> is the
+            demonstration heading to the
+            <span style="color: red">red goal.</span> To mimic hard exploration
+            problems in robotics tasks, this pointmaze is modified so that the
+            agent can only reset to states not covered by the demonstration, and
+            it may not collide with the walls.
+          </p>
+          <p>
+            The reverse curriculum enables very quick solving of the difficult exploration portion of the maze along the demonstration, before leveraging the forward curriculum to then generalize to other initial states.
+          </p>
+        </section>
+        <a class="anchor" id="task-visuals-a"></a>
+        <section>
+          <h2>Task Visualizations</h2>
+          <p>
+            We visualize success and fail trajectories from our method, in
+            addition to what the initial state distribution looks like for
+            selected easy and hard tasks (click the button to switch views).
+          </p>
+          <div id="task-visualizations">
+            <p style="font-weight: 500; font-size: 1.2rem">
+              Hard Tasks (ManiSkill2 PlugCharger, ManiSkill2 PegInsertionSide)
+            </p>
+            <div id="hard-videos">
+              <div class="sample-videos">
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/plugcharger/0.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/plugcharger/2.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/plugcharger/3.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/plugcharger/4.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/plugcharger/fail.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+              <div class="sample-videos">
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/peginsertion/0.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/peginsertion/2.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/peginsertion/3.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/peginsertion/4.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/peginsertion/fail.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
+            <div style="text-align: center">
+              <button id="visualize-hard-init-states">
+                Visualize Initial States
+              </button>
+            </div>
+            <p style="font-weight: 500; font-size: 1.2rem">
+              Easy Tasks (Adroit Door, Metaworld Assembly)
+            </p>
+            <div id="easy-videos">
+              <div class="sample-videos">
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/adroitdoor/0.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/adroitdoor/1.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/adroitdoor/2.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/adroitdoor/3.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/adroitdoor/fail.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+              <div class="sample-videos">
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/assembly/success_0.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/assembly/success_1.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/assembly/success_2.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/assembly/success_3.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <video autoplay="" muted="" loop="">
+                  <source
+                    src="./public/videos/assembly/fail_0.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
+            <div style="text-align: center">
+              <button id="visualize-easy-init-states">
+                Visualize Initial States
+              </button>
+            </div>
+          </div>
+        </section>
+      </section>
+      <section class="citation">
+        <h2>Citation</h2>
+        <pre><code>@article{tao2024rfcl,
+  title={Reverse Forward Curriculum Learning for Extreme Sample and Demonstration Efficiency in RL},
+  author={Tao, Stone and Shukla, Arth and Chan, Tse-kai and Su, Hao},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year={2024}
+}</code></pre>
+      </section>
+      <!-- <section class="acknowledgements">
+        <h2>Acknowledgements</h2>
+        <p>
+          TODO
+        </p>
+      </section> -->
+    </main>
+  </body>
+</html>

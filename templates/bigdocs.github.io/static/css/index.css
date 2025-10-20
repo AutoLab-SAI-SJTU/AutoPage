@@ -1,0 +1,310 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
+.footer .icon-link {
+    font-size: 25px;
+    color: #000;
+}
+
+.link-block a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.dnerf {
+  font-variant: small-caps;
+}
+
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+
+.publication-title {
+}
+
+.publication-banner {
+  max-height: parent;
+
+}
+
+.publication-banner video {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  object-fit: fit;
+}
+
+.publication-header .hero-body {
+}
+
+.publication-title {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+    color: #555;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.publication-awards {
+    color: #ff3860;
+    /* width: fit-content; */
+    font-weight: bolder;
+}
+
+.title + .publication-authors,
+.subtitle + .publication-authors {
+    margin-top: -1.25rem;
+}
+
+.publication-authors a {
+   color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+    text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.publication-banner img {
+}
+
+.publication-authors {
+  /*color: #4286f4;*/
+}
+
+.publication-video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    overflow: hidden;
+    border-radius: 10px !important;
+}
+
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.publication-body img {
+}
+
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 0;
+  font-size: 0;
+}
+
+.results-carousel video {
+  margin: 0;
+}
+
+
+.interpolation-panel {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.interpolation-panel .interpolation-image {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.interpolation-video-column {
+}
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+#interpolation-image-wrapper {
+  width: 100%;
+}
+#interpolation-image-wrapper img {
+  border-radius: 5px;
+}
+
+.expandable-card .card-text-container {
+  max-height: 200px;
+  overflow-y: hidden;
+  position: relative;
+}
+
+.expandable-card.expanded .card-text-container {
+  max-height: none;
+}
+
+.expand-btn {
+  position: relative;
+  display: none;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #510c75;
+  border-color: transparent;
+}
+
+.expand-btn:hover {
+  background-color: rgba(200, 200, 200, 0.8);
+  text-decoration: none;
+  border-color: transparent;
+  color: #510c75;
+}
+
+.expand-btn:focus {
+  outline: none;
+  text-decoration: none;
+}
+
+.expandable-card:not(.expanded) .card-text-container:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1));
+}
+
+.expandable-card:not(.expanded) .expand-btn {
+  margin-top: -40px;
+}
+
+.card-body {
+  padding-bottom: 5px;
+}
+
+.vertical-flex-layout {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.figure-img {
+  max-width: 100%;
+  height: auto;
+}
+
+.adjustable-font-size {
+  font-size: calc(0.5rem + 2vw);
+}
+
+.chat-history {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+#gradio pre {
+  background-color: transparent;
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.box {
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.section {
+  padding: 3rem 1.5rem;
+}
+
+.content h2.title {
+  color: #363636;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.content ul {
+  margin-left: 2em;
+  margin-top: 1em;
+}
+
+.content ul li {
+  margin-bottom: 0.5em;
+}
+
+.box h4.title {
+  color: #510c75;
+}
+
+.publication-authors {
+  margin: 1rem 0;
+  line-height: 1.75;
+}
+
+.author-block {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.author-block a {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.author-block a:hover {
+  text-decoration: underline;
+}
+
+.author-block sup {
+  font-size: 0.65em;
+  margin-left: 2px;
+}
+
+.publication-authors + .publication-authors {
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.author-block b {
+  font-weight: normal;
+  margin-right: 4px;
+}
+

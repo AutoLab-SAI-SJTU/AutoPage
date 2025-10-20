@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Frieren-V2A</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="helper.js" defer></script>
+  <style>
+    td {
+      vertical-align: middle;
+      min-width: 220px;
+    }
+
+    audio {
+      height: 50px;
+      width: 20vw;
+      min-width: 70px;
+      max-width: 220px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+    <div class="text-center">
+      <h1>FRIEREN:</h1>
+      <h3>Efficient Video-to-Audio Generation with Rectified Flow Matching</h3>
+      <p class="lead fw-bold">
+        |<a
+          href="https://arxiv.org/abs/2406.00320"
+          class="btn border-white bg-white fw-bold"
+          >arXiv</a>|<a href="https://github.com/cyanbx/Frieren-V2A"
+          class="btn border-white bg-white fw-bold"
+          >Code</a>|
+      </p>
+      <p>
+      
+
+      </p>
+      <!-- <p class="fst-italic mb-0">
+          Eugene Kharitonov, Damien Vincent,  Zalán Borsos, Raphaël Marinier, Sertan Girgin, Olivier Pietquin,
+          Matt Sharifi, Marco Tagliasacchi, Neil Zeghidour
+        </p> -->
+      <!-- <p><b>Anonymous Authors</b></p> -->
+    </div>
+    <p>
+      <b>Abstract.</b>
+
+      Video-to-audio (V2A) generation aims to synthesize content-matching audio from silent video, and it remains challenging to build V2A models with high generation quality, efficiency, and visual-audio temporal synchrony. We propose Frieren, a V2A model based on rectified flow matching. Frieren regresses the conditional transport vector field from noise to spectrogram latent with straight paths and conducts sampling by solving ODE, outperforming autoregressive and score-based models in terms of audio quality. By employing a non-autoregressive vector field estimator based on a feed-forward transformer and channel-level cross-modal feature fusion with strong temporal alignment, our model generates audio that is highly synchronized with the input video. Furthermore, through reflow and one-step distillation with guided vector field, our model can generate decent audio in a few, or even only one sampling step. Experiments indicate that Frieren achieves state-of-the-art performance in both generation quality and temporal alignment on VGGSound, with alignment accuracy reaching 97.22%, and 6.2% improvement in inception score over the strong diffusion-based baseline. Audio samples are available at <a href="http://frieren-v2a.github.io">http://frieren-v2a.github.io</a>.
+    </p>
+  </div>
+
+  <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+    <h2 id="model-overview" style="text-align: center;">Model Overview</h2>
+    <div>
+      <p><br /></p>
+      <p style="text-align: center; margin-left: 5%;">
+        <img src="arch.png" height="200" width="950" class="img-fluid">
+      </p>
+      <p><br /></p>
+    </div>
+    <p>
+      We illustrate the model architecture of Frieren at different levels in the figure. As shown in figure (a), we first utilize a pre-trained visual encoder with frozen parameters to extract a frame-level feature sequence from the video. Usually, the video frame rate is lower than the temporal length per second of the spectrogram latent. To align the visual feature sequence with the mel latent at the temporal dimension for the cross-modal feature fusion mentioned below, we adopt a length regulator, which simply duplicates each item in the feature sequence by the ratio of the latent length per second and the video frame rate for regulation. The regulated feature sequence is then fed to the vector field estimator as the condition, together with <i><b>x</b></i> and <i>t</i>, to get the vector field prediction <i><b>v</b></i>.
+    </p>
+    <p>
+      Figure (b) demonstrates the structure of the vector field estimator, which is composed of a feed-forward transformer and some auxiliary layers. The regularized visual feature <i><b>c</b></i> and the point <i><b>x</b></i> on the transport path are first processed by stacks of shallow layers separately, with output dimensions being both half of the transformer hidden dimension, and are then concatenated along the channel dimension to realize cross-modal feature fusion. This simple mechanism leverages the inherent alignment within the video and audio, achieving enforced alignment without relying on learning-based mechanisms such as attention. As a result, the generated audio and input video sequences exhibit excellent temporal alignment. After appending the time step embedding to the beginning, the sequence is added with a learnable positional embedding and is then fed into the feed-forward transformer. The structure of the transformer block is illustrated in figure (c), the design of which is derived from the spatial transformer in latent diffusion, with the 2D convolution layers replaced by 1D ones. The feed-forward transformer does not involve temporal downsampling, thus preserving the resolution of the temporal dimension and further ensuring the preservation of alignment. The output of the stacked transformer blocks is then passed through a normalization layer and a 1D convolution layer to finally obtain the prediction of the vector field.
+
+    </p>
+  </div>
+
+  <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+    <h2 id="tablecontents" style="text-align: left;">Table of Contents</h2>
+    <div>
+        <li><a href="index.html#results" class="btn border-white bg-white fw-bold">Video-to-Audio Generation Results</a></li>
+        <li><a href="index.html#few-step" class="btn border-white bg-white fw-bold">Few and Single Step Generation Results</a></li>
+    </div>
+  </div>
+
+  <div class="container shadow p-5 mb-5 bg-white rounded">
+    <h3>Video-to-Audio Generation Results<a id="results" /></h3>
+
+    <p style="margin-top: 2em">
+      In this section, we compare our results with other V2A models as well as ground truth videos. <b>You may need to scroll right to see full results.</b>
+    </p>
+    <p>Note that Im2Wav only support audio generation of 4.2 seconds, so the video clips from Im2Wav are shorter.</p>
+    <div class="container pt-3 table-responsive">
+      <table class="table table-hover" id="gender_table_1">
+        <thead>
+          <tr>
+            <th style="text-align: center">Content Type</th>
+            <th style="text-align: center">Ground Truth</th>
+            <th style="text-align: center">Frieren (ours)</th>
+            <th style="text-align: center">DDPM (ours)</th>
+            <th style="text-align: center">SpecVQGAN</th>
+            <th style="text-align: center">Diff-Foley (w/o CG)</th>
+            <th style="text-align: center">Diff-Foley (w/ CG)</th>
+            <th style="text-align: center">Im2Wav</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr height=100px>
+            <td style="text-align: center">playing the drum</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/BwJ2YYLFwTc_000118/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/BwJ2YYLFwTc_000118/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/BwJ2YYLFwTc_000118/ddpm.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/BwJ2YYLFwTc_000118/specvqgan.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/BwJ2YYLFwTc_000118/diff_foley_nocg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/BwJ2YYLFwTc_000118/diff_foley_cg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/BwJ2YYLFwTc_000118/im2wav.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">sea waves</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/uJJ494MYSmo_000019/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/uJJ494MYSmo_000019/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/uJJ494MYSmo_000019/ddpm.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/uJJ494MYSmo_000019/specvqgan.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/uJJ494MYSmo_000019/diff_foley_nocg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/uJJ494MYSmo_000019/diff_foley_cg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/uJJ494MYSmo_000019/im2wav.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">a man talking and then shooting</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/Mgd0Hsgl8gU_000100/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/Mgd0Hsgl8gU_000100/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/Mgd0Hsgl8gU_000100/ddpm.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/Mgd0Hsgl8gU_000100/specvqgan.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/Mgd0Hsgl8gU_000100/diff_foley_nocg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/Mgd0Hsgl8gU_000100/diff_foley_cg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/Mgd0Hsgl8gU_000100/im2wav.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">playing the cello</td>
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/ktis2aZfphM_000010/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/ktis2aZfphM_000010/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/ktis2aZfphM_000010/ddpm.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/ktis2aZfphM_000010/specvqgan.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/ktis2aZfphM_000010/diff_foley_nocg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/ktis2aZfphM_000010/diff_foley_cg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/ktis2aZfphM_000010/im2wav.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">train passing by</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/y7mhiv2Ltc4_000070/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/y7mhiv2Ltc4_000070/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/y7mhiv2Ltc4_000070/ddpm.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/y7mhiv2Ltc4_000070/specvqgan.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/y7mhiv2Ltc4_000070/diff_foley_nocg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/y7mhiv2Ltc4_000070/diff_foley_cg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/y7mhiv2Ltc4_000070/im2wav.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">bird twittering</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/9WClEjrr_RA_000027/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/9WClEjrr_RA_000027/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/9WClEjrr_RA_000027/ddpm.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/9WClEjrr_RA_000027/specvqgan.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/9WClEjrr_RA_000027/diff_foley_nocg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/9WClEjrr_RA_000027/diff_foley_cg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/9WClEjrr_RA_000027/im2wav.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">typing on computer keyboard</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/rTh92nlG9io_000030/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/rTh92nlG9io_000030/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/rTh92nlG9io_000030/ddpm.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/rTh92nlG9io_000030/specvqgan.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/rTh92nlG9io_000030/diff_foley_nocg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/rTh92nlG9io_000030/diff_foley_cg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/rTh92nlG9io_000030/im2wav.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">playing billiards</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/5gWlAdGamFo_000646/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/5gWlAdGamFo_000646/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/5gWlAdGamFo_000646/ddpm.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/5gWlAdGamFo_000646/specvqgan.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/5gWlAdGamFo_000646/diff_foley_nocg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/5gWlAdGamFo_000646/diff_foley_cg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/5gWlAdGamFo_000646/im2wav.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">chainsawing wood</td>
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/MnH4tzgKXVc_000030/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/MnH4tzgKXVc_000030/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/MnH4tzgKXVc_000030/ddpm.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/MnH4tzgKXVc_000030/specvqgan.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/MnH4tzgKXVc_000030/diff_foley_nocg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/MnH4tzgKXVc_000030/diff_foley_cg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/MnH4tzgKXVc_000030/im2wav.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">playing the erhu</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/4ooEeN51qdQ_000093/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/4ooEeN51qdQ_000093/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/4ooEeN51qdQ_000093/ddpm.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/4ooEeN51qdQ_000093/specvqgan.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/4ooEeN51qdQ_000093/diff_foley_nocg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/4ooEeN51qdQ_000093/diff_foley_cg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/4ooEeN51qdQ_000093/im2wav.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">eating crisps</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/6EwAjQDFHcs_000140/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/6EwAjQDFHcs_000140/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/6EwAjQDFHcs_000140/ddpm.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/6EwAjQDFHcs_000140/specvqgan.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/6EwAjQDFHcs_000140/diff_foley_nocg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/6EwAjQDFHcs_000140/diff_foley_cg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/6EwAjQDFHcs_000140/im2wav.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">fireworks</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/7GZdzd_wcBg_000230/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/7GZdzd_wcBg_000230/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/7GZdzd_wcBg_000230/ddpm.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/7GZdzd_wcBg_000230/specvqgan.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/7GZdzd_wcBg_000230/diff_foley_nocg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/7GZdzd_wcBg_000230/diff_foley_cg.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/7GZdzd_wcBg_000230/im2wav.mp4" type="video/mp4">
+          </tr>
+        </tbody>
+      </table>
+      <p>&nbsp</p>
+
+    </div>
+
+  </div>
+
+
+  <div class="container shadow p-5 mb-5 bg-white rounded">
+    <h3>Few and Single Step Generation Results<a id="few-step" /></h3>
+
+    <p style="margin-top: 2em">
+      In this section, we demonstrate our few-step and single-step results. <b>You may need to scroll right to see full results.</b>
+      <!-- This part is still under construction. -->
+    </p>
+    <div class="container pt-3 table-responsive">
+      <table class="table table-hover" id="gender_table_1">
+        <thead>
+          <tr>
+            <th style="text-align: center">Content Type</th>
+            <th style="text-align: center">Ground Truth</th>
+            <th style="text-align: center">Frieren (no reflow) <br> 25 steps</th>
+            <th style="text-align: center">Frieren (reflow) <br> 5 steps</th>
+            <th style="text-align: center">Frieren (reflow) <br> 1 step</th>
+            <th style="text-align: center">Frieren (reflow + distillation) <br> 1 step</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr height=100px>
+            <td style="text-align: center">playing the drum</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/BwJ2YYLFwTc_000118/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/BwJ2YYLFwTc_000118/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/BwJ2YYLFwTc_000118/reflow_5.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/BwJ2YYLFwTc_000118/reflow_1.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/BwJ2YYLFwTc_000118/distill_1.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">sea waves</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/uJJ494MYSmo_000019/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/uJJ494MYSmo_000019/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/uJJ494MYSmo_000019/reflow_5.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/uJJ494MYSmo_000019/reflow_1.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/uJJ494MYSmo_000019/distill_1.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">a man talking and then shooting</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/Mgd0Hsgl8gU_000100/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/Mgd0Hsgl8gU_000100/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/Mgd0Hsgl8gU_000100/reflow_5.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/Mgd0Hsgl8gU_000100/reflow_1.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/Mgd0Hsgl8gU_000100/distill_1.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">playing the cello</td>
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/ktis2aZfphM_000010/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/ktis2aZfphM_000010/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/few/ktis2aZfphM_000010/reflow_5.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/few/ktis2aZfphM_000010/reflow_1.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/few/ktis2aZfphM_000010/distill_1.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">train passing by</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/y7mhiv2Ltc4_000070/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/y7mhiv2Ltc4_000070/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/y7mhiv2Ltc4_000070/reflow_5.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/y7mhiv2Ltc4_000070/reflow_1.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/y7mhiv2Ltc4_000070/distill_1.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">bird twittering</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/9WClEjrr_RA_000027/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/9WClEjrr_RA_000027/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/9WClEjrr_RA_000027/reflow_5.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/9WClEjrr_RA_000027/reflow_1.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/9WClEjrr_RA_000027/distill_1.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">typing on computer keyboard</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/rTh92nlG9io_000030/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/rTh92nlG9io_000030/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/rTh92nlG9io_000030/reflow_5.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/rTh92nlG9io_000030/reflow_1.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/rTh92nlG9io_000030/distill_1.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">playing billiards</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/5gWlAdGamFo_000646/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/5gWlAdGamFo_000646/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/5gWlAdGamFo_000646/reflow_5.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/5gWlAdGamFo_000646/reflow_1.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/5gWlAdGamFo_000646/distill_1.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">chainsawing wood</td>
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/MnH4tzgKXVc_000030/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/v2a/MnH4tzgKXVc_000030/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/few/MnH4tzgKXVc_000030/reflow_5.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/few/MnH4tzgKXVc_000030/reflow_1.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="240" controls controlslist="nodownload" class="px-1"><source src="data/few/MnH4tzgKXVc_000030/distill_1.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">playing the erhu</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/4ooEeN51qdQ_000093/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/4ooEeN51qdQ_000093/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/4ooEeN51qdQ_000093/reflow_5.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/4ooEeN51qdQ_000093/reflow_1.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/4ooEeN51qdQ_000093/distill_1.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">eating crisps</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/6EwAjQDFHcs_000140/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/6EwAjQDFHcs_000140/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/6EwAjQDFHcs_000140/reflow_5.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/6EwAjQDFHcs_000140/reflow_1.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/6EwAjQDFHcs_000140/distill_1.mp4" type="video/mp4">
+          </tr>
+          <tr height=100px>
+            <td style="text-align: center">fireworks</td>
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/7GZdzd_wcBg_000230/gt.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/v2a/7GZdzd_wcBg_000230/frieren.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/7GZdzd_wcBg_000230/reflow_5.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/7GZdzd_wcBg_000230/reflow_1.mp4" type="video/mp4">
+            <td style="text-align: center"><video width="280" controls controlslist="nodownload" class="px-1"><source src="data/few/7GZdzd_wcBg_000230/distill_1.mp4" type="video/mp4">
+          </tr>
+        </tbody>
+      </table>
+      <p>&nbsp</p>
+
+    </div>
+
+  </div>
+       
+
+</body>
+
+</html>

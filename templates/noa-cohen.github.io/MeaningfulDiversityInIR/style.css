@@ -1,0 +1,158 @@
+/* CSS Document */
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+
+body {
+    font-family: Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-weight:300;
+    font-size:18px;
+    margin:0px;
+    padding:0px;
+}
+
+p {
+    font-size: 14pt;
+}
+
+
+a:link,a:visited
+{
+    color: #1367a7;
+    text-decoration: none;
+}
+a:hover {
+    color: #208799;
+}
+
+td.dl-link {
+    height: 160px;
+    text-align: center;
+    font-size: 22px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+/* your paper and bibtex*/
+/* modified from: http://css-tricks.com/snippets/css/layered-paper/ by: https://github.com/richzhang/webpage-template */
+
+.layered-paper-big { 
+    box-shadow:
+    0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+    5px 5px 0 0px #eee, /* The second layer */
+    5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+    10px 10px 0 0px #eee, /* The third layer */
+    10px 10px 1px 1px rgba(0,0,0,0.35), /* The third layer shadow */
+    15px 15px 0 0px #eee, /* The fourth layer */
+    15px 15px 1px 1px rgba(0,0,0,0.35), /* The fourth layer shadow */
+    20px 20px 0 0px #eee, /* The fifth layer */
+    20px 20px 1px 1px rgba(0,0,0,0.35), /* The fifth layer shadow */
+    25px 25px 0 0px #eee, /* The fifth layer */
+    25px 25px 1px 1px rgba(0,0,0,0.35); /* The fifth layer shadow */
+    margin-left: 10px;
+    margin-right: 45px;
+    margin-bottom: 30px;
+}
+
+.layered-paper { 
+  box-shadow:
+  0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+  5px 5px 0 0px #eee, /* The second layer */
+  5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+  10px 10px 0 0px #eee, /* The third layer */
+  10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 30px;
+  margin-bottom: 5px;
+}
+
+.paper-big { 
+  box-shadow:
+  0px 0px 1px 1px rgba(0,0,0,0.35); /* The top layer shadow */
+
+  margin-left: 10px;
+  margin-right: 45px;
+}
+
+pre {
+    position: relative;
+  }
+  
+  pre {
+    display: block;
+    padding: 20px;
+    background: #f2f2f2;
+    color: #555755;
+  }
+
+span.command-copy {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: .6;
+    font-size: 20px;
+    color: #555755;
+  }
+  
+span.command-copy:hover {
+    cursor: pointer;
+  }
+
+
+/* buttons */
+
+.my-btn {
+    position: absolute !important;
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+.my-btn-info {
+    color: #000;
+    background-color: #62dbff !important;
+    border-color: #62dbff !important;
+}
+
+#btn-back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+  }
+ 
+
+ .smallpad.table{
+    width: unset !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+td {
+    border: none !important;
+}
+
+h1 {
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.burger_h1 {
+  margin-top: 65px !important;
+  margin-bottom: 1rem !important;
+}
+
+.smallpad.table>:not(caption)>*>* {
+    padding: 1 !important;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 0px !important;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+.resimage {
+  max-width: 1100px !important;
+  width: 100% !important;
+}

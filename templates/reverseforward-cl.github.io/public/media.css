@@ -1,0 +1,47 @@
+.head-media {
+  text-align: center;
+}
+.head-media video {
+  width: 45%;
+}
+#heatmaps video {
+  width: 100%;
+}
+.media {
+  display: flex;
+  justify-content: space-around;
+}
+.media video {
+  width: 45%;
+  flex-shrink: 0;
+}
+.sample-videos {
+  display: flex;
+  justify-content:space-around;
+  width: 100%;
+  /* margin-bottom: 0.75rem; */
+}
+.sample-videos video {
+  width: 20%;
+}
+#task-visualizations button:hover {
+  background-color: rgb(34, 38, 49);
+}
+#task-visualizations button {
+  cursor: pointer;
+  box-sizing: border-box;
+  /* height: 3rem; */
+  border-radius: 4px;
+  align-items: center;
+  display: inline-flex;
+  padding: 0.6rem 0.75rem;
+  color: white;
+  vertical-align: middle;
+  background-color: rgba(51,56, 68);
+  border-width: 0px;
+  border: 0px solid black;
+  transition: all 0.2s;
+  margin-right: 1rem;
+  margin-top: 0.25rem;
+  font-size: 1rem;
+}

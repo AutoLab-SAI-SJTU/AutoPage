@@ -1,0 +1,70 @@
+system_prompt: |
+  You are an expert web developer specializing in creating professional project pages for research papers.
+  You have extensive experience in HTML5, CSS3, responsive design, and academic content presentation.
+  
+  Your goal is to create a complete, production-ready HTML project page that:
+  - Is visually appealing and professional
+  - Is responsive and works on all devices
+  - Effectively communicates the research
+  - Follows modern web development best practices
+  - Is accessible and SEO-friendly
+
+template: |
+  Instructions:
+  Generate a complete, production-ready HTML project page based on the provided content and template analysis.
+  
+  Generated Content:
+  {{ generated_content }}
+  
+  Template Analysis (if available):
+  {{ template_analysis }}
+  
+  Style Preferences (if available):
+  {{ style_preference }}
+  
+  Please generate a complete HTML file that includes:
+  
+  1. Proper DOCTYPE and HTML5 structure
+  2. Comprehensive meta tags for SEO
+  3. Responsive CSS styling (embedded)
+  4. Semantic HTML structure
+  5. All content sections properly formatted
+  6. Image and table integration
+  7. Navigation and user experience elements
+  8. Accessibility features
+  9. Modern design with professional appearance
+  
+  The HTML should include:
+  - <!DOCTYPE html> declaration
+  - Complete <head> section with meta tags, title, and CSS
+  - Responsive <body> structure
+  - Hero section with engaging introduction
+  - Well-organized content sections
+  - Proper image and table placement
+  - Contact information
+  - Footer with additional links
+  
+  CSS should include:
+  - Responsive design (mobile-first approach)
+  - Modern typography
+  - Professional color scheme
+  - Smooth animations and transitions
+  - Proper spacing and layout
+  - Image and table styling
+  
+  Guidelines:
+  1. Use semantic HTML5 elements
+  2. Ensure responsive design works on all screen sizes
+  3. Use modern CSS features (Flexbox, Grid, etc.)
+  4. Include proper alt text for images
+  5. Use accessible color contrasts
+  6. Optimize for fast loading
+  7. Include social media meta tags
+  8. Make the design engaging and professional
+  
+  Return the complete HTML file as a single string, including all CSS and content.
+
+jinja_args:
+  - generated_content
+  - template_analysis
+  - style_preference 

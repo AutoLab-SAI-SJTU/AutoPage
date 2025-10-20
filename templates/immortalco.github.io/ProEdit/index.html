@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>ProEdit: Simple Progression is All You Need for High-Quality 3D Scene Editing</title>
+<meta name="description" content="This paper proposes ProEdit - a simple yet effective framework for high-quality 3D scene editing guided by diffusion distillation in a novel progressive manner. Inspired by the crucial observation that multi-view inconsistency in scene editing is rooted in the diffusion model’s large feasible output space (FOS), our framework controls the size of FOS and reduces inconsistency by decomposing the overall editing task into several subtasks, which are then executed progressively on the scene. Within this framework, we design a difficulty-aware subtask decomposition scheduler and an adaptive 3D Gaussian splatting (3DGS) training strategy, ensuring high efficiency in performing each subtask. Extensive evaluation shows that our ProEdit achieves state-of-the-art results in various scenes and challenging editing tasks, all through a simple framework without any expensive or sophisticated add-ons like distillation losses, components, or training procedures. Notably, ProEdit also provides a new way to preview, control, and select the aggressivity of editing operation during the editing process.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta property="og:image" content="img/teaser_simple.jpg">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1335">
+<meta property="og:image:height" content="1192"> -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://immortalco.github.io/ProEdit/">
+<meta property="og:title" content="ProEdit: Simple Progression is All You Need for High-Quality 3D Scene Editing">
+<meta property="og:description" content="This paper proposes ProEdit - a simple yet effective framework for high-quality 3D scene editing guided by diffusion distillation in a novel progressive manner. Inspired by the crucial observation that multi-view inconsistency in scene editing is rooted in the diffusion model’s large feasible output space (FOS), our framework controls the size of FOS and reduces inconsistency by decomposing the overall editing task into several subtasks, which are then executed progressively on the scene. Within this framework, we design a difficulty-aware subtask decomposition scheduler and an adaptive 3D Gaussian splatting (3DGS) training strategy, ensuring high efficiency in performing each subtask. Extensive evaluation shows that our ProEdit achieves state-of-the-art results in various scenes and challenging editing tasks, all through a simple framework without any expensive or sophisticated add-ons like distillation losses, components, or training procedures. Notably, ProEdit also provides a new way to preview, control, and select the aggressivity of editing operation during the editing process.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ProEdit: Simple Progression is All You Need for High-Quality 3D Scene Editing">
+<meta name="twitter:description" content="This paper proposes ProEdit - a simple yet effective framework for high-quality 3D scene editing guided by diffusion distillation in a novel progressive manner. Inspired by the crucial observation that multi-view inconsistency in scene editing is rooted in the diffusion model’s large feasible output space (FOS), our framework controls the size of FOS and reduces inconsistency by decomposing the overall editing task into several subtasks, which are then executed progressively on the scene. Within this framework, we design a difficulty-aware subtask decomposition scheduler and an adaptive 3D Gaussian splatting (3DGS) training strategy, ensuring high efficiency in performing each subtask. Extensive evaluation shows that our ProEdit achieves state-of-the-art results in various scenes and challenging editing tasks, all through a simple framework without any expensive or sophisticated add-ons like distillation losses, components, or training procedures. Notably, ProEdit also provides a new way to preview, control, and select the aggressivity of editing operation during the editing process.">
+<!-- <meta name="twitter:image" content="img/teaser_simple.jpg"> -->
+<!-- mirror: F0%9F%AA%9E&lt -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/codemirror.min.css">
+<link rel="stylesheet" href="css/app.css">
+<style>
+.rrotated {
+    transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    /* Internet Explorer 9*/
+    -moz-transform: rotate(90deg);
+    /* Firefox */
+    -webkit-transform: rotate(90deg);
+    /* Safari 和 Chrome */
+    -o-transform: rotate(90deg);/* Opera */
+}
+.lrotated {
+    transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    /* Internet Explorer 9*/
+    -moz-transform: rotate(270deg);
+    /* Firefox */
+    -webkit-transform: rotate(270deg);
+    /* Safari 和 Chrome */
+    -o-transform: rotate(270deg);/* Opera */
+}
+</style>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/codemirror.min.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script src="js/video_comparison.js"></script>
+<script src="js/app.js"></script>
+</head>
+
+<body>
+<div class="container" id="header" style="text-align: center; margin: auto;">
+    <div class="row" id="title-row" style="max-width: 100%; margin: 0 auto; display: inline-block">
+        <h2 class="col-md-12 text-center" id="title"> <b>ProEdit</b>: Simple Progression is All You Need for High-Quality 3D Scene Editing<br>
+            <small> NeurIPS 2024 </small> </h2>
+    </div>
+    <div class="row" id="author-row" style="margin:0 auto;">
+        <div class="col-md-12 text-center" style="display: table; margin:0 auto">
+            <a style="text-decoration:none" href="https://scholar.google.com/citations?user=_m5__wUAAAAJ"> Jun-Kun Chen </a>
+            &emsp;
+            <a style="text-decoration:none" href="https://yxw.cs.illinois.edu/"> Yu-Xiong Wang </a><br/>
+            University of Illinois at Urbana-Champaign<br/>
+            {<a style="text-decoration:none" href="mailto:junkun3@illinois.edu">junkun3</a>, <a style="text-decoration:none" href="mailto:yxw@illinois.edu">yxw</a>}@illinois.edu
+        </div>
+    </div>
+</div>
+<script>
+        document.getElementById('author-row').style.maxWidth = document.getElementById("title-row").clientWidth + 'px';
+    </script>
+<div class="container" id="main">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 text-center">
+            <ul class="nav nav-pills nav-justified">
+                <li> <a href="https://immortalco.github.io/ProEdit/paper.html?version=1"> <img src="https://info.arxiv.org/brand/images/brand-logomark-primary-large.jpg" height="60px" />
+                    <h4><strong>Paper</strong></h4>
+                    </a> </li>
+                <!-- <li> <a href="./poster.pdf"> <img src="./img/poster_small.png" height="60px" />
+                    <h4><strong>Poster</strong></h4>
+                    </a> </li> -->
+                <li> <a href="https://immortalco.github.io/ProEdit/presentation.html?version=1"> <img src="img/youtube_icon.png" height="60px" />
+                    <h4><strong>Video</strong></h4>
+                    </a> </li>
+                <li> <a href="https://immortalco.github.io/ProEdit/code.html?version=1" target="_blank">
+                    <image src="img/github.png" height="60px" />
+                    <h4><strong>Code</strong></h4>
+                    </a> </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!--
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="video-compare-container" id="materialsDiv">
+                    <video class="video" id="materials" loop playsinline autoPlay muted src="video/materials_circle_mipnerf_ours.mp4" onplay="resizeAndPlay(this)"></video>
+                    
+                    <canvas height=0 class="videoMerge" id="materialsMerge"></canvas>
+                </div>
+            </div>
+        </div>
+		-->
+    
+    <div class="row" align="center">
+        <image src="img/teaser.png" class="img-responsive" alt="overview" width="75%" style="max-height: 300px;margin:auto;" />
+    </div>
+    <div class="row">
+        <h3> Abstract </h3>
+        
+        <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+            <p class="text-justify"> This paper proposes ProEdit - a simple yet effective framework for high-quality 3D scene editing guided by diffusion distillation in a novel progressive manner. Inspired by the crucial observation that multi-view inconsistency in scene editing is rooted in the diffusion model’s large feasible output space (FOS), our framework controls the size of FOS and reduces inconsistency by decomposing the overall editing task into several subtasks, which are then executed progressively on the scene. Within this framework, we design a difficulty-aware subtask decomposition scheduler and an adaptive 3D Gaussian splatting (3DGS) training strategy, ensuring high efficiency in performing each subtask. Extensive evaluation shows that our ProEdit achieves state-of-the-art results in various scenes and challenging editing tasks, all through a simple framework without any expensive or sophisticated add-ons like distillation losses, components, or training procedures. Notably, ProEdit also provides a new way to preview, control, and select the aggressivity of editing operation during the editing process. </p>
+        </div>
+    </div>
+    <div class="row">
+        <h3> Architecture &amp; Design</h3>
+        <image src="img/pipeline.png" class="img-responsive" alt="overview" width="75%" style="margin:auto;" />
+        
+    </div>
+    <div class="row">
+        
+        <h3> Gallery </h3>
+        <center>
+            <video style="width: 100%; height: auto; max-height: 500px;" playsinline="" autoplay="" loop="" muted="" id="gallery_video">
+                <source src="video/progressive.mp4" type="video/mp4">
+            </video>
+            <p><b id="gallery_video_desc">Progressive Editing Process<br/>The editing task is decomposed into subtasks r<sub>0</sub> to r<sub>5</sub></b></p>
+
+            <script>
+                function replace_video(video, scene_name) {
+                    document.getElementById("gallery_video").src = "video/" + video + ".mp4";
+                    document.getElementById("gallery_video_desc").innerHTML = "" + scene_name + "";
+                }
+                
+            </script>
+
+            <div class="container" id="main" >
+                <div class="row">
+                    <div class="text-center" >
+                        <ul class="nav nav-pills nav-justified" width="75%">
+                            <li>
+                                <a href="javascript:replace_video('progressive', 'Progressive Editing Process<br/>Each editing task is decomposed into subtasks r<sub>0</sub> to r<sub>5</sub>.')">
+                                    <img src="img/progressive.png" height="80px" />
+                                    <h4><strong>Progressive Process</strong></h4>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="javascript:replace_video('fangzhou', 'Scene: Fangzhou')">
+                                    <img src="img/in2n_fangzhou.png" height="80px" />
+                                    <h4><strong>Scene: Fangzhou</strong></h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:replace_video('person', 'Scene: Person<br/>Editing Tasks (left to right): suit; marble statue; plaid shirt; firefighter with a hat')">
+                                    <img src="img/in2n_person.png" height="80px" />
+                                    <h4><strong>Scene: Person</strong></h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:replace_video('scannetpp', 'Indoor Scenes in ScanNet++')">
+                                    <img src="img/scannetpp.png" height="80px" />
+                                    <h4><strong>Indoor Scenes (ScanNet++)</strong></h4>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </center>
+        <!-- <center>
+            <table width="75%" style="table-layout:fixed">
+                <tbody>
+                    <tr>
+                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                                <source src="video/in2n_face_orig.mp4" type="video/mp4">
+                            </video></td>
+                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                                <source src="video/in2n_face_orig.mp4" type="video/mp4">
+                            </video></td>
+                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                                <source src="video/in2n_face_orig.mp4" type="video/mp4">
+                            </video></td>
+                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                                <source src="video/in2n_face_orig.mp4" type="video/mp4">
+                            </video></td>
+                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                                <source src="video/in2n_face_orig.mp4" type="video/mp4">
+                            </video></td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="middle">Original Scene</td>
+                        <td align="center" valign="middle">Original Scene</td>
+                        <td align="center" valign="middle">Original Scene</td>
+                        <td align="center" valign="middle">Original Scene</td>
+                        <td align="center" valign="middle">Original Scene</td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </center> -->
+    </div>
+ 
+    
+    <div class="row">
+        <h3> Citation </h3>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group col-md-10 col-md-offset-1">
+                <textarea id="bibtex" class="form-control" readonly>
+@inproceedings{proedit,
+    title={{ProEdit}: Simple Progression is All You Need for High-Quality {3D} Scene Editing},
+    author={Chen, Jun-Kun and Wang, Yu-Xiong},
+    booktitle={NeurIPS},
+    year={2024}
+}
+</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h3> Acknowledgements </h3>
+        <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+            <p class="text-justify"> 
+                The website template is borrowed from <a href="https://immortalco.github.io/ConsistDreamer/">ConsistDreamer</a>. <br/>
+                We thank you and the other <script type="text/javascript" src="https://counter.websiteout.net/js/7/0/0/0"></script> visitors for visiting our project page.
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

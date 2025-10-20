@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLMs Know More Than They Show – Project Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+	<link href="fontawesome-6.6.0/css/all.css" rel="stylesheet">
+    <style>
+		.btn {
+		    padding: 7px 15px;
+			font-size: 20px;
+		}
+		
+		mark {
+			-webkit-animation: 3s highlight 1.5s 1 normal forwards;
+			animation: 3s highlight 1.5s 1 normal forwards;
+			background-color: none;
+			background: linear-gradient(90deg, #f7f5bc 50%, rgba(255, 255, 255, 0) 50%);
+			background-size: 200% 100%;
+			background-position: 100% 0;
+		}
+		
+		@-webkit-keyframes highlight {
+		  to {
+			background-position: 0 0;
+		  }
+		}
+
+		@keyframes highlight {
+		  to {
+			background-position: 0 0;
+		  }
+		}
+		
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #87c9b1;
+            color: #fff;
+            padding: 60px 0;
+            text-align: center;
+        }
+		
+		figure {
+		  text-align: center; /* Centers the content inside the figure */
+		  margin: 20px auto; /* Adds vertical space and centers the figure horizontally */
+		}
+		
+		figcaption {
+		  padding-top: 10px;
+		  color: #555;
+		  font-style: italic; /* Styling for the caption */
+		}
+
+<!--         header h1 {
+			margin: 0;
+			font-size: 60px;
+			padding-bottom: 30px;
+			padding-top: 20px;
+			padding-left: 20px;
+			padding-right: 20px;
+        } -->
+		
+		header h1 {
+            margin: 0;
+            font-size: 40px;
+			padding-bottom: 40px;
+        }
+
+        header h2 {
+            margin: 10px 0 0;
+            font-weight: 400;
+        }
+		
+		header address a {
+			font-size: 20px;
+			color: #4a5685;
+		}
+		
+		header address {
+			color: #337ab7
+		}
+		
+		header address institute {
+			color: #000000;
+			font-size: 20px;
+		}
+		
+		header address sup {
+			color: #000000;
+		}
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+		
+        section {
+            margin-bottom: 50px;
+        }
+
+        section h2 {
+            font-size: 28px;
+            border-left: 5px solid #4a9aac;
+            padding-left: 10px;
+            color: #333;
+        }
+
+        section p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+		
+		        @media (max-width: 768px) {
+            header h1 {
+                font-size: 32px;
+            }
+
+            header address a {
+                font-size: 16px;
+            }
+
+            .container {
+                width: 100%;
+                padding: 0 15px;
+            }
+
+            .figure-container figure {
+                flex: 1 1 100%;
+            }
+
+            .key-contributions, .methodology, .definitions {
+                padding: 15px;
+            }
+
+            section h2 {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            header address a {
+                font-size: 14px;
+            }
+
+            .key-contributions, .methodology, .definitions {
+                padding: 10px;
+            }
+
+            section p {
+                font-size: 14px;
+            }
+        }
+		
+		/* On larger screens (e.g., tablets, desktops) */
+		@media (min-width: 768px) {
+			img.float-figure {
+				float: right;
+				margin-left: 20px;
+				margin-right: 0;
+				width: 30%; /* Adjust based on your layout */
+			}
+		}
+
+		/* On smaller screens (e.g., phones), reset to inline */
+		@media (max-width: 767px) {
+			img.float-figure {
+				float: none;
+				margin-left: auto;
+				margin-right: auto;
+				width: 100%; /* Full width inline */
+			}
+		}
+		
+		.figure-container {
+		  display: grid;
+		  grid-template-columns: 1fr 1fr; /* Creates two columns of equal width */
+		  gap: 20px; /* Space between columns */
+		}
+		
+		.subtitle {
+		    font-size: 28px;
+            border-left: 5px solid #4a9aac;
+            padding-left: 10px;
+            color: #333;
+		}
+
+        .key-contributions, .methodology {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			font-size: 18px;
+        }
+		
+		.definitions {
+            background-color: #ededed;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			font-size: 18px;
+        }
+
+        .key-contributions h3, .methodology h3 .definitions h3 {
+            font-size: 24px;
+            color: #444;
+        }
+
+        .key-contributions ul, .methodology ul .definitions ul {
+            margin-left: 0px;
+			font-size: 18px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 16px;
+        }
+		.card {
+			position: relative;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: normal;
+			-webkit-flex-direction: column;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			background-color: #fff;
+			border: 1px solid rgba(0, 0, 0, .125);
+			border-radius: .25rem;
+		.card-header {
+			padding: .75rem 1.25rem;
+			margin-bottom: 0;
+			margin-top: 0;
+			background-color: #f7f7f9;
+			border-bottom: 1px solid rgba(0, 0, 0, .125);
+			}
+		.card-block {
+			-webkit-box-flex: 1;
+			-webkit-flex: 1 1 auto;
+			-ms-flex: 1 1 auto;
+			flex: 1 1 auto;
+			padding: 1.25rem;
+		}
+		.img-inline {
+		  vertical-align: middle;
+		  max-width: 100%;
+		  height: auto;
+		}
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>LLMs Know More Than They Show:<br>On the Intrinsic Representation of LLM Hallucinations</h1>
+	<address>
+	  <nobr><a href="https://orgadhadas.github.io/" target="_blank">Hadas Orgad</a><sup>1</sup>,</nobr>
+	  <nobr><a href="https://tokeron.github.io/" target="_blank">Michael Toker</a><sup>1</sup>,</nobr>
+	  <nobr><a href="https://x.com/zorikgekhman" target="_blank">Zorik Gekhman</a><sup>1</sup>,</nobr>
+	  <nobr><a href="https://roireichart.com/" target="_blank">Roi Reichart</a><sup>1</sup>,</nobr>
+	  <nobr><a href="https://sites.google.com/site/idanszpektor" target="_blank">Idan Szpektor</a><sup>2</sup>,</nobr>
+	  <nobr><a href="https://hkotek.com/" target="_blank">Hadas Kotek</a><sup>3</sup>,</nobr>
+	  <nobr><a href="https://belinkov.com/" target="_blank">Yonatan Belinkov</a><sup>1</sup></nobr>
+	 <br>
+	  <nobr><sup>1</sup><institute>Technion - IIT</a></institute></nobr>;
+	  <nobr><sup>2</sup><institute>Google Research</a></institute></nobr>
+	  <nobr><sup>3</sup><institute>Apple</a></institute></nobr>
+	</address>
+	<a href="https://arxiv.org/abs/2410.02707" target="_blank" class="btn" style="color: #fff; background-color: #198754; border-color: #136e44;"><i class="ai ai-arxiv"></i> ArXiv</a>
+    <a href="https://orgadhadas.github.io/publications/llms_know/paper.pdf" target="_blank" class="btn" style="color: #fff; background-color: #dc3545; border-color: #b72d3a;"><i class="far fa-file-pdf"></i> PDF</a>
+    <a href="https://github.com/technion-cs-nlp/LLMsKnow" target="_blank" class="btn" style="color: #fff; background-color: #212529; border-color: #212529;"><i class="fab fa-github"></i> Code</a>
+</header>
+
+
+<div class="container">
+
+	<h2 class="subtitle">Abstract</h2>
+    <section>
+        <p>
+Large language models (LLMs) often produce errors, including factual inaccuracies, biases, and reasoning failures, collectively referred to as “hallucinations”'. Recent studies have demonstrated that LLMs' internal states encode information regarding the truthfulness of their outputs, and that this information can be utilized to detect errors. In this work, <mark>we show that the internal representations of LLMs encode much more information about truthfulness than previously</mark> recognized. We first discover that the <mark>truthfulness information is concentrated in specific tokens</mark>, and leveraging this property significantly enhances error detection performance. Yet, we show that such error detectors fail to generalize across datasets, implying that---contrary to prior claims---<mark>truthfulness encoding is not universal but rather multifaceted</mark>. Next, we show that internal representations can also be used for predicting the <mark>different types of errors the model is likely to make</mark> different types of errors the model is likely to make, facilitating the development of tailored mitigation strategies. Lastly, we reveal <mark>a discrepancy between LLMs' internal encoding and external behavior</mark>: they may encode the correct answer, yet consistently generate an incorrect one. Taken together, these insights deepen our understanding of LLM errors from the model's internal perspective, which can guide future research on enhancing error analysis and mitigation.
+        </p>
+    </section>
+
+	<h2 class="subtitle">Key Contributions</h2>
+    <section class="key-contributions">
+        <ul>
+		<li><strong>Better Error Detection:</strong> We show that truthfulness information is concentrated in specific answer tokens, and by training probing classifiers on these tokens, we significantly improve the ability to detect errors.</li>
+		<li><strong>Generalization Challenges:</strong> While our method improves error detection within datasets, we find that probing classifiers do not generalize across different tasks. Our results indicate that LLMs encode multiple, distinct notions of truth.</li>
+		<li><strong>Error Type Prediction:</strong> The internal representations can also be used to predict the type of error, enabling the development of targeted error mitigation strategies.</li>
+		<li><strong>Behavior vs. Knowledge Discrepancy:</strong> We uncover a striking contradiction between LLMs' internal knowledge and external outputs—they may encode the correct answer internally but still generate an incorrect one.</li>
+        </ul>
+    </section>
+	
+	<h2 class="subtitle">What are hallucinations? A different perspective</h2>
+    <section class="definitions">
+	<ul>
+		<li>The term “hallucinations'” is widely used. Yet, no consensus exists on defining hallucinations: <a href="https://arxiv.org/abs/2404.07461" target="_blank">Venkit et al.</a> identified 31 distinct frameworks for conceptualizing hallucinations!</li>
+		<li>Significant research efforts aim to define and taxonomize hallucinations, distinguishing them from other error types. These categorizations, however, adopt a human-centric view. They focus on the subjective interpretations of LLM hallucinations, which does not necessarily reflect how these errors are encoded within the models themselves.</li>
+		<li>This gap limits our ability to address the root causes of hallucinations, or to reason about their nature.</li>
+		<li>For example, it is unclear whether conclusions about hallucinations defined in one framework can be applied to another framework.</li>
+		<li>Instead, we adopt a broad interpretation of hallucinations. Here, <b>we define hallucinations as any type of error generated by an LLM</b>, including factual inaccuracies, biases, failures in common-sense reasoning, and others.</li>
+		<li>This way, we cover a broad array of LLM limitations and derive general conclusions.
+	</ul>
+    </section>
+	
+	<h2 class="subtitle">Methodology</h2>
+    <section class="methodology">
+		<figure>
+		<img class="float-figure" src="img/triviaqa_auc.png" class="img-inline">
+		</figure>
+        <h3>Tools & Techniques</h3>
+        <ul>
+            <li>Probing classifiers for error detection.</li>
+            <li>Probing on the exact answer token for truthfulness detection.</li>
+            <li>Experiments across a wide range of datasets (10) for diverse task and limitation evaluation.</li>
+        </ul>
+	<p>	
+	We conducted experiments across multiple datasets such as TriviaQA, HotpotQA, and MNLI to train classifiers on the internal representations of models (Mistral-7B and Llama3-8b, both pretrained and instruct).
+	By probing the exact answer tokens within LLM outputs, we discovered stronger signals of truthfulness in the exact answer token, enabling better detection of hallucinations.	
+	</p>
+	<figure>
+	<img src="img/tokens_figure.png" class="img-inline" style="width:70%; min-width: 300px; height:auto;">
+	<figcaption>Example for the input and LLM output from the TriviaQA dataset, and the names of the tokens that can be probed.</figcaption>
+	</figure>
+    </section>
+
+	<h2 class="subtitle">Results</h2>
+    <section class="key-contributions">
+		<h3>Better Error Detection</h3>
+		<p>
+			Using a probing classifier trained to predict errors from the representations of the exact answer tokens significantly improves error detection. (measured metric is AUC)
+				<figure>
+				<img src="img/error_detection.png" class="img-inline" style="width:50%; min-width: 300px; height:auto; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+				<figcaption>Error detection across different datasets.</figcaption>
+				</figure>
+		</p>
+	</section>
+	<section class="key-contributions">
+		<h3>Generalization Challenges</h3>
+		<p>
+			On the left – raw generalization scores (AUC). On the right – after reducing a simple baseline of error detection using logits.
+			<br>
+			Meaning – a lot of the generalization we saw on the right can be attributed to things that the model also exposes in the output! There’s no universal internal truthfulness encoding like we might have hoped.
+		</p>
+				<figure>
+				<div class="figure-container">
+				<figure>
+				<img src="img/generalization1.png" class="img-inline" style="width:70%; min-width: 150px; height:auto; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+				<figcaption>Raw AUC values. Values above 0.5 indicate some generalization.</figcaption>
+				</figure>
+				<figure>
+				<img src="img/generalization2.png" class="img-inline" style="width:65%; min-width: 150px; height:auto; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+				<figcaption>Performance (AUC) difference of the probe and the logit-based method. Values above 0 indicate generalization beyond the logit-based method.</figcaption>
+				</figure>
+				</div>
+				<figcaption>Generalization between datasets. After subtracting the logit-based method's performance, we observe that most datasets show limited or no meaningful generalization.</figcaption>
+				</figure>
+		
+		<p>
+			<img src="img/arrow.gif" class="img-inline" style="height:50px"> Caution needed when applying a trained error detector across different settings.
+			<br>
+			<img src="img/arrow.gif" class="img-inline" style="height:50px"> There’s more to investigate: can we map the different types of truthfulness that LLMs encode?
+		</p>
+	</section>
+		
+	<section class="key-contributions">
+		<h3>Error Type Prediction</h3>
+		<p>
+			Intuitively, not all error are the same, here are some examples for different types of errors: <figure>
+			
+			<img src="img/error_types.png" class="img-inline" style="    width: 90%; min-width: 300px; height:auto; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+			<figcaption>Different error types in free-form generation, exposed when resampled many times.</figcaption>
+			</figure>
+		</p>
+		<p>
+		
+		We find that the internal representations of LLMs can also be used to predict the type of error the LLM might make.
+		<br>
+		<img src="img/arrow.gif" class="img-inline" style="height:50px"> Using the error type prediction model, practitioners can deploy customized mitigation strategies depending on the specific types of errors a model is likely to produce.
+		</p>
+	</section>
+	
+	<section class="key-contributions">
+		<h3>Behavior vs. Knowledge Discrepancy</h3>
+		<p>
+			To test how aligned the model’s outputs with its internal representations, we: </p>
+			
+			<ol>
+			<li>Resample 30 answers per question.</li>
+			<li>Return the answer that the probe error detector preferred.</li>
+			<li>Compute accuracy on the resulting outputs.</li>
+			</ol>
+			
+			<p>
+			
+			Intuitively, if there’s alignment, we should see that the accuracy is more-or-less the same as with other standard decoding methods, e.g., greedy decoding.
+			<br><br> But this is not the case:
+
+			</p>
+			
+			<figure>
+			
+			<img src="img/discrepancy.png" class="img-inline" style="width: 90%; min-width: 300px; height:auto; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+			<figcaption>Different answer choice strategies. A notable improvement in accuracy by using the error-detection probe is observed for error types where the LLM shows no preference for the correct answer across repeated generations.</figcaption>
+			</figure>
+			
+			<p>
+			On the left – you see that overall – using the probe slightly improves the accuracy on the TriviaQA dataset.
+			<br> <br>
+			However, if we break it down by error types – we see that the probe achieves a significant improvement for specific error types. This error types are cases where the LLM did not show any preference to the correct answer in its predictions, e.g., in “Consistently incorrect (Most)”, the model almost always predicts a specific wrong answer, while a very small fraction of the time it predicts the correct answer. Still – the probe is able to choose the correct answer, indicating that the internal representations encode information which allows it to do it.
+			<br> <br>
+			This hints that the LLM knows the right answer, but something causing it to generate the incorrect one.
+			
+			<br>
+			<img src="img/arrow.gif" class="img-inline" style="height:50px"> Based on this insight, can we develop a method that aligns the internal representations with the LLM's behavior, making it generate more truthful things?
+
+			</p>
+    </section>
+
+	<h2 class="subtitle">How to cite</h2>
+
+	<div class="card">
+	<h3 class="card-header">bibliography</h3>
+	<div class="card-block">
+	<p style="text-indent: -3em; margin-left: 3em;" class="card-text clickselect">
+	Hadas Orgad, Michael Toker, Zorik Gekhman, Roi Reichart, Idan Szpektor, Hadas Kotek, Yonatan Belinkov, “<em>LLMs Know More Than They Show – On the Intrinsic Representation of LLM Hallucinations</em>”.
+	</p>
+	</div>
+	<h3 class="card-header">bibtex</h3>
+	<div class="card-block">
+	<pre class="card-text clickselect">
+@inproceedings{
+	orgad2025llms,
+	title={{LLM}s Know More Than They Show: On the Intrinsic Representation of {LLM} Hallucinations},
+	author={Hadas Orgad and Michael Toker and Zorik Gekhman and Roi Reichart and Idan Szpektor and Hadas Kotek and Yonatan Belinkov},
+	booktitle={The Thirteenth International Conference on Learning Representations},
+	year={2025},
+	url={https://openreview.net/forum?id=KRnsX5Em3W}
+}</pre>
+	</div>
+	</div>
+	<p></p>
+</div>
+
+
+<footer>
+    <p>Created by Hadas Orgad | Technion | 2024</p>
+</footer>
+
+</body>
+</html>

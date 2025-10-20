@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Differentiable Task Graph Learning</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.webp" rel="icon">
+
+    <!-- Open Graph Meta Tags for Preview -->
+    <meta property="og:title" content="Differentiable Task Graph Learning">
+    <meta property="og:description" content="Explore the repository for task graph generation using differentiable methods.">
+    <meta property="og:image" content="img/favicon.webp">
+    <meta property="og:url" content="https://fpv-iplab.github.io/Differentiable-Task-Graph-Learning">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Differentiable Task Graph Learning">
+    <meta name="twitter:description" content="Explore the repository for task graph generation using differentiable methods.">
+    <meta name="twitter:image" content="img/favicon.webp">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Include MathJax script -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <div class="container col-9 col-lg-4 m-0 justify-content-start">
+            <a href="https://www.unict.it/" class="col-4 col-lg-4" target="_blank">
+                <img class="img-fluid" src="img/loghi/UniCT-Logo-Nero.png">
+            </a>
+            <a href="https://web.dmi.unict.it/" class="col-4 col-lg-4" target="_blank">
+                <img class="img-fluid" src="img/loghi/UniCT_DMI.png" style="width: 80%;">
+            </a>
+        </div>
+
+        <button type="button" class="navbar-toggler m-2" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="index.html#tgml" class="nav-item nav-link">TGML</a>
+                <a href="index.html#direct-optimization" class="nav-item nav-link">DO</a>
+                <a href="index.html#task-graph-transformer" class="nav-item nav-link">TGT</a>
+                <a href="index.html#resources" class="nav-item nav-link">Resources</a>
+                <a href="index.html#paper" class="nav-item nav-link">Paper</a>
+                <a href="index.html#people" class="nav-item nav-link">People</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Abstract Start -->
+    <div class="container-fluid p-0 mb-5 position-relative">
+        <a class="anchor" id="abstract"></a>
+        <img class="card-img-bottom" src="img/intro.png" alt="">
+        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+            <div class="container d-none d-lg-block">
+                <div class="row justify-content-start">
+                    <div class="col-sm-12 col-lg-10">
+                        <h3 class="text-primary mb-3 animated slideInDown">Differentiable Task Graph Learning: Procedural Activity Representation and Online Mistake Detection from Egocentric Videos</h3>
+                        <p class="text-white mb-4 pb-2 animated slideInRight justify">
+                            <ul class="text-white mb-4 pb-2 animated slideInRight justify">
+                                <li>We introduce a novel framework for
+                                    learning task graphs from action
+                                    sequences, which relies on maximum
+                                    likelihood estimation to provide a
+                                    differentiable loss function.
+                                </li>
+                                <li>
+                                    We propose two approaches to task
+                                    graph learning based on direct
+                                    optimization of the adjacency matrix and
+                                    processing key-steps text or video
+                                    embeddings.
+                                </li>
+                                <li>
+                                    We showcase the usefulness of task
+                                    graph in general, in particular, on the
+                                    downstream task of online mistake
+                                    detection.
+                                </li>
+                            </ul>
+                        </p>
+                        <a href="https://github.com/fpv-iplab/Differentiable-Task-Graph-Learning" target="_blank" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">GitHub</a>
+                        <a href="https://openreview.net/pdf?id=2HvgvB4aWq" target="_blank" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Paper</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Abstract End -->
+
+    <!-- Abstract xs-sd-md Start -->
+    <div class="container-xxl fs-6 pb-5 wow fadeInUp d-sm-block d-lg-none px-3" data-wow-delay="0.1s">
+        <div class="text-center mt-2">
+            <h4 class="text-primary mb-3 animated slideInDown">Differentiable Task Graph Learning: Procedural Activity Representation and Online Mistake Detection from Egocentric Videos</h4>
+            <div class="container">
+                <p class="animated slideInRight justify">
+                    <ul>
+                        <li>We introduce a novel framework for
+                            learning task graphs from action
+                            sequences, which relies on maximum
+                            likelihood estimation to provide a
+                            differentiable loss function.
+                        </li>
+                        <li>
+                            We propose two approaches to task
+                            graph learning based on direct
+                            optimization of the adjacency matrix and
+                            processing key-steps text or video
+                            embeddings.
+                        </li>
+                        <li>
+                            We showcase the usefulness of task
+                            graph in general, in particular, on the
+                            downstream task of online mistake
+                            detection.
+                        </li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="https://github.com/fpv-iplab/Differentiable-Task-Graph-Learning" target="_blank" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">GitHub</a>
+            <a href="https://arxiv.org/abs/2406.01486" target="_blank" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Paper</a>
+        </div>
+    </div>
+    <!-- Abstract xs-sd-md End -->
+
+    <hr class="divider">
+
+    <!-- TGML Start -->
+    <div class="container-xxl py-5">
+        <a class="anchor" id="tgml"></a>
+
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Task Graph Maximum Likelihood</h6>
+            </div>
+            <div class="container text-left wow fadeInUp" data-wow-delay="0.2s">
+                <p>Our main contribution is a novel framework for learning task graphs from action sequences, which relies on maximum likelihood estimation to provide a differentiable loss function which can be included in end-to-end models and optimized with gradient descent:</p>
+                <div class="text-center" style="width: 100%; overflow-x: auto;">
+                <p>
+                    \begin{align}
+                        \mathcal{L}(\mathcal{Y},Z) =  - \sum_{k = 1}^{|Y|} \sum_{t = 1}^{|y^{(k)}|} \big(\textcolor{cyan}{\log{\sum_{{j \in \mathcal{O}(y^{(k)},t)}}Z_{y_tj}}} 
+                        - \beta \cdot \textcolor{teal}{\log{\sum_{{\substack{h \in \overline{\mathcal{O}(y^{(k)},t)}\\{j \in \mathcal{O}(y^{(k)},t)}}}}  Z_{hj}}} \big)
+                        \label{eq:loss}
+                    \end{align}
+                </p>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- TGML End -->
+
+    <hr class="divider">
+
+    <!-- DO Start -->
+    <div class="container-xxl py-5">
+        <a class="anchor" id="direct-optimization"></a>
+
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Direct Optimization (DO)</h6>
+            </div>
+            <div class="container text-left wow fadeInUp" data-wow-delay="0.2s">
+                <p>The first model aims to directly optimize the parameters of the adjacency matrix by performing gradient descent on the TGML loss (Eq. <a href="index.html#tgml">(1)</a>).
+                    We define the parameters of this model as an edge scoring matrix \(A \in \mathbb{R}^{(n+2) \times (n+2)}\), where \(n\) is the number of key-steps, plus the placeholder start (\(S\)) and end (\(E\)) nodes, and \(A_{ij}\) is a score assigned to edge \(K_i \rightarrow K_j\).
+                    To prevent the model from learning edge weights eluding the assumptions of directed acyclic graphs, we mask black cells in the figure below with \(-\infty\).</p>
+                <div class="text-center">
+                    <img class="img-fluid" src="img/methods/DO.svg" alt="Direct Optimization">
+                </div>
+                <br>
+                <p>
+                    To constrain the elements of \(Z\) in the \([0,1]\) range and obtain normalized weights, we softmax-normalize the rows of the scoring matrix to obtain the adjacency matrix \(Z = softmax(A)\). Note that elements masked with \(-\infty\) will be automatically mapped to \(0\) by the softmax function similarly to <a href="https://arxiv.org/abs/1706.03762" target="_blank">Vaswani et al.</a>. 
+                    We train this model by performing batch gradient descent directly on the score matrix \(A\) with the proposed TGML loss. We train a separate model per procedure, as each procedure is associated to a different task graph. As many applications require an unweighted graph, we binarize the adjacency matrix with the threshold \(\frac{1}{n}\), where \(n\) is the number of nodes. 
+                    We also employ a post-processing stage in which we remove redundant edges, loops, and add obvious missing connections to \(S\) and \(E\) nodes.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- DO End -->
+
+    <hr class="divider">
+
+    <!-- TGT Start -->
+    <div class="container-xxl py-5">
+        <a class="anchor" id="task-graph-transformer"></a>
+
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Task Graph Transformer (TGT)</h6>
+            </div>
+            <div class="container text-left wow fadeInUp" data-wow-delay="0.2s">
+                <p>
+                    Figure below illustrates the second proposed model, which is termed Task Graph Transformer (TGT). The proposed model can take as input either \(D\)-dimensional embeddings of textual descriptions of key-steps or \(D\)-dimensional video embeddings of key-step segments extracted from video. 
+                    In the first case, the model takes as input the same set of embeddings at each forward pass, while in the second case, at each forward pass, we randomly sample a video embedding per key-step from the training videos (hence each key-step embedding can be sampled from a different video). 
+                    We also include two \(D\)-dimensional learnable embeddings for the \(S\) and \(E\) nodes.
+                </p>
+                <div class="text-center">
+                    <img class="img-fluid" src="img/methods/TGT.svg" alt="Task Graph Transformer">
+                </div>
+                <br>
+                <p>
+                    All key-step embeddings are processed by a transformer encoder, which outputs \(D\)-dimensional vectors enriched with information from other embeddings. To prevent representation collapse, we apply a regularization loss encouraging distinctiveness between pairs of different nodes. 
+                    Let \(X\) be the matrix of embeddings produced by the transformer model. We L2-normalize features, then compute pairwise cosine similarities \(Y = X \cdot X^T \cdot \exp(T)\) as in <a href="https://proceedings.mlr.press/v139/radford21a" target="_blank">Radford et al.</a>.
+                    To prevent the transformer encoder from mapping distinct key-step embeddings to similar representations, we enforce the values outside the diagonal of \(Y\) to be smaller than the values in the diagonal. This is done by encouraging each row of the matrix \(Y\) to be close to a one-hot vector with a cross-entropy loss. 
+                    Regularized embeddings are finally passed through a relation transformer head which considers all possible pairs of embeddings and concatenates them in a \((n+2) \times (n+2) \times 2D\) matrix \(R\) of relation vectors. 
+                    For instance, \(R[i,j]\) is the concatenation of vectors \(X[i]\) and \(X[j]\). Relation vectors are passed to a transformer layer which aims to mine relationships among relation vectors, followed by a multilayer perceptron to reduce dimensionality to \(16\) units and another pair of transformer layer and multilayer perceptron to map relation vectors to scalar values, 
+                    which are reshaped to size \((n+2) \times (n+2)\) to form the score matrix \(A\). We hence apply the same optimization procedure as in the DO method to supervise the whole architecture.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- TGT End -->
+
+    <hr class="divider">
+
+    <!-- Annotation Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <a class="anchor" id="resources"></a>
+        <div class="text-center">
+            <h6 class="section-title bg-white text-center text-primary px-3">Resources</h6>
+        </div>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-sm-6 col-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item text-center pt-3">
+                        <div class="ribbon">Data</div>
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-edit text-primary mb-4"></i>
+                            <h5 class="mb-3">Annotations</h5>
+                            <a class="btn btn-primary" href="https://github.com/fpv-iplab/Differentiable-Task-Graph-Learning/tree/main/data">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item text-center pt-3">
+                        <div class="ribbon">Baselines</div>
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-file-alt text-primary mb-4"></i>
+                            <h5 class="mb-3">Baselines</h5>
+                            <a class="btn btn-primary" href="https://github.com/fpv-iplab/Differentiable-Task-Graph-Learning/tree/main/task-graph-learning#baselines">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item text-center pt-3">
+                        <div class="ribbon">DO</div>
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-file-alt text-primary mb-4"></i>
+                            <h5 class="mb-3">Direct Optimization</h5>
+                            <a class="btn btn-primary" href="https://github.com/fpv-iplab/Differentiable-Task-Graph-Learning/tree/main/task-graph-learning#direct-optimization-do">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item text-center pt-3">
+                        <div class="ribbon">TGT</div>
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-file-alt text-primary mb-4"></i>
+                            <h5 class="mb-3">Task Graph Transformer</h5>
+                            <a class="btn btn-primary" href="https://github.com/fpv-iplab/Differentiable-Task-Graph-Learning/tree/main/task-graph-learning#task-graph-transformer-tgt">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item text-center pt-3">
+                        <div class="ribbon">Video</div>
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-file-alt text-primary mb-4"></i>
+                            <h5 class="mb-3">Video Understanding</h5>
+                            <a class="btn btn-primary" href="https://github.com/fpv-iplab/Differentiable-Task-Graph-Learning/tree/main/task-graph-learning#video-understanding">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item text-center pt-3">
+                        <div class="ribbon">Mistake</div>
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-file-alt text-primary mb-4"></i>
+                            <h5 class="mb-3">Online Mistake Detection</h5>
+                            <a class="btn btn-primary" href="https://github.com/fpv-iplab/Differentiable-Task-Graph-Learning/tree/main/task-graph-learning#online-mistake-detection">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item text-center pt-3">
+                        <div class="ribbon">Features</div>
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-tools text-primary mb-4"></i>
+                            <h5 class="mb-3">Features</h5>
+                            <a class="btn btn-primary" href="https://github.com/fpv-iplab/Differentiable-Task-Graph-Learning/tree/main/task-graph-learning#experiments">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+
+    <hr class="divider">
+
+    <!-- Paper Start -->
+    <div class="container-xxl py-5">
+        <a class="anchor" id="paper"></a>
+
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Paper</h6>
+            </div>
+            <div class="container text-left wow fadeInUp" data-wow-delay="0.2s">
+                <p class="mb-4">
+                    <i class="fa fa-arrow-right text-primary me-2 justify"></i>Seminara, Luigi, Giovanni Maria Farinella, and Antonino Furnari. "Differentiable Task Graph Learning: Procedural Activity Representation and Online Mistake Detection from Egocentric Videos." Cite our paper: <a href="https://openreview.net/forum?id=2HvgvB4aWq" target="_blank">OpenReview</a>. <br/> 
+                    <i class="fa fa-arrow-right text-primary me-2 justify"></i><b>[September, 2024] Accepted at Neural Information Processing Systems (NeurIPS) 2024 as spotlight.</b> <br/> 
+                    <i class="fa fa-arrow-right text-primary me-2 justify"></i>[October, 2024] We release the Differentiable Task Graph Learning codebase, checkpoints and features.
+                </p>
+<pre>
+@inproceedings{
+    seminara2024differentiable,
+    title={Differentiable Task Graph Learning: Procedural Activity Representation and Online Mistake Detection from Egocentric Videos},
+    author={Luigi Seminara and Giovanni Maria Farinella and Antonino Furnari},
+    booktitle={The Thirty-eighth Annual Conference on Neural Information Processing Systems},
+    year={2024},
+    url={https://openreview.net/forum?id=2HvgvB4aWq}
+}
+</pre>
+                <p class="mb-4"><i class="fa fa-arrow-right text-primary me-2 justify"></i>Visit our page dedicated to <a class="border-bottom" href="https://iplab.dmi.unict.it/fpv/" target="_blank">First Person Vision Research</a> for other related publications.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Paper End -->
+
+    <hr class="divider">
+
+    <!-- Team Start -->
+    <div class="container-xxl py-5">
+        <a class="anchor" id="people"></a>
+
+        <div class="container">
+            
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3 mb-5">People</h6>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-3 col-sm-8 col-8 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="img/faces/LS.jpg" alt="">
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                <a class="btn btn-sm-square btn-primary mx-1" href="https://scholar.google.com/citations?user=M3m0hIkAAAAJ&hl=it" target="_blank"><i class="fa fa-graduation-cap"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href="https://seminaraluigi.altervista.org/" target="_blank"><i class="fa fa-chalkboard"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Luigi <br/> Seminara</h5>
+                            <small><a class="btn btn-link" href="https://iplab.dmi.unict.it/fpv/" target="_blank">FPV@IPLAB</a></small><br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-8 col-8 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="img/faces/GMF.jpg" alt="">
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                <a class="btn btn-sm-square btn-primary mx-1" href="https://scholar.google.com/citations?user=YwQboCoAAAAJ&hl=it&authuser=1" target="_blank"><i class="fa fa-graduation-cap"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href="https://www.dmi.unict.it/farinella/" target="_blank"><i class="fa fa-chalkboard"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Giovanni Maria<br/> Farinella</h5>
+                            <small><a class="btn btn-link" href="https://iplab.dmi.unict.it/fpv/" target="_blank">FPV@IPLAB</a></small><br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-8 col-8 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="img/faces/AF.jpg" alt="">
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                <a class="btn btn-sm-square btn-primary mx-1" href="https://scholar.google.com/citations?user=eXREn_EAAAAJ&hl=it&authuser=1" target="_blank"><i class="fa fa-graduation-cap"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href="https://www.antoninofurnari.it/" target="_blank"><i class="fa fa-chalkboard"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Antonino <br/> Furnari</h5>
+                            <small><a class="btn btn-link" href="https://iplab.dmi.unict.it/fpv/" target="_blank">FPV@IPLAB</a></small><br>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            
+        </div>
+    </div>
+    <!-- Team End -->
+
+    <!-- Loghi Start -->
+    <div class="container wow fadeIn" data-wow-delay="0.7s">
+        <div class="row justify-content-center">
+            <div class="col-4 d-flex justify-content-center align-items-center">
+                <div style="text-align: center;">
+                    <img src="img/loghi/UniCT-Logo-Nero.png" alt="UniCT Logo" style="max-width: 70%; height: auto;">
+                </div>
+            </div>
+            <div class="col-4 d-flex justify-content-center align-items-center">
+                <div style="text-align: center;">
+                    <img src="img/loghi/UniCT_DMI.png" alt="UniCT DMI Logo" style="max-width: 70%; height: auto;">
+                </div>
+            </div>
+            <div class="col-4 d-flex justify-content-center align-items-center">
+                <div style="text-align: center;">
+                    <img src="img/loghi/iplablogo.jpg" alt="IPLab Logo" style="max-width: 70%; height: auto;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loghi End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5">
+        <div class="container">
+            <!-- Acknowledgments Start -->
+            <div class="row">
+                <p class="mb-4">This research has been partially supported by the PNRR PhD scholarship "Digital Innovation: Models, Systems and Applications" DM 118/2023.</p>
+                <p class="mb-4">This research has been partially supported by the project Future Artificial Intelligence Research (FAIR) – PNRR MUR Cod. PE0000013 - CUP: E63C22001940006.</p>
+                <p class="mb-4">This research has been partially supported by the Research Program PIAno di inCEntivi per la Ricerca di Ateneo 2020/2022 — Linea di Intervento 3 "Starting Grant" EVIPORES Project - University of Catania.</p>
+            </div>
+            <!-- Acknowledgments End -->
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="https://iplab.dmi.unict.it/" target="_blank">Image Processing Laboratory 2024</a>.
+                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com" target="_blank">HTML Codex</a>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="index.html#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

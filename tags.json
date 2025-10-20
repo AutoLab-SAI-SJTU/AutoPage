@@ -1,0 +1,698 @@
+{
+    "jiawenchenn.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "unitn-sml.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "yes",
+        "has_hero_section": "no",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "hakamshams.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "yes",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "rotation"
+    },
+    "eyalmichaeli.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "kuai-lab.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "detection-based-text-line-recognition.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "dynamo-ssl.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "kushalvyas.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "airi-institute.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "mbzuai-llm.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "andrew-miao.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "hkust-nlp.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "huiyegit.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "claire-labo.github.io": {
+        "background_color": "dark",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "momu-diffusion.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "smhongok.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "frieren-v2a.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "tung-nd.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "cvl-umass.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "wikidbs.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "f-rag.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "stylus-diffusion.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "sadilkhan.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "rotation"
+    },
+    "ambrosia-benchmark.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "yes",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "aibluefisher.github.io": {
+        "background_color": "dark",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "rotation"
+    },
+    "kehanguo2.github.io": {
+        "background_color": "dark",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "ical-learning.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "t2veval.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "shengyun-peng.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "rad-embeddings.github.io": {
+        "background_color": "dark",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "shivangrawat.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "snel-repo.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "neural-assets.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "seqml.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "kangning-liu.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "andreamaduzzi.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "rotation"
+    },
+    "alexandrosstergiou.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "tracks-to-4d.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "rotation"
+    },
+    "rl4vlm.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "fpv-iplab.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "mayubo2333.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "prefpaint.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "giannisdaras.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "ii-bench.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "pratyushmaini.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "yes",
+        "has_hero_section": "no",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "semsi-project.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "bigdocs.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "aimagelab.github.io": {
+        "background_color": "dark",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "aniketvashishtha.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "mattie-e.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "umass-embodied-agi.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "patrickpynadath1.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "cybench.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "yes",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "zkf1997.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "deep-ltl.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "rafalkarczewski.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "yes",
+        "has_hero_section": "no",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "em-llm.github.io": {
+        "background_color": "dark",
+        "title_color": "pure",
+        "has_navigation": "yes",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "technion-cs-nlp.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "embodied-llms-safety.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "ltzheng.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "mixeval-x.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "poyo-plus.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "yes",
+        "has_hero_section": "no",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "daohanlu.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "tau-vailab.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "zju3dv.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "rotation"
+    },
+    "safewatch-aiguard.github.io": {
+        "background_color": "dark",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "haoyizhu.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "sreyan88.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "younwoochoi.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "mc-lan.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "sugolov.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "truncated-cm.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "xyanchen.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "nx-ai.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "arth-shukla.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "morganbdt.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "llms-know.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "may2333.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "yes",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "pratyushasharma.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "yes",
+        "has_hero_section": "no",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "reverseforward-cl.github.io": {
+        "background_color": "light",
+        "title_color": "colorful",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "dvpmain.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "rotation"
+    },
+    "noa-cohen.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "yes",
+        "has_hero_section": "no",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    },
+    "aaltoml.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "appfl.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "yinbow.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "collie-benchmark.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "no",
+        "Page density": "spacious",
+        "image_layout": "parallelism"
+    },
+    "sail-sg.github.io": {
+        "background_color": "light",
+        "title_color": "pure",
+        "has_navigation": "no",
+        "has_hero_section": "yes",
+        "Page density": "compact",
+        "image_layout": "parallelism"
+    }
+}

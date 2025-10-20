@@ -1,0 +1,175 @@
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Stylus: Automatic Adapter Selection for Diffusion Models</title>
+    <link href="static/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+      <div class="content">
+        <h1><strong>
+          Stylus: Automatic Adapter Selection for Diffusion Models
+        </strong></h1>
+        <p id="authors">
+          <span><a href="index.html"></a></span>
+          <a href="index.html" style="pointer-events: none; text-decoration:none; color: black;">Michael Luo</a><sup style="margin-left: -7px;">1,*</sup>
+          <a href="index.html" style="pointer-events: none; text-decoration:none; color: black;">Justin Wong</a><sup style="margin-left: -7px;">1,†</sup>
+          <a href="index.html" style="pointer-events: none; text-decoration:none; color: black;">Brandon Trabucco</a><sup style="margin-left: -7px;">2</sup>
+          <a href="index.html" style="pointer-events: none; text-decoration:none; color: black;">Yanping Huang</a><sup style="margin-left: -7px;">3</sup>
+          <a href="index.html" style="pointer-events: none; text-decoration:none; color: black;">Joseph E. Gonzalez</a><sup style="margin-left: -7px;">1</sup>
+          <a href="index.html" style="pointer-events: none; text-decoration:none; color: black;">Zhifeng Chen</a><sup style="margin-left: -7px;">3</sup>
+          <a href="index.html" style="pointer-events: none; text-decoration:none; color: black;">Ruslan Salakhutdinov</a><sup style="margin-left: -7px;">2</sup>
+          <a href="index.html" style="pointer-events: none; text-decoration:none; color: black;">Ion Stoica</a><sup style="margin-left: -7px;">1</sup>
+          <br><br>
+          <span style="font-size: 22px;"><sup>1</sup>UC Berkeley</span>
+          <!-- <br> -->
+          &nbsp;&nbsp;&nbsp;
+          <span style="font-size: 22px"><sup>2</sup>Carnegie Mellon University MLD</span>
+          <!-- <br> -->
+          &nbsp;&nbsp;&nbsp;
+          <span style="font-size: 22px"><sup>3</sup>Google Deepmind</span>
+          <br>
+          <span style="font-size: 22px"><sup>*</sup>First Author &nbsp;&nbsp;&nbsp; <sup>†</sup>Significant Contribution</span>
+        </p>
+        <br>
+        <img src="static/video/stylus-gif-final.gif" class="teaser-gif" style="width:70%">
+        <br>
+        <p style="text-align: center; font-size: 18px;">
+          <em>
+            Stylus automatically selects and composes relevant adapters given a user's prompt, generating <strong>beautiful and creative images that are tailor-made for each user</strong>.
+          </em>
+        </p>
+        <p style="text-align: center; font-size: 20px;">
+          <a href="https://arxiv.org/abs/2404.18928" target="_blank">[Paper]</a>
+          &nbsp;&nbsp;&nbsp;
+          <a href="https://stylus-diffusion.github.io/static/bibtex.txt" target="_blank">[BibTeX]</a>
+          &nbsp;&nbsp;&nbsp;
+          <a href="https://github.com/stylus-diffusion/stylus" target="_blank">[Code]</a>
+        </p>
+      </div>
+
+      <div class="content">
+        <h2 style="text-align: center;">Abstract</h2>
+        <p style="font-size: 18px">
+          Beyond scaling base models with more data or parameters, fine-tuned adapters provide an alternative way to generate high fidelity, custom images at reduced costs. As such, adapters have been widely adopted by open-source communities, accumulating a database of over 100K adapters—most of which are highly customized with insufficient descriptions. To generate high quality images, this paper explores the problem of matching the prompt to a Stylus of relevant adapters, built on recent work that highlight the performance gains of composing adapters. We introduce Stylus, which efficiently selects and automatically composes task-specific adapters based on a prompt's keywords. Stylus outlines a three-stage approach that first summarizes adapters with improved descriptions and embeddings, retrieves relevant adapters, and then further assembles adapters based on prompts' keywords by checking how well they fit the prompt. To evaluate Stylus, we developed <strong>StylusDocs</strong>, a curated dataset featuring 75K adapters with pre-computed adapter embeddings. In our evaluation on popular Stable Diffusion checkpoints, Stylus achieves greater CLIP/FID Pareto efficiency and is twice as preferred, with humans and multimodal models as evaluators, over the base model.
+        </p>
+      </div>
+
+      <div class="content">
+        <h2>Approach</h2>
+        <p style="font-size: 18px">
+          Our method consists of three components: the <strong>Refiner</strong>, <strong>Retrieval</strong>, and <strong>Composer</strong>. 
+        </p>
+        <br>
+        <img class="summary-img" src="static/images/method.svg" style="width:100%;">
+        <p>
+          <p style="font-size: 18px">
+            <strong>Refiner</strong> - The refiner employs a two-stage approach to compute an adapter's task description and embeddings. First, the refiner's vision-language model (VLM) takes in an adapter's model card (e.g. <a href="https://civitai.com/models/6526/studio-ghibli-style-lora">Studio Ghibli LoRA</a>)—example images, associated prompts, and an author-provided description—and outputs an improved adapter description. Second, the encoder converts an adapter's description into a lookup embedding. This process is repeated for all adapters in our database.
+          </p>  
+          <p style="font-size: 18px">
+            <strong>Retriever</strong> - Similar to retrieval-based methods (e.g. RAG), the retreiver encodes a user's prompt and fetches the top K closest adapters in the embedding space (e.g. cosine similarity). 
+          </p>  
+          <p style="font-size: 18px">
+            <strong>Composer</strong> - The composer serves a dual purpose: it segments the prompt into tasks from a prompt's keywords and assigns retrieved adapters to tasks. This implicitly filters out adapters that are not semantically aligned with the prompt and detects those likely to introduce foreign bias to the prompt through keyword grounding. The composer is a long-context LLM that takes in the top K adapter descriptions (from the retriever) and outputs a mapping from a prompt's tasks to relevant adapters.
+          </p>  
+      </div>
+
+      <div class="content">
+        <h2>Main Results</h2>
+        <img class="summary-img" src="static/images/checkpoints.jpg" style="width:100%;">
+        <p style="font-size: 18px">
+          <strong>Human Evaluation</strong> - Stylus achieves higher human preference scores (~2x) over two popular Stable Diffusion checkpoints, Realistic-Vision-v6 for realistic images and Counterfeit-v3 for anime/cartoon images, and datasets, Microsoft COCO and PartiPrompts.
+        </p>
+        <img class="summary-img" src="static/images/human_eval.svg" style="width:100%;">
+        <p style="font-size: 18px">
+          <strong>Automatic Metrics (Left)</strong> - For the COCO dataset, Stylus shifts the CLIP/FID pareto curve towards greater efficiency, improving textual alignment, visual fidelity, and image diversity across prompts.
+        </p>
+        <p style="font-size: 18px">
+          <strong>GPT-4V as a Judge (Right)</strong> - Barring ties, Stylus is twice as preferred for visual fidelity and ties the base model for textual alignment.
+        </p>
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <img class="summary-img" src="static/images/pareto.svg" style="width:50%; margin-right: 20px;">
+          <img class="summary-img" src="static/images/gpt4_eval.svg" style="width:30%;">
+        </div>
+
+      </div>
+      
+      <div class="content">
+        <h2>Image Diversity</h2>
+        <p style="font-size: 18px">
+          Given the same prompt, Stylus (left) generates more diverse and comprehensive sets of images than that of existing Stable Diffusion checkpoints (right).
+        </p>
+        <img class="summary-img" src="static/images/image_diversity.jpg" style="width:100%;"><br><br>
+      </div>
+
+      <div class="content">
+        <h2>Image-to-Image Tasks</h2>
+        <p style="font-size: 18px">
+          <strong>Image Translation</strong> - Stylus chooses relevant adapters that better introduce new themes and elements into existing images.
+        </p>
+        <img class="summary-img" src="static/images/img2img.svg" style="width:100%;"><br><br>
+        <p style="font-size: 18px">
+          <strong>Inpainting</strong> - Stylus chooses adapters than can better integrate new characters, objects, or concepts within an inpainted mask.
+        </p>
+        <img class="summary-img" src="static/images/inpainting.svg" style="width:100%;"><br><br>
+      </div>
+
+      <div class="content">
+        <h2>Stylus vs. Retrieval-based Methods</h2>
+        <p style="font-size: 18px">
+          Stylus outperforms all other retrieval-based methods, which choose adapters than either introduce foreign concepts to the image or override other concepts in the prompt, which reduces textual alignment.
+        </p>
+        <img class="summary-img" src="static/images/retrieval.jpg" style="width:100%;"><br><br>
+      </div>
+
+
+      <div class="content">
+        <h2>Practicality</h2>
+        <p style="font-size: 18px">
+          Stylus is generally practical and introduces a small 12(s) overhead on top of the base image generation process. This overhead remains the same as batch size increases.
+        </p>
+        <img class="summary-img" src="static/images/time.svg" style="width:65%;"><br><br>
+      </div>
+    
+      <div class="content">
+        <h2>BibTex</h2>
+        <code> @misc{luo2024stylus,<br>
+          &nbsp;&nbsp;title={Stylus: Automatic Adapter Selection for Diffusion Models},<br>
+          &nbsp;&nbsp;author={Michael Luo and Justin Wong and Brandon Trabucco and Yanping Huang and Joseph E. Gonzalez and Zhifeng Chen and Ruslan Salakhutdinov and Ion Stoica},<br>
+          &nbsp;&nbsp;year={2024},<br>
+          &nbsp;&nbsp;eprint={2404.18928},<br>
+          &nbsp;&nbsp;archivePrefix={arXiv},<br>
+          &nbsp;&nbsp;primaryClass={cs.CV},<br>
+          } </code>
+      </div>
+
+      <div class="content">
+        <h2>Acknowledgements</h2>
+        <p style="font-size: 18px">
+          We thank Lisa Dunlap, Ansh Chaurasia, Siyuan Zhuang, Sijun Tan, Shishir Patil, Tianjun Zhang, and Joey Gonzalez for their insightful comments and discussion. We thank Google Deepmind for funding this project, providing AI infrastructure, and provisioning Gemini endpoints. Sky Computing Lab is supported by gifts from Accenture, AMD, Anyscale, Google, IBM, Intel, Microsoft, Mohamed Bin Zayed University of Artificial Intelligence, Samsung SDS, SAP, Uber, and VMware. 
+        </p>
+      </div>
+
+      <div class="content">
+        <h2 style="text-align: center;">We Are Hiring!</h2>
+        <p style="font-size: 18px">
+          Explore the forefront of <strong>image/video model serving and building AI agents</strong> with us! We're on the hunt for talented, motivated, and creative individuals eager to tackle exciting research challenges and opportunities in this dynamic field.
+
+          Interested? We'd love to hear from you. Please send your CV to <a href="mailto:michael.luo@berkeley.edu">Michael Luo</a>. Join us and turn your passion into impact!
+        </p>
+      </div>
+
+      <br><br>
+      <footer class="footer">
+        <div class="container">
+          <div class="columns is-centered">
+            <!-- <div class="content"> -->
+              Website template from <a href="https://dreambooth.github.io/">Dreambooth</a>
+            <!-- </div> -->
+          </div>
+        </div>
+      </footer>
+      <br><br>
+  </body>
+</html>

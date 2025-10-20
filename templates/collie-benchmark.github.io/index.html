@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico%3F">
+<script src="bootstrap.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script> 
+<!---
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+--->
+<script src="load-mathjax.js" async></script>
+<link href='https://fonts.googleapis.com/css?family=Asap' rel='stylesheet'>
+
+
+<style type="text/css">
+body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (min-width: 980px){
+    body {
+        width: 980px;
+    }
+}
+
+
+h1 {
+    font-weight:300;
+    line-height: 1.15em;
+}
+
+h2 {
+    font-size: 1.75em;
+}
+a:link,a:visited {
+    color: #5364cc;
+    text-decoration: none;
+}
+a:hover {
+    color: #208799;
+}
+h1 {
+    text-align: center;
+}
+h2,h3 {
+    text-align: left;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 500;
+}
+h2 {
+    font-weight: 400;
+    margin: 16px 0px 4px 0px;
+}
+h3 {
+    font-weight: 600;
+    margin: 16px 0px 4px 0px;
+}
+
+.paper-title {
+    padding: 1px 0px 1px 0px;
+}
+section {
+    margin: 32px 0px 32px 0px;
+    text-align: justify;
+    clear: both;
+}
+.col-5 {
+     width: 20%;
+     float: left;
+}
+
+.move-down {
+    margin-top:0.6cm;
+}
+
+.col-4 {
+     width: 25%;
+     float: left;
+}
+.col-3 {
+     width: 33%;
+     float: left;
+}
+.col-2 {
+     width: 50%;
+     float: left;
+}
+.col-1 {
+     width: 100%;
+     float: left;
+}
+
+.col-8{
+width: 12.5%;
+}
+
+.author-row, .affil-row {
+    font-size: 26px;
+}
+
+.author-row-new { 
+    text-align: center; 
+}
+
+.author-row-new a {
+    display: inline-block;
+    font-size: 20px;
+    padding: 4px;
+}
+
+.author-row-new sup {
+    color: #313436;
+    font-size: 12px;
+}
+
+.affiliations-new {
+    font-size: 18px;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.row {
+    margin: 16px 0px 16px 0px;
+}
+.authors {
+    font-size: 26px;
+}
+.affiliatons {
+    font-size: 18px;
+}
+.affil-row {
+    margin-top: 18px;
+}
+.teaser {
+    max-width: 100%;
+}
+.text-center {
+    text-align: center;  
+}
+.screenshot {
+    width: 256px;
+    border: 1px solid #ddd;
+}
+.screenshot-el {
+    margin-bottom: 16px;
+}
+hr {
+    height: 1px;
+    border: 0; 
+    border-top: 1px solid #ddd;
+    margin: 0;
+}
+.material-icons {
+    vertical-align: -6px;
+}
+p {
+    line-height: 1.25em;
+}
+.caption {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+    margin-bottom: 20px;
+	text-align: left;
+}
+
+.caption-up {
+    font-size: 16px;
+    color: #666;
+    margin-top: -8px;
+    margin-left: 50px;
+    margin-bottom: 20px;
+	text-align: left;
+}
+
+.caption-right {
+    font-size: 16px;
+    color: #666;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-bottom: 30px;
+	text-align: left;
+}
+
+
+video {
+    display: block;
+    margin: auto;
+}
+
+
+figure {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#bibtex pre {
+    font-size: 14px;
+    background-color: #eee;
+    padding: 16px;
+}
+.blue {
+    color: #2c82c9;
+    font-weight: bold;
+}
+.orange {
+    color: #d35400;
+    font-weight: bold;
+}
+.flex-row {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.paper-btn-coming-soon {
+    position: relative; 
+    top: 0;
+    left: 0;
+}
+
+.coming-soon {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+}
+
+.center {
+  margin-left: 10.0%;
+  margin-right: 10.0%;
+}
+
+.paper-btn {
+  position: relative;
+  text-align: center;
+
+  display: inline-block;
+  margin: 8px;
+  padding: 8px 8px;
+
+  border-width: 0;
+  outline: none;
+  border-radius: 5px;
+  
+  background-color: #bed4b0;
+  color: rgb(27, 27, 27) !important;
+  font-size: 20px;
+  width: 100px;
+  font-weight: 600;
+}
+.paper-btn-parent {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0px;
+}
+
+.paper-btn:hover {
+    opacity: 0.85;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.venue {
+    font-size: 23px;
+}
+
+.topnav {
+    background-color: #EEEEEE;
+    overflow: hidden;
+}
+
+.topnav div {
+    max-width: 1070px;
+    margin: 0 auto;
+}
+
+.topnav a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    vertical-align: middle;
+    padding: 16px 16px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.topnav img {
+    padding: 2px 0px;
+    width: 100%;
+    margin: 0.2em 0px 0.3em 0px;
+    vertical-align: middle;
+}
+
+pre {
+    font-size: 0.9em;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-radius: 3px;
+    background-color: rgb(235, 235, 235);
+    overflow-x: auto;
+}
+
+.download-thumb {
+    display: flex;
+}
+
+@media only screen and (max-width: 620px) {
+    .download-thumb {
+        display: none;
+    }
+}
+
+.paper-stuff {
+    width: 50%;
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 620px) {
+    .paper-stuff {
+        width: 100%;
+    }
+}
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  text-align: center;
+  float: left;
+  width: 16.666%;
+  padding: 5px;
+}
+.column3 {
+  text-align: center;
+  float: left;
+  width: 33.333%;
+  padding: 5px;
+}
+.column4 {
+  text-align: center;
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+.column5 {
+  text-align: center;
+  float: left;
+  width: 20%;
+  padding: 5px;
+}
+.column10 {
+  text-align: center;
+  float: left;
+  width: 10%;
+  padding: 5px;
+}
+.border-right {
+    border-right: 1px solid black;
+}
+.border-bottom{
+    border-bottom: 1px solid black;
+}
+
+
+.row-center {
+    margin: 16px 0px 16px 0px;
+    text-align: center;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+.figure-img {
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+.image-container {
+    text-align: center;
+}
+
+.image-container img {
+    border: 2px solid black;
+    width: 100%;
+}
+
+.image-container img:hover {
+    opacity: 0.7;
+}
+
+.image-container .image-caption {
+    text-align: center;
+}
+
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 500px) {
+  .column {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .column3 {
+    width: 100%;
+  }
+}
+
+</style>
+<link rel="stylesheet" href="bootstrap-grid.css">
+<link rel="stylesheet" href="simplegrid.css">
+
+<!--<script type="text/javascript" src="../js/hidebib.js"></script>-->
+<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,600,400italic,600italic,300,300italic' rel='stylesheet' type='text/css'>
+<head>
+    <title>COLLIE: Systematic Construction of Constrained Text Generation Tasks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="COLLIE: Systematic Construction of Constrained Text Generation Tasks"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="">
+    <meta name="twitter:title" content="COLLIE: Systematic Construction of Constrained Text Generation Tasks">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="paper-title">
+    <h1> 
+        COLLIE: Systematic Construction of<br>
+        Constrained Text Generation Tasks
+    </h1>
+    </div>
+
+    <div id="authors">
+        <center>
+			Shunyu Yao* &ensp; Howard Chen* &ensp; Austin Wang* &ensp; Runzhe Yang* &ensp; Karthik Narasimhan</br>
+			(* authors contributed equally)
+        </center>
+
+        <div style="clear: both">
+            <div class="paper-btn-parent">
+            <a class="paper-btn" href="https://arxiv.org/abs/2307.08689">
+                <span class="material-icons"> description </span> <br/>
+                Paper
+            </a>
+            <a class="paper-btn" href="https://github.com/princeton-nlp/Collie">
+                <span class="material-icons"> code </span><br/>
+                Code
+            </a>
+            <a class="paper-btn" href="https://collie-benchmark.github.io/data/all_data.dill">
+                <span class="material-icons"> folder_open </span><br/>
+                Data
+            </a>
+            </div>
+        </div>
+    </div>
+
+    <center>
+        <p></p>
+    </center>
+
+    <div style="padding-top: 10px">
+        <figure>
+            <center>
+            <img width="100%" src="assets/teaser.png"> 
+            </center>
+            <p class="caption">
+			    <b>We propose the COLLIE framework for easy constraint structure specification, example extraction, instruction rendering, and model evaluation.</b>
+            </p>
+            The steps for the whole pipeline is described below (referring to the above figure):
+            <ol>
+                <li><b>Specification</b>: user specifies the constraint structure without a specific target value (expressed in $*$)</li>
+                <li><b>Extraction</b>: constraint structure is used to extract examples from text corpora containing the target values</li>
+                <li><b>Rendering</b>: constraint structure and target values are rendered into a natural language instruction</li>
+                <li><b>Evaluation</b>: model's generation is evaluated against the constraint and the extracted examples</li>
+            </ol>
+            In this example, the model (gpt-3.5-turbo) violates the constraints by exceeding word limits and leaving the word `mankind' at the end instead of the specified position.
+        </figure>
+    </div>
+
+    <section id="abstract"/>
+        <hr>
+        <h2>Paper Abstract</h2>
+        <div class="flex-row">
+            <p>
+                Text generation under constraints have seen increasing interests in natural language processing, especially with the rapidly improving capabilities of large language models.
+                However, existing benchmarks for constrained generation usually focus on fixed constraint types (e.g., generate a sentence containing certain words) that have proved to be easy for state-of-the-art models like GPT-4.
+                We present COLLIE, a grammar-based framework that allows the specification of rich, compositional constraints with diverse generation levels (word, sentence, paragraph, passage) and modeling challenges (e.g., language understanding, logical reasoning, counting, semantic planning).
+                We also develop tools for automatic extraction of task instances given a constraint structure and a raw text corpus. Using COLLIE, we compile the COLLIE-v1 dataset with 2,080 instances comprising 13 constraint structures.
+                We perform systematic experiments across five state-of-the-art instruction-tuned language models and analyze their performances to reveal shortcomings.
+                COLLIE is designed to be extensible and lightweight, and we hope the community finds it useful to develop more complex constraints and evaluations in the future.
+            </p>
+        </div>
+    </section>
+
+	<section id="citation">
+        <hr>
+        <h2>Citation</h2>
+        <div class="language-plaintext highlighter-rouge">
+            <pre class="highlight" style="padding-left:0.5em;padding-right:1em;"><code>@misc{yao2023collie,
+    title={COLLIE: Systematic Construction of Constrained Text Generation Tasks}, 
+    author={Shunyu Yao and Howard Chen and Austin W. Hanjie and Runzhe Yang and Karthik Narasimhan},
+    year={2023},
+    eprint={2307.08689},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL}
+}</code></pre>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>

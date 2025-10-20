@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="template.v2.js"></script>
+        <script src="contents_bar.js"></script>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/d3-collection.v1.min.js"></script>
+        <script src="https://rawgit.com/nstrayer/slid3r/master/dist/slid3r.js"></script>
+        <script src="cross_fade.js"></script>
+        <link rel="stylesheet" href="style.css">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+            onload="renderMathInElement(document.body);"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$']]
+              }
+            };
+          </script>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>RL4VLM</title>
+
+
+            <style>
+                /* Styling for the table */
+                table, th, td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+                th, td {
+                    padding: 10px;
+                    text-align: left;
+                    cursor: pointer;
+                }
+                .container {
+                    display: flex;
+                    align-items: start;
+                }
+
+                .table-container {
+                    margin-right: 10px;
+                }
+
+
+                /* Styling for the carousel */
+                .carousel-container {
+                    width: 100%;
+                    max-width: 600px;
+                    margin: auto;
+                    position: relative;
+                    overflow: hidden;
+                    align-items: center;
+                    padding: 0 50px; /* Space for arrows */
+                }
+
+                .carousel-slide {
+                    display: none;
+                    max-width: 100%; /* Adjusted to use the full area within the padding */
+                    height: auto;
+                    position: relative;
+                    margin: auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .carousel-slide.active {
+                    display: flex;
+                }
+
+                .carousel-slide img {
+                    max-width: 100%;
+                    max-height: 100%;
+                    width: auto;
+                    height: auto;
+                    margin: 0;
+                }
+
+                .carousel-controls {
+                    position: absolute;
+                    top: 10px; /* Adjust this value to set how far from the top the arrows should start */
+                    left: 0;
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                .carousel-button {
+                    position: absolute;
+                    top: 75px; /* Keeps arrows at 10px from the top of the container */
+                    transform: translateY(-50%); /* Center vertically relative to their height */
+                    z-index: 10;
+                    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+                    color: #000; /* Black arrow color for visibility */
+                    border: none;
+                    cursor: pointer;
+                    font-size: 24px; /* Size of the arrow icons */
+                    padding: 10px; /* Padding around the arrows */
+                    height: 50px; /* Adjust this value to change the height */
+                    width: 50px; /* Adjust width to maintain proportion if necessary */
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+
+                .carousel-button:first-child {
+                    left: 0; /* Position the left arrow slightly outside the image area */
+                }
+
+                .carousel-button:last-child {
+                    right: 0; /* Position the right arrow slightly outside the image area */
+                }
+
+                .carousel-caption p {
+                    text-align: center;
+                    font-size: 16px;
+                    color: #333;
+                    margin-top: 10px;
+                }
+
+
+
+                /* Additional styles can go here */
+            </style>
+
+    </head>
+    <body>
+        <div class="header-container">
+            <div class="header-content">
+              <h1>Fine-Tuning Large Vision-Language Models as
+                Decision-Making Agents via Reinforcement Learning</h1>
+              <div class="button-container">
+                <a href="http://arxiv.org/abs/2405.10292" class="button">Paper</a>
+                <a href="https://github.com/RL4VLM/RL4VLM" class="button">Code</a>
+                <a href="https://huggingface.co/LEVI-Project/sft-data/tree/main" class="button">Data</a>
+              </div>
+            </div>
+            <div class="header-image">
+                <img src="images/teaser_head2.png" alt="Teaser Image" class="teaser-image">
+            </div>
+        </div>
+    <d-article>
+
+        <!-- Horizontal byline starts here -->
+        <div class="byline-horizontal">
+            <div class="authors">
+                <p>
+                    <a href="https://yx-s-z.github.io/" class="author-link">Yuexiang Zhai*</a>,
+                    <a href="https://www.jackgethome.com/" class="author-link">Hao Bai&dagger;</a>,
+                    <a href="https://zipeng-lin.github.io/" class="author-link">Zipeng Lin&dagger;</a>,
+                    <a href="https://www.jiayipan.me/" class="author-link">Jiayi Pan&dagger;</a>,
+                    <a href="https://tsb0601.github.io/petertongsb/" class="author-link">Shengbang Tong&dagger;</a>,
+                    <a href="https://yifeizhou02.github.io/" class="author-link">Yifei Zhou&dagger;</a>,</p>
+                <p>
+                    <a href="https://www.alanesuhr.com/" class="author-link">Alane Suhr</a>,
+                    <a href="https://www.sainingxie.com/" class="author-link">Saining Xie</a>,
+                    <a href="https://yann.lecun.com/" class="author-link">Yann LeCun</a>,
+                    <a href="https://people.eecs.berkeley.edu/~yima/" class="author-link">Yi Ma</a>,
+                    <a href="https://people.eecs.berkeley.edu/~svlevine/" class="author-link">Sergey Levine</a>
+                </p>
+            </div>
+            <div class="affiliations">
+                UC Berkeley, UIUC, New York University
+            </div>
+            <div class="contributions">
+                *Project Lead, &dagger;Equal Contribution
+            </div>
+        </div>
+
+    <script>
+
+
+
+    var bibliography = {
+        "1": "Shen, Bokui, et al. igibson 1.0: a simulation environment for interactive tasks in large realistic scenes.2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2021."
+    };
+
+    // Function to insert citation
+    function insertCitation(refId) {
+        document.getElementById("ref" + refId).innerText = "[" + refId + "]";
+    }
+
+    // Function to update bibliography section
+    function updateBibliography() {
+        var bibliographySection = document.getElementById('bibliography');
+        for (var key in bibliography) {
+            if (bibliography.hasOwnProperty(key)) {
+                var para = document.createElement("p");
+                para.innerHTML = "[" + key + "] " + bibliography[key];
+                bibliographySection.appendChild(para);
+            }
+        }
+    }
+
+    let slideIndex = 0; // Global slide index
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        showSlides(slideIndex); // Initialize slides
+        for (var i = 1; i <= 12; i++) {
+            insertCitation(i.toString()); // Insert citations
+        }
+        updateBibliography(); // Update bibliography
+    });
+
+    function moveSlide(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("carousel-slide");
+        if (n >= slides.length) { slideIndex = 0; }
+        if (n < 0) { slideIndex = slides.length - 1; }
+
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex].style.display = "block"; // Display only the active slide
+    }
+
+</script>
+
+
+        <d-contents>
+            <nav>
+                <h4>Contents</h4>
+                <div><a href="index.html#method"> Training VLMs with RL</a></div>
+                <div><a href="index.html#task"> Evaluation Tasks</a></div>
+                <div><a href="index.html#result"> Experimental Results</a></div>
+            </nav>
+        </d-contents>
+
+        <d-figure>
+            <img src="images/teaser.png" width="100%">
+            <figcaption>
+                We propose a Reinforcement Learning (RL) training framework for
+                large Vision Language Models (VLM) or Multimodal Large Language Models (MLLM)
+                using task-specific rewards. At each time step, the VLM takes the current observation
+                and a system prompt as inputs and outputs a formatted utterance containing a
+                <font color="#6C8EBF"> chain of thought reasoning </font>
+                and <font color="#B85450"> a text action</font>. The action is parsed and mapped to the
+                environment producing a reward. We then apply RL with the task reward to fine-tune the VLM.
+            </figcaption>
+        </d-figure>
+
+
+
+
+        <section id="method">
+            <h2>Training VLMs with RL</h2>
+            <p>
+
+            <p>
+                We propose an algorithmic framework that directly fine-tune a large vision-language model (VLM)
+                or Multimodal large language model (MLLM) using Reinforcement Learning (RL), using task rewards.
+
+            </p>
+            <d-figure>
+                <img src="images/diagram.png" width="100%">
+                <figcaption>
+                    An overview of our RL training framework for VLM. Our method contains three key components:
+                    (1) Designing the input prompt $v_t^\text{in}$, for obtaining a formatted output $v_t^\text{out}$;
+                    (2) Post-processing the output text $v_t^\text{out}$ for a legal action $a_t$;
+                    (3) Estimating the action probability $\pi_\theta(a_t|o_t,v_t^\text{in})$.
+                </figcaption>
+            </d-figure>
+
+            <h3> Designing the input prompt $v_t^\text{in}$ </h3>
+            We design a $v_t^\text{in}$ in the following format, containing (1) task description; (2) legal action space;
+            and (3) the desired output format $v_t^\text{out}$(containing the CoT reasoning).
+
+            <d-figure>
+                <img src="images/prompt_1.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
+                <figcaption>
+                    Task-specific CoT prompt input $v_t^\text{in}$, where the <font color="#6C8EBF"> blue part </font>
+                    represents the CoT reasoning and the <font color="#B85450"> red part </font> is the text-based action.
+                </figcaption>
+            </d-figure>
+
+            <h3> Post-processing the output text $v_t^\text{out}$ </h3>
+            We post-process the output text $v_t^\text{out}$ by directly searching for the keywords of
+            "action": "$a$", where $a\in\mathcal{A}$ is the text version of a legal action.
+            If the output text $v_t^\text{out}$ does not contain a legal action,
+            we perform random exploration in the legal action space.
+            \begin{equation}
+                f(v^\text{out}) = \begin{cases}
+                a,& \text{if } \texttt{"}\mathtt{action}\texttt{"}: \texttt{"}a\texttt{"}\in v^\text{out},\\
+                \mathtt{Unif}(\mathcal{A}),& \text{otherwise.}
+                \end{cases}
+            \end{equation}
+            </p>
+
+            <h3> Estimating the action probability $\pi_\theta(a_t|o_t,v_t^\text{in})$ </h3>
+            A naive way to compute the log action probability $\log \pi_\theta(a_t|o_t,v_t^\text{in})$ is to
+            directly sum up the log probability of each token in $v_t^\text{out}$ via:
+            \begin{equation*}
+                \log\pi_\theta(a_t|o_t,v_t^\text{in})\leftarrow\log \pi_\theta({\color{#6C8EBF} v^\text{tht}_t}|o_t,v^\text{in}_t) + \log \pi_\theta({\color{#B85450} v^\text{act}_t}|o_t,v^\text{in}_t,v^\text{tht}_t).
+            \end{equation*}
+            However, since our method directly parse the action tokens ${\color{#B85450} v^\text{act}_t}$ to obtain
+            the legal action $a_t$, and the CoT tokens ${\color{#6C8EBF} v^\text{tht}_t}$ are generally much longer
+            than the action tokens ${\color{#B85450} v^\text{act}_t}$, we adopt a regularized version that scale down
+            the log probability of the CoT tokens ${\color{#6C8EBF} v^\text{tht}_t}$ by a factor $\lambda\in[0,1]$,
+            which results in:
+            \begin{equation*}
+                \log\pi_\theta(a_t|o_t,v_t^\text{in})\leftarrow\lambda \log \pi_\theta({\color{#6C8EBF} v^\text{tht}_t}|o_t,v^\text{in}_t) + \log \pi_\theta({\color{#B85450} v^\text{act}_t}|o_t,v^\text{in}_t,v^\text{tht}_t).
+            \end{equation*}
+            We found that choosing a moderate value of $\lambda$ (e.g., $\lambda\in[0.2,0.5]$) works well in practice.
+        </section>
+
+    </section>
+
+    <section id="task">
+        <h2> Evaluation Tasks </h2>
+
+        <!-- <p>
+            We demonstrate our experimental results of CHOPIN in this section. Since we adopt the LLaVA-v1.6-7b backbone, we will first introduce our experimental setup and the procedure for preparing the initial VLM policy $\theta_0$ for CHOPIN. Then we will demonstrate the results of end-to-end RL training via CHOPIN and compare it with end-to-end RL training {\em without} CoT, as well as the zero-shot performance of commercial models such as GPT4v and Gemini. Last but not least, we provide an empirical analysis of the benefits of CoT reasoning for end-to-end RL training.
+        </p> -->
+
+        <h3> GymCards </h3>
+        Our GymCards environment is designed to evaluate VLMs' arithmetic capabilities
+        using visual perception and language reasoning in deterministic and stochastic tasks.
+        More precisely, tasks in the GymCards domain require the VLM to recognize the numbers
+        (potentially from cards) and utilize the numbers for reasoning.
+        <d-figure>
+            <img src="images/gymcards-all.png" width="100%">
+            <figcaption>
+                Visualization of a state of tasks in the card environments. <b>From left to right:</b> Numberline, Blackjack, EZPoints, and Points24.
+            </figcaption>
+        </d-figure>
+        <h4> Goals </h4>
+        <p>
+            <b> NumberLine. </b> Move the current number to the target number by adding or subtracting 1 from the current number.
+        </p>
+        <p>
+            <b> EZPoints. </b> Generate an equation that equals 12, using the 2 numbers from the cards ('J'. 'Q', and 'K' are treated as '10').
+        </p>
+        <p>
+            <b> Points24. </b> Generate an equation that equals 24, using the 4 numbers from the cards ('J'. 'Q', and 'K' are treated as '10').
+        </p>
+        <p>
+            <b> Blackjack. </b> Win the current game by choosing "hit" or "stand".
+        </p>
+        <h4> Examples of Transitions in the GymCards Environment </h4>
+        <div class="carousel-container">
+            <div class="carousel-slide active">
+                <img src="images/nl.png" alt="Teaser Image 1">
+            </div>
+            <div class="carousel-slide active">
+                <img src="images/ezp.png" alt="Teaser Image 2">
+            </div>
+            <div class="carousel-slide active">
+                <img src="images/p24.png" alt="Teaser Image 3">
+            </div>
+            <div class="carousel-slide active">
+                <img src="images/bj.png" alt="Teaser Image 4">
+            </div>
+
+            <div class="carousel-controls">
+                <button class="carousel-button" onclick="moveSlide(-1)">&#10094;</button>
+                <button class="carousel-button" onclick="moveSlide(1)">&#10095;</button>
+            </div>
+            <figcaption>
+                Examples of transition in our GymCards environment.
+            </figcaption>
+
+        </div>
+
+
+        <h3> AlfWorld</h3>
+        We also adopt the <a href="https://alfworld.github.io/" class="code-link">ALFWorld</a> environment, to evaluate VLM's
+        decision-making capabilities in tasks that require visual semantic understanding. See an example of the
+        ALFWorld environment below.
+        <img src="images/alf.png" width="100%">
+        <figcaption>
+            An example of transition in the ALFWorld environment.
+        </figcaption>
+
+    </section>
+    <section id="result">
+        <h2> Experimental Results </h2>
+
+        <h3> Improving VLM agents' decision-making capabilities </h3>
+        We show that our method can enable a backbone <a href="https://github.com/haotian-liu/LLaVA" class="code-link">LLaVA-1.6-7b</a>
+        model to outperform commercial models (<a href="https://openai.com/index/gpt-4v-system-card" class="code-link">GPT4-V</a>
+        and <a href="https://gemini.google.com/" class="code-link">Gemini</a>), and supervised fine-tuned LLaVA-7b.
+        <d-figure>
+            <img src="images/tab-imp.png" width="100%">
+            <figcaption>
+                The average episode success rate of our method compared against other methods.
+                Our method achieves the best overall performance in both GymCards and ALFWorld
+                (without expert data) environments.
+            </figcaption>
+            <img src="images/curves-imp.png" width="100%">
+            <figcaption>
+                The average episode success rate of our method compared against other methods.
+                The curves of Points24 are not provided because no method achieves a reasonable performance.
+            </figcaption>
+        </d-figure>
+        <h3> The importance of CoT reasoning </h3>
+        We demonstrate that the CoT reasoning is a crucial component of our method --
+        the performance of our method significantly deteriorates without the CoT reasoning.
+        <d-figure>
+            <img src="images/tab-cot.png" width="100%">
+            <figcaption>
+                The average episode success rate of our method with
+                and without the CoT reasoning.
+            </figcaption>
+            <img src="images/curves-cot.png" width="100%">
+            <figcaption>
+                The average episode success rate of our method with
+                and without the CoT reasoning.
+                The curves of Points24 are not provided because no method achieves a reasonable performance.
+            </figcaption>
+        </d-figure>
+
+    </section>
+
+        </d-article>
+        <d-appendix>
+            <h3>BibTeX</h3>
+            <p class="bibtex">
+                @inproceedings{zhai2024finetuning,<br>
+                &nbsp;&nbsp;title={Fine-Tuning Large Vision-Language Models as Decision-Making Agents via Reinforcement Learning},<br>
+                &nbsp;&nbsp;author={Zhai, Yuexiang and Bai, Hao and Lin, Zipeng and Pan, Jiayi and Tong, Shengbang and Zhou, Yifei and Suhr, Alane and Xie, Saining and LeCun, Yann and Ma, Yi and Levine, Sergey}<br>
+                &nbsp;&nbsp;booktitle={The Thirty-eighth Annual Conference on Neural Information Processing Systems},<br>
+                &nbsp;&nbsp;year={2024},<br>
+                &nbsp;&nbsp;url={https://openreview.net/forum?id=nBjmMF2IZU}<br>
+                }
+            </p>
+            <h3>Acknowledgment</h3>
+            <p> Website template is taken from  <a href=" https://tsb0601.github.io/mmvp_blog/#mmvp" class="code-link">here</a>.
+                We thank the <a href="https://hyperbolic.xyz/" class="code-link">Hyperbolic Labs</a> for the generous compute support.</p>
+        </d-appendix>
+
+
+        <!-- <script type="text/bibliography">
+
+        </script> -->
+        <script>
+
+            var dContents = document.querySelector('d-contents');
+            var dArticle = document.querySelector('d-article');
+            // Get the computed style of the element to access the margin
+            var computedStyle = window.getComputedStyle(dContents);
+            // Get the top margin as an integer
+            var marginTop = parseInt(computedStyle.marginTop, 10);
+            // Calculate the original top offset plus the margin-top
+            var originalOffsetTop = dContents.offsetTop;
+            var originalOffsetLeft = dContents.offsetLeft;
+            var originalWidth = dContents.offsetWidth; // This should include padding if box-sizing is border-box
+
+            // Function to handle the resize event
+            function onResize() {
+                // Recalculate original left and width on resize
+                originalOffsetLeft = dContents.offsetLeft;
+                originalWidth = dContents.offsetWidth; // This should include padding if box-sizing is border-box
+            }
+
+            // Add the resize event listener
+            window.addEventListener('resize', onResize);
+
+            window.addEventListener('scroll', function() {
+                var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+                var dArticleBottom = dArticle.offsetTop + dArticle.offsetHeight;
+                var dContentsActualTop = scrollPosition > originalOffsetTop ? scrollPosition : originalOffsetTop;
+                var dContentsBottom = dContentsActualTop + dContents.offsetHeight;
+                console.log("dArticleBottom", dArticleBottom)
+                console.log("dContentsBottom", dContentsBottom)
+                if (dContentsBottom >= dArticleBottom) {
+                    // Make d-contents invisible
+                    dContents.style.visibility = 'hidden';
+                } else {
+                    // Make d-contents visible
+                    dContents.style.visibility = 'visible';
+                }
+
+                // Adjust the condition to account for margin-top
+                if (scrollPosition + marginTop >= originalOffsetTop) {
+                    dContents.style.position = 'fixed';
+                    dContents.style.top = '0px';
+                    dContents.style.left = originalOffsetLeft + 'px'; // Maintain the original horizontal position
+                    dContents.style.width = originalWidth + 'px'; // Maintain the original width
+                } else {
+                    dContents.style.position = '';
+                    dContents.style.top = '';
+                    dContents.style.left = '';
+                    dContents.style.width = ''; // Allow the width to be automatic
+                }
+
+
+            });
+
+
+
+            // Initialize width and position
+            onResize();
+        </script>
+
+        <script>
+            // Function to determine which section is in view
+            function getActiveSection() {
+                var sections = document.querySelectorAll('section'); // Assuming your sections have a 'section' tag
+                var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+                for (var i = 0; i < sections.length; i++) {
+                    if (sections[i].offsetTop <= scrollPosition && sections[i].offsetTop + sections[i].offsetHeight > scrollPosition) {
+                        return sections[i].id;
+                    }
+                }
+                return null;
+            }
+
+            // Function to update the navigation items
+            function updateNavigation() {
+                var activeSection = getActiveSection();
+                var navLinks = document.querySelectorAll('d-contents nav a');
+
+                navLinks.forEach(function(navLink) {
+                    if (navLink.getAttribute('href') === '#' + activeSection) {
+                        navLink.classList.add('active-nav-item');
+                    } else {
+                        navLink.classList.remove('active-nav-item');
+                    }
+                });
+            }
+
+            // Add the scroll event listener
+            window.addEventListener('scroll', updateNavigation);
+
+            // Initial update
+            updateNavigation();
+
+            // Insert citations and update bibliography on page load
+        </script>
+    </body>
+</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeurIPS 2024 (Spotlight) - Text2CAD</title>
+    <!-- <title>Text2CAD</title> -->
+
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/t2c_style.css">
+    <link rel="stylesheet" href="assets/css/tab.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/themes/light.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        </script>
+    <!-- Google tag (gtag.js) -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBCHY72YH0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZBCHY72YH0');
+    </script>
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/shoelace-autoloader.js"></script>
+    <script src="assets/js/gallery.js"></script>
+
+</head>
+
+<body>
+
+    <div id="toggle-switch-container">
+        <label class="switch" title="Toggle Dark Mode">
+            <input type="checkbox" id="dark-mode-toggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div id="toc-container">
+        <!-- <h4 style="color: black;">Table of Contents</h4> -->
+        <ol id="toc">
+            <li><a href="index.html#contribution">Contribution</a></li>
+            <li><a href="index.html#annotation">Data Annotation</a></li>
+            <li><a href="index.html#architecture">Text2CAD Transformer</a></li>
+            <li><a href="index.html#results">Visual Results</a></li>
+            <li><a href="index.html#quantitative-results">Quantitative Results</a></li>
+            <!-- <li><a href="#video">Video</a></li> -->
+            <!-- <li><a href="#acknowledgement">Acknowledgement</a></li> -->
+            <!-- <li><a href="#citation">Citation</a></li> -->
+        </ol>
+    </div>
+
+    <header>
+        <div class="more-research-wrapper">
+            <div class="more-research-container">
+                <div class="more-research-title">
+                    More Research
+                    <span class="dropdown-arrow">▼</span>
+                </div>
+                <ul class="research-list">
+                    <li><a href="http://skazizali.com/cadsignet.github.io/" target="_blank">CAD-SIGNet</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <p class="title">
+            <span class="gradient-text">Text2CAD</span> <br> Generating Sequential CAD Designs from <br>
+            Beginner-to-Expert Level Text Prompts
+        </p>
+        <p>
+        <div class="author-container">
+            <span class="author">
+                Mohammad Sadil Khan
+            </span><sup class="sup">1*†</sup>
+            <div class="popup-menu">
+                <a href="https://scholar.google.com/citations?user=XIDQo_IAAAAJ&hl=en&authuser=1" target="_blank"><i
+                        class="fas fa-graduation-cap"></i> Google Scholar</a>
+                <a href="mailto:mohammad.khan@dfki.de"><i class="fas fa-envelope"></i> Email</a>
+                <a href="https://mdsadilkhan.onrender.com/" target="_blank"><i class="fas fa-globe"></i> Website</a>
+                <p style="color:black">* Equal Contribution </p>
+                <p style="color:black">† Corresponding Author</p>
+                <!-- <a href="https://www.linkedin.com/in/mohammad-sadil-khan-a96568170/" target="_blank"><i class="fab fa-linkedin"></i> Linkedin</a> -->
+            </div>
+        </div>
+        <span style="padding:10px;"></span>
+        <div class="author-container">
+            <span class="author">
+                Sankalp Sinha
+            </span><sup class="sup">1*</sup>
+            <div class="popup-menu">
+                <a href="https://scholar.google.com/citations?user=QYcfOjEAAAAJ&hl=en&authuser=1&oi=ao"
+                    target="_blank"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+                <a href="mailto:sankalp.sinha@dfki.de"><i class="fas fa-envelope"></i> Email</a>
+                <a href="https://av.dfki.de/members/sinha/" target="_blank"><i class="fas fa-globe"></i> Website</a>
+                <p style="color:black">* Equal Contribution </p>
+            </div>
+        </div>
+        <span style="padding:10px;"></span>
+        <div class="author-container">
+            <span class="author">
+                Talha Uddin Sheikh
+            </span><sup class="sup">1</sup>
+            <div class="popup-menu">
+                <a href="https://scholar.google.com/citations?hl=en&authuser=1&user=yW7VfAgAAAAJ" target="_blank"><i
+                        class="fas fa-graduation-cap"></i> Google Scholar</a>
+                <a href="mailto:talha_uddin.sheikh@dfki.de "><i class="fas fa-envelope"></i> Email</a>
+                <a href="https://av.dfki.de/members/sheikh/" target="_blank"><i class="fas fa-globe"></i> Website</a>
+            </div>
+        </div>
+        <span style="padding:10px;"></span>
+        <div class="author-container">
+            <span class="author">
+                Didier Stricker
+            </span><sup class="sup">1</sup>
+            <div class="popup-menu">
+                <a href="https://scholar.google.com/citations?user=ImhXfxgAAAAJ&hl=en&authuser=1&oi=ao"
+                    target="_blank"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+                <a href="mailto:didier.stricker@dfki.de "><i class="fas fa-envelope"></i> Email</a>
+                <a href="https://av.dfki.de/members/stricker/" target="_blank"><i class="fas fa-globe"></i> Website</a>
+            </div>
+        </div>
+        <br>
+        <span style="padding:10px;"></span>
+        <div class="author-container">
+            <span class="author">
+                Sk Aziz Ali
+            </span><sup class="sup">2</sup>
+            <div class="popup-menu">
+                <a href="https://scholar.google.com/citations?user=zywjMeMAAAAJ&hl=en&authuser=1&oi=ao"
+                    target="_blank"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+                <a href="mailto:skaziz.ali@hyderabad.bits-pilani.ac.in"><i class="fas fa-envelope"></i> Email</a>
+                <a href="https://skazizali.com/" target="_blank"><i class="fas fa-globe"></i> Website</a>
+            </div>
+        </div>
+        <span style="padding:10px;"></span>
+        <div class="author-container">
+            <span class="author">
+                Muhammad Zeshan Afzal
+            </span><sup class="sup">1</sup>
+            <div class="popup-menu">
+                <a href="https://scholar.google.com/citations?user=kHMVj6oAAAAJ&hl=en&authuser=1&oi=sra"
+                    target="_blank">
+                    <i class="fas fa-graduation-cap"></i> Google Scholar
+                </a>
+                <a href="mailto:muhammad_zeshan.afzal@dfki.uni-kl.de ">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+                <a href="https://av.dfki.de/members/afzal/" target="_blank">
+                    <i class="fas fa-globe"></i> Website
+                </a>
+            </div>
+        </div>
+        </p>
+        <!-- <center style="padding-bottom:20px;margin-top:-15px"> <i>  <sup class="sup">*</sup> equal contributions</i>  <span style="padding:10px;"></span> <sup class="sup">†</sup> <i>corresponding author</i></center> -->
+        <center style="padding-bottom:20px;">
+            <sup class="sup">1</sup><a class="author" href="https://av.dfki.de/" target="_blank"><b> DFKI </b></a> <span
+                style="padding:10px;"></span>
+            <sup class="sup">1,2</sup><a class="author" href="https://rptu.de/" target="_blank"><b> RPTU</b></a> <span
+                style="padding:10px;"></span>
+            <sup class="sup">1</sup><a class="author" href="https://blog.mindgarage.de/" target="_blank"><b>
+                    MindGarage</b></a> <span style="padding:10px;"></span>
+            <sup class="sup">2</sup><a class="author" href="https://www.bits-pilani.ac.in/hyderabad/"
+                target="_blank"><b> BITS Pilani, Hyderabad</b></a>
+        </center>
+
+        <center>
+            <h3 class="neurips">NeurIPS 2024 (Spotlight 🤩) </h3>
+        </center>
+
+        <a style="display: inline-block;" href="https://proceedings.neurips.cc/paper_files/paper/2024/file/0e5b96f97c1813bb75f6c28532c2ecc7-Paper-Conference.pdf" class="button paper_button"
+            target="_blank">
+            <span class="icon">
+                <i class="fas fa-file-pdf"></i>
+            </span>
+            <span>Paper</span>
+        </a>
+        <span style="padding:10px;"></span>
+        <a style="display: inline-block;" href="https://arxiv.org/abs/2409.17106" class="button arxiv_button"
+            target="_blank">
+            <span class="icon">
+                <i class="fas fa-file-pdf"></i>
+            </span>
+            <span>Arxiv</span>
+        </a>
+        <span style="padding:10px;"></span>
+        <a style="display: inline-block;" href="https://github.com/SadilKhan/Text2CAD" class="button code_button"
+            target="_blank">
+            <span class="icon">
+                <i class="fa-brands fa-github"></i>
+            </span>
+            <span>Code</span>
+        </a>
+        <span style="padding:10px;"></span>
+        <a style="display: inline-block;" href="https://huggingface.co/datasets/SadilKhan/Text2CAD"
+            class="button dataset_button" target="_blank">
+            <span class="icon">
+                🤗
+            </span>
+            <span>Dataset</span>
+        </a>
+        <span style="padding:10px;"></span>
+        <a style="display: inline-block;" href="https://sadilkhan.github.io/text2cad-project/assets/img/text2cad_poster.png" class="button demo_button"
+            target="_blank">
+            <span class="icon">
+                <i class="fa-solid fa-image"></i>
+            </span>
+            <span>Poster</span>
+        </a>
+
+    </header>
+
+
+    <section id="contribution">
+        <div>
+            <video controls autoplay loop muted class="teaser_video" id="teaser_video"
+                poster="https://sadilkhan.github.io/text2cad-project/assets/img/teaser_light.jpg">
+                <source src="assets/animation/teaser_animation.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+
+
+        <p> <b>Text2CAD:</b> Designers can efficiently generate parametric CAD models from text
+            prompts. The prompts can vary from abstract shape descriptions to detailed parametric instructions.
+        </p>
+
+        <div class="grid-text">
+            <center>
+                <h1 class="h1_section">Contribution</h1>
+            </center>
+            <div class="gradient_backend">
+                <p>Our proposed <b>Text2CAD</b> is the first AI framework for generating parametric CAD designs using
+                    <b> multi-level textual descriptions </b>. Our main contributions are:
+                <ol class="numbered_list">
+                    <li><a href="index.html#annotation"><b>A Novel Data Annotation Pipeline </b></a> that leverages open-source
+                        LLMs and VLMs to annotate <a href="https://arxiv.org/abs/2105.09492">DeepCAD</a> dataset with
+                        text prompts <u>containing varying level of complexities and parametric details.</u> </li>
+                    <li><a href="index.html#architecture"><b>Text2CAD Transformer: </b></a>An end-to-end Transformer based
+                        autoregressive architecture for generating CAD design history from input text prompts.</li>
+                </ol>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="annotation">
+        <center>
+            <h1 class="h1_section"> Data Annotation </h1>
+        </center>
+        <div class="gradient_backend">
+            <p>Our data annotation pipeline generates multi-level text prompts describing the construction workflow of a
+                CAD model with varying complexities. We use a two-stage method -
+            <ol>
+                <li style="padding-bottom: 10px;"> <b>Stage 1</b>: Shape description generation using VLM (<a
+                        href="https://llava-vl.github.io/blog/2024-01-30-llava-next/">LlaVA-NeXT</a>). </li>
+                <li> <b>Stage 2</b>: Multi-Level textual annotation generation using LLM (<a
+                        href="https://mistral.ai/news/mixtral-of-experts/">Mixtral-50B</a>). </li>
+            </ol>
+        </div>
+        <img src="assets/img/data_annot_light.png" alt="Architecture" class="center" id="data_annot"
+            style="padding-bottom: 10px;">
+
+    </section>
+
+
+    <section id="architecture">
+        <center>
+            <h1 class="h1_section"> Text2CAD Transformer </h1>
+        </center>
+        <div class="gradient_backend">
+            <p>Text2CAD Transformer converts natural
+                language descriptions into parametric 3D CAD models by deducing all its intermediate design steps
+                autoregres-
+                sively. Our model takes as input a text prompt \(T\) and a CAD subsequence \(\mathbf{C}_{1:t-1}\) of
+                length \({t-1}\). The text embedding \(T_{adapt}\) is extracted from \(T\) using a pretrained BeRT
+                Encoder followed by a trainable Adaptive layer. The resulting embedding \(T_{adapt}\) and the CAD
+                sequence embedding \(F^0_{t-1}\) is passed through \(\mathbf{L}\) decoder blocks to generate the full
+                CAD sequence in auto-regressive way.
+            </p>
+        </div>
+        <img src="assets/img/arch_light.png" alt="Architecture" class="center" id="arch_image"
+            style="padding-bottom: 10px;">
+    </section>
+
+    <section id="results">
+        <center>
+            <h1 class="h1_section">Visual Results</h1>
+        </center>
+        <div class="image-gallery">
+            <div class="slides-container">
+                <!-- Clone of the last image -->
+                <div class="gallery-image-div">
+                    <p>
+                        Visual examples of 3D CAD model generation using varied prompts.
+                        (<span style="color: rgb(62, 62, 217);">1</span>) Three different prompts yielding the same
+                        ring-like model, some without explicitly mentioning ’<i>ring</i>’.
+                        (<span style="color: green;">2</span>) Three diverse prompts resulting in same <i>star-shaped
+                            model</i>, each emphasizing <i>different star characteristics</i>.
+                    </p>
+                    <img src="assets/img/qual_3_light.svg" alt="Image 3" class="gallery-image" id="qual_3_image">
+                </div>
+                <!-- Original images -->
+                <div class="gallery-image-div">
+                    <p> Qualitative results of the reconstructed CAD models of <a
+                            href="https://arxiv.org/abs/2105.09492">DeepCAD</a> and Text2CAD
+                        on <a href="https://arxiv.org/abs/2105.09492">DeepCAD</a> dataset. From top to bottom - <b>Input
+                            Texts, Reconstructed CAD models using
+                            <a href="https://arxiv.org/abs/2105.09492">DeepCAD</a> and Text2CAD respectively and GPT-4V
+                            Evaluation.</b></p>
+                    <img src="assets/img/qual_1_light.png" alt="Image 1" class="gallery-image" id="qual_1_image">
+
+                </div>
+                <div class="gallery-image-div">
+                    <p> Qualitative results of the reconstructed CAD models of <a
+                            href="https://arxiv.org/abs/2105.09492">DeepCAD</a> and Text2CAD
+                        on <a href="https://arxiv.org/abs/2105.09492">DeepCAD</a> dataset. From top to bottom - <b>Input
+                            Texts, Reconstructed CAD models using
+                            <a href="https://arxiv.org/abs/2105.09492">DeepCAD</a> and Text2CAD respectively and GPT-4V
+                            Evaluation.</b></p>
+                    <img src="assets/img/qual_2_light.png" alt="Image 2" class="gallery-image" id="qual_2_image">
+
+                </div>
+                <div class="gallery-image-div">
+                    <p>
+                        Visual examples of 3D CAD model generation using varied prompts.
+                        (<span style="color: rgb(62, 62, 217);">1</span>) Three different prompts yielding the same
+                        ring-like model, some without explicitly mentioning ’<i>ring</i>’.
+                        (<span style="color: green;">2</span>) Three diverse prompts resulting in same <i>star-shaped
+                            model</i>, each emphasizing <i>different star characteristics</i>.
+                    </p>
+                    <img src="assets/img/qual_3_light.svg" alt="Image 3" class="gallery-image" id="qual_3_image">
+
+
+                </div>
+                <!-- Clone of the first image -->
+                <div class="gallery-image-div">
+
+                    <p> Qualitative results of the reconstructed CAD models of <a
+                            href="https://arxiv.org/abs/2105.09492">DeepCAD</a> and Text2CAD
+                        on <a href="https://arxiv.org/abs/2105.09492">DeepCAD</a> dataset. From top to bottom - <b>Input
+                            Texts, Reconstructed CAD models using
+                            <a href="https://arxiv.org/abs/2105.09492">DeepCAD</a> and Text2CAD respectively and GPT-4V
+                            Evaluation.</b></p>
+                    <img src="assets/img/qual_1_light.png" alt="Image 1" class="gallery-image" id="qual_1_image">
+
+                </div>
+
+            </div>
+            <div class="gallery-nav">
+                <span class="prev" id="prev-button">&#10094;</span>
+                <span class="next" id="next-button">&#10095;</span>
+            </div>
+
+            <div class="play-pause-button" id="play-pause-button">
+                <i class="fas fa-pause" id="play-pause-icon"></i>
+            </div>
+        </div>
+    </section>
+
+    <section id="quantitative-results">
+        <!-- <center>
+            <h1 class="h1_section">Qualitative Results</h1>
+        </center>
+        <div id="chart-container">
+            <canvas id="comparisonChart"></canvas>
+        </div> -->
+
+        <center>
+            <h1 class="h1_section">Quantitative Results</h1>
+        </center>
+        <div class="gradient_backend">
+            <p> We evaluated the performance of Text2CAD using two strategies.
+            <ol class="numbered_list">
+                <li> <b>CAD Sequence Evaluation:</b> We assess the parametric correspondence between the generated CAD
+                    sequences with the input texts. This is done using the following metrics:
+                    <ul>
+                        <li style="padding-bottom: 10px;"> <b>F1 Scores</b> of Line, Arc, Circle and Extrusion using the
+                            method proposed in <a href="http://skazizali.com/cadsignet.github.io/"> CAD-SIGNet</a>.
+                        </li>
+                        <li style="padding-bottom: 10px;"> <b>Chamfer Distance (CD) </b> measures geometric alignment
+                            between the ground truth and reconstructed CAD models of Text2CAD and <a
+                                href="https://arxiv.org/abs/2105.09492">DeepCAD</a>. </li>
+                        <li style="padding-bottom: 10px;"> <b>Invality Ratio (IR)</b> Measures the invalidity of the
+                            reconstructed CAD models. </li>
+
+                    </ul>
+                <li> <b>Visual Inspection:</b> We compare the performance of Text2CAD and <a
+                        href="https://arxiv.org/abs/2105.09492">DeepCAD</a> with GPT-4 and Human evaluation. </li>
+            </ol>
+
+            </p>
+        </div>
+        <center><i>Click on the tab to visualize the bar chart. You can also hover on the bars to see the metrics. </i>
+            <br>
+        </center>
+        </p>
+        <!-- Main Tabs -->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'SequenceEvaluation')">CAD Sequence Evaluation</button>
+            <button class="tablinks" onclick="openTab(event, 'AutomaticEvaluation')">Visual Inspection</button>
+        </div>
+
+        <!-- Sequence Evaluation Content -->
+        <div id="SequenceEvaluation" class="tabcontent">
+            <div class="sub-tab">
+                <button class="sub-tablinks" onclick="openSubTab(event, 'F1Scores')">F1 Scores</button>
+                <button class="sub-tablinks" onclick="openSubTab(event, 'CDandIR')">CD and IR</button>
+            </div>
+            <div id="F1Scores" class="sub-tabcontent">
+                <canvas id="f1Chart"></canvas>
+            </div>
+            <div id="CDandIR" class="sub-tabcontent">
+                <canvas id="cdIrChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Automatic Evaluation (GPT-4 and User) -->
+        <div id="AutomaticEvaluation" class="tabcontent">
+            <div class="sub-tab">
+                <button class="sub-tablinks" onclick="openSubTab(event, 'GPT4')">GPT-4</button>
+                <button class="sub-tablinks" onclick="openSubTab(event, 'User')">Human</button>
+            </div>
+            <div id="GPT4" class="sub-tabcontent">
+                <canvas id="gpt4CombinedChart"></canvas>
+            </div>
+            <div id="User" class="sub-tabcontent">
+                <canvas id="userCombinedChart"></canvas>
+            </div>
+        </div>
+
+
+
+    </section>
+
+
+    <!-- <section id="video">
+        <center>
+            <h1 class="h1_section"> Video </h1>
+            
+             Coming Soon
+        </center> 
+        
+    </section> -->
+
+    <section id="acknowledgement">
+        <center>
+            <h1 class="h1_section"> Acknowledgement </h1>
+        </center>
+        <div class="gradient_backend">
+            <p>This work was in parts supported by the EU Horizon Europe Framework under grant agreement
+                <code>101135724</code> (LUMINOUS).
+            </p>
+        </div>
+    </section>
+
+    <section id="citation">
+        <center>
+            <h1 class="h1_section">Citation</h1>
+        </center>
+        <p>If you use our dataset, please cite our works.</p>
+        <div class="citation_metadata">
+            <div class="gradient_backend">
+                <code id="metadata1">
+                    <span style="color: rgb(195, 92, 7)">@Inproceedings</span>{<span style="color: rgb(7, 117, 195)">khan2024textcad</span>, <br>
+                    title={Text2CAD: Generating Sequential {CAD} Designs from Beginner-to-Expert Level Text Prompts},  <br>
+                    author={Mohammad Sadil Khan and Sankalp Sinha and Sheikh Talha Uddin and Didier Stricker and Sk Aziz Ali and Muhammad Zeshan Afzal},  <br>
+                    booktitle = {Advances in Neural Information Processing Systems},<br>
+	                pages = {7552--7579},<br>
+	                publisher = {Curran Associates, Inc.},  <br>
+                    year={2024},  <br>
+                    volume = {37}, <br>
+                    url = {https://proceedings.neurips.cc/paper_files/paper/2024/file/0e5b96f97c1813bb75f6c28532c2ecc7-Paper-Conference.pdf},  <br>
+                }
+                </code>
+
+                <button id="copyButton1" onclick="copyText('metadata1', 'copyButton1')" class="copy-button">📋</button>
+            </div>
+            <br>
+            <div class="gradient_backend">
+                <code id="metadata2">
+                    <span style="color: rgb(195, 92, 7)">@Inproceedings</span>{<span style="color: rgb(7, 117, 195)">Khan_2024_CVPR</span>, <br>
+                    author    = {Khan, Mohammad Sadil and Dupont, Elona and Ali, Sk Aziz and Cherenkova, Kseniya and Kacem, Anis and Aouada, Djamila}, <br>
+                    title     = {CAD-SIGNet: CAD Language Inference from Point Clouds using Layer-wise Sketch Instance Guided Attention},<br>
+                    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, <br>
+                    month     = {June}, <br>
+                    year      = {2024}, <br>
+                    pages     = {4713-4722} <br>
+                    }
+                </code>
+                <button id="copyButton2" onclick="copyText('metadata2', 'copyButton2')" class="copy-button">📋</button>
+            </div>
+        </div>
+    </section>
+
+    <img src="assets/img/logo_lab_light.png" alt="Results" class="center" id="Lab Logo" style="width: 90%;">
+
+    <footer style="border-radius: 10px;">
+        <!-- Footer content goes here -->
+        <p style="color: black">&copy; 2024 Mohammad Sadil Khan. All rights reserved.</p>
+    </footer>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://unpkg.com/three@v0.160.1/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@v0.160.1/examples/jsm/"
+          }
+        }
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/chart.js"></script>
+
+</body>
+
+</html>

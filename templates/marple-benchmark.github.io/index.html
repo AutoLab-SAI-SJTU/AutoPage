@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARPLE | A Benchmark for Long-Horizon Inference</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://marple-benchmark.github.io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://marple-benchmark.github.io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://marple-benchmark.github.io/favicon-16x16.png">
+    <link rel="manifest" href="https://marple-benchmark.github.io/site.webmanifest">
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="https://marple.github.io/assets/img/card.png"/>
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:url" content="https://marple.github.io/"/>
+    <meta property="og:title" content="MARPLE"/>
+    <meta property="og:description" content="A Benchmark for Long-Horizon Inference"/>
+
+    <!-- twitter card -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="MARPLE"/>
+    <meta name="twitter:description"
+          content="A Benchmark for Long-Horizon Inference"/>
+    <meta name="twitter:creator" content="@emilyzjin"/>
+
+    <!-- extra metadata for Slack unfurls -->
+    <!--    <meta name="twitter:label1" content="Published at"/>-->
+    <!--    <meta name="twitter:data1" content=""/>-->
+    <!--    <meta name="twitter:label2" content="Reading time"/>-->
+    <!--    <meta name="twitter:data2" content="10 minutes"/>-->
+
+    <!-- extra metadata — unknown support -->
+    <meta property="og:type" content="article"/>
+    <meta property="article:section" content="Research"/>
+    <meta property="article:tag" content="Benchmark"/>
+    <meta property="article:tag" content="Inference"/>
+    <meta property="article:tag" content="Machine Learning"/>
+
+</head>
+<body> 
+
+<div id="title_slide">
+    <div class="title_left">
+        <h1>MARPLE: A Benchmark for Long-Horizon Inference</h1>
+        <div class="author-container">
+            <div class="author-name"><a href="https://emilyzjin.github.io/" target="_blank">Emily Jin<sup>1</sup>*</a></div>
+            <div class="author-name"><a href="https://www.linkedin.com/in/zhuoyi-huang" target="_blank">Zhuoyi Huang<sup>1</sup>*</a></div>
+            <div class="author-name"><a href="https://janphilippfranken.github.io/" target="_blank">Jan-Philipp Fränken<sup>2</sup></a></div>
+            <div class="author-name"><a href="http://weiyuliu.com/" target="_blank">Weiyu Liu<sup>1</sup></a></div>   
+            <div class="author-name"><a href="https://www.linkedin.com/in/hannah-cha" target="_blank">Hannah Cha<sup>1</sup></a></div>  
+        </div>
+
+        <div class="author-container">            
+            <div class="author-name"><a href="https://www.erikbrockbank.com/" target="_blank">Erik Brockbank<sup>2</sup></a></div>   
+            <div class="author-name"><a href="https://sarahawu.github.io/" target="_blank">Sarah Wu<sup>2</sup></a></div>   
+            <div class="author-name"><a href="https://ai.stanford.edu/~zharu/" target="_blank">Ruohan Zhang<sup>1</sup></a></div>
+            <div class="author-name"><a href="https://jiajunwu.com/" target="_blank">Jiajun Wu<sup>1</sup></a></div>
+            <div class="author-name"><a href="https://cicl.stanford.edu/member/tobias_gerstenberg/" target="_blank">Tobias Gerstenberg<sup>2</sup></a></div>
+        </div>
+        <div class="affiliation">
+            <p>
+                <sup>1</sup>Department of Computer Science 
+                <sup>2</sup>Department of Psychology
+                <br><br>
+                <img src="assets/logos/SUSig-red.png" style="height: 40px">
+            </p>
+        </div>
+        <!--        <div class="venue">-->
+        <!--            <p>-->
+        <!--                <b>NeurIPS 2025</b>-->
+        <!--            </p>-->
+        <!--        </div>-->
+        <div class="button-container" style="text-align: center;">
+            <!-- <a href="https://arxiv.org" target="_blank" class="button"><i class="ai ai-arxiv"></i>&emsp14;arXiv</a> -->
+            <a href="https://arxiv.org/abs/2410.01926" target="_blank" class="button"><i class="fa-light fa-file"></i>&emsp14;arXiv</a>
+            <!-- <a href="https://x.com/" target="_blank" class="button"><i -->
+                    <!-- class="fa-brands fa-x-twitter"></i>&emsp14;tl;dr</a> -->
+            <a href="https://github.com/marple-benchmark/marple" target="_blank" class="button"><i
+                    class="fa-light fa-code"></i>&emsp14;Code</a>  
+            <a href="https://drive.google.com/drive/folders/1zXsErNVOMYjBMWzTnmZS4e4aIljWlRce?usp=sharing" target="_blank" class="button"><i
+                    class="fa-light fa-database"></i>&emsp14;Data</a>
+        </div>
+
+        <br>
+
+        <div class="allegrofail">
+            <div class="video_container">
+                <image src="assets/img/overview.png" width="100%">
+                    <source src="assets/img/overview.png">
+                </image>
+            </div>  
+        </div>         
+        <br>
+
+        <div id="abstract">
+            <h1>Abstract</h1>
+            <p style="text-align: justify;">
+                Reconstructing past events requires reasoning across long time horizons. To figure out what happened, 
+                humans draw on prior knowledge about the world and human behavior and integrate insights from various 
+                sources of evidence including visual, language, and auditory cues. We introduce MARPLE, a benchmark for 
+                evaluating long-horizon inference capabilities using multi-modal evidence. Our benchmark features agents 
+                interacting with simulated households, supporting vision, language, and auditory stimuli, as well as 
+                procedurally generated environments and agent behaviors. Inspired by classic ``whodunit'' stories, we ask 
+                AI models and human participants to infer which agent caused a change in the environment based on a 
+                step-by-step replay of what actually happened. The goal is to correctly identify the culprit as early as possible. 
+                Our findings show that human participants outperform both traditional Monte Carlo simulation methods and an 
+                LLM baseline (GPT-4) on this task. Compared to humans, traditional inference models are less robust and performant, 
+                while GPT-4 has difficulty comprehending environmental changes. We analyze factors influencing inference performance 
+                and ablate different modes of evidence, finding that all modes are valuable for performance. Overall, our 
+                experiments demonstrate that the long-horizon, multimodal inference tasks in our benchmark present a challenge 
+                to current models. 
+            </p>
+        </div>
+    </div>
+</div>
+<hr class="rounded">
+<div id="overview">
+    <h1 font-weight: bold;>MARPLE Overview</h1>
+    <p style="text-align: justify;">
+        MARPLE (in reference to Agatha Christie's Miss Marple) is a benchmark for long-horizon inference 
+        based on multimodal evidence. The main goal of MARPLE is to test a model's ability to answer 
+        “whodunit”-style questions in daily household scenarios, such as “who turned on the laundry?” 
+        The inference problem requires choosing the correct agent from two potential suspects, given 
+        knowledge about their prior behaviors and the state of the environment. 
+        
+        <br><br>
+
+        <b>Inference Scenario Setup.</b> Two agents, A and B, each perform a mission, such as “do laundry” and "change clothes."
+        To complete their mission, each agent must interact with the environment, causing changes in the world and leaving evidence of its activity. 
+        A “whodunit” question is constructed by selecting a state that is unique to one agent’s trajectory. A state that is unique to agent A is 
+        “laundry is on,” so we pose the question: "Which agent turned on the laundry?"
+
+        <br><br>
+        
+        To answer “whodunit” questions, models must leverage evidence in the form of multimodal observations from each agent’s activity history. 
+
+        <div class="allegrofail">
+            <div class="video_container">
+                <image  id="inference_process" src="assets/img/inference_process.png" alt="Inference Process" width="100%"></image>
+            </div>  
+        </div>
+    </p>
+    <p style="text-align: justify;">
+        <!-- <br><br> -->
+        <b>Evaluating Performance.</b> Inference ability is measured by the probability of correctly choosing the agent responsible for the query state. 
+        We are interested in how much evidence is needed to make the correct inference: stronger models require less evidence and achieve high inference accuracy earlier.    
+
+    </p> 
+
+    <h1 font-weight: bold;">Key Contributions</h1>
+    <p style="text-align: justify;">
+    <style>
+        .inline-bullet {
+            display: block;
+            list-style-type: disc;
+            /* padding-left: 10px;
+            margin-right: 10px; */
+        }
+        .inline-bullet:before {
+            content: "• ";
+        }
+    </style>
+        The MARPLE benchmark makes 3 key contributions:        
+        <span class="inline-bullet"><b>Inference Scenarios:</b> a set of 5 challenging inference scenarios, along with pre-collected datasets for training and evaluation and a evaluation metric.</span>
+        <span class="inline-bullet"><b>Household Simulator:</b> supports generation of diverse agent behaviors involving semantically rich activities, featuring multimodal evidence such as vision, language, and audio.</span>
+        <span class="inline-bullet"><b>Benchmarking Experiments:</b> evaluation of machine learning baselines (simulation with learned agent models and GPT-4) against human participants as a comparison standard.</span>
+    <p>
+
+    <h1 font-weight: bold;>Inference Scenarios</h1>
+    <p style="text-align: justify;">    
+        The MARPLE Benchmark features 10 diverse, long-horizon missions, which are paired to create 5 
+        challenging inference scenarios that offer a balanced representation of the complexity and diversity 
+        offered by pairing missions. Each mission is accompanied by both train and test datasets: two 
+        train datasets, each containing 5000 agent trajectories (one for evaluating in-distribution 
+        performance and the other for out-of-distribution performance), and a test dataset with 500 
+        diverse agent trajectories.      
+    <p>
+
+
+    <h1 font-weight: bold;>Household Simulator</h1>
+
+    <p style="text-align: justify;">
+    <style>
+        .inline-bullet {
+            display: block;
+            list-style-type: disc;
+            /* padding-left: 10px;
+            margin-right: 10px; */
+        }
+        .inline-bullet:before {
+            content: "• ";
+        }
+    </style>
+        To support our benchmark, we introduce the MARPLE Household Simulator, designed to support complex scenarios and generate diverse data with the following key components:
+        <span class="inline-bullet"><b>Multimodal Environment:</b> fast, procedural generation with visual, language, auditory stimuli</span>
+        <span class="inline-bullet"><b>Hierarchical Agent Planner:</b> for procedural generation of diverse agent behaviors</span>
+        <span class="inline-bullet"><b>Human User Interface:</b> intuitive UI to support cognitive science experiments with humans</span>
+
+        <div class="allegrofail">
+            <div class="video_container">
+                <image id="household_simulator" src="assets/img/household_simulator.png" alt="Simulator Backend" style="width: 100%; height: auto;">
+                <!-- <div class="caption">
+                    <p> MARPLE Household Simulator (backend). Given a mission and environment configuration file, 
+                        the simulator procedurally generates an environment with multimodal support.
+                    </p>
+                </div> -->
+            </div>  
+        </div> 
+        <!-- <div class="allegrofail">
+            <div class="video_container">
+                <image id="planner" src="assets/img/planner.png" alt="Agent Planner" style="width: 50%; height: auto; text-align: center;"></image>
+                <div class="caption">
+                    <p> A hierarchical planner for procedural generation of agent behaviors. A high-level planner samples a mission, 
+                        a finite state machine breaks it into subgoals, and a low-level planner determines an action sequence.
+                    </p>
+                </div>
+            </div>
+        </div>      -->
+    </p> 
+
+    <h1 font-weight: bold;>Inference Methods</h1>
+    <p style="text-align: justify;">
+        <b>Mental Simulation with Learned Agent Models.</b> We combine Monte Carlo Tree Search (MCTS) with learned agent policy models for mental simulation. 
+        Agent policies are learned through imitation learning on past behaviors, and they are used during inference to predict actions for Monte Carlo 
+        rollouts. Different variations leverage visual, audio, and/or language evidence.
+        <!-- This inference method uses Monte Carlo Tree Search (MCTS) combined with learned agent policy models for mental simulation. 
+        We learn agent policy models using imitation learning on past agent behaviors. During inference, this method performs multiple Monte Carlo rollouts given evidence from a specified timestep, using the learned policy model 
+        to predicts actions and calculates the probability of each agent reaching the query state. Four variations of this baseline method are 
+        explored, which leverage visual, audio, and/or language evidence. -->
+
+    </p>
+
+    <p style="text-align: justify;">
+        <b>LLM.</b> We ask GPT-4 to predict which agent is more likely to have caused the query state given visual observations of both agents at 
+        two consecutive timesteps. GPT-4 must reason about changes in the consecutive states and consider how the agent may reach the query state. 
+        <!-- The states are represented by a standard scene graph representation, containing a set of nodes (representing an agent or object) and 
+        directed edges (representing object states and physical relations). -->
+    </p>
+
+    <p style="text-align: justify;">
+        <b>Human Baseline.</b> Human participants answer the inference question, given side-by-side visual observations of agent trajectories, presented one step at a time. 
+        This allows participants to build an incremental understanding of agent trajectories and compare behaviors within the scenario.
+
+        <!-- <div class="allegrofail">
+            <div class="video_container">
+                <image id="human_ui" src="assets/img/human_ui.png" alt="Human UI" style="width: 100%; height: auto;">
+            </div>
+        </div>    -->
+    </p>
+
+    <h1 font-weight: bold;>Benchmarking Experiments</h1>
+    <p style="text-align: justify;">
+        <style>
+            .inline-bullet {
+                display: block;
+                list-style-type: disc;
+                padding-top: 9px;
+                /* padding-left: 10px;
+                margin-right: 10px; */
+            }
+            .inline-bullet:before {
+                content: "• ";
+            }
+        </style>
+        We run experiments on all 5 inference scenarios, and we find that MARPLE is very challenging for all baselines. 
+        We focus our evaluation on <i>how early</i> the methods make the correct inference, rather than convergence itself, and we observe that:
+
+        <span class="inline-bullet"><b>Mental Simulation Models:</b> generally achieve higher accuracy and consistency than GPT-4, demonstrating the benefit of explicitly performing step-by-step mental simulations.</span>
+        <span class="inline-bullet"><b>GPT-4:</b> performs competitively but sometimes fails to converge due to its bias toward changes in the agents' states rather than the environment.</span>
+        <span class="inline-bullet"><b>Human Participants:</b> provide a strong upper bound on performance. They outperform all models and achieve higher accuracies given less evidence, even without significant training.</span>
+
+        <div class="allegrofail">
+            <div class="video_container">
+                <image id="main_results" src="assets/img/main_results.png" alt="Inference Accuracy" style="width: 100%; height: auto;">
+                <div class="caption">
+                    <p> Performance for each baseline across scenarios. Inference scenarios are presented in order of increasing difficulty from left to right, top to bottom. Error bands correspond to 95% CI intervals across tested trajectories.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </p> 
+    <p style="text-align: justify;">
+        <b>Generalization Capabilities of Mental Simulation.</b> Multimodal observations improve the mental simulation model’s performance in-distribution, 
+        but they struggle to generalize to novel environments. The performance gap between humans and the best mental simulation method increases from 10% to 33% less evidence out-of-distribution, 
+        highlighting significant room for improvement in building robust and generalizable inference models.
+
+        <div class="allegrofail">
+            <div class="video_container">
+                <image id="generalization_results" src="assets/img/generalization_results.png" alt="Generalization Accuracy" style="width: 100%; height: auto;">
+            </div>
+        </div>
+    </p>
+
+    <h1 font-weight: bold;>Conclusion</h1>
+    <p style="text-align: justify;">
+        We introduced MARPLE, a novel benchmark for evaluating long-horizon, multimodal inference capabilities. 
+        We find that current AI models, including Monte Carlo tree search and LLM methods, still fall short of 
+        humans in leveraging multimodal stimuli and performing long-horizon inference. We hope that MARPLE 
+        facilitates further AI and cognitive science research to bridge the gap between artificial and human 
+        cognitive abilities in complex, real-world inference scenarios.
+    </p>
+
+    <h1 font-weight: bold;>Acknowledgements</h1>
+    <p> This work was in part supported by a grant from the Stanford Institute for Human-Centered Artificial Intelligence (HAI), NSF CCRI #2120095, and ONR MURI N00014-22-1-2740.
+    </p>
+
+    <!-- <h1>BibTeX</h1>
+    <p class="bibtex">@article{TODO,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;title &nbsp;&nbsp;= {MARPLE: A Benchmark for Long-Horizon Inference},<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;author &nbsp;= {Emily Jin, Zhuoyi Huang, Jan-Philipp Fränken, Weiyu Liu, 
+            Hannah Cha, Erik Brockbank, Sarah Wu, Ruohan Zhang, Jiajun Wu, and Tobias Gerstenberg
+        },<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;year &nbsp;&nbsp;&nbsp;= {2024},<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;journal = {arXiv preprint arXiv: }<br>
+        }
+    </p>
+    <br> -->
+</div>
+</body>
+
+<script src="assets/js/full_screen_video.js"></script>
+<script src="assets/js/carousel.js"></script>
+</html>

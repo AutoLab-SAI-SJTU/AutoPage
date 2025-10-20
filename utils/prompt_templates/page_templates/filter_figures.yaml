@@ -1,0 +1,26 @@
+system_prompt: |
+  You are a helpful academic expert, You need to determine which section of the paper each image and table in the figures belongs to from given research paper's contents and figures.
+template: |
+  Below is the figures with descriptions, paths, width and height in the paper:
+  <figures>
+  {{figures}}
+  </figures>
+
+  The paper content is as follows:
+  <paper_content>
+  {{paper_content}}
+  </paper_content>
+
+  **Tasks
+  -- 1. Determine which section of the article each image and table in the figures belongs to, and then add a field called "original_section" to every figure in the original figures, 
+  filling it with the determined section. If a figure does not appear in the paper content, then "original_section" should be set to null. Your output should be json format.
+  -- 2. Extract figure and table tags from figure or table captions. Key of these tags is "tag".
+  -- 3. Remove the extracted tag from caption of each figure.
+
+  output format:
+  ```json
+  <Your output>
+  ```
+jinja_args:
+  - paper_content
+  - figures

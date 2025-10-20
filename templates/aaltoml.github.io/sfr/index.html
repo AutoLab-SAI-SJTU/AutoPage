@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>SFR: Sparse Function-space Representation of Neural Networks | SFR</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="SFR: Sparse Function-space Representation of Neural Networks" />
+<meta name="author" content="<a href='https://www.aidanscannell.com/'>Aidan Scannell</a><sup>*</sup>, <a href='https://github.com/rm-wu'>Riccardo Mereu</a><sup>*</sup>, <a href='https://edchangy11.github.io/'>Paul Chang</a>, Ella Tamir, <a href='https://rl.aalto.fi/'>Joni Pajarinen</a>, <a href='https://users.aalto.fi/~asolin/'>Arno Solin</a>" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="SFR: Sparse Function-space Representation of Neural Networks" />
+<meta property="og:description" content="SFR: Sparse Function-space Representation of Neural Networks" />
+<link rel="canonical" href="https://aaltoml.github.io/sfr/sfr/" />
+<meta property="og:url" content="https://aaltoml.github.io/sfr/sfr/" />
+<meta property="og:site_name" content="SFR" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-11-04T12:36:41+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="SFR: Sparse Function-space Representation of Neural Networks" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"<a href='https://www.aidanscannell.com/'>Aidan Scannell</a><sup>*</sup>, <a href='https://github.com/rm-wu'>Riccardo Mereu</a><sup>*</sup>, <a href='https://edchangy11.github.io/'>Paul Chang</a>, Ella Tamir, <a href='https://rl.aalto.fi/'>Joni Pajarinen</a>, <a href='https://users.aalto.fi/~asolin/'>Arno Solin</a>"},"dateModified":"2023-11-04T12:36:41+00:00","datePublished":"2023-11-04T12:36:41+00:00","description":"SFR: Sparse Function-space Representation of Neural Networks","headline":"SFR: Sparse Function-space Representation of Neural Networks","name":"SFR","url":"https://aaltoml.github.io/sfr/sfr/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://aaltoml.github.io/sfr/sfr/feed.xml" title="SFR" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="index.html">SFR</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="index.html">SFR: Sparse Function-space Representation of Neural Networks</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">SFR: Sparse Function-space Representation of Neural Networks</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2023-11-04T12:36:41+00:00" itemprop="datePublished">Nov 4, 2023
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"><a href='https://www.aidanscannell.com/'>Aidan Scannell</a><sup>*</sup>, <a href='https://github.com/rm-wu'>Riccardo Mereu</a><sup>*</sup>, <a href='https://edchangy11.github.io/'>Paul Chang</a>, Ella Tamir, <a href='https://rl.aalto.fi/'>Joni Pajarinen</a>, <a href='https://users.aalto.fi/~asolin/'>Arno Solin</a></span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><a href="https://openreview.net/forum?id=2dhxxIKhqz&amp;referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DICLR.cc%2F2024%2FConference%2FAuthors%23your-submissions)"><img alt="Conference Paper" src="https://img.shields.io/badge/Conference-paper-gray?logo=arxiv" /></a>
+<a href="https://arxiv.org/abs/2309.02195"><img alt="Workshop Paper" src="https://img.shields.io/badge/Workshop-paper-gray?logo=arxiv" /></a>
+<a href="https://github.com/AaltoML/sfr"><img alt="Code" src="https://img.shields.io/badge/-Code-gray?logo=github" /></a>
+<a href="https://github.com/AaltoML/sfr-experiments"><img alt="Experiments" src="https://img.shields.io/badge/-Experiments-gray?logo=github" /></a>
+<!-- <a href="https://scholar.google.fi/citations?view_op=view_citation&hl=en&user=piA0zS4AAAAJ&citation_for_view=piA0zS4AAAAJ:zYLM7Y9cAGgC"><img alt="Google Scholar" src="https://img.shields.io/badge/-Scholar-gray?logo=googlescholar" ></a> --></p>
+<table>
+    <tr>
+        <td>
+            <a href="https://openreview.net/forum?id=2dhxxIKhqz&amp;referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DICLR.cc%2F2024%2FConference%2FAuthors%23your-submissions)">
+              <strong>Function-space Parameterization of Neural Networks for Sequential Learning</strong><br />
+            </a>
+            Aidan Scannell*, Riccardo Mereu*, Paul Chang, Ella Tamir, Joni Pajarinen, Arno Solin<br />
+            <strong>International Conference on Learning Representations (ICLR 2024)</strong><br />
+            <!-- <a href="https://arxiv.org/abs/2309.02195"><img alt="Paper" src="https://img.shields.io/badge/-Paper-gray"></a> -->
+            <!-- <a href="https://github.com/aidanscannell/sfr"><img alt="Code" src="https://img.shields.io/badge/-Code-gray" ></a> -->
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="https://arxiv.org/abs/2309.02195">
+              <strong>Sparse Function-space Representation of Neural Networks</strong><br />
+            </a>
+            Aidan Scannell*, Riccardo Mereu*, Paul Chang, Ella Tamir, Joni Pajarinen, Arno Solin<br />
+            <strong>ICML 2023 Workshop on Duality Principles for Modern Machine Learning</strong><br />
+            <!-- <a href="https://arxiv.org/abs/2309.02195"><img alt="Paper" src="https://img.shields.io/badge/-Paper-gray"></a> -->
+            <!-- <a href="https://github.com/aidanscannell/sfr"><img alt="Code" src="https://img.shields.io/badge/-Code-gray" ></a> -->
+        </td>
+    </tr>
+</table>
+
+<!-- <sup>*</sup> == Equal Contribution  -->
+
+<p><img src="regression.png" alt="SFR" title="SFR" />
+<!-- PyTorch implementation of Sparse Function-space Representation of Neural Networks. --></p>
+
+<h2 id="abstract">Abstract</h2>
+<blockquote>
+  <p>Sequential learning paradigms pose challenges for gradient-based deep learning due to difficulties incorporating new data and retaining prior knowledge. While Gaussian processes elegantly tackle these problems, they struggle with scalability and handling rich inputs, such as images. To address these issues, we introduce a technique that converts neural networks from weight space to function space, through a dual parameterization. Our parameterization offers: (i) a way to scale function-space methods to large data sets via sparsification, (ii) retention of prior knowledge when access to past data is limited, and (iii) a mechanism to incorporate new data without retraining. Our experiments demonstrate that we can retain knowledge in continual learning and incorporate new data efficiently. We further show its strengths in uncertainty quantification and guiding exploration in model-based RL.
+<!-- > Deep neural networks (NNs) are known to lack uncertainty estimates and struggle to incorporate new data. We present a method that mitigates these issues by converting NNs from weight space to function space, via a dual parameterization. Importantly, the dual parameterization enables us to formulate a sparse representation that captures information from the entire data set. This offers a compact and principled way of capturing uncertainty and enables us to incorporate new data without retraining whilst retaining predictive performance. We provide proof-of-concept demonstrations with the proposed approach for quantifying uncertainty in supervised learning on UCI benchmark tasks. -->
+<!-- > Sequential learning paradigms pose challenges for gradient-based deep learning due to difficulties incorporating new data and retaining prior knowledge. While Gaussian processes elegantly tackle these problems, they struggle with scalability and handling rich inputs, such as images. To address these issues, we introduce a technique that converts neural networks from weight space to function space, through a dual parameterization. Our parameterization offers: (i) a way to scale function-space methods to large data sets via sparsification, (ii) retention of prior knowledge when access to past data is limited, and (iii) a mechanism to incorporate new data without retraining. Our experiments demonstrate that we can retain knowledge in continual learning and incorporate new data efficiently. We further show its strengths in uncertainty quantification and guiding exploration in model-based RL. --></p>
+</blockquote>
+
+<h2 id="tldr">TL;DR</h2>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">SFR</code> is a “posthoc” Bayesian deep learning method
+    <ul>
+      <li>Equip any trained NN with uncertainty estimates
+ <!-- which equips trained neural networks (NNs) with uncertainty estimates. -->
+<!-- - `SFR` converts trained NNs to sparse GPs. -->
+  <!-- - Unlike GPs, `SFR` scales to complex inputs (e.g. images)  -->
+  <!--     - as it learns expressive covariance structures from data --></li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">SFR</code> can be viewed as a function-space Laplace approximation for NNs</li>
+  <li><code class="language-plaintext highlighter-rouge">SFR</code> has several benefits over <a href="https://arxiv.org/abs/2106.14806">weight-space Laplace approximation for NNs</a>:
+    <ul>
+      <li>Its function-space representation is effective for regularization in continual learning (CL)</li>
+      <li>It has good uncertainty estimates
+        <ul>
+          <li>We use them to guide exploration in model-based reinforcement learning (RL)</li>
+        </ul>
+      </li>
+      <li>It can incorporate new data without retraining the NN
+  <!-- - It learns expressive covariance structures from data -->
+  <!-- - Not limited by stat --></li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th style="text-align: center"><strong>SFR</strong></th>
+      <th style="text-align: center"><strong>GP</strong></th>
+      <th style="text-align: center"><strong>Laplace BNN</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Function-space</strong></td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">❌ (<em>weight space</em>)</td>
+    </tr>
+    <tr>
+      <td><strong>Image inputs</strong></td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td><strong>Large data</strong></td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">✅</td>
+    </tr>
+    <tr>
+      <td><strong>Incorporate new data fast</strong></td>
+      <td style="text-align: center">✅/❌</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">❌ (<em>requires retraining</em>)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="useage">Useage</h2>
+<p>See the <a href="https://github.com/AaltoML/sfr/tree/main/notebooks">notebooks</a> for how to use our code for both regression and classification.</p>
+
+<h3 id="minimal-example">Minimal example</h3>
+<p>Here’s a short example:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">src</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">torch</span><span class="p">.</span><span class="n">set_default_dtype</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">float64</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="p">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)</span> <span class="o">/</span> <span class="n">x</span> <span class="o">+</span> <span class="n">torch</span><span class="p">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Toy data set
+</span><span class="n">X_train</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">)</span>
+
+<span class="c1"># Training config
+</span><span class="n">width</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">1e-3</span>
+<span class="n">delta</span> <span class="o">=</span> <span class="mf">0.00005</span>  <span class="c1"># prior precision
+</span><span class="n">data_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">utils</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">DataLoader</span><span class="p">(</span>
+    <span class="n">torch</span><span class="p">.</span><span class="n">utils</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
+<span class="p">)</span>
+
+<span class="c1"># Create a neural network
+</span><span class="n">network</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Sequential</span><span class="p">(</span>
+    <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span>
+    <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Tanh</span><span class="p">(),</span>
+    <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span>
+    <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Tanh</span><span class="p">(),</span>
+    <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Instantiate SFR (handles NN training/prediction as they're coupled via the prior/likelihood)
+</span><span class="n">sfr</span> <span class="o">=</span> <span class="n">src</span><span class="p">.</span><span class="n">SFR</span><span class="p">(</span>
+    <span class="n">network</span><span class="o">=</span><span class="n">network</span><span class="p">,</span>
+    <span class="n">prior</span><span class="o">=</span><span class="n">src</span><span class="p">.</span><span class="n">priors</span><span class="p">.</span><span class="n">Gaussian</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">network</span><span class="p">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="n">delta</span><span class="p">),</span>
+    <span class="n">likelihood</span><span class="o">=</span><span class="n">src</span><span class="p">.</span><span class="n">likelihoods</span><span class="p">.</span><span class="n">Gaussian</span><span class="p">(</span><span class="n">sigma_noise</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">output_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">num_inducing</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">dual_batch_size</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="c1"># this reduces the memory required for computing dual parameters
+</span>    <span class="n">jitter</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">sfr</span><span class="p">.</span><span class="n">train</span><span class="p">()</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="n">Adam</span><span class="p">([{</span><span class="s">"params"</span><span class="p">:</span> <span class="n">sfr</span><span class="p">.</span><span class="n">parameters</span><span class="p">()}],</span> <span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">epoch_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_loader</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">sfr</span><span class="p">.</span><span class="n">loss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">optimizer</span><span class="p">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">loss</span><span class="p">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optimizer</span><span class="p">.</span><span class="n">step</span><span class="p">()</span>
+
+<span class="n">sfr</span><span class="p">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="c1"># This builds the dual parameters
+</span>
+<span class="c1"># Make predictions in function space
+</span><span class="n">X_test</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">float64</span><span class="p">).</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">f_mean</span><span class="p">,</span> <span class="n">f_var</span> <span class="o">=</span> <span class="n">sfr</span><span class="p">.</span><span class="n">predict_f</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Make predictions in output space
+</span><span class="n">y_mean</span><span class="p">,</span> <span class="n">y_var</span> <span class="o">=</span> <span class="n">sfr</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span></code></pre></figure>
+
+<h2 id="citation">Citation</h2>
+<p>Please consider citing our conference paper:</p>
+
+<figure class="highlight"><pre><code class="language-bibtex" data-lang="bibtex"><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">scannell2024functionspace</span><span class="p">,</span>
+    <span class="na">title</span>       <span class="p">=</span> <span class="s">{Function-space Parameterization of Neural Networks for Sequential Learning}</span><span class="p">,</span>
+    <span class="na">author</span>      <span class="p">=</span> <span class="s">{Aidan Scannell and Riccardo Mereu and Paul Edmund Chang and Ella Tamir and Joni Pajarinen and Arno Solin}</span><span class="p">,</span>
+    <span class="na">booktitle</span>   <span class="p">=</span> <span class="s">{The Twelfth International Conference on Learning Representations}</span><span class="p">,</span>
+    <span class="na">year</span>        <span class="p">=</span> <span class="s">{2024}</span><span class="p">,</span>
+    <span class="na">url</span>         <span class="p">=</span> <span class="s">{https://openreview.net/forum?id=2dhxxIKhqz}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Or our workshop paper:</p>
+
+<figure class="highlight"><pre><code class="language-bibtex" data-lang="bibtex"><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">scannellSparse2023</span><span class="p">,</span>
+  <span class="na">title</span>           <span class="p">=</span> <span class="s">{Sparse Function-space Representation of Neural Networks}</span><span class="p">,</span>
+  <span class="na">author</span>          <span class="p">=</span> <span class="s">{Aidan Scannell and Riccardo Mereu and Paul Chang and Ella Tami and Joni Pajarinen and Arno Solin}</span><span class="p">,</span>
+  <span class="na">booktitle</span>       <span class="p">=</span> <span class="s">{ICML 2023 Workshop on Duality Principles for Modern Machine Learning}</span><span class="p">,</span>
+  <span class="na">year</span>            <span class="p">=</span> <span class="s">{2023}</span><span class="p">,</span>
+  <span class="na">month</span>           <span class="p">=</span> <span class="s">{7}</span><span class="p">,</span>
+<span class="p">}</span></code></pre></figure>
+
+
+  </div><a class="u-url" href="index.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/sfr/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">SFR</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">SFR</li><li><a class="u-email" href="mailto:aidan.scannell@aalto.fi">aidan.scannell@aalto.fi</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/AaltoML"><svg class="svg-icon"><use xlink:href="/sfr/assets/minima-social-icons.svg#github"></use></svg> <span class="username">AaltoML</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>SFR: Sparse Function-space Representation of Neural Networks</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

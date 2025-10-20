@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:image" content="https://tau-vailab.github.io/ProtoSnap/repo_images/teaser.png" />
+  <meta property="og:title" content="ProtoSnap: Prototype Alignment for Cuneiform Signs" />
+  <meta property="og:description"
+    content="Given a target image of a cuneiform sign, and a corresponding prototype, we align the skeleton with the target image ('snapping' the prototype into place)" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://tau-vailab.github.io/ProtoSnap/style.css">
+    <style>
+    .container {
+      max-width: 800px;  /* Set the max width to 600px */
+      margin: 0 auto;    /* Center the container */
+    }
+  </style>
+  <title>ProtoSnap: Prototype Alignment for Cuneiform Signs</title>
+</head>
+
+<body class="container" style="max-width:1050px">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+    crossorigin="anonymous"></script>
+
+  <!-- heading -->
+  <div>
+
+    <!-- title -->
+    <div class='row mt-5 mb-3'>
+      <div class='col text-center'>
+        <p class="h1 font-weight-normal">ProtoSnap: Prototype Alignment for Cuneiform Signs</p>
+      </div>
+    </div>
+
+    <!-- authors -->
+    <div class="col text-center h6 font-weight-bold mb-2 ">
+      <span class="col-md-4 col-xs-6 pb-2"><a href="https://www.linkedin.com/in/rachel-mikulinsky-3a099411b/">Rachel Mikulinsky*</a><sup>1</sup></span>
+	  <span class="col-md-4 col-xs-6 pb-2" ><a href="https://morrisalp.github.io/">Morris Alper*</a><sup>1</sup></span>
+	  <span class="col-md-4 col-xs-6 pb-2" ><a href="https://cris.ariel.ac.il/en/persons/shai-gordin-2">Shai Gordin</a><sup>2</sup></span>
+	  <span class="col-md-4 col-xs-6 pb-2"><a href="https://lmu-munich.academia.edu/EnriqueJiménez">Enrique Jimenez</a><sup>3</sup></span>
+	  <span class="col-md-4 col-xs-6 pb-2"><a href="https://english.tau.ac.il/profile/ycohen1">Yoram Cohen</a><sup>1</sup></span>
+      <span class="col-md-4 col-xs-6 pb-2"><a href="https://www.hadarelor.com/">Hadar Averbuch-Elor</a><sup>1,4</sup></span>
+    </div>
+	
+
+    <!-- affiliations -->
+    <div class="col text-center h6 font-weight-bold mb-2 ">
+      <span class="col-md-4 col-xs-6 pb-2"><sup>1</sup><a href="https://english.tau.ac.il/">Tel Aviv University</a></span>
+	  <span class="col-md-4 col-xs-6 pb-2"><sup>2</sup><a href="https://www.ariel.ac.il/wp/en/">Ariel University</a></span>
+	  <span class="col-md-4 col-xs-6 pb-2"><sup>3</sup><a href="https://www.lmu.de/en/">LMU</a></span>
+        <span class="col-md-4 col-xs-6 pb-2"><sup>4</sup><a href="https://www.cornell.edu/">Cornell University</a></span>
+    </div>
+    <div class="col text-center h6 font-weight-bold mb-4 ">
+      <span class="col-md-4 col-xs-6 pb-2">* Equal Contribution</span>
+    </div>
+
+      <div class='col text-center'>
+        <p class="h3 font-weight-normal">ICLR 2025</p>
+      </div>
+    <br>
+    <!-- links -->
+    <div class='row mb-4'>
+      <div class='col text-center'>
+        <a href="https://arxiv.org/abs/2502.00129" target="_blank" class="btn btn-outline-primary" role="button">
+          <i class="ai ai-arxiv"></i>
+          arXiv
+        </a>
+        <a href="https://github.com/TAU-VAILab/ProtoSnap" target="_blank" class="btn btn-outline-primary"
+          role="button">
+          <i class="fa fa-github"></i>
+          Code
+        </a>
+      </div>
+    </div>
+
+    <!-- teaser -->
+    <div class='row justify-content-center'>
+        <img src="repo_images/teaser.png" width="800">
+      <div class='text-center col-md-12 col-sm-12 col-xs-12 align-middle mt-1' >
+        <p class='h6 container'>
+          <em>TL;DR: Given a target image of a cuneiform sign, and a corresponding prototype, we align the skeleton with the target image ("snapping" the prototype into place).</em>
+        </p>
+        <hr>
+      </div>
+    </div>
+
+    <!-- abstract -->
+    <div class="row container">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <p class="h4 font-weight-bold title" style="text-align: center;">Abstract</p>
+        <p class="abstract" style="text-align: justify;"><!--style="line-height: 1;">-->
+The cuneiform writing system served as the medium for transmitting knowledge
+in the ancient Near East for a period of over three thousand years. Cuneiform
+signs have a complex internal structure which is the subject of expert paleographic
+analysis, as variations in sign shapes bear witness to historical developments and
+transmission of writing and culture over time. However, prior automated techniques
+mostly treat sign types as categorical and do not explicitly model their highly varied
+internal configurations. In this work, we present an unsupervised approach for
+recovering the fine-grained internal configuration of cuneiform signs by leveraging
+powerful generative models and the appearance and structure of prototype font
+images as priors. Our approach, ProtoSnap, enforces structural consistency on
+matches found with deep image features to estimate the diverse configurations
+of cuneiform characters, snapping a skeleton-based template to photographed
+cuneiform signs. We provide a new benchmark of expert annotations and evaluate
+our method on this task. Our evaluation shows that our approach succeeds in
+aligning prototype skeletons to a wide variety of cuneiform signs. Moreover, we
+show that conditioning on structures produced by our method allows for generating
+synthetic data with correct structural configurations, significantly boosting the
+performance of cuneiform sign recognition beyond existing techniques, in particular
+over rare signs. We will release our code and data to the research community,
+foreseeing their use in a variety of applications in the digital humanities.
+        </p>
+		<div class="row justify-content-center">
+            <img src="repo_images/examples.png" width="800">
+        </div>
+          <div class='text-center col-md-12 col-sm-12 col-xs-12 align-middle mt-1' >
+        <p class='h6 container'>
+          <em><b>Sample results</b>: aligning the prototypes (first row) to target cuneiform
+images (second row). Results are illustrated both after global alignment (third row) and also after refinement (bottom row).</em>
+        </p>
+      </div>
+        <hr>
+      </div>
+    </div>
+
+    <!-- method -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <p class="h4 font-weight-bold title" style="text-align: center;">How does it work?</p>
+        <p>
+		  We propose an optimization-based approach that does not require an alignment dataset.
+		  We leverage diffusion features, extracted from a fine-tuned stable diffusion model to compute meaningful
+          similarity scores between each two pixels in the prototype and target images. We then store those similarities
+          in a 4D similarity volume, as illustrated below:
+        </p>
+
+        <div class="row justify-content-center">
+            <img src="repo_images/sim_tensor_overview.png" width="800">
+        </div>
+
+        <p>
+          We use the 4D similarity volume to find <i>Best-Buddies</i> correspondences, defined as pairs of pixels in the two images
+		  which are mutual nearest-neighbors according to their similarities scores. The correspondences than used to fit an affine transformation
+		  defining a global alignment of the prototype to the target image.
+		  <br>
+		  The similarities than used again for a per-stroke local refinement, to allow each stroke to "snap" into place. The refinement is done by
+		  optimizing a per-stroke transformation, via gradient descent. 
+        </p>
+			<div class="row justify-content-center">
+				<img src="repo_images/dataflow.png" width="800">
+        </div>
+
+        <hr>
+      </div>
+    </div>
+
+    <!-- viz -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <p class="h4 font-weight-bold title" style="text-align: center;">Evaluation</p>
+        <p>
+		  We propose a <a href="https://github.com/TAU-VAILab/ProtoSnap/tree/main/test_set">test set</a> composed of 272 cuneiform signs, annotated by experts.
+		  We use this dataset to numerically evaluate our method, comparing it to several generic correspondence matching baselines, including a geometry-based
+          method (SIFT) and deep feature-based methods (DINOv2, DIFT). As illustrated below, our method significantly outperforms these baselines.
+          Furthermore, our local refinement stage provides a performance boost beyond learning simply a global transform.
+        </p>
+        <div class="row justify-content-center">
+            <img src="repo_images/numeric_evaluation.png" width="500">
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    <!-- viz -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <p class="h4 font-weight-bold title" style="text-align: center;">Boosting Downstream OCR Performance</p>
+        <p>
+		  We leveraged our method to create a dataset of paired cuneiform signs and aligned skeletons, and used it to fine-tune
+		  <a>ControlNet</a>, which can generate new cuneiform signs, based only on a prototype.
+		  We used this model to generate a synthetic training data, which was added to a real dataset for learning cuneiform sign classification (denoted as "+CN Data" below).
+		  We show that using by structurally controlling the generated signs, we improve the classification, even more than just by adding
+		  synthetic data, generated by using a fine-tuned Stable Diffusion (denoted as "+SD Data" below).
+        </p>
+		<div class="row justify-content-center">
+            <img src="repo_images/ocr_stats.png" width="600">
+        </div>
+		<p>
+		By controlling the sign structure, we can generate the exact required sign, matching the correct era and variant. This is compared to signs
+		generated using Stable Diffusion, where there is no such conditioning.
+		</p>
+<!--		<div class="row justify-content-center">-->
+<!--            <img src="repo_images/cn_examples.png" width="800">-->
+<!--        </div>-->
+        <hr>
+      </div>
+    </div>
+
+    <!-- ack -->
+    <div>
+      <div class="row">
+        <div class='col-md-12 col-sm-12 col-xs-12'>
+          <p class='h4 font-weight-bold title' style="text-align: center;">Acknowledgements</p>
+          <p class="ack">
+           This research was funded by <a href=https://datascience.tau.ac.il/>TAU Center for Artificial Intelligence & Data Science (TAD)</a>
+              and by <a href="https://www.lmu.de/en/about-lmu/international-network/lmu-tau-research-cooperation-program/">LMU-TAU Research Cooperation Program.</a>
+          </p>
+          <p class="ack">
+            The method and the test set were developed using the
+			<a href=https://github.com/ElectronicBabylonianLiterature/cuneiform-ocr-data>cuneiform OCR dataset</a>.
+			The photographs of tablets are from the 
+			<a href=https://www.britishmuseum.org/collection>British Museum Digital Collections.</a>
+          </p>
+      </div>
+      <hr>
+    </div>
+
+    <!-- citation -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <p class="h4 font-weight-bold title" style="text-align: center;">Citation</p>
+        <pre><code>@misc{mikulinsky2025protosnapprototypealignmentcuneiform,
+      title={ProtoSnap: Prototype Alignment for Cuneiform Signs},
+      author={Rachel Mikulinsky and Morris Alper and Shai Gordin and Enrique Jiménez and Yoram Cohen and Hadar Averbuch-Elor},
+      year={2025},
+      eprint={2502.00129},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2502.00129}, </code></pre>
+      </div>
+    </div>
+
+</body>
+
+</html>

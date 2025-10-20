@@ -1,0 +1,79 @@
+
+.footer a {
+    font-size: 25px;
+    color: #000;
+}
+
+.publication-title {
+    margin: 10px 0 10px 0 !important;
+}
+
+.publication-banner {
+    height: 300px;
+    background-size: cover;
+}
+
+.publication-header .hero-body {
+    padding-bottom: 0 !important;
+}
+
+.publication-title {
+    color: #000;
+    width: fit-content;
+    font-family: 'Playfair Display', serif;
+}
+
+.publication-venue {
+    color: #555;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.publication-awards {
+    color: #ff3860;
+    width: fit-content;
+    font-weight: bolder;
+}
+
+.publication-authors {
+}
+
+.publication-authors a {
+   color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+    text-decoration: underline;
+}
+
+.publication-banner img {
+}
+
+.publication-authors {
+  /*color: #4286f4;*/
+}
+
+.publication-links {
+    margin-top: 1em;
+}
+
+.publication-video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    overflow: hidden;
+    border-radius: 10px !important;
+}
+
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.publication-body img {
+}

@@ -1,0 +1,71 @@
+body {
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}   
+
+.slider {
+    position: relative;
+    width: 33%;
+}
+
+.slide {
+    width: 100%;
+    height: auto;
+}
+
+.sliderlong {
+    position: relative;
+    width: 50%;
+}
+
+.slidelong {
+    width: 100%;
+    height: auto;
+}
+
+.dots {
+    text-align: center;
+    position: absolute;
+    bottom: 16px;
+    width: 100%;
+}
+
+.dot {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dotslong {
+    text-align: center;
+    position: absolute;
+    bottom: 16px;
+    width: 100%;
+}
+
+.dotlong {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: #717171;
+}
+
+.dotlong.active {
+    background-color: #717171;
+}

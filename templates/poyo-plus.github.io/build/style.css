@@ -1,0 +1,894 @@
+@charset "UTF-8";
+body {
+  display: grid;
+  grid-template-columns: 1fr 215px;
+  grid-template-rows: auto 1fr;
+  min-width: 1064px;
+}
+
+/* Main content container */
+.main-content {
+  width: 1064px;
+  margin: 0 auto;
+  flex-grow: 1;
+  padding: 0 20px;
+  order: 1;
+  grid-column: 1;
+  /* Main content is in the first column */
+  grid-row: 2;
+  /* Main content is in the second row */
+  display: block;
+}
+
+@media (min-width: 1494px) {
+  .main-content {
+    position: relative;
+    left: 107.5px;
+  }
+  .sidebar {
+    position: -webkit-sticky;
+    /* For Safari */
+    position: sticky;
+    top: 20px;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 1em;
+    flex-shrink: 0;
+    order: 2;
+    grid-column: 2;
+    /* Sidebar is in the second column */
+    grid-row: 2;
+    /* Sidebar is in the second row */
+    position: sticky;
+    top: 20px;
+    height: 100%;
+    /* Ensure the sidebar takes up the full height of its grid cell */
+    border-left: 1px solid #e0e0e0;
+    /* Adds a border to the left of the sidebar for visual separation */
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 20px); /* Adjust based on the height of your title section */
+    overflow-y: auto; /* Allow vertical scrolling within the sidebar, if needed */
+    font-size: 1.1rem;
+  }
+}
+@media (max-width: 1494px) {
+  .sidebar {
+    display: none;
+  }
+  .main-content {
+    left: 0px;
+  }
+  body {
+    display: block;
+  }
+}
+.title-section {
+  /* white-space: nowrap; */
+  /* Prevent the title from wrapping */
+  /* overflow: warp; */
+  grid-column: 1/span 2;
+  /* Title section spans both columns */
+  grid-row: 1;
+  /* Title section is in the first row */
+  /* Removes any default margin */
+  padding-bottom: 1em;
+  /* Adds some padding to give space below the title section */
+  margin: 0 auto;
+}
+
+iframe {
+  display: block;
+  border-style: none;
+}
+
+.section {
+  max-width: 70em;
+  margin: auto;
+  padding: 2rem 0 0.1rem 0;
+  text-align: justify;
+}
+
+.subsection {
+  max-width: 100%;
+  margin-left: auto;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  max-width: 70em;
+  font-weight: bold;
+}
+
+h1.page-title {
+  padding-bottom: 0em;
+  margin-bottom: 0.1em;
+}
+
+h2.page-title {
+  padding-top: 0em;
+  font-size: 1.9rem;
+  font-weight: normal;
+  padding-bottom: 0.5em;
+}
+
+.rainbow {
+  background: linear-gradient(to right, #8B00FF, #FF0000, #FF7F00, #e3e383, #00FF00, #0000FF, #4B0082, #8B00FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0s ease-in-out;
+}
+
+.authors {
+  text-align: center;
+  margin: auto;
+  max-width: 50em;
+  padding-bottom: 0.4em;
+}
+
+.authors a {
+  display: inline-block;
+  font-size: 18px;
+  padding: 2px;
+  padding-left: 10px;
+}
+
+.affiliations {
+  text-align: center;
+  max-width: 50em;
+  margin: auto;
+  font-size: 18px;
+  padding-top: 0.2em;
+}
+
+.affiliation-logo {
+  display: inline-block;
+  height: 30px; /* adjust as per logo size */
+  margin-right: 2px; /* space between logo and affiliation text */
+  vertical-align: bottom;
+  background-size: cover;
+}
+
+.links {
+  text-align: center;
+  padding-top: 1em;
+}
+
+.links a {
+  display: inline-block;
+  font-weight: bold;
+  padding: 0px 20px 0px 20px;
+  position: relative; /* Needed to position tooltip */
+}
+
+.links i {
+  font-size: 20px;
+}
+
+/* Gray out the links and add a not-allowed cursor */
+.links a.coming-soon {
+  color: gray;
+  cursor: not-allowed;
+}
+
+/* Gray out the icons separately as color property doesn’t affect them */
+.links a.coming-soon i {
+  color: gray;
+}
+
+/* Add a simple tooltip to display "Coming Soon" text */
+.links .coming-soon .tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: gray;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position it above the link */
+  left: 50%;
+  margin-left: -60px; /* Center the tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Show tooltip text on hover */
+.links .coming-soon:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.section-title {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding-top: 0.4em;
+  border-bottom: 2px solid rgb(211, 211, 211);
+  margin-bottom: 0.5em;
+}
+
+.subsection-title {
+  padding-top: 0.4em;
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding-bottom: 0.2em;
+}
+
+.subsubsection-title {
+  padding-top: 0.4em;
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding-bottom: 0.2em;
+}
+
+b {
+  font-weight: 600;
+}
+
+.figure {
+  margin: auto;
+  text-align: center;
+  max-width: 40em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.caption {
+  margin: auto;
+  text-align: center;
+  max-width: 50em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  color: #949393;
+}
+
+.caption-a {
+  margin: auto;
+  text-align: left;
+  max-width: 61em;
+  padding-top: 0.1em;
+  padding-bottom: 1em;
+  color: #949393;
+}
+
+.caption-b {
+  margin: auto;
+  text-align: left;
+  max-width: 68em;
+  padding-top: 0.1em;
+  padding-bottom: 1em;
+  color: #949393;
+}
+
+.table-of-contents {
+  background-color: #f2f2f2;
+  max-width: 70em;
+  margin-top: 1em;
+  padding: 10px;
+}
+
+.table-of-contents a {
+  font-weight: bold;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.table-of-contents h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+}
+
+.citation {
+  margin: 1em;
+}
+
+.section p {
+  padding-bottom: 0.4em;
+}
+
+.question {
+  font-weight: bold;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.blocks-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* This will create a 3-column grid */
+  gap: 20px; /* Adjust as needed for spacing between blocks */
+  margin: 20px 0; /* Vertical spacing around the blocks container */
+}
+
+.block {
+  background-color: #f7f6f6;
+  /* border: 1px solid #c3c1c1; */
+  border-radius: 3px;
+  padding: 20px;
+  display: flex; /* Use Flexbox */
+  justify-content: space-between; /* Space content and icon apart */
+  align-items: flex-start; /* Align content and icon to the top */
+  margin: 0px !important;
+}
+
+.block-header {
+  background-color: #ffffff;
+  display: flex; /* Use Flexbox */
+  justify-content: space-between; /* Space content and icon apart */
+}
+
+.block i {
+  font-size: 25px;
+  margin-left: 0px; /* Spacing to the left of the icon */
+  margin-right: 10px; /* Spacing to the left of the icon */
+  align-self: top; /* This will vertically center the icon when the text isn't too long */
+}
+
+.block p {
+  /* color: #777; */
+  flex: 1; /* This ensures the text takes up as much space as available */
+}
+
+.indented {
+  padding-left: 5%; /* Adds a left padding of 10% */
+}
+
+/* Architecture */
+:root {
+  --arch-diag-height: 700px;
+}
+
+#arch-diag-box {
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  position: relative;
+  width: 1020px;
+  height: var(--arch-diag-height);
+  font-size: 15px;
+  padding: 0px;
+}
+
+#arch-diag-box img {
+  position: relative;
+  display: inline-block;
+  width: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.arch-diag-text {
+  position: absolute;
+  display: inline-block;
+  text-align: justify;
+  line-height: 20px;
+}
+
+.arch-diag-text h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-top: 0em;
+}
+
+#arch-diag-box #left-1 {
+  top: 120px;
+  width: 280px;
+  transform: translateY(-50%) translateX(-285px);
+}
+
+#arch-diag-box #left-2 {
+  top: 345px;
+  width: 280px;
+  transform: translateY(-50%) translateX(-285px);
+}
+
+#arch-diag-box #left-3 {
+  top: 585px;
+  width: 280px;
+  transform: translateY(-50%) translateX(-285px);
+}
+
+#arch-diag-box #right-1 {
+  top: 52px;
+  width: 450px;
+  transform: translateY(-50%) translateX(230px);
+}
+
+#arch-diag-box #right-2 {
+  right: 20px;
+  top: 180px;
+  width: 280px;
+  transform: translateY(-50%);
+}
+
+#arch-diag-box #right-3 {
+  right: 20px;
+  top: 520px;
+  width: 280px;
+  transform: translateY(-50%);
+}
+
+.arch-left-bracket {
+  position: absolute;
+  opacity: 50%;
+  right: 0px;
+  top: 50%;
+  transform: translateX(42px) translateY(-50%);
+}
+
+.arch-right-bracket {
+  position: absolute;
+  opacity: 50%;
+  left: 0px;
+  top: 50%;
+  transform: translateX(-42px) translateY(-50%);
+}
+
+.canvas-container {
+  position: relative;
+  width: 220px; /* Adjust based on your canvas width */
+  display: inline-block; /* Adjust as needed */
+}
+
+.canvas-wrapper {
+  display: flex; /* Enable flex layout */
+  align-items: flex-start;
+  justify-content: space-evenly;
+  gap: 20px; /* Optional: spacing between canvas containers */
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.switch {
+  position: absolute;
+  top: 0px;
+  left: 20px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  width: 30px;
+  height: 17px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #7b7b7b;
+}
+
+input:checked + .slider:before {
+  transform: translateX(13px);
+}
+
+.slider.round {
+  border-radius: 17px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.switch-text {
+  position: absolute;
+  top: -16px;
+  left: 26px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  /* width: 40px; 
+  height: 17px;
+  margin-left: 14px;   */
+  font-size: 12px;
+  /* line-height: 1;  */
+}
+
+.canvas-caption {
+  text-align: center;
+  /* margin-top: 10px; */
+  font-size: 14px;
+  color: #333;
+  width: 100%; /* Make sure it spans the entire width of the container */
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+  word-wrap: break-word; /* Break the words as needed to fit the container width */
+}
+
+#finetune-vis-button {
+  width: 30px;
+  height: 30px;
+}
+
+/* Add some basic styling to your slider */
+#finetune-vis-slider-container {
+  margin: 20px;
+  margin-left: 0px;
+}
+
+#finetune-vis-slider {
+  width: 40%;
+  /* margin: 0 5px; */
+  margin: 8px;
+}
+
+/* Table Styles */
+table {
+  width: 95%;
+  margin: 8px auto;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+  margin-top: 22px;
+}
+
+table th, table td {
+  padding: 8px;
+  /* border-bottom: 1px solid #ddd; */
+}
+
+table thead th {
+  background-color: #f2f2f2;
+  color: #333;
+  font-weight: bold;
+}
+
+table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.task-expl-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.task-expl-container .task-expl-one-container {
+  width: 45%;
+  display: inline-block;
+  margin: 20px 0px;
+  position: relative;
+}
+.task-expl-container .task-expl-one-container .task-expl-diagram-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+.task-expl-container .task-expl-one-container .task-expl-diagram-container img {
+  display: inline-flex;
+  object-fit: contain;
+  width: 38%;
+}
+.task-expl-container .task-expl-one-container .task-expl-diagram-container canvas {
+  width: 45%;
+}
+.task-expl-container .task-expl-one-container .task-expl-text {
+  margin-top: 30px;
+  align-self: auto;
+}
+.task-expl-container .task-expl-one-container .top-right-icon {
+  position: absolute; /* Position the icon absolutely within the div */
+  top: 10px; /* Offset from the top */
+  right: 10px; /* Offset from the right */
+  font-size: 24px; /* Adjust the size of the icon as needed */
+  z-index: 10; /* Ensure the icon is above other elements */
+}
+
+.red-tag {
+  position: absolute;
+  transform: translateY(-120%);
+  display: inline-block; /* to have the tag size adjust based on content */
+  border: 2px solid red;
+  padding: 3px 8px; /* padding to give some space around the text */
+  background-color: white;
+  margin-bottom: 4px;
+  color: red; /* text color */
+  font-weight: bold; /* make the text bold */
+  font-size: 12px; /* adjust as needed */
+  border-radius: 5px; /* optional, to round the corners */
+}
+
+#finetune-methods-container {
+  margin-left: 2em;
+  text-indent: -1em;
+  text-align: justify;
+}
+
+#finetune-vis-container {
+  margin: 30px 0px 0px 0px;
+}
+
+#finetune-vis-diag-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+:root {
+  --finetune-vis-shift: 52px;
+}
+
+#finetune-vis-emb-container {
+  display: inline-block;
+  position: relative;
+  left: var(--finetune-vis-shift);
+}
+
+#finetune-vis-emb {
+  height: 280px;
+  width: 300px;
+}
+
+#finetune-vis-session-emb {
+  height: 190px;
+  width: 200px;
+  position: relative;
+  right: 4px;
+}
+
+#finetune-vis-img {
+  position: relative;
+  right: var(--finetune-vis-shift);
+}
+
+#finetune-vis-vel-plots {
+  display: inline-block;
+  position: relative;
+  right: var(--finetune-vis-shift);
+  top: 23px;
+}
+
+#finetune-vis-vx-plot {
+  height: 160px;
+  width: 300px;
+}
+
+#finetune-vis-vy-plot {
+  height: 160px;
+  width: 300px;
+}
+
+/* Controls */
+#finetune-vis-controls-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+#finetune-vis-button {
+  width: 30px;
+  height: 30px;
+  margin: 0px 5px;
+  background: #555;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  text-align: center;
+}
+
+#finetune-vis-slider {
+  margin: 0px 30px 0px 10px;
+}
+
+.finetune-vis-metric {
+  display: inline-block;
+  margin: 0px 10px;
+}
+
+.finetune-vis-metric p {
+  display: inline-block;
+  width: 25px;
+}
+
+#vis-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: bottom; /* can also be 'top' or 'bottom' */
+}
+
+#vis-emb {
+  display: inline-block;
+  height: 400px;
+  width: 400px;
+}
+
+#vis-model {
+  display: inline-block;
+  height: 400px;
+  width: 200px;
+}
+
+#vis-vel-plots {
+  display: inline-block;
+}
+
+#vis-vx-plot {
+  height: 120px;
+  width: 500px;
+}
+
+#vis-vy-plot {
+  height: 140px;
+  width: 500px;
+}
+
+#vis-spike-plot {
+  height: 240px;
+  width: 500px;
+}
+
+#vis-button {
+  width: 30px;
+  height: 30px;
+}
+
+/* Add some basic styling to your slider */
+#vis-slider-container {
+  margin: 20px;
+  margin-left: 0px;
+}
+
+#vis-slider {
+  width: 40%;
+  /* margin: 0 5px; */
+  margin: 8px;
+}
+
+#spike-vis-container-1 {
+  display: flex;
+  justify-content: center;
+  align-items: bottom; /* can also be 'top' or 'bottom' */
+  /* margin: 20px 0px 0px 0px; */
+}
+
+#left-container {
+  display: inline-block;
+}
+
+#spike-vis-1 {
+  display: block;
+  height: 110px;
+  width: 400px;
+  /* margin-left: 200px; */
+  margin-top: 92px;
+}
+
+#encoder {
+  display: block;
+  margin-top: 15px;
+}
+
+#token-container {
+  display: inline-block;
+  margin-top: 140px;
+}
+
+#token-vis-1 {
+  display: block; /* to stack them vertically */
+  height: 60px;
+  width: 400px;
+  margin-top: 5px;
+}
+
+#token-vis-container {
+  display: flex;
+  justify-content: center;
+  height: 520px;
+}
+
+/* Left */
+#token-vis-spike-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  position: relative;
+  width: 380px;
+  left: 50px;
+  margin-top: 50px;
+  margin-bottom: 130px;
+}
+#token-vis-spike-container #token-vis-spikes {
+  position: relative;
+  height: 110px;
+  width: 430px;
+  left: -30px;
+}
+#token-vis-spike-container img {
+  object-fit: contain;
+  height: 70px;
+}
+#token-vis-spike-container #token-vis-spike-embs {
+  display: block;
+  height: 60px;
+}
+
+/* Middle */
+#token-vis-middle {
+  display: flex;
+  flex-direction: column-reverse;
+  align-content: center;
+  justify-content: center;
+  position: relative;
+  top: 60px;
+}
+#token-vis-middle #token-vis-model-img {
+  position: relative;
+  right: 18px;
+  margin: 0px;
+  width: 350px;
+}
+#token-vis-middle #query-vis-1 {
+  margin-top: -20px;
+  height: 110px;
+  width: 400px;
+}
+#token-vis-middle .square {
+  z-index: 1000;
+  position: absolute;
+  left: 200px;
+  bottom: 140px;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border: 1px solid black;
+  display: none;
+}
+
+/* Right */
+#token-vis-vel-plots {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 290px;
+  top: 50px;
+  right: 60px;
+}
+#token-vis-vel-plots #token-vis-vx, #token-vis-vel-plots #token-vis-vy {
+  height: 120px;
+}
+
+@keyframes moveUpThenRight {
+  50% {
+    transform: translateY(-170px);
+  }
+  100% {
+    transform: translateY(-170px) translateX(120px);
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

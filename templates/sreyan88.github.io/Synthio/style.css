@@ -1,0 +1,77 @@
+/* Classy Font */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Section Titles */
+.section-title {
+    border-bottom: 3px solid #007bff;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Justified Text */
+.text-justify {
+    text-align: justify;
+}
+
+/* Image Styling */
+.img-fluid {
+    max-width: 90%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Author & Affiliations Styling */
+.affiliations {
+    font-size: 16px;
+    color: #555;
+    font-style: italic;
+}
+
+.button-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+.button {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.button img {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+.button i {
+    margin-right: 15px; /* Adjust this value to increase or decrease the gap */
+    font-size: 20px;
+}

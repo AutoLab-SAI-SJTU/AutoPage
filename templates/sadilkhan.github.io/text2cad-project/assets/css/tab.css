@@ -1,0 +1,68 @@
+/* Style for the main tabs */
+.tab, .sub-tab {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Main tab button and sub-tab button styles */
+.tab button, .sub-tab button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 12px 25px;
+  margin: 0 8px;
+  transition: 0.3s ease-in-out;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298); /* Bluish gradient background */
+  color: #ffffff;
+  font-size: 16px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Hover effect for main tabs and sub-tabs */
+.tab button:hover, .sub-tab button:hover {
+  background: linear-gradient(135deg, #1c6393, #3c91e6); /* Lighter bluish gradient on hover */
+  transform: scale(1.08); /* Slight scaling on hover */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+/* Active tab styling */
+.tab button.active, .sub-tab button.active {
+  background: linear-gradient(135deg, #274c77, #6096ba); /* Darker bluish gradient for active state */
+  color: #ffffff;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25); /* Deeper shadow for active state */
+  transform: scale(1.05);
+}
+
+/* Animation for tabs and sub-tabs */
+.tabcontent, .sub-tabcontent {
+    display: none;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Active class to trigger fade-in */
+.tabcontent.active, .sub-tabcontent.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Bar chart canvas styling for larger screens */
+canvas {
+  display: block;
+  width: 50%; /* Default width */
+  height: 400px;
+  margin: 0 auto;
+}
+
+/* For mobile phones (screen width less than or equal to 768px) */
+@media (max-width: 768px) {
+  canvas {
+      width: 75%; /* Adjust to 75% for mobile screens */
+  }
+}
+

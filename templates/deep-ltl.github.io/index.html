@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepLTL: Learning to Efficiently Satisfy Complex LTL Specifications for Multi-Task RL</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="content">
+            <h1>DeepLTL</h1>
+            <h2>Learning to Efficiently Satisfy Complex LTL Specifications for Multi-Task RL</h2>
+            <p class="authors">Mathias Jackermeier,<br class="wide-hidden" /> Alessandro Abate <br />
+                University of Oxford</p>
+            <p>ICLR 2025 (Oral)</p>
+            <div class="links">
+                <a href="https://openreview.net/pdf?id=9pW2J49flQ" target="_blank">Paper</a> <span class="separator">/</span>
+                <a href="https://deep-ltl.github.io/slides.pdf" target="_blank">Slides</a> <span class="separator">/</span>
+                <a href="https://github.com/mathiasj33/deep-ltl" target="_blank">GitHub</a>
+            </div>
+        </div>
+        <div class="tldr">
+            <p>💡<i>TL;DR: We develop a novel approach to train RL agents to zero-shot follow arbitrary instructions specified in a formal language.</i></p>
+        </div>
+    </header>
+
+    <main>
+        <section id="abstract">
+            <div class="content">
+                <h2>Abstract</h2>
+                <p>
+                    Linear temporal logic (LTL) has recently been adopted as a powerful formalism
+                    for specifying complex, temporally extended tasks in multi-task reinforcement
+                    learning (RL). However, learning policies that efficiently satisfy arbitrary specifications not
+                    observed
+                    during training remains a challenging problem. Existing approaches suffer from several shortcomings:
+                    they are often only applicable to
+                    finite-horizon fragments of LTL, are restricted to suboptimal solutions, and do not
+                    adequately handle safety constraints. In this work, we propose a novel learning
+                    approach to address these concerns. Our method leverages the structure of Büchi
+                    automata, which explicitly represent the semantics of LTL specifications, to learn
+                    policies conditioned on sequences of truth assignments that lead to satisfying the
+                    desired formulae. Experiments in a variety of discrete and continuous domains
+                    demonstrate that our approach is able to zero-shot satisfy a wide range of finite- and
+                    infinite-horizon specifications, and outperforms existing methods in terms of both
+                    satisfaction probability and efficiency.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="content">
+                <h2>DeepLTL</h2>
+                <div class="image overview">
+                    <img src="images/overview.png" alt="Schematic overview of DeepLTL">
+                </div>
+                <p>
+                    We develop a novel approach, called <i>DeepLTL</i>, to learn policies that efficiently zero-shot
+                    satisfy complex LTL specifications.
+                    We first employ goal-conditioned RL to learn a general policy that can execute reach-avoid
+                    sequences
+                    of high-level propositions, such as "reach goal A while avoiding region B, and subsequently stay
+                    in
+                    region C". At test time, we first translate a given LTL specification into a limit-deterministic
+                    Büchi automaton (LDBA), from which we extract possible reach-avoid sequences that satisfy the
+                    formula. We select the optimal sequence according to the learned value function, and execute it
+                    with
+                    the trained policy.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="content">
+                <h2>Quantitative results</h2>
+                <div class="image">
+                    <img src="images/curves.png" alt="Schematic overview of DeepLTL">
+                </div>
+                <p>
+                    We find that DeepLTL is able to efficiently zero-shot satisfy a wide range of finite- and
+                    infinite-horizon LTL specifications in a variety of discrete and continuous domains. Our
+                    approach
+                    outperforms existing methods in terms of both satisfaction probability and efficiency.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="content">
+                <h2>Qualitative results</h2>
+                <div class="videos">
+                    <div class="video-with-caption">
+                        <div class="video-container">
+                            <video muted loop disablePictureInPicture preload="metadata">
+                                <source src="images/output.mp4#t=0.1" type="video/mp4">
+                            </video>
+                            <button class="play-button">
+                                <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <p>
+                            \((\neg(\mathsf{yellow}\lor \mathsf{green})\;\mathsf{U}\; \mathsf{magenta}) \land
+                            \mathsf{F}\,\mathsf{blue}\)
+                        </p>
+                    </div>
+                    <div class="video-with-caption">
+                        <div class="video-container">
+                            <video muted loop disablePictureInPicture preload="metadata">
+                                <source src="images/infinite.mp4#t=0.1" type="video/mp4">
+                            </video>
+                            <button class="play-button">
+                                <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <p>
+                            \(\mathsf{G}\mathsf{F}\,\mathsf{green} \land \mathsf{G}\mathsf{F}\,\mathsf{yellow} \land
+                            \mathsf{G}\,\neg\mathsf{blue}\)
+                        </p>
+                    </div>
+                </div>
+                <p>
+                    We demonstrate the behaviour of the task-conditioned policy learned by DeepLTL in the zone
+                    environment. DeepLTL consistently achieves the desired behaviour, even with complex,
+                    infinite-horizon specifications.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="content">
+                <h2>Citation</h2>
+                <div class="citation">
+                    <pre>
+@inproceedings{deepltl,
+    title     = {Deep{LTL}: Learning to Efficiently Satisfy Complex {LTL} Specifications for Multi-Task {RL}},
+    author    = {Mathias Jackermeier and Alessandro Abate},
+    booktitle = {International Conference on Learning Representations ({ICLR})},
+    year      = {2025}
+}</pre>
+                    <div class="copy">
+                        <span class="copy-text">Copied!</span>
+                        <div class="copy-icon" onclick="copyCitation()">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="copy-click"
+                                viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                <path fill="currentColor"
+                                    d="M384 336l-192 0c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l140.1 0L400 115.9 400 320c0 8.8-7.2 16-16 16zM192 384l192 0c35.3 0 64-28.7 64-64l0-204.1c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1L192 0c-35.3 0-64 28.7-64 64l0 256c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l192 0c35.3 0 64-28.7 64-64l0-32-48 0 0 32c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l32 0 0-48-32 0z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="copy-confirm"
+                                viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                <path fill="currentColor"
+                                    d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="content">
+            Header background by <a href="http://www.freepik.com">Harryarts / Freepik</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.video-container').forEach(container => {
+                const video = container.querySelector('video');
+                const button = container.querySelector('.play-button');
+                const playIcon = button.querySelector('.play-icon');
+                const pauseIcon = button.querySelector('.pause-icon');
+
+                container.addEventListener('click', () => {
+                    if (video.paused) {
+                        video.play();
+                        playIcon.style.opacity = 0;
+                        pauseIcon.style.opacity = 1;
+
+                        setTimeout(() => {
+                            button.style.opacity = 0;
+                            button.style.cursor = 'auto';
+                        }, 50);
+                    } else {
+                        video.pause();
+                        button.style.opacity = 1;
+                        playIcon.style.opacity = 1;
+                        pauseIcon.style.opacity = 0;
+                        button.style.cursor = 'pointer';
+                    }
+                });
+            });
+        });
+
+        const copyCitation = () => {
+            const citationText = document.querySelector('.citation pre').textContent;
+            navigator.clipboard.writeText(citationText).then(showCopyConfirm, (err) => console.error(err));
+        }
+
+        let copyEnabled = true;
+
+        const showCopyConfirm = () => {
+            if (!copyEnabled) return;
+            copyEnabled = false;
+            const copyIcon = document.querySelector('.copy-click');
+            const copyConfirm = document.querySelector('.copy-confirm');
+            const copyText = document.querySelector('.copy-text');
+            copyIcon.style.opacity = 0;
+            copyConfirm.style.opacity = 1;
+            copyText.classList.add('fade-in');
+            setTimeout(() => {
+                copyIcon.style.opacity = 1;
+                copyConfirm.style.opacity = 0;
+                copyText.classList.remove('fade-in');
+                copyText.classList.add('fade-out');
+                setTimeout(() => {
+                    copyText.classList.remove('fade-out');
+                    copyEnabled = true;
+                }, 300);
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>

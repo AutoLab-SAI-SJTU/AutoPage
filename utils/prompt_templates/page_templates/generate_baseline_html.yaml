@@ -1,0 +1,105 @@
+system_prompt: |
+  You are an expert web developer specializing in creating professional project pages for research papers.
+  You have extensive experience in HTML5, CSS3, responsive design, and academic content presentation.
+  Your goal is to create a complete, production-ready HTML project page that is visually appealing and professional.
+
+template: |
+  Instructions:
+  Generate a complete, production-ready HTML project page based on the provided planned content structure and HTML template.
+  
+  CRITICAL: You MUST use the HTML template as your STYLE AND LAYOUT REFERENCE. This is NOT optional.
+  
+  What you MUST do with the html_template:
+  - ✅ EXTRACT and REUSE all CSS styles from the template
+  - ✅ COPY the exact layout structure (header, sections, columns, grids)
+  - ✅ USE the same design patterns (cards, buttons, navigation, animations)
+  - ✅ MAINTAIN the same color schemes, fonts, font sizes, and typography
+  - ✅ KEEP the same spacing, padding, margins, and visual rhythm
+  - ✅ FOLLOW the same responsive design breakpoints and grid systems
+  - ✅ REPLICATE the same visual components (badges, dividers, callouts)
+  - ✅ PRESERVE the same CSS classes and naming conventions
+  
+  What you MUST NOT do with the html_template:
+  - ❌ DO NOT copy any text content (paragraphs, descriptions, explanations)
+  - ❌ DO NOT copy section titles or headings
+  - ❌ DO NOT copy author names, affiliations, or citation information
+  - ❌ DO NOT copy any substantive content - ONLY styling and layout
+  
+  Think of it this way: You are applying the template's "skin" (all visual styling) to the planned_content's "body" (actual paper content and structure).
+  
+  **All actual content and structure must come from the provided planned_content (from the planning phase).**
+  
+  Requirements:
+  
+  1. Content Structure
+     - Follow the EXACT section structure provided in planned_content
+     - Use the section names, content summaries, and key points as provided
+     - Implement the teaser figure placement as specified
+     - Place all visuals (figures and tables) exactly where indicated in the planned_content
+  
+  2. Images and Tables Integration
+     - Use the EXACT paths provided in planned_content for all images and tables
+     - Use the EXACT width and height values specified in planned_content
+     - Maintain the original aspect ratios of all visual elements
+     - Add appropriate captions as suggested in planned_content
+     - **DO NOT modify or create new paths - use them exactly as provided**
+  
+  3. Style and Design (from html_template)
+     - **MANDATORY: Extract and reuse ALL CSS styles from the provided HTML template**
+     - **MANDATORY: Follow the exact layout structure from the template (sections, grids, columns)**
+     - **MANDATORY: Use the same color palette, fonts, and typography from the template**
+     - **MANDATORY: Preserve all spacing, padding, and margin patterns from the template**
+     - Maintain consistent styling throughout the page
+     - Ensure the page is professional and visually appealing
+     - The final page should look like it was built with the template's design system
+  
+  4. Visual Layout Optimization
+     - For multi-column layouts with images, set flex-grow based on aspect ratios to maintain equal column heights
+     - Example: If two images have aspect ratios of 1.2 and 2.0, set flex-grow to 1.2 and 2.0 respectively
+     - Calculate display dimensions based on column width and aspect ratios
+     - Add HTML comments before each image: <!-- width = display_width, height = display_height -->
+     - Rearrange structure to balance column heights within the same group
+     - If a section has too many images making one column too tall, distribute images across multiple columns
+     - Display width should be reasonable compared to original width (not too large or too small)
+     - For single-column layouts, center images/tables horizontally within their content block using CSS (display: block; margin: auto;)
+     - Maintain appropriate spacing between adjacent images
+     - All sections must be in a single column and span the full width of the page
+     - Formulas should be inline with text, not in separate section-text blocks
+  
+  5. Teaser Figure
+     - Place the teaser figure prominently as specified in planned_content
+     - Ensure it appears early in the page (typically after title/abstract)
+     - Use the exact path, dimensions, and description provided
+  
+  6. Content Presentation
+     - Write clear, concise descriptions based on content_summary and key_points
+     - Ensure logical flow between sections
+     - Match visual elements with their corresponding text discussions
+     - Follow the placement instructions for each visual element
+  
+  7. Scope and Output
+     - No appendix or reference sections required
+     - Focus on creating a complete, standalone HTML file
+     - Output ONLY the HTML content, nothing else
+     - Include all CSS inline or in <style> tags
+  
+  Output Format:
+  ```html
+  <complete HTML content here>
+  ```
+  
+  REMINDER: 
+  - Your output HTML MUST use the styling and layout from html_template
+  - Your output HTML MUST follow the structure and content from planned_content
+  - The page should visually match the template's design language while containing the content and structure from planned_content
+  
+  Planned Content Structure (from planning phase):
+  This contains the complete page structure, section organization, and visual element placements with exact paths and dimensions.
+  {{ planned_content }}
+  
+  HTML Template (for style reference only - do not copy any text content):
+  {{ html_template }}
+
+jinja_args:
+  - planned_content
+  - html_template

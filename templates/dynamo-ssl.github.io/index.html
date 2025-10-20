@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js">
+</script>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="DynaMo: In-Domain Dynamics Pretraining for Visuo-Motor Control">
+  <meta property="og:description" content="DynaMo: In-Domain Dynamics Pretraining for Visuo-Motor Control">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DynaMo: In-Domain Dynamics Pretraining for Visuo-Motor Control">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DynaMo: In-Domain Dynamics Pretraining for Visuo-Motor Control">
+  <meta name="twitter:description"
+    content="DynaMo: In-Domain Dynamics Pretraining for Visuo-Motor Control">
+  <meta name="twitter:image" content="./mfiles/figs/intro.png" />
+  <link rel="shortcut icon" href="mfiles/favicon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/simple-grid.css">
+  <title>DynaMo: In-Domain Dynamics Pretraining for Visuo-Motor Control</title>
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  <script>
+    const videos = document.querySelectorAll('.carousel-item video');
+      videos.forEach(video => {
+        video.addEventListener('touchstart', (e) => {
+          e.stopPropagation();
+        });
+      });
+  </script>
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row mt-5">
+        <div class="col-12 center mb-3">
+          <h1>
+            <img src="mfiles/favicon.png" height="80px" style="margin-right: 5px"></img>
+            <b>DynaMo</b>: In-Domain Dynamics Pretraining for Visuo-Motor Control
+          </h1>
+          <div class="row mt-3 mb-3">
+            <div class="col-4 hidden-sm"></div>
+            <div class="col-2 center">
+              <a style="text-decoration: none" href="https://arxiv.org/abs/2409.12192">
+                <h3 style="color: #F5A803">Paper</h3>
+              </a>
+            </div>
+            <div class="col-2 center">
+              <a style="text-decoration: none" href="https://github.com/jeffacce/dynamo_ssl">
+                <h3 style="color: #F5A803">Code</h3>
+              </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="center" style="flex: 0 0 15%; white-space: nowrap;">
+            <p class="center"><a href="https://jeffcui.com/" style="color: #333447">Zichen Jeff Cui</a></p>
+          </div>
+          <div class="center" style="flex: 0 0 15%; white-space: nowrap;">
+            <p class="center"><a href="https://www.ri.cmu.edu/ri-people/hengkai-pan/" style="color: #333447">Hengkai Pan</a></p>
+          </div>
+          <div class="center" style="flex: 0 0 15%; white-space: nowrap;">
+            <p class="center"><a href="https://aadhithya14.github.io/" style="color: #333447">Aadhithya Iyer</a></p>
+          </div>
+          <div class="center" style="flex: 0 0 15%; white-space: nowrap;">
+            <p class="center"><a href="https://siddhanthaldar.github.io/" style="color: #333447">Siddhant Haldar</a></p>
+          </div>
+          <div class="center" style="flex: 0 0 15%; white-space: nowrap;">
+            <p class="center"><a href="https://lerrelpinto.com" style="color: #333447">Lerrel Pinto</a></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 center" style="white-space: nowrap;">
+            <p class="center" style="font-size: larger;"> <b>New York University</b> </p>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12 center img">
+          <img class="center" src="mfiles/figs/intro.png" style="width:100%"></img>
+        </div>
+      </div>
+
+      <!--Abstract-->
+      <div class="row mt-3">
+        <div class="col-12">
+          <h2 class="center m-bottom">Abstract</h2>
+          <p>
+            Imitation learning has proven to be a powerful tool for training complex visuomotor 
+            policies. However, current methods often require hundreds to thousands
+            of expert demonstrations to handle high-dimensional visual observations. A key
+            reason for this poor data efficiency is that visual representations are predominantly
+            either pretrained on out-of-domain data or trained directly through a behavior
+            cloning objective. In this work, we present <b>DynaMo</b>, a new in-domain, 
+            self-supervised method for learning visual representations. Given a set of expert
+            demonstrations, we jointly learn a latent inverse dynamics model and a forward
+            dynamics model over a sequence of image embeddings, predicting the next frame
+            in latent space, without augmentations, contrastive sampling, or access to ground
+            truth actions. Importantly, DynaMo does not require any out-of-domain data such
+            as Internet datasets or cross-embodied datasets. On a suite of six simulated and real
+            environments, we show that representations learned with DynaMo significantly
+            improve downstream imitation learning performance over prior self-supervised
+            learning objectives, and pretrained representations. Gains from using DynaMo
+            hold across policy classes such as Behavior Transformer, Diffusion Policy, MLP,
+            and nearest neighbors. Finally, we ablate over key components of DynaMo and
+            measure its impact on downstream policy performance.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="center mb-3">Method</h2>
+          <p><a style="color: #00A2FF; font-weight: bold;">DynaMo</a>, a new self-supervised method for pretraining visual encoders for downstream visuomotor control.</p>
+          <p>
+          The key insight of our method is that we can learn a good visual representation for control by modeling the dynamics on
+          demonstration observations, without requiring augmentations, contrastive sampling, or access to the ground truth
+          actions. Given a sequence of raw visual observations, we jointly train the encoder, a latent inverse dynamics model,
+          and a forward dynamics model. We model the actions as unobserved latents, and train all models end-to-end with a
+          consistency loss on the forward dynamics prediction. We use a ResNet18 encoder, and causally masked transformer encoders
+          for the inverse and forward dynamics models. The architecture is illustrated below.
+          </p>
+        </div>
+      </div>
+      <div class="col-12 center img">
+        <img class="center" src="mfiles/figs/model_arch.png" style="width:100%"></img>
+      </div>
+      <small>Embedding nearest neighbor matches. (Top) The nearest
+      neighbor matches visualized in pixel space. (Bottom) Matches visualized in a top-down view. We see that the DynaMo
+      representation captures task-relevant features (end effector, block, and target locations in this case), whereas prior
+      work fixates on the large robot arm.</small>
+      <div>
+        <video class="img" style="height: 600" muted autoplay loop controls>
+          <source src="mfiles/env/blockpush/nn_probe.MP4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <!--Videos-->
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="center mb-3">Real-world robot rollouts</h2>
+          <p>
+            Rollouts with the DynaMo representation on the Allegro Manipulation environment, and the xArm Kitchen environment.
+            We use a nearest neighbor policy for the Allegro environment, and BAKU with VQ-BeT for the xArm Kitchen environment.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="body-content" style="padding-bottom: 150px;">
+      <div class="container">
+        <div class="grid-display">
+          <h4> Allegro: pick up the sponge (4x) </h4>
+          <p> Dataset size: 543 frames </p>
+          <div id="indicator0" class="carousel slide mb-3" data-bs-ride="false" data-bs-touch="false">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#indicator0" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#indicator0" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#indicator0" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#indicator0" data-bs-slide-to="3" aria-label="Slide 4"></button>
+              <button type="button" data-bs-target="#indicator0" data-bs-slide-to="4" aria-label="Slide 5"></button>
+              <button type="button" data-bs-target="#indicator0" data-bs-slide-to="5" aria-label="Slide 6"></button>
+              <button type="button" data-bs-target="#indicator0" data-bs-slide-to="6" aria-label="Slide 7"></button>
+              <button type="button" data-bs-target="#indicator0" data-bs-slide-to="7" aria-label="Slide 8"></button>
+              <button type="button" data-bs-target="#indicator0" data-bs-slide-to="8" aria-label="Slide 9"></button>  
+              <button type="button" data-bs-target="#indicator0" data-bs-slide-to="9" aria-label="Slide 10"></button>            
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-sponge-success-1.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the sponge<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-sponge-success-2.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the sponge<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-sponge-success-3.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the sponge<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-sponge-success-4.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the sponge<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-sponge-success-5.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the sponge<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-sponge-success-6.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the sponge<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-sponge-success-7.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the sponge<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-sponge-fail-8.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the sponge<br>Failure</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-sponge-fail-9.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the sponge<br>Failure</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-sponge-fail-10.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the sponge<br>Failure</h4>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#indicator0" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon with-backdrop" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#indicator0" data-bs-slide="next">
+              <span class="carousel-control-next-icon with-backdrop" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+          <h4> Allegro: pick up the teabag (4x) </h4>
+          <p> Dataset size: 1034 frames</p>
+          <div id="indicator1" class="carousel slide mb-3" data-bs-ride="false" data-bs-touch="false">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#indicator1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#indicator1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#indicator1" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#indicator1" data-bs-slide-to="3" aria-label="Slide 4"></button>
+              <button type="button" data-bs-target="#indicator1" data-bs-slide-to="4" aria-label="Slide 5"></button>
+              <button type="button" data-bs-target="#indicator1" data-bs-slide-to="5" aria-label="Slide 6"></button>
+              <button type="button" data-bs-target="#indicator1" data-bs-slide-to="6" aria-label="Slide 7"></button>
+              <button type="button" data-bs-target="#indicator1" data-bs-slide-to="7" aria-label="Slide 8"></button>
+              <button type="button" data-bs-target="#indicator1" data-bs-slide-to="8" aria-label="Slide 9"></button>  
+              <button type="button" data-bs-target="#indicator1" data-bs-slide-to="9" aria-label="Slide 10"></button>  
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-teabag-success-1.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the teabag<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-teabag-success-2.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the teabag<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-teabag-success-3.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the teabag<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-teabag-success-4.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the teabag<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-teabag-success-5.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the teabag<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-teabag-fail-6.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the teabag<br>Failure</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-teabag-fail-7.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the teabag<br>Failure</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-teabag-fail-8.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the teabag<br>Failure</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-teabag-fail-9.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the teabag<br>Failure</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-teabag-fail-10.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Pick up the teabag<br>Failure</h4>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#indicator1" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon with-backdrop" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#indicator1" data-bs-slide="next">
+              <span class="carousel-control-next-icon with-backdrop" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+          <h4> Allegro: open the microwave oven (10x) </h4>
+          <p> Dataset size: 735 frames </p>
+          <div id="indicator2" class="carousel slide mb-3" data-bs-ride="false" data-bs-touch="false">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#indicator2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#indicator2" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#indicator2" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#indicator2" data-bs-slide-to="3" aria-label="Slide 4"></button>
+              <button type="button" data-bs-target="#indicator2" data-bs-slide-to="4" aria-label="Slide 5"></button>
+              <button type="button" data-bs-target="#indicator2" data-bs-slide-to="5" aria-label="Slide 6"></button>
+              <button type="button" data-bs-target="#indicator2" data-bs-slide-to="6" aria-label="Slide 7"></button>
+              <button type="button" data-bs-target="#indicator2" data-bs-slide-to="7" aria-label="Slide 8"></button>
+              <button type="button" data-bs-target="#indicator2" data-bs-slide-to="8" aria-label="Slide 9"></button>  
+              <button type="button" data-bs-target="#indicator2" data-bs-slide-to="9" aria-label="Slide 10"></button>            
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-microwave-success-1.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Open the microwave oven<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-microwave-failure-2.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Open the microwave oven<br>Failure</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-microwave-success-3.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Open the microwave oven<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-microwave-success-4.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Open the microwave oven<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-microwave-success-5.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Open the microwave oven<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-microwave-success-6.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Open the microwave oven<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-microwave-success-7.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Open the microwave oven<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-microwave-success-8.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Open the microwave oven<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-microwave-success-9.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Open the microwave oven<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/hand/hand-microwave-success-10.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Open the microwave oven<br>Success</h4>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#indicator2" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon with-backdrop" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#indicator2" data-bs-slide="next">
+              <span class="carousel-control-next-icon with-backdrop" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+          <h4> xArm Kitchen Tasks (real-time) </h4>
+          <div id="indicator3" class="carousel slide mb-3" data-bs-ride="false" data-bs-touch="false">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#indicator3" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#indicator3" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#indicator3" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#indicator3" data-bs-slide-to="3" aria-label="Slide 4"></button>
+              <button type="button" data-bs-target="#indicator3" data-bs-slide-to="4" aria-label="Slide 5"></button>
+              <button type="button" data-bs-target="#indicator3" data-bs-slide-to="5" aria-label="Slide 6"></button>
+              <button type="button" data-bs-target="#indicator3" data-bs-slide-to="6" aria-label="Slide 7"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/kitchen/get-tea-success.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Take the tea bottle from the fridge<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/kitchen/get-water-success.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Take the vitamin water from the fridge<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/kitchen/get-water-fail.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Take the vitamin water from the fridge<br>Failure</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/kitchen/get-yogurt-success.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Take the yogurt from the fridge<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/kitchen/put-yogurt-success.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Put the yogurt into the fridge<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/kitchen/put-ketchup-success.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Put the ketchup into the fridge<br>Success</h4>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <video class="img" style="height: 600" muted autoplay loop controls>
+                  <source src="mfiles/env/kitchen/put-ketchup-fail.mp4" type="video/mp4">
+                </video>
+                <div>
+                  <h4 class="carousel-caption with-backdrop">Put the ketchup into the fridge<br>Failure</h4>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#indicator3" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon with-backdrop" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#indicator3" data-bs-slide="next">
+              <span class="carousel-control-next-icon with-backdrop" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <footer>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Controlled LLM Decoding via Discrete Auto-Regressive Biasing.">
+  <meta name="keywords" content="DAB, Controlled Text Generation, LLM Decoding, Discrete Auto-Regressive Biasing">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Controlled LLM Decoding via Discrete Auto-Regressive Biasing</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="icon" href="https://patrickpynadath1.github.io/dab/static/images/favicon.svg">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      TeX: {
+        equationNumbers: {autoNumber: "AMS"},
+        extensions: ["AMSmath.js", "AMSsymbols.js"]
+      }
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML"></script>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+  .chart-container {
+      position: relative;
+      height: 300px;
+      width: 95%;
+      margin: auto;
+      margin-bottom: 30px;
+  }
+  
+  .chart-title {
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: bold;
+      font-size: 1.1em;
+  }
+  
+  .section-title {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.3em;
+      font-weight: bold;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+  }
+  
+  .metrics-section {
+      margin-bottom: 40px;
+  }
+  
+  .experiment-description {
+      margin-bottom: 25px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-left: 4px solid #4a4a4a;
+      border-radius: 4px;
+  }
+  
+  .results-analysis {
+      margin: 25px 0;
+      padding: 15px;
+      background-color: #f0f7ff;
+      border-left: 4px solid #0d6efd;
+      border-radius: 4px;
+  }
+    .abstract-section {
+      margin-bottom: 25px;
+      padding: 15px;
+      background-color: #f0f4f8;
+      border-left: 4px solid #3498db;
+      border-radius: 4px;
+  }
+
+  .problem-statement-section {
+      margin-bottom: 25px;
+      padding: 15px;
+      background-color: #fef6e6;
+      border-left: 4px solid #f39c12;
+      border-radius: 4px;
+  }
+
+  .framework-section {
+      margin-bottom: 25px;
+      padding: 15px;
+      background-color: #eafaf1;
+      border-left: 4px solid #27ae60;
+      border-radius: 4px;
+  }
+
+  .algorithm-section {
+      margin-bottom: 25px;
+      padding: 15px;
+      background-color: #f7f5fe;
+      border-left: 4px solid #9b59b6;
+      border-radius: 4px;
+  }
+
+  
+  .qualitative-examples {
+      margin-top: 30px;
+      margin-bottom: 30px;
+  }
+  
+  .qualitative-examples .table {
+      font-size: 0.9em;
+  }
+  
+    .tldr-section {
+      margin: 0 auto 30px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
+      color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      position: relative;
+      overflow: hidden;
+  }
+
+  .tldr-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+  }
+
+  .tldr-title:before {
+      content: "⚡";
+      margin-right: 10px;
+      font-size: 1.3em;
+  }
+
+  .tldr-content {
+      font-size: 1.1em;
+      line-height: 1.6;
+  }
+
+  .tldr-section:after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      right: -15px;
+      width: 100px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      z-index: 0;
+  }
+
+  @media (max-width: 768px) {
+      .tldr-section {
+          margin: 20px auto;
+          padding: 15px;
+      }
+      
+      .tldr-title {
+          font-size: 1.3em;
+      }
+      
+      .tldr-content {
+          font-size: 1em;
+      }
+  }
+
+  .qualitative-examples .table th {
+      background-color: #f8f9fa;
+      font-weight: bold;
+  }
+  
+  .qualitative-examples .table td:first-child {
+      font-weight: bold;
+  }
+  
+  .qualitative-examples .table td:first-child strong {
+      color: #dc3545; /* Highlight DAB in red to match chart color */
+  }
+  
+  .carousel-item {
+      padding: 20px;
+      min-height: 500px;
+  }
+  
+  .row {
+      display: flex;
+      flex-wrap: wrap;
+  }
+  
+  .col-md-6 {
+      flex: 0 0 50%;
+      max-width: 50%;
+      padding: 0 15px;
+  }
+  
+  @media (max-width: 992px) {
+      .col-md-6 {
+          flex: 0 0 100%;
+          max-width: 100%;
+      }
+      
+      .section-title {
+          margin-top: 30px;
+      }
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+      background-color: rgba(0, 0, 0, 0.3);
+      width: 5%;
+      border-radius: 5px;
+  }
+  
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+      filter: invert(1);
+  }
+  
+  .chart-title {
+      text-align: center;
+      margin-bottom: 15px;
+      font-weight: bold;
+      font-size: 1.2em;
+  }
+
+  /* Ensure all slides remain in DOM */
+  .results-section {
+      margin-top: 40px;
+      margin-bottom: 40px;
+  }
+  
+  /* Custom tab-like navigation */
+  .chart-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+  }
+  
+  .chart-tab {
+      padding: 10px 20px;
+      margin: 0 5px;
+      cursor: pointer;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f8f9fa;
+      transition: all 0.3s ease;
+  }
+  
+  .chart-tab.active {
+      background-color: #4a4a4a;
+      color: white;
+  }
+  .abstract-title {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #3498db;
+}
+
+.highlight-method {
+    font-weight: bold;
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.08);
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.results-highlight {
+    font-weight: 500;
+    border-top: 1px solid rgba(52, 152, 219, 0.3);
+    padding-top: 10px;
+    margin-top: 15px;
+}
+
+.abstract-section p {
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+/* Problem Statement Styling */
+.problem-title {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #f39c12;
+    display: flex;
+    align-items: center;
+}
+
+.problem-title::before {
+    content: "🔍"; /* Magnifying glass emoji */
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+
+/* Framework Styling */
+.framework-title {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #27ae60;
+    display: flex;
+    align-items: center;
+}
+
+.framework-title::before {
+    content: "🏗️"; /* Construction/blueprint emoji */
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+
+/* Algorithm Styling */
+.algorithm-title {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #9b59b6;
+    display: flex;
+    align-items: center;
+}
+
+.algorithm-title::before {
+    content: "⚙️"; /* Gear emoji */
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+
+/* Abstract Styling */
+.abstract-title {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #3498db;
+    display: flex;
+    align-items: center;
+}
+
+.abstract-title::before {
+    content: "📝"; /* Note/document emoji */
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+
+/* TLDR Styling - in case you want to update this too */
+.tldr-title::before {
+    content: "⚡"; /* Lightning bolt emoji */
+    margin-right: 10px;
+    font-size: 1.3em;
+}
+
+.highlight-method {
+    font-weight: bold;
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.08);
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.results-highlight {
+    font-weight: 500;
+    border-top: 1px solid rgba(52, 152, 219, 0.3);
+    padding-top: 10px;
+    margin-top: 15px;
+}
+
+.abstract-section p {
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+/* Box for Plots/Charts */
+.plots-container {
+    background: linear-gradient(to right, rgba(240, 245, 255, 0.9), rgba(230, 240, 255, 0.7));
+    border: 1px solid rgba(100, 150, 255, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.plots-container .section-title {
+    color: #4a5568;
+    border-bottom-color: rgba(100, 150, 255, 0.3);
+}
+
+/* Box for Qualitative Examples */
+.examples-container {
+    background: linear-gradient(to right, rgba(255, 250, 240, 0.9), rgba(255, 245, 230, 0.7));
+    border: 1px solid rgba(255, 180, 60, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin: 30px 0;
+}
+
+.examples-container .section-title {
+    color: #4a5568;
+    border-bottom-color: rgba(255, 180, 60, 0.3);
+}
+
+/* For dark mode or alternate styling */
+.plots-container-alt {
+    background: linear-gradient(135deg, rgba(38, 50, 90, 0.95), rgba(40, 60, 110, 0.9));
+    border: 1px solid rgba(100, 150, 255, 0.5);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.examples-container-alt {
+    background: linear-gradient(135deg, rgba(90, 50, 35, 0.95), rgba(110, 60, 40, 0.9));
+    border: 1px solid rgba(255, 180, 60, 0.5);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Empirical Results Section Styling */
+.empirical-results-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #eef7fe;
+    border-left: 4px solid #2980b9;
+    border-radius: 4px;
+}
+
+.empirical-results-title {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #2980b9;
+    display: flex;
+    align-items: center;
+}
+
+.empirical-results-title::before {
+    content: "📊"; /* Chart/graph emoji */
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+.algorithm-container {
+  background-color: #f7f5fe;
+  border-left: 4px solid #9b59b6;
+  padding: 20px;
+  margin: 25px 0;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+.empirical-results-intro {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.baselines-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 20px 0;
+}
+
+.baselines-list li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.baselines-list strong {
+    color: #2c3e50;
+}
+
+/* Results Analysis Section Styling */
+.results-analysis-title {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #0d6efd; /* Blue color to match results-analysis box border */
+    display: flex;
+    align-items: center;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(13, 110, 253, 0.2);
+}
+
+.results-analysis-title::before {
+    content: "🔎"; /* Magnifying glass with light emoji - analyzing data */
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+.algorithm-box {
+  background-color: #f7f5fe; /* Match algorithm-section background */
+  border-left: 4px solid #9b59b6; /* Match algorithm-section border */
+  padding: 20px;
+  margin: 15px 0 25px 0;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace; /* More code-like font */
+  line-height: 1.5;
+  overflow-x: auto; /* For mobile responsiveness */
+}
+
+.algorithm-box-title {
+  font-weight: bold;
+  margin-bottom: 15px;
+  font-size: 1.1em;
+  color: #9b59b6; /* Match algorithm-title color */
+  text-align: left; /* Left alignment as requested */
+  border-bottom: 1px solid rgba(155, 89, 182, 0.3);
+  padding-bottom: 8px;
+}
+
+.algorithm-content {
+  padding-left: 0; /* Align with left edge */
+}
+
+.algo-line {
+  margin: 8px 0;
+  text-align: left;
+  white-space: nowrap; /* Prevent line breaks in formulas */
+}
+
+.algo-line.indented {
+  padding-left: 20px;
+}
+
+.algo-line.double-indented {
+  padding-left: 40px;
+}
+
+.algo-keyword {
+  font-weight: bold;
+  color: #9b59b6; /* Match algorithm-highlight color */
+}
+
+.algo-comment {
+  color: #666;
+  font-style: italic;
+  white-space: normal; /* Allow comments to wrap */
+}
+
+/* Add responsiveness for mobile */
+@media (max-width: 768px) {
+  .algorithm-box {
+    padding: 15px 10px;
+  }
+  
+  .algo-line {
+    font-size: 0.9em;
+  }
+  
+  .algo-line.indented {
+    padding-left: 15px;
+  }
+  
+  .algo-line.double-indented {
+    padding-left: 30px;
+  }
+}
+
+/* Image Section Styling - Outlined Version */
+.figure-container {
+  margin: 30px 0;
+  text-align: center;
+  background-color: transparent;
+  border: 5px solid #3498db; /* Border color - can be changed per image type */
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+}
+
+.figure-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+  border-radius: 4px;
+}
+
+.figure-caption {
+  font-size: 0.95em;
+  color: #495057;
+  text-align: center;
+  padding: 0 15px;
+  line-height: 1.5;
+}
+
+.figure-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #3498db; /* Match the border color */
+  font-size: 1.1em;
+}
+
+/* For multiple images in a row */
+.figure-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.figure-row .figure-container {
+  flex: 1 1 300px;
+  max-width: 45%;
+  margin: 0;
+}
+
+/* Color variations for different figure types */
+.figure-architecture {
+  border-color: #3498db; /* Blue for architecture diagrams */
+}
+.figure-architecture .figure-title {
+  color: #3498db;
+}
+
+.figure-results {
+  border-color: #27ae60; /* Green for results */
+}
+.figure-results .figure-title {
+  color: #27ae60;
+}
+
+.figure-comparison {
+  border-color: #9b59b6; /* Purple for comparisons */
+}
+.figure-comparison .figure-title {
+  color: #9b59b6;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .figure-row .figure-container {
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+}
+.figure-algorithm {
+  border-color: #9b59b6; /* Purple to match algorithm section */
+}
+.figure-algorithm .figure-title {
+  color: #9b59b6; /* Purple to match algorithm section */
+}
+
+/* Conclusion Section Styling */
+.conclusion-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #f0f0ff;
+    border-left: 4px solid #4834d4;
+    border-radius: 4px;
+}
+
+.conclusion-title {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #4834d4;
+    display: flex;
+    align-items: center;
+}
+
+.conclusion-title::before {
+    content: "🏁"; /* Checkered flag emoji representing completion */
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+
+.conclusion-content {
+    line-height: 1.6;
+}
+
+.future-work {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(72, 52, 212, 0.3);
+}
+
+.future-work-title {
+    font-weight: bold;
+    color: #4834d4;
+    margin-bottom: 10px;
+}
+  </style>
+</head>
+<body>
+
+  
+<!-- Header section with TLDR and title -->
+<div class="tldr-section">
+  <div class="tldr-title">TL;DR</div>
+  <div class="tldr-content">
+      We introduce DAB (Discrete Auto-regressive Biasing), a novel technique that outperforms existing methods for controlled text generation. DAB achieves state-of-the-art results in sentiment steering, toxicity reduction, and keyword inclusion while maintaining superior text fluency and grammatical correctness.
+  </div>
+</div>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Controlled LLM Decoding via Discrete Auto-Regressive Biasing</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Patrick Pynadath</span>
+            <span class="author-block">
+              Ruqi Zhang</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Purdue University, Department of Computer Science,</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2502.03685"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2502.03685"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/patrickpynadath1/dab"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main content section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <!-- <div> -->
+        <!-- Abstract -->
+        <div class="abstract-section">
+          <h2 class="abstract-title">Abstract</h2>
+          <p>
+            Controlled text generation allows for enforcing user-defined constraints on large language model outputs—critical as LLMs become increasingly prevalent. While energy-based decoding methods combine multiple constraints through weighted averages, they often struggle to balance fluency with constraint satisfaction.
+          </p>
+          
+          <p>
+            We identify that this suboptimal balance stems from sampling in continuous space rather than the natural discrete space of text tokens. Our solution, <span class="highlight-method">Discrete Auto-regressive Biasing (DAB)</span>, leverages gradients while operating entirely in the discrete text domain.
+          </p>
+          
+          <p>
+            DAB introduces a novel formulation by defining a joint distribution over the generated sequence and an auxiliary bias sequence. To efficiently sample from this distribution, we propose a Langevin-within-Gibbs sampling algorithm using gradient-based discrete MCMC.
+          </p>
+          
+          <p class="results-highlight">
+            Our method significantly improves constraint satisfaction while maintaining superior fluency—all with reduced computational costs. Experiments demonstrate DAB's advantages on sentiment control, language detoxification, and keyword-guided generation tasks.
+          </p>
+        </div>
+
+        <div class="figure-container">
+          <img src="static/dab_diagram.png" alt="DAB Overview" width="800" class="figure-image">
+          <div class="figure-caption">
+            <div class="figure-title">Figure 1: DAB Overview</div>
+            <p>High-level diagram for the proposed DAB algorithm. Given prompts and an external constraint, DAB iteratively improves constraint satisfaction while preserving fluency by leveraging discrete sampling to work in the natural discrete domain of text.</p>
+          </div>
+        </div>
+        
+        <!-- <div><img src="static/dab_diagram.png" alt="DAB Overview" width="800"></div> -->
+        
+<!-- Problem Statement Section -->
+<div class="problem-statement-section">
+  <h2 class="problem-title">Problem Statement</h2>
+  <p>
+    Current energy-based controlled decoding methods face a fundamental challenge: they operate in continuous token probability space, while natural language is inherently discrete.
+  </p>
+  
+  <p>
+    This mismatch leads to suboptimal balance between constraint satisfaction and fluency, requiring extensive hyperparameter tuning of energy function coefficients with limited success.
+  </p>
+  
+  <div class="problem-highlight">
+    <div>
+      <strong>⚠️Key Challenge:</strong> How can we perform effective controlled text generation while embracing rather than avoiding the discrete nature of text tokens?
+    </div>
+  </div>
+</div>
+
+<!-- Framework Section -->
+<div class="framework-section">
+  <h2 class="framework-title">Framework</h2>
+  <p>
+    We propose a novel formulation for controlled text generation that operates natively in discrete token space, avoiding the continuous approximations that limit previous approaches.
+  </p>
+  
+  <div class="framework-definition">
+    <strong>Joint Distribution:</strong> Our method defines a joint distribution over both the generated sequence <span class="math-symbol">X</span> and an auxiliary bias sequence <span class="math-symbol">B</span>.
+  </div>
+  
+  <p>
+    This approach models the ideal balance between two objectives:
+  </p>
+  
+  <ul class="framework-objectives">
+    <li><strong>Constraint Satisfaction:</strong> Measured by control metric performance</li>
+    <li><strong>Language Fluency:</strong> Maintained by preserving the LLM's original distribution</li>
+  </ul>
+  
+  <p class="framework-advantage">
+    By formulating the problem in discrete space, DAB better captures the true distribution of well-formed text while satisfying constraints.
+  </p>
+</div>
+
+<!-- Algorithm Section -->
+<div class="algorithm-section">
+  <h2 class="algorithm-title">Algorithm</h2>
+  <p>
+    To efficiently sample from our joint distribution, we implement a <span class="algorithm-highlight">Langevin-within-Gibbs</span> sampling algorithm using gradient-based discrete MCMC. Our algorithm uses gradient-based discrete sampling to obtain a bias sequence that satisfies the external constraint, but may not be fluent. Given this satisfactory sequence, we then produce a fluent sequence through auto-regressively generating a response. This alternating cycle of sampling the bias sequence and sampling the response sequence can be seen as Gibbs sampling, where we sample the bias sequence conditioned on the response, and then the response sequence conditioned on the bias.
+  </p>
+  
+  <div class="algorithm-box">
+    <div class="algorithm-box-title">Algorithm 1: Discrete Autoregressive Biasing</div>
+    <div class="algorithm-content">
+      <div class="algo-line"><span class="algo-keyword">Require:</span> Constraint function f, P<sup>LM</sup>, prompt X, number steps s, sequence length n, embedding table M</div>
+      <div class="algo-line">1: B̃ ← 0⃗, f<sub>min</sub> ← -∞, Y<sub>best</sub> ← {} <span class="algo-comment">// Initialize constraint violation as maximal and best generation as empty</span></div>
+      <div class="algo-line">2: <span class="algo-keyword">for</span> step in 1 to s <span class="algo-keyword">do</span></div>
+      <div class="algo-line indented">3: <span class="algo-keyword">for</span> position i in range(n) <span class="algo-keyword">do</span></div>
+      <div class="algo-line double-indented">4: ỹ<sub>i</sub> ← log P<sup>LM</sup>(· | y<sub>&lt;i</sub>, X) <span class="algo-comment">// Initial auto-regressive distribution over V</span></div>
+      <div class="algo-line double-indented">5: Calculate normalizing factor r<sub>i</sub> if s > 1, else r<sub>i</sub> ← 1</div>
+      <div class="algo-line double-indented">6: y<sub>i</sub> ← argmax<sub>j∈|V|</sub>(ỹ<sub>i,j</sub> - w<sub>i</sub> · r<sub>i</sub> · b̃<sub>i,j</sub>) <span class="algo-comment">// Sample from P(Y | X, B)</span></div>
+      <div class="algo-line indented">7: <span class="algo-keyword">end for</span></div>
+      <div class="algo-line indented">8: B ← Y <span class="algo-comment">// Initialize B as Y</span></div>
+      <div class="algo-line indented">9: Evaluate f(B | X), update f<sub>min</sub>, Y<sub>best</sub></div>
+      <div class="algo-line indented">10: B' ~ q<sub>τ</sub>(· | B) as in equation (9) <span class="algo-comment">// Approximately sample from P(B | X, Y)</span></div>
+      <div class="algo-line indented">11: Compute B̃ as in equation (10)</div>
+      <div class="algo-line">12: <span class="algo-keyword">end for</span></div>
+      <div class="algo-line">13: <span class="algo-keyword">return</span> Y<sub>best</sub></div>
+    </div>
+  </div>
+</div>
+<div class="figure-container figure-algorithm">
+  <img src="static/dab_algo.png" alt="DAB Algorithm" width="800" class="figure-image">
+  <div class="figure-caption">
+    <div class="figure-title">Figure 2: DAB Algorithm</div>
+    <p>More technical diagram of DAB algorithm for a single iteration. Given the previous Bias sequence and response sequence from the LLM, we first compute a distribution to increase constraint satisfaction, leveraging gradient information from the constraint function. We then map these tokens to a penalty vector, using the embedding table to compute a distance penalty. We then incorporate these bias vectors into auto-regressive generation, effectively steering the LM towards satisfactory generations while preserving the fluency of the original LM distribution.</p>
+  </div>
+</div> 
+        
+        <!-- Results Section -->
+        <div class="results-section">
+          <div class="empirical-results-section">
+            <h2 class="empirical-results-title">Empirical Results</h2>
+            <div class="content has-text-justified">
+              <p>
+                We compared DAB with several strong baselines.
+              </p>
+              <ul class="baselines-list">
+                <li>
+                  <strong>MuCoLA</strong> (Multi-Constraint for language models with Langevin Dynamics): Uses weighted average of multiple constraints and performs non auto-regressive sampling in the embedding space.
+                </li>
+                <li>
+                  <strong>COLD</strong> (Constrained Decoding with Langevin Dynamics): Uses continuous Langevin Dynamics in the logit space.
+                </li>
+                <li>
+                  <strong>BOLT</strong> (Biases over Logits): Applies continuous sampling for bias vectors that are applied during auto-regressive generation.
+                </li>
+                <li>
+                  <strong>LM-Steer</strong> (Language Model Steering): Learns a steering matrix that is then applied to each generated embedding during auto-regressive decoding.
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Tab-like navigation for charts -->
+          <div class="chart-tabs">
+            <div class="chart-tab active" data-chart="sentiment">Sentiment Control</div>
+            <div class="chart-tab" data-chart="toxicity">Toxicity Reduction</div>
+            <div class="chart-tab" data-chart="keyword">Keyword Inclusion</div>
+          </div>
+          
+          <!-- Charts container -->
+          <div class="chart-displays">
+            <!-- SENTIMENT CONTROL EXPERIMENT -->
+            <div class="chart-display" id="sentiment-display" style="display: block;">
+              <!-- Experiment Description -->
+              <div class="experiment-description">
+                <p>In the <strong>Sentiment Control experiment</strong>, we evaluated each method's ability to steer language model generations toward positive or negative sentiment. Models were prompted with neutral text and instructed to continue with either positive or negative sentiment. Performance was measured using both our internal sentiment classifier and an external benchmark classifier to ensure robust evaluation. We also measured fluency metrics to ensure controlled generation maintained language quality.</p>
+              </div>
+              
+              <!-- Charts -->
+              <div class="plots-container">
+                <div class="row metrics-section">
+                  <div class="col-md-6">
+                    <h3 class="section-title">Control Metrics</h3>
+                    <div class="chart-title">Internal Classifier</div>
+                    <div class="chart-container">
+                      <canvas id="sentimentInternalChart"></canvas>
+                    </div>
+                    <div class="chart-title">External Classifier</div>
+                    <div class="chart-container">
+                      <canvas id="sentimentExternalChart"></canvas>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <h3 class="section-title">Fluency Metrics</h3>
+                    <div class="chart-title">Perplexity (Lower is Better)</div>
+                    <div class="chart-container">
+                      <canvas id="sentimentPerplexityChart"></canvas>
+                    </div>
+                    <div class="chart-title">CoLA Acceptability</div>
+                    <div class="chart-container">
+                      <canvas id="sentimentColaChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Results Analysis -->
+              <div class="results-analysis">
+                <h3 class="results-analysis-title">Results Analysis</h3>
+                <p> As shown in the chart, DAB maintains a better balance between control and fluency when compared to other methods. DAB simultaneously has the best control performance in regards to both the internal and external classification score while maintaining competitive fluency metrics, being beaten by only BOLT in regards to CoLA acceptability.</p>              
+              </div>
+              
+              <!-- Qualitative Examples -->
+              <div class="examples-container">
+                <div class="qualitative-examples">
+                  <h3 class="section-title">Qualitative Examples</h3>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prompt</th>
+                          <th>Positive Sentiment Control</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong>DAB (Ours)</strong></td>
+                          <td>The horse</td>
+                          <td>The horse is also a very good and reliable companion. It has been used to carry the family's two-</td>
+                        </tr>
+                        <tr>
+                          <td>MuCoLA</td>
+                          <td>The horse</td>
+                          <td>The horse is not only a beautiful and well-crafted piece of art, but it is also a great way</td>
+                        </tr>
+                        <tr>
+                          <td>COLD</td>
+                          <td>The horse</td>
+                          <td>The horse head was still in the water, but the horse still had a good head. The horse</td>
+                        </tr>
+                        <tr>
+                          <td>BOLT</td>
+                          <td>The horse</td>
+                          <td>The horseback riding course is a great way to get acquainted with the trails and the terrain. The course is</td>
+                        </tr>
+                        <tr>
+                          <td>LM-Steer</td>
+                          <td>The horse</td>
+                          <td>The horseman delivers a stunningly beautiful, wonderfully lyrical, beautifully tender, powerfully moving, beautifully lyrical</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- TOXICITY CONTROL EXPERIMENT -->
+            <div class="chart-display" id="toxicity-display" style="display: none;">
+              <!-- Experiment Description -->
+              <div class="experiment-description">
+                <p>In the <strong>Toxicity Reduction experiment</strong>, we evaluated each method's ability to detoxify language model outputs while maintaining coherent and natural text. Models were prompted with potentially problematic scenarios and instructed to generate non-toxic continuations. We measured toxicity scores using both our internal detoxification classifier and an external toxicity API to ensure comprehensive evaluation. As with other experiments, we also measured fluency metrics to ensure controlled generation maintained language quality.</p>
+              </div>
+              
+              <!-- Charts -->
+              <div class="plots-container">
+                <div class="row metrics-section">
+                  <div class="col-md-6">
+                    <h3 class="section-title">Control Metrics</h3>
+                    <div class="chart-title">Internal Classifier</div>
+                    <div class="chart-container">
+                      <canvas id="toxicityInternalChart"></canvas>
+                    </div>
+                    <div class="chart-title">Average Max Toxicity Score (External API)</div>
+                    <div class="chart-container">
+                      <canvas id="toxicityExternalChart"></canvas>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <h3 class="section-title">Fluency Metrics</h3>
+                    <div class="chart-title">Perplexity (Lower is Better)</div>
+                    <div class="chart-container">
+                      <canvas id="toxicityPerplexityChart"></canvas>
+                    </div>
+                    <div class="chart-title">CoLA Acceptability</div>
+                    <div class="chart-container">
+                      <canvas id="toxicityColaChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Results Analysis -->
+              <div class="results-analysis">
+                <h3 class="results-analysis-title">Results Analysis</h3>
+                <p>Our toxicity reduction results demonstrate DAB's superior performance in generating non-toxic content. DAB achieves the lowest toxicity scores across both internal (5.7%) and external (21.1%) evaluations. Importantly, DAB maintains this strong detoxification control while achieving the best fluency metrics, with the competitive perplexity (25.6) and highest grammatical acceptability (80.6%). This indicates that DAB effectively reduces toxicity without resorting to overly simplistic language patterns or grammatical compromises, which is a common failure mode in detoxification efforts.</p>
+              </div>
+              
+              <!-- Qualitative Examples -->
+              <div class="examples-container">
+                <div class="qualitative-examples">
+                  <h3 class="section-title">Qualitative Examples</h3>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prompt</th>
+                          <th>Detoxified Completion</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong>DAB (Ours)</strong></td>
+                          <td>One student's complaint; however, has led to the logo being associated with</td>
+                          <td>iOne student's complaint; however, has led to the logo being associated with a site that is not affiliated with the University of California. The university's website and its social</td>
+                        </tr>
+                        <tr>
+                          <td>MuCoLA</td>
+                          <td>One student's complaint; however, has led to the logo being associated with</td>
+                          <td>One student's complaint; however, has led to the logo being associated in various East Semitic cultures. What can you do to help save the culture?Who</td>
+                        </tr>
+                        <tr>
+                          <td>COLD</td>
+                          <td>One student's complaint; however, has led to the logo being associated with</td>
+                          <td>One student's complaint; however, has led to the logo being associated  with the school. The school has since been forced to take the logo and the school's</td>
+                        </tr>
+                        <tr>
+                          <td>BOLT</td>
+                          <td>One student's complaint; however, has led to the logo being associated with</td>
+                          <td>One student's complaint; however, has led to the logo being associated with a negative image. The school chose to remove it from their website after complaints from students and parents</td>
+                        </tr>
+                        <tr>
+                          <td>LM-Steer</td>
+                          <td>One student's complaint; however, has led to the logo being associated with</td>
+                          <td>One student's complaint; however, has led to the logo being associated with the campaign.  And Turner had previously written Turner School Turner '. Turner School Turner Turner</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- KEYWORD INCLUSION EXPERIMENT -->
+            <div class="chart-display" id="keyword-display" style="display: none;">
+              <!-- Experiment Description -->
+              <div class="experiment-description">
+                <p>In the <strong>Keyword Inclusion experiment</strong>, we evaluated each method's ability to incorporate specific keywords into generated text while maintaining natural and coherent content. Models were provided with a set of key phrases or terms and instructed to include them in their generations. We measured both direct keyword inclusion rates and semantic similarity using BERTScore to evaluate how effectively the models incorporated the requested concepts. As with other experiments, fluency metrics were tracked to ensure language quality was maintained.</p>
+              </div>
+              
+              <!-- Charts -->
+              <div class="plots-container">
+                <div class="row metrics-section">
+                  <div class="col-md-6">
+                    <h3 class="section-title">Control Metrics</h3>
+                    <div class="chart-title">Keyword Inclusion</div>
+                    <div class="chart-container">
+                      <canvas id="keywordInclusionChart"></canvas>
+                    </div>
+                    <div class="chart-title">BERTScore</div>
+                    <div class="chart-container">
+                      <canvas id="keywordBertscoreChart"></canvas>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <h3 class="section-title">Fluency Metrics</h3>
+                    <div class="chart-title">Perplexity (Lower is Better)</div>
+                    <div class="chart-container">
+                      <canvas id="keywordPerplexityChart"></canvas>
+                    </div>
+                    <div class="chart-title">CoLA Acceptability</div>
+                    <div class="chart-container">
+                      <canvas id="keywordColaChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+              
+              <!-- Results Analysis -->
+              <div class="results-analysis">
+                <h3 class="results-analysis-title">Results Analysis</h3>
+                <p>Our keyword inclusion results highlight DAB's effectiveness in guided content generation. While other methods are able to achieve 100% inclusion rate, this comes at the cost of fluency, grammatical correctness, and semantic meaning, as measured by perplexity, CoLA acceptability, and BertScore respectively. Notably, DAB again maintains the best fluency metrics, with the lowest perplexity (23.4) and highest grammatical acceptability (72.6%). This demonstrates that DAB can effectively incorporate specific content requirements without sacrificing natural language flow or grammatical correctness.</p>
+              </div>
+              
+              <!-- Qualitative Examples -->
+              <div class="examples-container">
+                <div class="qualitative-examples">
+                  <h3 class="section-title">Qualitative Examples</h3>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Prompt</th>
+                          <th>Target Keywords: "torpedo, headquarters, infantry, battlefield"</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong>DAB (Ours)</strong></td>
+                          <td>Once upon a time,</td>
+                          <td>Once upon a time, there was a small group of officers who were in charge of the modern <b>infantry</b> and logistics. They.</td>
+                        </tr>
+                        <tr>
+                          <td>MuCoLA</td>
+                          <td>Once upon a time,</td>
+                          <td>Once upon a time, the world was a world of the great <b>battlefield</b> the powerful <b>headquarters</b> a <b>torpedo</b>of the good and <b>infantry</b></td>
+                        </tr>
+                        <tr>
+                          <td>COLD</td>
+                          <td>Once upon a time,</td>
+                          <td>Once upon a time, the world was a peaceful place. People were <b>headquarters</b> of the world <b>headquarters</b> of the world <b>torpedo</b>-</td>
+                        </tr>
+                        <tr>
+                          <td>BOLT</td>
+                          <td>Once upon a time,</td>
+                          <td>Once upon a time, there was a man named John Smith who had a dream that he would be able to <b>infantry</b> his</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="conclusion-section">
+          <h2 class="conclusion-title">Conclusion</h2>
+          <div class="conclusion-content">
+              <p>We introduced Discrete Auto-regressive Biasing (DAB), a novel approach to controlled text generation that operates directly in discrete token space. Our method defines a joint distribution over the generated sequence and an auxiliary bias sequence, effectively addressing the limitations of continuous space methods.</p>
+              
+              <p>Through extensive experiments on sentiment control, toxicity reduction, and keyword-guided generation, we demonstrated that DAB consistently outperforms existing methods. Our approach achieves superior constraint satisfaction while maintaining or improving text fluency, all with reduced computational requirements compared to baseline methods.</p>
+              
+              <div class="future-work">
+                  <div class="future-work-title">Future Work</div>
+                  <p>Future research directions include extending DAB to handle multiple simultaneous constraints, developing more efficient sampling strategies for the bias sequence, and exploring applications in personalized content generation and domain-specific text adaptation.</p>
+              </div>
+          </div>
+      </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{pynadath2025controlled,
+  title={Controlled LLM Decoding via Discrete Auto-regressive Biasing},
+  author={Pynadath, Patrick and Zhang, Ruqi},
+  journal={ICLR},
+  year={2025}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://patrickpynadath1.github.io/dab/static/dab_pdf.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/patrickpynadath1/" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Source code adapted from <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies github page</a> 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Chart Data and Initialization Script -->
+<script>
+// Chart data and configuration
+const chartData = {
+  // SENTIMENT EXPERIMENT CHARTS
+  
+  // Control Metrics - Sentiment
+  sentimentInternal: {
+    labels: ["DAB (Ours)", "MuCoLA", "COLD", "BOLT", "LM-Steer"],
+    datasetLabel: "Yelp Polarity Classifier (Higher is Better)",
+    data: [89.4, 84.3, 51.5, 74.7, 90.0], 
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.9)',  // DAB - highlighted
+      'rgba(54, 162, 235, 0.7)',  // MuCoLA
+      'rgba(255, 206, 86, 0.7)',  // COLD
+      'rgba(75, 192, 192, 0.7)',  // BOLT
+      'rgba(153, 102, 255, 0.7)'  // LM-Steer
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',  // DAB
+      'rgb(54, 162, 235)',  // MuCoLA
+      'rgb(255, 206, 86)',  // COLD
+      'rgb(75, 192, 192)',  // BOLT
+      'rgb(153, 102, 255)'  // LM-Steer
+    ],
+    borderWidth: [3, 1, 1, 1, 1],  // Thicker border for DAB
+    minScale: 50,
+    maxScale: 100,
+    stepSize: 10,
+    tickSuffix: '%',
+    yAxisTitle: 'Average Classifier Prediction (%)',
+    xAxisTitle: 'Method'
+  },
+  sentimentExternal: {
+    labels: ["DAB (Ours)", "MuCoLA", "COLD", "BOLT", "LM-Steer"],
+    datasetLabel: "SST Polarity Classifier (Higher is Better)",
+    data: [97.5, 89.9, 67.0, 87.8, 94.8], 
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.9)',  // DAB - highlighted
+      'rgba(54, 162, 235, 0.7)',  // MuCoLA
+      'rgba(255, 206, 86, 0.7)',  // COLD
+      'rgba(75, 192, 192, 0.7)',  // BOLT
+      'rgba(153, 102, 255, 0.7)'  // LM-Steer
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',  // DAB
+      'rgb(54, 162, 235)',  // MuCoLA
+      'rgb(255, 206, 86)',  // COLD
+      'rgb(75, 192, 192)',  // BOLT
+      'rgb(153, 102, 255)'  // LM-Steer
+    ],
+    borderWidth: [3, 1, 1, 1, 1],
+    minScale: 60,
+    maxScale: 100,
+    stepSize: 10,
+    tickSuffix: '%',
+    yAxisTitle: 'External Classifier Accuracy (%)',
+    xAxisTitle: 'Method'
+  },
+  
+  // Fluency Metrics - Sentiment
+  sentimentPerplexity: {
+    labels: ["DAB (Ours)", "MuCoLA", "COLD", "BOLT", "LM-Steer"],
+    datasetLabel: "Perplexity (Lower is Better)",
+    data: [11.8, 34.8, 15.9, 9.9, 72.2], // REPLACE WITH ACTUAL VALUES
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.9)',  // DAB - highlighted
+      'rgba(54, 162, 235, 0.7)',  // MuCoLA
+      'rgba(255, 206, 86, 0.7)',  // COLD
+      'rgba(75, 192, 192, 0.7)',  // BOLT
+      'rgba(153, 102, 255, 0.7)'  // LM-Steer
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',  // DAB
+      'rgb(54, 162, 235)',  // MuCoLA
+      'rgb(255, 206, 86)',  // COLD
+      'rgb(75, 192, 192)',  // BOLT
+      'rgb(153, 102, 255)'  // LM-Steer
+    ],
+    borderWidth: [3, 1, 1, 1, 1],
+    minScale: 0,
+    maxScale: 25,
+    stepSize: 5,
+    yAxisTitle: 'Perplexity Score',
+    xAxisTitle: 'Method'
+  },
+  sentimentCola: {
+    labels: ["DAB (Ours)", "MuCoLA", "COLD", "BOLT", "LM-Steer"],
+    datasetLabel: "Acceptability (Higher is Better)",
+    data: [86.0, 68.1, 73.1, 87.4, 56.4], // REPLACE WITH ACTUAL VALUES
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.9)',  // DAB - highlighted
+      'rgba(54, 162, 235, 0.7)',  // MuCoLA
+      'rgba(255, 206, 86, 0.7)',  // COLD
+      'rgba(75, 192, 192, 0.7)',  // BOLT
+      'rgba(153, 102, 255, 0.7)'  // LM-Steer
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',  // DAB
+      'rgb(54, 162, 235)',  // MuCoLA
+      'rgb(255, 206, 86)',  // COLD
+      'rgb(75, 192, 192)',  // BOLT
+      'rgb(153, 102, 255)'  // LM-Steer
+    ],
+    borderWidth: [3, 1, 1, 1, 1],
+    minScale: 50,
+    maxScale: 100,
+    stepSize: 5,
+    tickSuffix: '%',
+    yAxisTitle: 'CoLA Acceptability (%)',
+    xAxisTitle: 'Method'
+  },
+  
+  // TOXICITY EXPERIMENT CHARTS
+  
+  // Control Metrics - Toxicity
+  toxicityInternal: {
+    labels: ["DAB (Ours)", "MuCoLA", "COLD", "BOLT"],
+    datasetLabel: "Internal Toxicity Score (Lower is Better)",
+    data: [5.7, 9.8, 13.6, 6.5], 
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.9)',  // DAB - highlighted
+      'rgba(54, 162, 235, 0.7)',  // MuCoLA
+      'rgba(255, 206, 86, 0.7)',  // COLD
+      'rgba(75, 192, 192, 0.7)',  // BOLT
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',  // DAB
+      'rgb(54, 162, 235)',  // MuCoLA
+      'rgb(255, 206, 86)',  // COLD
+      'rgb(75, 192, 192)',  // BOLT
+    ],
+    borderWidth: [3, 1, 1, 1],
+    minScale: 0,
+    maxScale: 30,
+    stepSize: 5,
+    tickSuffix: '%',
+    yAxisTitle: 'Internal Toxicity Score',
+    xAxisTitle: 'Method'
+  },
+  toxicityExternal: {
+    labels: ["DAB (Ours)", "MuCoLA", "COLD", "BOLT", "LM-Steer"],
+    datasetLabel: "External Avg Max Toxicity (Lower is Better)",
+    data: [21.1, 26.9, 26.6, 26.5, 21.1], 
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.9)',  // DAB - highlighted
+      'rgba(54, 162, 235, 0.7)',  // MuCoLA
+      'rgba(255, 206, 86, 0.7)',  // COLD
+      'rgba(75, 192, 192, 0.7)',  // BOLT
+      'rgba(153, 102, 255, 0.7)'  // LM-Steer
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',  // DAB
+      'rgb(54, 162, 235)',  // MuCoLA
+      'rgb(255, 206, 86)',  // COLD
+      'rgb(75, 192, 192)',  // BOLT
+      'rgb(153, 102, 255)'  // LM-Steer
+    ],
+    borderWidth: [3, 1, 1, 1, 1],
+    minScale: 0,
+    maxScale: 30,
+    stepSize: 5,
+    tickSuffix: '%',
+    yAxisTitle: 'External Toxicity Score',
+    xAxisTitle: 'Method'
+  },
+  
+  // Fluency Metrics - Toxicity
+  toxicityPerplexity: {
+    labels: ["DAB (Ours)", "MuCoLA", "COLD", "BOLT", "LM-Steer"],
+    datasetLabel: "Perplexity",
+    data: [25.6, 58.0, 38.9, 27.3, 52.7], // REPLACE WITH ACTUAL VALUES
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.9)',  // DAB - highlighted
+      'rgba(54, 162, 235, 0.7)',  // MuCoLA
+      'rgba(255, 206, 86, 0.7)',  // COLD
+      'rgba(75, 192, 192, 0.7)',  // BOLT
+      'rgba(153, 102, 255, 0.7)'  // LM-Steer
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',  // DAB
+      'rgb(54, 162, 235)',  // MuCoLA
+      'rgb(255, 206, 86)',  // COLD
+      'rgb(75, 192, 192)',  // BOLT
+      'rgb(153, 102, 255)'  // LM-Steer
+    ],
+    borderWidth: [3, 1, 1, 1, 1],
+    minScale: 20,
+    maxScale: 60,
+    stepSize: 5,
+    yAxisTitle: 'Perplexity Score (Lower is Better)',
+    xAxisTitle: 'Method'
+  },
+  toxicityCola: {
+    labels: ["DAB (Ours)", "MuCoLA", "COLD", "BOLT", "LM-Steer"],
+    datasetLabel: "Acceptability (%)",
+    data: [80.6, 69.1, 66.7, 83.0, 72.2],
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.9)',  // DAB - highlighted
+      'rgba(54, 162, 235, 0.7)',  // MuCoLA
+      'rgba(255, 206, 86, 0.7)',  // COLD
+      'rgba(75, 192, 192, 0.7)',  // BOLT
+      'rgba(153, 102, 255, 0.7)'  // LM-Steer
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',  // DAB
+      'rgb(54, 162, 235)',  // MuCoLA
+      'rgb(255, 206, 86)',  // COLD
+      'rgb(75, 192, 192)',  // BOLT
+      'rgb(153, 102, 255)'  // LM-Steer
+    ],
+    borderWidth: [3, 1, 1, 1, 1],
+    minScale: 60,
+    maxScale: 100,
+    stepSize: 5,
+    tickSuffix: '%',
+    yAxisTitle: 'CoLA Acceptability (%)',
+    xAxisTitle: 'Method'
+  },
+  
+  // KEYWORD EXPERIMENT CHARTS
+  
+  // Control Metrics - Keyword
+  keywordInclusion: {
+    labels: ["DAB (Ours)", "MuCoLA", "COLD", "BOLT"],
+    datasetLabel: "BertScore (Higher is Better)",
+    data: [83.03, 80.83, 81.23, 82.93], 
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.9)',  // DAB - highlighted
+      'rgba(54, 162, 235, 0.7)',  // MuCoLA
+      'rgba(255, 206, 86, 0.7)',  // COLD
+      'rgba(75, 192, 192, 0.7)'   // BOLT
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',  // DAB
+      'rgb(54, 162, 235)',  // MuCoLA
+      'rgb(255, 206, 86)',  // COLD
+      'rgb(75, 192, 192)'   // BOLT
+    ],
+    borderWidth: [3, 1, 1, 1],
+    minScale: 80,
+    maxScale: 85,
+    stepSize: 1,
+    tickSuffix: '%',
+    yAxisTitle: 'BertScore',
+    xAxisTitle: 'Method'
+  },
+  keywordBertscore: {
+    labels: ["DAB (Ours)", "MuCoLA", "COLD", "BOLT"],
+    datasetLabel: "Inclusion Rate (Higher is Better)",
+    data: [99.0, 100.0, 100.0, 99.1], 
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.9)',  // DAB - highlighted
+      'rgba(54, 162, 235, 0.7)',  // MuCoLA
+      'rgba(255, 206, 86, 0.7)',  // COLD
+      'rgba(75, 192, 192, 0.7)'   // BOLT
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',  // DAB
+      'rgb(54, 162, 235)',  // MuCoLA
+      'rgb(255, 206, 86)',  // COLD
+      'rgb(75, 192, 192)'   // BOLT
+    ],
+    borderWidth: [3, 1, 1, 1],
+    minScale: 90,
+    maxScale: 100,
+    stepSize: 0.01,
+    yAxisTitle: 'Inclusion Rate',
+    xAxisTitle: 'Method'
+  },
+  
+  // Fluency Metrics - Keyword
+  keywordPerplexity: {
+    labels: ["DAB (Ours)", "MuCoLA*", "COLD*", "BOLT"],
+    datasetLabel: "Perplexity",
+    data: [23.4, 475.3, 242, 32.0], // REPLACE WITH ACTUAL VALUES
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.9)',  // DAB - highlighted
+      'rgba(54, 162, 235, 0.7)',  // MuCoLA
+      'rgba(255, 206, 86, 0.7)',  // COLD
+      'rgba(75, 192, 192, 0.7)'   // BOLT
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',  // DAB
+      'rgb(54, 162, 235)',  // MuCoLA
+      'rgb(255, 206, 86)',  // COLD
+      'rgb(75, 192, 192)'   // BOLT
+    ],
+    borderWidth: [3, 1, 1, 1],
+    minScale: 20,
+    maxScale: 40,
+    stepSize: 5,
+    yAxisTitle: 'Perplexity Score (Lower is Better)',
+    xAxisTitle: 'Method'
+  },
+  keywordCola: {
+    labels: ["DAB (Ours)", "MuCoLA", "COLD", "BOLT"],
+    datasetLabel: "Acceptability (Higher is Better)",
+    data: [72.6, 24.8, 20.5, 70.5], 
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.9)',  // DAB - highlighted
+      'rgba(54, 162, 235, 0.7)',  // MuCoLA
+      'rgba(255, 206, 86, 0.7)',  // COLD
+      'rgba(75, 192, 192, 0.7)'   // BOLT
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',  // DAB
+      'rgb(54, 162, 235)',  // MuCoLA
+      'rgb(255, 206, 86)',  // COLD
+      'rgb(75, 192, 192)'   // BOLT
+    ],
+    borderWidth: [3, 1, 1, 1],
+    minScale: 0,
+    maxScale: 100,
+    stepSize: 5,
+    tickSuffix: '%',
+    yAxisTitle: 'CoLA Acceptability (%)',
+    xAxisTitle: 'Method'
+  }
+};
+
+// Chart instances
+const charts = {};
+
+// Create a chart
+function createChart(chartType) {
+  const config = chartData[chartType];
+  const canvasId = chartType + 'Chart';
+  const canvas = document.getElementById(canvasId);
+  
+  if (!canvas) {
+    console.warn(`Canvas not found for ${chartType}`);
+    return null;
+  }
+  
+  // Clear previous chart if exists
+  if (charts[chartType]) {
+    charts[chartType].destroy();
+  }
+  
+  // Create new chart
+  charts[chartType] = new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: config.labels,
+      datasets: [{
+        label: config.datasetLabel,
+        data: config.data,
+        backgroundColor: config.backgroundColor,
+        borderColor: config.borderColor,
+        borderWidth: config.borderWidth || 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: {
+        duration: 500 // Shorter animation to prevent visual glitches
+      },
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return `${config.datasetLabel}: ${context.parsed.y}`;
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          min: config.minScale || 0,
+          max: config.maxScale,
+          ticks: {
+            stepSize: config.stepSize,
+            callback: function(value) {
+              return value + (config.tickSuffix || '');
+            }
+          },
+          title: {
+            display: config.yAxisTitle ? true : false,
+            text: config.yAxisTitle || ''
+          }
+        },
+        x: {
+          title: {
+            display: config.xAxisTitle ? true : false,
+            text: config.xAxisTitle || ''
+          }
+        }
+      }
+    }
+  });
+  
+  return charts[chartType];
+}
+
+// Switch between charts
+function switchChart(chartType) {
+  // Hide all chart displays
+  document.querySelectorAll('.chart-display').forEach(display => {
+    display.style.display = 'none';
+  });
+  
+  // Deactivate all tabs
+  document.querySelectorAll('.chart-tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  
+  // Show selected chart display
+  const display = document.getElementById(`${chartType}-display`);
+  if (display) {
+    display.style.display = 'block';
+  }
+  
+  // Activate selected tab
+  const tab = document.querySelector(`.chart-tab[data-chart="${chartType}"]`);
+  if (tab) {
+    tab.classList.add('active');
+  }
+  
+  // Create or update charts for the selected experiment type
+  setTimeout(() => {
+    if (chartType === 'sentiment') {
+      // Control metrics
+      createChart('sentimentInternal');
+      createChart('sentimentExternal');
+      // Fluency metrics
+      createChart('sentimentPerplexity');
+      createChart('sentimentCola');
+    } 
+    else if (chartType === 'toxicity') {
+      // Control metrics
+      createChart('toxicityInternal');
+      createChart('toxicityExternal');
+      // Fluency metrics
+      createChart('toxicityPerplexity');
+      createChart('toxicityCola');
+    }
+    else if (chartType === 'keyword') {
+      // Control metrics
+      createChart('keywordInclusion');
+      createChart('keywordBertscore');
+      // Fluency metrics
+      createChart('keywordPerplexity');
+      createChart('keywordCola');
+    }
+  }, 100);
+}
+
+// Initialize when the document is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  // Set up tab click handlers
+  document.querySelectorAll('.chart-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      const chartType = this.getAttribute('data-chart');
+      switchChart(chartType);
+    });
+  });
+  
+  // Initialize with sentiment chart
+  setTimeout(() => {
+    switchChart('sentiment');
+  }, 300);
+});
+
+// Resize handler to redraw charts
+window.addEventListener('resize', function() {
+  const activeTab = document.querySelector('.chart-tab.active');
+  if (activeTab) {
+    const chartType = activeTab.getAttribute('data-chart');
+    switchChart(chartType);
+  }
+});
+</script>
+
+</body>
+</html>

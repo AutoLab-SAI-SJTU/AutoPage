@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentBoard: An Analytical Evaluation Board of Multi-Turn LLM Agents</title>
+    <link rel="icon" href="static/img/icon/logo.png" type="image/icon type">
+    <link rel="stylesheet" href="static/css/leaderboard.css">
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/nav.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NV0BT2WTBM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-NV0BT2WTBM');
+    </script>
+</head>
+
+<body>
+
+<div id="nav">
+    <div id="icon">
+        <!--        <img src="static/img/logo.png" id="nav-icon">-->
+        <!--        <a class="nav-button-main" href="index.html"-->
+        <!--           style="margin-left: 2px; font-size: 24px">Agent-Eval-->
+        <!--        </a>-->
+    </div>
+    <div>
+        <a class="nav-button" href="index.html#home">
+            <img src="static/img/icon/home_icon.png" alt="Home">Home</a>
+        <a class="nav-button" href="https://hkust-nlp.github.io/agentboard/static/leaderboard.html">
+            <img src="static/img/icon/leaderboard_icon.png" alt="Result">Result</a>
+        <a class="nav-button" href="https://hkust-nlp.github.io/agentboard/static/explore.html">
+            <img src="static/img/icon/explore_icon.png" alt="Explore">Explore</a>
+    </div>
+</div>
+
+
+<!-- anchor for the home button -->
+<div id="home" style="position: absolute; top: 0;"></div>
+
+<!-- banner -->
+<div id="title">
+    <div id="title-wrapper">
+        <h1 id="title-text"><img src="static/img/icon/logo.png" id="title-icon" alt="AgentBoard">AgentBoard: An Analytical Evaluation Board of <br>
+            Multi-Turn LLM Agents<br>
+            (2024)
+        </h1>
+    </div>
+    <!--    <h1 id="title-padding-bottom"></h1>-->
+</div>
+
+<!-- the main body of the page -->
+<div class="centered-nav">
+    <a class="nav-button" href="http://arxiv.org/abs/2401.13178">
+        <img src="static/img/icon/paper_icon.png" alt="Paper">Paper
+    </a>
+    <a class="nav-button" href="https://github.com/hkust-nlp/AgentBoard/blob/main" class="ext-link" target="_blank">
+        <img src="static/img/icon/code_icon.png" alt="Code">Code
+    </a>
+    <a class="nav-button" href="https://huggingface.co/datasets/hkust-nlp/agentboard" class="ext-link" target="_blank">
+        <img src="static/img/icon/data_icon.png" alt="Data">Data
+    </a>
+</div>
+
+<div class="main-body">
+    <div class="section">
+        <h2>About AgentBoard</h2>
+        <p style="line-height: 150%">
+            <b>AgentBoard</b> is a benchmark designed for multi-turn LLM agents, complemented by an analytical
+            evaluation board for detailed model assessment beyond final success rates.<br>
+            Main Performance of different LLMs across various environments are shown below, please check our <a
+                class="ext-link" href="https://hkust-nlp.github.io/agentboard/static/leaderboard.html">Result</a> for more details.
+        </p>
+    </div>
+</div>
+<div class="section_panel">
+    <div class="text-center btn-group">
+        <div class="btn-group btn-switch task-filter-selector task-filter-selector-index" data-toggle="buttons">
+            <button type="button" class="btn btn-container" disabled>Filter by Task:</button>
+            <button type="button" class="btn btn-container active" id="filter-by-Avg">Avg</button>
+            <button type="button" class="btn btn-container" id="filter-by-Embodied">Embodied</button>
+            <button type="button" class="btn btn-container" id="filter-by-Game">Game</button>
+            <button type="button" class="btn btn-container" id="filter-by-Web">Web</button>
+            <button type="button" class="btn btn-container" id="filter-by-Tools">Tools</button>
+        </div>
+        <div class="btn-group btn-switch metric-filter-selector metric-filter-selector-index" data-toggle="buttons">
+            <button type="button" class="btn btn-container" disabled>Sort
+                by:
+            </button>
+            <button type="button" class="btn btn-container active"
+                    id="sort-by-reward-score">
+                Progress Rate
+            </button>
+
+            <button type="button" class="btn btn-container"
+                    id="sort-by-success-rate">
+                Success Rate
+            </button>
+
+            <button type="button" class="btn btn-container"
+                    id="sort-by-grounding-acc">
+                Grounding Accuracy
+            </button>
+        </div>
+    </div>
+    <div style="display: flex; justify-content: center; width: 100%;">
+        <div class="chart-container" style="width: 750px; height: 640px">
+            <canvas id="chart-success-reward-rate" width="520" height="500"></canvas>
+        </div>
+    </div>
+
+<!--        <div class="line-graph-container" style="flex: 1; min-width: 0;">-->
+<!--            <canvas id="line-graph" width="500" height="520"></canvas>-->
+<!--        </div>-->
+</div>
+<script src="static/javascript/main_results_show.js" type="module"></script>
+<div class="main-body">
+    <div class="section">
+        <h2>Illustrative Overview</h2>
+        <p style="line-height: 150%">
+            <b>AgentBoard</b> consists of 9 diverse tasks and 1013 exemplary environments, covering a range from
+            embodied AI and game agents to web and tool agents.
+            Our environment provides <b>well-annotated subgoals</b> and <b>fine-grained interactions</b>. Furthermore,
+            it provides <b>detailed analyses</b> for agent evaluation, as shown below.
+            You may explore our dataset examples at <a class="ext-link" href="https://hkust-nlp.github.io/agentboard/static/explore.html">Explore</a>, or check
+            our <a
+                class="ext-link" href="http://arxiv.org/abs/2401.13178" target="_blank">paper</a> for more details.
+        </p>
+        <div class="example-box">
+            <figure id="example-img">
+                <img src="static/img/Overview.png" alt="overview.png">
+            </figure>
+        </div>
+    </div>
+
+
+    <div class="section">
+        <div id="data" class="anchor"></div>
+        <h2>Data</h2>
+        <p>
+            Our data can be directly downloaded on <a class="ext-link"
+                                                      href="https://huggingface.co/datasets/hkust-nlp/agentboard/tree/main"
+                                                      target="_blank">Huggingface
+            datasets</a>. Please refer to our <a class="ext-link" href="https://github.com/hkust-nlp/AgentBoard?tab=readme-ov-file#6-data"
+                                                 target="_blank">github
+            instructions</a> for how to read and use the data.
+        </p>
+    </div>
+    <div class="section">
+        <div id="citation" class="anchor"></div>
+        <h2>Citation</h2>
+<!--        <p>-->
+<!--            If the paper, codes, or the dataset inspires you, please cite us:-->
+<!--        </p>-->
+        <pre class="bibtax">
+@misc{ma2024agentboard,
+      title={AgentBoard: An Analytical Evaluation Board of Multi-turn LLM Agents},
+      author={Chang Ma and Junlei Zhang and Zhihao Zhu and Cheng Yang and Yujiu Yang and Yaohui Jin and Zhenzhong Lan and Lingpeng Kong and Junxian He},
+      year={2024},
+      eprint={2401.13178},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+        </pre>
+    </div>
+
+    <!-- Authors -->
+
+    <!-- Contact -->
+    <div class="section" id="contact">
+        <h2>Contact Us</h2>
+        <p>Have any questions about AgentBoard? Please contact us at <a href="mailto:llmagentboard@gmail.com">llmagentboard@gmail.com</a>
+            or create an issue on <a
+                    href="https://github.com/hkust-nlp/AgentBoard" class="ext-link" target="_blank"> Github</a>.
+            For potential collaboration, please contact <a href="mailto:junxianh2@gmail.com">junxianh2@gmail.com</a>.
+        </p>
+    </div>
+
+    <!-- Affiliation  -->
+<!--    <div class="section" style="text-align: center;">-->
+<!--        <div class="profile">-->
+<!--            <a href="https://www.sjtu.edu.cn/" target="_blank" rel="external">-->
+<!--                <img class="center-block" src="static/img/sjtu_red.png"-->
+<!--                     style="height:6em; max-width: 100%;"></a>-->
+<!--        </div>-->
+<!--        <div class="profile">-->
+<!--            <a href="https://www.tsinghua.edu.cn/" target="_blank" rel="external">-->
+<!--                <img class="center-block" src="static/img/THU_purple.png"-->
+<!--                     style="height:6em; max-width: 100%;"></a>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+</div>
+<!-- footer -->
+<div id="footer" style="font-size: 12pt; text-align: center">
+    © 2024
+</div>
+</body>
+
+</html>

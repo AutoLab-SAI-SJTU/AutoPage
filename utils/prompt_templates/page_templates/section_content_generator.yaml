@@ -1,0 +1,22 @@
+system_prompt: |
+  You are a helpful academic expert, who is specialized in generating a text-based paper poster, from given contents.
+template: |
+  Below is the image and table figures with descriptions in the paper:
+  <figures>
+  {{figures}}
+  </figures>
+
+  Below is the content of the paper:
+  <paper_content>
+  {{paper_content}}
+  </paper_content>
+
+  If figures can effectively convey the poster content, simplify the related text to avoid redundancy. Include essential mathematical formulas where they enhance understanding.
+
+  {{format_instructions}}
+
+  Ensure all sections are precise, concise, and presented in markdown format without headings.
+
+jinja_args:
+  - paper_content
+  - json_format_example

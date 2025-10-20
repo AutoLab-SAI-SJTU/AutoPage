@@ -1,0 +1,376 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<link href="https://fonts.cdnfonts.com/css/chalkduster" rel="stylesheet">
+<style>
+    @import url('https://fonts.cdnfonts.com/css/chalkduster');
+</style>
+<script src="teaser-data.js"></script>
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Image Translation as Diffusion Visual Programmers</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <meta name="description"
+        content="Project page for &#39;Image Translation as Diffusion Visual Programmers.&#39;">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Image Translation as Diffusion Visual Programmers</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <meta name="description"
+        content="Project page for &#39;Image Translation as Diffusion Visual Programmers.&#39;">
+</head>
+
+<body>
+    <p class="title">Image Translation as Diffusion Visual Programmers</p>
+    <div class="container">
+        <table width="1000" border="0" align="center">
+            <tbody>
+                <tr>
+                    <div id="imageCarousel" class="carousel slide teaser-carousel" data-ride="carousel" data-interval="5000">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div>
+                                    <img class="teaser-img" src="figs/animal.jpg" />
+                                    <span style="font-size: 150%;">→</span>
+                                    <img id="animal_result" class="teaser-img" src="figs/animal_sheep.jpg" />
+                                </div>
+                                <br />
+                                <div>
+                                    <div onclick="toggle_prompt('animal_sheep', ['animal_duck', 'animal_pig'], 'animal_result')" class="caption caption-active" id="animal_sheep">"Change the left dog to sheep"</div>
+                                    <br />
+                                    <div onclick="toggle_prompt('animal_duck', ['animal_sheep', 'animal_pig'], 'animal_result')" class="caption" id="animal_duck">"Change middle dog to duck"</div>
+                                    <br />
+                                    <div onclick="toggle_prompt('animal_pig', ['animal_sheep', 'animal_duck'], 'animal_result')" class="caption" id="animal_pig">"Change the right kitten to pig"</div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div>
+                                    <img class="teaser-img" src="figs/person.jpg" />
+                                    <span style="font-size: 150%;">→</span>
+                                    <img id="person_result" class="teaser-img" src="figs/left_person.jpg" />
+                                </div>
+                                <br />
+                                <div>
+                                    <div onclick="toggle_prompt('person-left', ['person-mid', 'person-right'], 'person_result')" class="caption caption-active" id="person-left">"Change the left person to robot"</div>
+                                    <br />
+                                    <div onclick="toggle_prompt('person-mid', ['person-left', 'person-right'], 'person_result')" class="caption" id="person-mid">"Change the middle person to robot"</div>
+                                    <br />
+                                    <div onclick="toggle_prompt('person-right', ['person-mid', 'person-left'], 'person_result')" class="caption" id="person-right">"Change the right person to robot"</div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div>
+                                    <img class="teaser-img" src="figs/bear.jpg" />
+                                    <span style="font-size: 150%;">→</span>
+                                    <img id="bear_result" class="teaser-img" src="figs/bear_mid.jpg" />
+                                </div>
+                                <br />
+                                <div>
+                                    <div onclick="toggle_prompt('bear_mid', ['bear_left', 'bear_right'], 'bear_result')" class="caption caption-active" id="bear_mid">"Change the largest bear to a panda"</div>
+                                    <br />
+                                    <div onclick="toggle_prompt('bear_left', ['bear_mid', 'bear_right'], 'bear_result')" class="caption" id="bear_left">"Change the left small bear to a panda"</div>
+                                    <br />
+                                    <div onclick="toggle_prompt('bear_right', ['bear_left', 'bear_mid'], 'bear_result')" class="caption" id="bear_right">"Change the right small bear to a panda"</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <a class="carousel-control-prev" href="index.html#imageCarousel" role="button" data-slide="prev">
+                            <div class="slider-navigation-previous">
+                                <svg viewBox="0 0 50 80" xml:space="preserve">
+                                    <polyline fill="white" stroke-width=".5em" stroke-linecap="round"
+                                        stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 ">
+                                    </polyline>
+                                </svg>
+                            </div>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="index.html#imageCarousel" role="button" data-slide="next">
+                            <div class="slider-navigation-next">
+                                <svg viewBox="0 0 50 80" xml:space="preserve">
+                                    <polyline fill="white" stroke-width=".5em" stroke-linecap="round"
+                                        stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8 ">
+                                    </polyline>
+                                </svg>
+                            </div>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </tr>
+                <tr> <br /> </tr>
+                <tr align="center"></tr>
+            </tbody>
+        </table>
+
+        &nbsp;
+    <div class="content">
+        <h2>Abstract</h2>
+        <p> We introduce the novel Diffusion Visual Programmer (DVP), a neuro-symbolic image translation framework. Our proposed DVP seamlessly embeds a condition-flexible diffusion model within the GPT architecture, orchestrating a coherent sequence of visual programs (i.e., computer vision models) for various pro-symbolic steps, which span RoI identification, style transfer, and position manipulation, facilitating transparent and controllable image translation processes. Extensive experiments demonstrate DVP's remarkable performance, surpassing concurrent arts. This success can be attributed to several key features of DVP: First, DVP achieves condition-flexible translation via instance normalization, enabling the model to eliminate sensitivity caused by the manual guidance and optimally focus on textual descriptions for high-quality content generation. Second, the framework enhances in-context reasoning by deciphering intricate high-dimensional concepts in feature spaces into more accessible low-dimensional symbols (e.g., [Prompt], [RoI object]), allowing for localized, context-free editing while main taining overall coherence. Last but not least, DVP improves systemic controllability and explainability by offering explicit symbolic representations at each programming stage, empowering users to intuitively interpret and modify results. Our research marks a substantial step towards harmonizing artificial image trans lation processes with cognitive intelligence, promising broader applications. The code is available at <a href="https://github.com/DVPmain/DVP/blob/main/image_editing.ipynb">here</a>.
+        &nbsp;
+    </div>
+
+    <div class="content">
+        <h2>Approach</h2>
+        <p>Within our framework, image translation is decomposed into two distinct sub-objectives: 1. style transfer, translating RoIs within images while upholding contextual coherence; and 2. context-free editing, endowing the capacity for unrestricted yet judicious modifications.</p>
+        &nbsp;
+        <div style="text-align: center">
+            <img src="figs/approach.png" alt="" width="850" style="margin: auto" />
+        </div>
+        &nbsp;
+        <p>In response to 1, Condition-flexible diffusion model is introduced for autonomous, non-human-intervened translation. To achieve 2, we present In-context Visual Programming, which decomposes high-level concepts into human-understandable symbols, enabling adaptable manipulation.</p>
+    </div>
+
+    <div class="content">
+        <h2>Results</h2>
+                    <div id="imageCarousel2" class="carousel slide teaser-carousel" data-ride="carousel" data-interval="5000">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div>
+                                    <img class="teaser-img" src="figs/baseball.jpg" />
+                                    <span style="font-size: 150%;">→</span>
+                                    <img id="baseball_ours" class="teaser-img" src="figs/baseball_ours.jpg" />
+                                </div>
+                                <br />
+                                <div>
+                                    <div onclick="toggle_prompt('baseball_ours', [], 'baseball_ours')" class="caption caption-active" id="baseball_ours">"Change the young boy to a robot"</div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div>
+                                    <img class="teaser-img" src="figs/plane.jpg" />
+                                    <span style="font-size: 150%;">→</span>
+                                    <img id="plane_ours" class="teaser-img" src="figs/plane_ours.jpg" />
+                                </div>
+                                <br />
+                                <div>
+                                    <div onclick="toggle_prompt('plane_ours', [], 'plane_ours')" class="caption caption-active" id="plane_ours">"Change the left person to robot"</div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div>
+                                    <img class="teaser-img" src="figs/hasky.jpg" />
+                                    <span style="font-size: 150%;">→</span>
+                                    <img id="hasky_ours" class="teaser-img" src="figs/hasky_ours.jpg" />
+                                </div>
+                                <br />
+                                <div>
+                                    <div onclick="toggle_prompt('hasky_ours', [], 'hasky_ours')" class="caption caption-active" id="hasky_ours">"Change the toy husky to a toy sheep"</div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div>
+                                    <img class="teaser-img" src="figs/people.jpg" />
+                                    <span style="font-size: 150%;">→</span>
+                                    <img id="people_ours" class="teaser-img" src="figs/people_ours.jpg" />
+                                </div>
+                                <br />
+                                <div>
+                                    <div onclick="toggle_prompt('people_ours', [], 'people_ours')" class="caption caption-active" id="people_ours">"Change the cartoon to real photo"</div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div>
+                                    <img class="teaser-img" src="figs/bell.jpg" />
+                                    <span style="font-size: 150%;">→</span>
+                                    <img id="bell_ours" class="teaser-img" src="figs/bell_ours.jpg" />
+                                </div>
+                                <br />
+                                <div>
+                                    <div onclick="toggle_prompt('bell_ours', [], 'bell_ours')" class="caption caption-active" id="bell_ours">"Change the bell to a donut"</div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div>
+                                    <img class="teaser-img" src="figs/dino.jpg" />
+                                    <span style="font-size: 150%;">→</span>
+                                    <img id="dino_ours" class="teaser-img" src="figs/dino_ours.jpg" />
+                                </div>
+                                <br />
+                                <div>
+                                    <div onclick="toggle_prompt('dino_ours', [], 'dino_ours')" class="caption caption-active" id="dino_ours">"Change the fossil to real dinosaur"</div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div>
+                                    <img class="teaser-img" src="figs/building.jpg" />
+                                    <span style="font-size: 150%;">→</span>
+                                    <img id="building_ours" class="teaser-img" src="figs/building_ours.jpg" />
+                                </div>
+                                <br />
+                                <div>
+                                    <div onclick="toggle_prompt('building_ours', [], 'building_ours')" class="caption caption-active" id="building_ours">"Change the church to the sandcastle on beach"</div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div>
+                                    <img class="teaser-img" src="figs/duck.jpg" />
+                                    <span style="font-size: 150%;">→</span>
+                                    <img id="duck_ours" class="teaser-img" src="figs/duck_ours.jpg" />
+                                </div>
+                                <br />
+                                <div>
+                                    <div onclick="toggle_prompt('duck_ours', [], 'duck_ours')" class="caption caption-active" id="duck_ours">"Change the yellow rubber duck to a real chick"</div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div>
+                                    <img class="teaser-img" src="figs/kid.jpg" />
+                                    <span style="font-size: 150%;">→</span>
+                                    <img id="kid_ours" class="teaser-img" src="figs/kid_ours.jpg" />
+                                </div>
+                                <br />
+                                <div>
+                                    <div onclick="toggle_prompt('kid_ours', [], 'kid_ours')" class="caption caption-active" id="kid_ours">"Change the kid to branches"</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <a class="carousel-control-prev" href="index.html#imageCarousel2" role="button" data-slide="prev">
+                            <div class="slider-navigation-previous">
+                                <svg viewBox="0 0 50 80" xml:space="preserve">
+                                    <polyline fill="white" stroke-width=".5em" stroke-linecap="round"
+                                        stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 ">
+                                    </polyline>
+                                </svg>
+                            </div>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="index.html#imageCarousel2" role="button" data-slide="next">
+                            <div class="slider-navigation-next">
+                                <svg viewBox="0 0 50 80" xml:space="preserve">
+                                    <polyline fill="white" stroke-width=".5em" stroke-linecap="round"
+                                        stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8 ">
+                                    </polyline>
+                                </svg>
+                            </div>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+    </div>
+
+    <div class="content">
+        <h2>Instance Normalization</h2>
+        <p>Our condition-flexible diffusion model diverges from conventional approaches. For fairness, these comparisons are made without incorporating in-context visual
+            programming into our approach. </p>
+        &nbsp;
+        <div style="text-align: center">
+            <img src="figs/ins_norm.jpg" alt="" width="850" style="margin: auto" />
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>In-context Reasoning</h2>
+        <p>DVP
+            employs a set of visual programming operations for image
+            translation, thereby facilitating
+            a powerful in-context reasoning capability during image
+            manipulation. The cross-attention
+            map on Prompt2Prompt indicates that it recognizes both
+            pigeons, albeit with a notable
+            failure to discern the positional
+            information accurately. </p>
+        &nbsp;
+        <div style="text-align: center">
+            <img src="figs/in_context.jpg" alt="" width="850" style="margin: auto" />
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Explainable Controllability</h2>
+        <p> In design, we enable multiple operations worked in parallel, there are different
+            program plans available for a diverse order of operation sequences. Throughout the execution process, the program is run line-by-line, triggering the specified operation
+            and yielding human-interpretable intermediate outputs at each step, thereby facilitating systemic
+            explainability for error correction.</p>
+        &nbsp;
+        <div style="text-align: center">
+            <img src="figs/control.jpg" alt="" width="850" style="margin: auto" />
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Label Efficiency</h2>
+        <p>Prompter generates detailed image descriptions for arbitrary input images, thereby relaxing label dependency without being tightly bound by human annotations. </p>
+        &nbsp;
+        <div style="text-align: center">
+            <img src="figs/prompt.jpg" alt="" width="850" style="margin: auto" />
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Conclusion</h2>
+        <p>In this work, we introduce DVP, a neuro-symbolic framework for image translation. Compared to concurrent image translation approaches, DVP has merits in: i) generalized translation without considering hand-crafted guidance scales on condition-rigid learning; ii) simple yet powerful in-context reasoning via visual programming; iii) intuitive controllability and explainability by step-by-step program execution and parallel operations. As a whole, we conclude that the outcomes presented in our paper contribute foundational insights into both image translation and neuro-symbolic domains.</p>
+    </div>
+
+    <div class="content">
+        <h2>Social Impact</h2>
+        <p>This work introduces DVP as a neuro-symbolic framework for image translation, showing robust image translation, strong in-context reasoning and straightforward controllability and explainability. On positive side, our framework reaches superior image translation performance qualitatively and quantitatively, and provide a user-centric design for the integration of future ad- vanced modules. DVP holds significant merit, particularly in applications pertinent to safety-critical domains and industrial deployments. For potential negative social impact, our DVP struggles in handling obscured objects and photometric conditions, which are common limitations of almost all concurrent diffusion models. Hence its utility should be further examined.</p>
+    </div>
+
+
+</body>
+
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WLX2Z5QLG8');
+ </script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script type="text/javascript">
+    $(document).ready(function () {
+
+        if (localStorage.getItem("my_app_name_here-quote-scroll") != null) {
+            $(window).scrollTop(localStorage.getItem("my_app_name_here-quote-scroll"));
+        }
+
+        $(window).on("scroll", function() {
+            localStorage.setItem("my_app_name_here-quote-scroll", $(window).scrollTop());
+        });
+
+      });
+ </script>
+
+ <script>
+    function prompt_on(prompt_element) {
+        prompt_element.classList.add("caption-active");
+    }
+
+    function prompt_off(prompt_element) {
+        prompt_element.classList.remove("caption-active");
+    }
+
+    function toggle_prompt(active_prompt_id, inactive_prompt_ids, result_id) {
+        let active_prompt = document.getElementById(active_prompt_id);
+        prompt_on(active_prompt);
+        for (let i = 0; i < inactive_prompt_ids.length; i++) {
+            let inactive_prompt = document.getElementById(inactive_prompt_ids[i]);
+            prompt_off(inactive_prompt);
+        }
+
+        let result = document.getElementById(result_id);
+        result.src = file_paths[active_prompt_id];
+    }
+ </script>
+
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</html>

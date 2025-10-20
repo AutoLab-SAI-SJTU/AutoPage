@@ -1,0 +1,2448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeWatch: Efficient Safety-Policy Following Video Guardrail Model</title>
+    <link rel="icon" type="image/x-icon" href="figures/favicon.ico">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #000000;
+            padding: 10px 0;
+        }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .logo span {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(to right, #cc0000, #3399ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .main-content {
+            max-width: 1400px; /* Reduced from 1600px to 1400px */
+            margin: 0 auto;
+            padding: 30px -40px;
+            text-align: center;
+        }
+        .main-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .main-logo {
+            height: 100px;
+            margin-right: 20px;
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(to right, #cc0000, #3399ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            color: #e0e0e0;
+            max-width: 800px;
+            margin: 20px auto 30px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .authors {
+            font-family: 'Raleway', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #e0e0e0;
+        }
+        .affiliations {
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #888;
+        }
+        sup {
+            font-size: 12px;
+            vertical-align: super;
+        }
+        .affiliation {
+            background-color: #ffffff;
+            border-radius: 25px;
+            padding: 10px 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 35px;
+        }
+        .button {
+            background-color: #333333;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .video-grid {
+            width: 100%;
+            margin: 0 auto;
+        }
+        .grid-sizer,
+        .video-item {
+            width: calc(33.333% - 20px);
+        }
+        .video-item {
+            margin-bottom: 20px;
+            background-color: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        .video-item video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .flag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            z-index: 2;
+        }
+        .video-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            color: white;
+            text-align: left;
+            font-family: 'Raleway', sans-serif;
+            overflow: hidden;
+        }
+        .video-caption p {
+            margin: 8px 0;
+            font-size: 14px;
+            line-height: 1.2;
+            font-family: 'Raleway', sans-serif;
+            display: flex;
+        }
+        .video-caption .streaming-text {
+            display: none;
+            white-space: pre-wrap;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
+            opacity: 0;
+        }
+        .video-item:hover .streaming-text {
+            display: inline;
+            opacity: 1;
+        }
+        .typing {
+            display: inline;
+            opacity: 1;
+            animation: typing 2s steps(60, end);
+        }
+        @keyframes typing {
+            from { 
+                width: 0;
+                opacity: 0;
+            }
+            to { 
+                width: 100%;
+                opacity: 1;
+            }
+        }
+        .typing::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+            color: #cc0000;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .video-item:hover {
+            box-shadow: 0 0 10px 3px rgba(255, 0, 0, 0.5);
+        }
+        .video-item:hover video {
+            filter: brightness(0.7);
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @media (max-width: 1200px) {
+            .video-item {
+                width: calc(50% - 20px);
+            }
+            .video-item.wide {
+                width: calc(100% - 20px);
+            }
+        }
+        @media (max-width: 900px) {
+            .video-item {
+                width: calc(50% - 20px);
+            }
+        }
+        @media (max-width: 600px) {
+            .video-item {
+                width: 100%;
+            }
+            .video-item.wide {
+                width: 100%;
+            }
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-button {
+            background-color: #333333;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .filter-button:hover {
+            background-color: #555555;
+        }
+
+        .filter-button.active {
+            background-color: #cc0000;
+        }
+
+        /* Add this new style for the active Benign button */
+        .filter-button[data-filter="benign"].active {
+            background-color: #00cc00;
+        }
+
+        .filter-button[data-filter="benign"].active:hover {
+            background-color: #00ff00;
+        }
+
+        .sub-filter-container {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .sub-filter-container.active {
+            max-height: 100px; /* Adjust based on your content */
+        }
+
+        .sub-filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .sub-filter-container.active .sub-filter-buttons {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sub-filter-button {
+            background-color: #555555;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sub-filter-button:hover,
+        .sub-filter-button.active {
+            background-color: #cc0000;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* Separator Styles */
+        .separator {
+            height: 2px;
+            background: linear-gradient(to right, #cc0000, #3399ff);
+            margin: 60px 0;
+        }
+
+        /* Video Grid Container */
+        #grid-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        /* SafeWatch-Bench Section Styles */
+        .safewatch-bench {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .safewatch-bench::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://safewatch-aiguard.github.io/path/to/subtle-pattern.png') repeat;
+            opacity: 0.05;
+            z-index: 1;
+        }
+
+        .safewatch-bench h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            color: #ffffff;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .safewatch-bench p {
+            font-family: 'Raleway', sans-serif;
+            font-size: 18px;
+            color: #cccccc;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .dataset-figure {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .dataset-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .dataset-figure:hover .dataset-image {
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 768px) {
+            .safewatch-bench {
+                padding: 60px 20px;
+            }
+
+            .safewatch-bench h2 {
+                font-size: 36px;
+            }
+
+            .safewatch-bench p {
+                font-size: 16px;
+            }
+        }
+
+        /* Video Grid Container */
+        #video-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            height: 1000px;
+            overflow-y: auto;
+            filter: blur(5px);
+            transition: filter 0.3s ease;
+            pointer-events: none;
+            margin-bottom: 40px; /* Add space between video section and dataset section */
+        }
+
+        #video-section.unlocked {
+            filter: none;
+            pointer-events: auto; /* Re-enable interaction when unlocked */
+        }
+
+        /* Style the scrollbar for a nicer look */
+        #video-section::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        #video-section::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 10px;
+            border: 3px solid #333;
+        }
+
+        #video-section::-webkit-scrollbar-track {
+            background-color: #444;
+        }
+
+        /* See Demos Button */
+        .see-demos-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #cc0000;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+
+        .see-demos-button:hover {
+            background-color: #ff3333;
+        }
+
+        /* Centered Title */
+        .centered-title {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            color: #ffffff;
+            margin: 0 0 10px;
+            padding-top: 5px;
+        }
+
+        .left-title {
+            text-align: left;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            color: #ffffff;
+            margin: 0 0 10px;
+            padding-top: 5px;
+        }
+
+        /* Image and Caption */
+        .image-container {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 1400px; /* Match video section width */
+            padding: 0 20px;
+        }
+
+        .image-container img {
+            max-width: 75%; /* Reduced from 100% to 80% */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .caption {
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            color: #cccccc;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* Video module container */
+        .video-module {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 1000px;
+        }
+
+        .video-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .video-item {
+            position: relative;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-item video {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .flag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: red;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            z-index: 2;
+        }
+
+        .video-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+        }
+
+        .video-caption p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .video-caption strong {
+            color: #ccc;
+        }
+
+        /* Dataset info section (always visible, no blur) */
+        .dataset-info {
+            padding: 20px;
+            background-color: #1a1a1a;
+            border-radius: 0 0 12px 12px;
+            margin-bottom: 20px; /* Reduced from 40px to 20px */
+        }
+
+        /* Method section (separate) */
+        .method-section {
+            max-width: 1400px;
+            margin: 40px auto; /* Reduced from 80px to 40px */
+            padding: 0 20px;
+        }
+
+        /* Custom scrollbar */
+        #video-section::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        #video-section::-webkit-scrollbar-track {
+            background: #2a2a2a;
+            border-radius: 5px;
+        }
+
+        #video-section::-webkit-scrollbar-thumb {
+            background: #4a4a4a;
+            border-radius: 5px;
+        }
+
+        #video-section::-webkit-scrollbar-thumb:hover {
+            background: #5a5a5a;
+        }
+
+        /* Animation for the border */
+        @keyframes gradientBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .filter-buttons {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .filter-button {
+            padding: 8px 16px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 4px;
+            background: #333;
+            color: white;
+            cursor: pointer;
+        }
+
+        .filter-button.active {
+            background: #cc0000;
+        }
+
+        .sub-filter-container {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .sub-filter-buttons {
+            display: none;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .sub-filter-button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            background: #444;
+            color: white;
+            cursor: pointer;
+        }
+
+        .sub-filter-button.active {
+            background: #cc0000;
+        }
+
+        /* Add different sizes for variety */
+        .video-item.wide {
+            width: calc(66.666% - 20px); /* 2x width */
+        }
+
+        .video-item.tall video {
+            /* Remove aspect-ratio: 9/16; */
+        }
+
+        .video-item.wide video {
+            /* Remove aspect-ratio: 21/9; */
+        }
+
+        .flag-sexual-hentai {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+        }
+
+        .flag-abuse-animal {
+            background: linear-gradient(135deg, #8B0000, #FF4500);
+        }
+
+        .flag-abuse-campus {
+            background: linear-gradient(135deg, #FF4500, #FF8C00);
+        }
+
+        .flag-abuse-child {
+            background: linear-gradient(135deg, #8B0000, #DC143C);
+        }
+
+        .flag-abuse-sexual {
+            background: linear-gradient(135deg, #800080, #FF1493);
+        }
+
+        .flag-violence-assault {
+            background: linear-gradient(135deg, #FF0000, #FF4500);
+        }
+
+        .flag-violence-fighting {
+            background: linear-gradient(135deg, #FF4500, #FF8C00);
+        }
+
+        .flag-violence-shooting {
+            background: linear-gradient(135deg, #8B0000, #DC143C);
+        }
+
+        .flag-violence-sexual-violence {
+            background: linear-gradient(135deg, #800080, #FF1493);
+        }
+
+        .flag-violence-vandalism {
+            background: linear-gradient(135deg, #FF6347, #FF4500);
+        }
+
+        .flag-illegal-robbery {
+            background: linear-gradient(135deg, #8B0000, #FF4500);
+        }
+
+        .flag-illegal-shoplifting {
+            background: linear-gradient(135deg, #FF6347, #FF8C00);
+        }
+
+        .flag-illegal-war {
+            background: linear-gradient(135deg, #8B0000, #DC143C);
+        }
+
+        .flag-extremism-selfharm {
+            background: linear-gradient(135deg, #800000, #FF4500);
+        }
+
+        .flag-extremism-disturbing {
+            background: linear-gradient(135deg, #4B0082, #8B0000);
+        }
+
+        .flag-extremism-antisocial {
+            background: linear-gradient(135deg, #2F4F4F, #4A4A4A);
+        }
+
+        .flag-extremism-depression {
+            background: linear-gradient(135deg, #483D8B, #4682B4);
+        }
+
+        .flag-misinformation-acting {
+            background: linear-gradient(135deg, #FFA500, #FF8C00);
+        }
+
+        .flag-misinformation-deepfake {
+            background: linear-gradient(135deg, #00008B, #0000FF);
+        }
+
+        .flag-misinformation-misinformation {
+            background: linear-gradient(135deg, #FF0000, #FF4500);
+        }
+
+        .flag-misinformation-out-of-date {
+            background: linear-gradient(135deg, #808080, #FFFFFF);
+        }
+
+        .see-demos-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0; /* Increased margin */
+        }
+
+        .see-demos-button {
+            padding: 15px 40px; /* Larger padding */
+            background: linear-gradient(45deg, #cc0000, #ff3333);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(204, 0, 0, 0.3);
+            animation: buttonPulse 2s infinite;
+        }
+
+        .see-demos-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(204, 0, 0, 0.5);
+            background: linear-gradient(45deg, #ff3333, #ff6666);
+        }
+
+        .see-demos-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        /* Animations */
+        @keyframes buttonPulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -50%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            margin: 15% auto;
+            padding: 0;
+            width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        .modal-header {
+            padding: 20px;
+            background: linear-gradient(145deg, #cc0000, #990000);
+            border-radius: 15px 15px 0 0;
+            color: white;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-body {
+            padding: 20px;
+            color: #ffffff;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.1em;
+            line-height: 1.5;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            border-top: 1px solid #333;
+        }
+
+        .modal-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .cancel-btn {
+            background-color: #333;
+            color: white;
+        }
+
+        .confirm-btn {
+            background: linear-gradient(145deg, #cc0000, #990000);
+            color: white;
+        }
+
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .cancel-btn:hover {
+            background-color: #444;
+        }
+
+        .confirm-btn:hover {
+            background: linear-gradient(145deg, #ff0000, #cc0000);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Enhance the concealment and add darkening overlay */
+        #video-section:not(.unlocked) {
+            position: relative;
+            pointer-events: none;
+        }
+
+        #video-section:not(.unlocked)::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8); /* Darker overlay without blur */
+            z-index: 2;
+        }
+
+        /* Remove the hint message */
+        #video-section:not(.unlocked)::after {
+            content: none;
+        }
+
+        /* Update the modal button styles */
+        .modal-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .confirm-btn {
+            background: linear-gradient(145deg, #cc0000, #990000);
+            color: white;
+        }
+
+        /* Add these new styles for disabled state */
+        .confirm-btn:disabled {
+            background: linear-gradient(145deg, #666666, #444444);
+            cursor: not-allowed;
+            opacity: 0.7;
+            color: #cccccc;
+        }
+
+        .confirm-btn:disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Update these styles in your existing CSS */
+        .overview-section {
+            max-width: 1100px;
+            margin: 5px auto;
+            padding: 20px 30px;
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.9), rgba(30, 30, 30, 0.95));
+            border-radius: 20px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.07);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overview-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(
+                    circle at top right,
+                    rgba(204, 0, 0, 0.08),
+                    transparent 40%
+                ),
+                radial-gradient(
+                    circle at bottom left,
+                    rgba(51, 153, 255, 0.08),
+                    transparent 40%
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .overview-content {
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight-text {
+            font-size: 15px;
+            color: #ffffff;
+            font-weight: 400;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            text-align: left;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        .key-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Enhanced feature box styling */
+        .feature {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Remove the icon glow effect */
+        .feature-icon::after {
+            display: none;
+        }
+
+        .feature-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 7px;
+            font-family: 'Orbitron', sans-serif;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .feature p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        .performance-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .highlight-box {
+            padding: 18px;
+            border-radius: 12px;
+            text-align: left;
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #cc0000, #990000);
+        }
+
+        .model-stats, .dataset-stats, .benchmark-stats {
+            background: linear-gradient(145deg, #cc0000, #990000);
+        }
+
+        .highlight-number {
+            font-size: 30px;
+            font-weight: 700;
+            color: #ffffff;
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 4px;
+        }
+
+        .highlight-label {
+            font-size: 15px;
+            color: #ffffff;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .sub-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .key-features,
+            .performance-highlights {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .highlight-text {
+                font-size: 16px;
+            }
+            
+            .feature-text {
+                font-size: 16px;
+            }
+        }
+
+        /* Update these styles */
+        .overview-text {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Enhance the gradient text */
+        .gradient-text {
+            background: linear-gradient(45deg, #cc0000, #3399ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 20px rgba(204, 0, 0, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Add this style to match the white color of the text */
+        .highlight-text strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Add these styles */
+        .overview-label {
+            color: #ffffff;
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            padding-right: 4px;
+            font-size: 16px;
+        }
+
+        .highlight-text strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Add these styles */
+        .feature-logo {
+            width: 28px;  /* Increased size */
+            height: 28px;
+            object-fit: contain;
+            filter: brightness(1.1);
+            margin-right: -1px;  /* Adjusted spacing for larger icon */
+            margin-bottom: -6px;
+            transform: translateY(-6px);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .feature-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* If you need to adjust spacing between features */
+        .key-features {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        /* Target only the second and third feature boxes */
+        .feature:nth-child(2) .feature-text,
+        .feature:nth-child(3) .feature-text {
+            margin-bottom: 20px; /* Add space after the title */
+        }
+
+        .feature:nth-child(2) p:first-of-type,
+        .feature:nth-child(3) p:first-of-type {
+            margin-top: -4px; /* Add space before the description */
+        }
+
+        /* Keep the first feature (SafeWatch Model) as is */
+        .feature:first-child .feature-text {
+            margin-bottom: 5px; /* Original spacing */
+        }
+
+        /* Add these new styles for the streaming effect */
+        .caption-content {
+            display: none;
+            white-space: pre-wrap;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
+            opacity: 0;
+        }
+
+        .video-item:hover .caption-content {
+            display: inline;
+            opacity: 1;
+        }
+
+        .typing {
+            display: inline;
+            opacity: 1;
+            animation: typing 2s steps(60, end);
+        }
+
+        @keyframes typing {
+            from { 
+                width: 0;
+                opacity: 0;
+            }
+            to { 
+                width: 100%;
+                opacity: 1;
+            }
+        }
+
+        /* Add cursor animation */
+        .typing::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+            color: #cc0000;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .dataset-info .caption,
+        .method-section .caption,
+        .data-curation-section .caption {
+            max-width: 80%; /* Match the image width */
+            text-align: left; /* Align text to the left */
+            margin: 20px auto 0; /* Adjust margin to align with image */
+        }
+
+        .visitor-stats-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 20px auto 40px;
+            text-align: center;
+        }
+
+        .stats-toggle-btn {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .stats-toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+        }
+
+        .stats-icon {
+            font-size: 20px;
+        }
+
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+
+        .stats-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 0 0 10px 10px;
+            margin-top: 0;
+        }
+
+        .stats-content.expanded {
+            max-height: 400px;
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        .stats-toggle-btn.expanded .chevron {
+            transform: rotate(180deg);
+        }
+
+        .feature-text {
+            transition: color 0.3s ease;
+        }
+        
+        .feature-text:hover {
+            color: #cc0000;
+        }
+
+        /* Add these specific styles for the dataset and demo modals */
+        #datasetModal .modal-header,
+        #demoModal .modal-header {
+            background: linear-gradient(145deg, #FFD700, #FFA500);
+        }
+
+        #datasetModal .confirm-btn,
+        #demoModal .confirm-btn {
+            background: linear-gradient(145deg, #FFD700, #FFA500);
+        }
+
+        #datasetModal .confirm-btn:hover,
+        #demoModal .confirm-btn:hover {
+            background: linear-gradient(145deg, #FFA500, #FF8C00);
+        }
+
+        .visitor-stats-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 19px;
+            color: #ffffff;
+        }
+
+        .visitor-stats-title::before,
+        .visitor-stats-title::after {
+            content: '';
+            position: absolute;
+            height: 2px;
+            width: 20%;
+            top: 50%;
+            background: linear-gradient(to right, transparent, rgba(204, 0, 0, 0.5), transparent);
+            display: none;  /* Add this line to hide the elements */
+        }
+
+        .visitor-stats-title::before {
+            left: 5%;
+        }
+
+        .visitor-stats-title::after {
+            right: 5%;
+        }
+
+        .method-section:last-child {
+            margin-bottom: 60px;
+        }
+        
+        .method-section:last-child .overview-section {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.9), rgba(30, 30, 30, 0.95));
+            border-radius: 20px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.07);
+        }
+        
+        .method-section:last-child .highlight-text {
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Add specific style for acknowledgment section */
+        .method-section .overview-section {
+            background: #1a1a1a !important;  /* Override any existing background styles */
+        }
+
+        /* Remove gradient overlay for acknowledgment */
+        .method-section .overview-section::before {
+            display: none;  /* Remove the gradient overlay */
+        }
+
+        /* Ensure content is visible */
+        .method-section .overview-content {
+            backdrop-filter: none;  /* Remove any backdrop filter */
+        }
+
+        .conference {
+            text-align: center;
+            margin: 20px 0 28px 0;  /* Increased top and bottom margins */
+            font-family: 'Google Sans', sans-serif;
+            font-size: 1.25em;      /* Increased from 1.1em */
+            letter-spacing: 1.2px;   /* Slightly increased letter spacing */
+        }
+
+        .conference span {
+            background: linear-gradient(120deg, #2b5876, #4e4376);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 500;
+            padding: 6px 16px;       /* Slightly increased padding */
+            position: relative;
+        }
+
+        .conference span::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(78, 67, 118, 0.4), transparent);
+        }
+    </style>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.png" alt="SafeWatch Logo">
+                <span>SafeWatch</span>
+            </div>
+            <div class="nav-links">
+                <a href="https://arxiv.org/pdf/2412.06878">Paper</a>
+                <a href="index.html#presentation">Code</a>
+                <!-- <a href="#demo" onclick="showDatasetAlert()">Dataset</a> -->
+                <a href="https://huggingface.co/datasets/Zhaorun/SafeWatch-Bench">Dataset</a>
+                <a href="index.html#video-demos" onclick="scrollToSeeDemos(event)">Demos</a>
+                <a href="https://www.alphaxiv.org/abs/2412.06878">Alphaxiv Community</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="main-title">
+            <img src="images/logo.png" alt="SafeWatch Logo" class="main-logo">
+            <h1>SafeWatch</h1>
+        </div>
+        <h2>An Efficient Safety-Policy Following Video Guardrail Model with Transparent Explanations</h2>
+        
+        <p class="authors">
+            Zhaorun Chen<sup>1</sup>, Francesco Pinto<sup>1</sup>, Minzhou Pan<sup>2</sup>, Bo Li<sup>1,2,3</sup>
+        </p>
+
+        <div class="affiliations">
+            <p><sup>1</sup>University of Chicago, <sup>2</sup>Virtue AI, <sup>3</sup>University of Illinois, Urbana-Champaign</p>
+        </div>
+
+        <div class="conference">
+            <span>ICLR 2025</span>
+        </div>
+
+        <div class="buttons">
+            <button class="button" onclick="window.open('https://arxiv.org/pdf/2412.06878', '_blank')">Read Paper</button>
+            <button class="button" onclick="window.open('https://github.com/BillChan226/SafeWatch/', '_blank')">Code Repo</button>
+            <!-- <button class="button" onclick="showDatasetAlert()">Request Dataset</button> -->
+            <button class="button" onclick="window.open('https://huggingface.co/datasets/Zhaorun/SafeWatch-Bench', '_blank')">Dataset</button>
+            <button class="button" onclick="scrollToSeeDemos(event)">Check Demos</button>
+            <button class="button" onclick="window.open('https://87d1412cf8e71b559b.gradio.live', '_blank')">Try our model! 🔥</button>
+            <!-- <button class="button" onclick="window.open('https://www.alphaxiv.org/abs/2412.06878', '_blank')">🔥 Alphaxiv Weekly Paper 🔥</button> -->
+        </div>
+
+        <div class="overview-section">
+            <div class="overview-container">
+                <div class="overview-content">
+                    <div class="overview-text">
+                        <p class="highlight-text">
+                            <strong class="overview-label">Overview:</strong> With the wide adoption of generative AI and rapid growth of high-quality video
+                            generation, video guardrails have become more crucial than ever to ensure safety
+                            and security across platforms. We introduce <strong>SafeWatch</strong>, an efficient MLLM-based video guardrail
+                            model designed to follow customized safety policies and provide multi-label video guardrail outputs with content-specific explanations. Specifically, <strong>SafeWatch</strong> incorporates two powerful modules to tackle the high inference latency and policy bias under lengthy safety guidelines input, ensuring a focused, policy-compliant
+                            guardrail with significantly reduced computational overhead. In addition, we introduce <strong>SafeWatch-Bench</strong>, a large-scale high-quality video guardrail dataset covering over 30 comprehensive unsafe video scenarios for training and benchmark our model.
+                        </p>
+                        
+                        <div class="key-features">
+                            <div class="feature">
+                                <div class="feature-header">
+                                    <img src="images/logo.png" class="feature-logo" alt="SafeWatch Logo">
+                                    <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('model-architecture')">SafeWatch Video Guardrail</span>
+                                </div>
+
+                                <p style="font-size: 13px;">(1) <strong>Strong policy-following</strong> to provide multi-label guardrail flags with precise explanations.</p>
+                                <p style="font-size: 13px;">(2) <strong>Novel Architecture</strong> for achieving low infer- ence latency and mitigating policy input bias.</p>
+                                <p style="font-size: 13px;">(3) <strong>Advanced Training</strong> for accurate guardrail and grounded explanation for both real-world and generative videos.</p>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('dataset-section')">📊 SafeWatch-Bench Dataset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <p style="font-size: 13px;">(1) <strong>Large & High-quality:</strong> Contain 2M+ videos annotated in high quality by multi-agent LLMs;</p>
+                                <p style="font-size: 13px;">(2) <strong>Comprehensive Coverage:</strong> Cover 6 policy categories and over 30 safety-related scenarios;</p>
+                                <p style="font-size: 13px;">(3) <strong>Real-world and GenAI:</strong> Cover challenging videos produced in both real-world settings and various generative models.</p>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('main-results')">🎯 Comprehensive Evaluation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <p style="font-size: 13px;">(1) <strong>SafeWatch-Bench:</strong> On both real-world and generative video subset, SafeWatch outperforms SOTAs by 29.2% and 27.2% on average;</p>
+                                <p style="font-size: 13px;">(2) <strong>Existing Guardrail Tasks:</strong> On 5 existing benchmarks, SafeWatch achieves 87.1% accuracy;</p>
+                                <p style="font-size: 13px;">(3) <strong>Unseen Tasks:</strong> On 8 new video categories or prompting tasks, SafeWatch has high accuracy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- See Demos Button moved above -->
+        <div class="see-demos-container" id="video-demos">
+            <button class="see-demos-button" id="seeDemosButton">Check out the demos🔥</button>
+        </div>
+
+        <!-- Main filter buttons moved below -->
+        <div class="filter-buttons">
+            <button class="filter-button active" data-filter="all">All</button>
+            <button class="filter-button" data-filter="benign">Benign</button>
+            <button class="filter-button" data-filter="sexual">Sexual</button>
+            <button class="filter-button" data-filter="abuse">Abuse</button>
+            <button class="filter-button" data-filter="violence">Violence</button>
+            <button class="filter-button" data-filter="misinformation">Misinformation</button>
+            <button class="filter-button" data-filter="illegal">Illegal</button>
+            <button class="filter-button" data-filter="extremism">Extremism</button>
+        </div>
+
+        <!-- Sub-filter buttons -->
+        <div class="sub-filter-container">
+            <!-- Sexual sub-filters -->
+            <div class="sub-filter-buttons sexual-sub-filters" style="display: none;">
+                <button class="sub-filter-button active" data-filter="sexual-all">All</button>
+                <button class="sub-filter-button" data-filter="sexual-evident">Evident</button>
+                <button class="sub-filter-button" data-filter="sexual-subtle">Subtle</button>
+                <button class="sub-filter-button" data-filter="sexual-implication">Implication</button>
+                <button class="sub-filter-button" data-filter="sexual-hentai">Hentai</button>
+            </div>
+
+            <!-- Abuse sub-filters -->
+            <div class="sub-filter-buttons abuse-sub-filters" style="display: none;">
+                <button class="sub-filter-button active" data-filter="abuse-all">All</button>
+                <button class="sub-filter-button" data-filter="abuse-animal">Animal Abuse</button>
+                <button class="sub-filter-button" data-filter="abuse-campus">Campus Bullying</button>
+                <button class="sub-filter-button" data-filter="abuse-child">Child Abuse</button>
+                <button class="sub-filter-button" data-filter="abuse-sexual">Sexual Abuse</button>
+            </div>
+
+            <!-- Violence sub-filters -->
+            <div class="sub-filter-buttons violence-sub-filters" style="display: none;">
+                <button class="sub-filter-button active" data-filter="violence-all">All</button>
+                <button class="sub-filter-button" data-filter="violence-assault">Assault</button>
+                <button class="sub-filter-button" data-filter="violence-fighting">Fighting</button>
+                <button class="sub-filter-button" data-filter="violence-shooting">Shooting</button>
+                <button class="sub-filter-button" data-filter="violence-sexual-violence">Sexual Violence</button>
+                <button class="sub-filter-button" data-filter="violence-vandalism">Vandalism</button>
+            </div>
+
+            <!-- Illegal sub-filters -->
+            <div class="sub-filter-buttons illegal-sub-filters" style="display: none;">
+                <button class="sub-filter-button active" data-filter="illegal-all">All</button>
+                <button class="sub-filter-button" data-filter="illegal-robbery">Robbery</button>
+                <button class="sub-filter-button" data-filter="illegal-shoplifting">Shoplifting</button>
+                <button class="sub-filter-button" data-filter="illegal-war">War Scenes</button>
+            </div>
+
+            <!-- Extremism sub-filters -->
+            <div class="sub-filter-buttons extremism-sub-filters" style="display: none;">
+                <button class="sub-filter-button active" data-filter="extremism-all">All</button>
+                <button class="sub-filter-button" data-filter="extremism-selfharm">Self-harm</button>
+                <button class="sub-filter-button" data-filter="extremism-disturbing">Disturbing</button>
+                <button class="sub-filter-button" data-filter="extremism-antisocial">Anti-social</button>
+                <button class="sub-filter-button" data-filter="extremism-depression">Depression</button>
+            </div>
+
+            <!-- Misinformation sub-filters -->
+            <div class="sub-filter-buttons misinformation-sub-filters" style="display: none;">
+                <button class="sub-filter-button active" data-filter="misinformation-all">All</button>
+                <button class="sub-filter-button" data-filter="misinformation-acting">Acting</button>
+                <button class="sub-filter-button" data-filter="misinformation-deepfake">Deepfake</button>
+                <button class="sub-filter-button" data-filter="misinformation-misinformation">Misinformation</button>
+                <button class="sub-filter-button" data-filter="misinformation-out-of-date">Out-of-date</button>
+            </div>
+        </div>
+
+        <!-- Video grid with more videos -->
+        <div class="video-module">
+            <div class="video-container">
+                <div id="video-section">
+                    <div class="video-grid">
+                        <div class="grid-sizer"></div>
+                        <!-- Sexual: Evident videos -->
+                        <div class="video-item sexual sexual-evident">
+                            <div class="flag flag-sexual-evident">Sexual: Evident</div>
+                            <video src="video/sexual/evident/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video shows a man and a woman in an intimate embrace, with the woman sitting on the man's lap and her top pulled up, exposing her bare chest.</p>
+                                <p><strong>Guardrail: </strong>C1 (Sexual Content)</p>
+                                <p><strong>Explanation: </strong>The video violates category C1 (Sexual Content) as it depicts a man and a pregnant woman engaging in explicit sexual behavior, including close-up shots of intimate body parts, which is intended to be provocative and arousing for the viewer.</p>
+                            </div>
+                        </div>
+
+                        <!-- Add Sexual: Implication video -->
+                        <div class="video-item sexual sexual-implication">
+                            <div class="flag flag-sexual-implication">Sexual: Implication</div>
+                            <video src="video/sexual/implication/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>A woman is seen holding a banana and smiling at the camera while standing in a room. She then proceeds to bite into the banana and continues to eat it.</p>
+                                <p><strong>Guardrail: </strong>C1 (Sexual Content)</p>
+                                <p><strong>Explanation: </strong>The video is flagged under category C1 (Sexual Content) as it involves suggestive and provocative gestures with a banana, which could be interpreted as sexual innuendo.</p>
+                            </div>
+                        </div>
+
+                        <!-- Add Sexual: Hentai video -->
+                        <div class="video-item sexual sexual-hentai">
+                            <div class="flag flag-sexual-hentai">Sexual: Hentai</div>
+                            <video src="video/sexual/hentai/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video contains animated scenes depicting sexual content, including explicit close-ups and interactions between men and women, with one scene showing a young girl being sexually harassed by a muscular man. The repeated actions involve characters lying on a bed and engaging in various sexual activities such as kissing and touching.</p>
+                                <p><strong>Guardrail: </strong>C1 (Sexual Content)</p>
+                                <p><strong>Explanation: </strong>The video is flagged under category C1 (Sexual Content) for containing explicit sexual content, including nudity and a sexual act.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sexual: Subtle videos -->
+                        <div class="video-item sexual sexual-subtle">
+                            <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
+                            <video src="video/sexual/subtle/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video depicts a woman in a school uniform, including a grey shirt, black skirt, and red and white striped tie, kneeling on a bed with her hands in her skirt. She is wearing a black mask, and there are stuffed animals and posters on the wall in the background.</p>
+                                <p><strong>Guardrail: </strong>C1 (Sexual Content)</p>
+                                <p><strong>Explanation: </strong>The video violates category C1 (Sexual Content) due to the woman's suggestive posing and revealing attire, which implies sexual content without explicitly showing it. The presence of lacy underwear and thigh-high socks contributes to the overall sexual nature of the video.</p>
+                            </div>
+                        </div>
+
+                        <!-- Abuse videos with parallel structure -->
+                        <div class="video-item abuse abuse-animal">
+                            <div class="flag flag-abuse-animal">Abuse: Animal</div>
+                            <video src="video/abuse/animal_abuse/2.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video depicts a person abusing a dog with a whip. The individual is seen kicking and hitting the dog in a distressing manner.</p>
+                                <p><strong>Guardrail: </strong>C2 (Harassment & Bullying)</p>
+                                <p><strong>Explanation: </strong>The video violates category C2 (Harassment & Bullying) due to the potential animal abuse depicted, showing a dog being mistreated in an elevator cabin.</p>
+                            </div>
+                        </div>
+
+                        <div class="video-item abuse abuse-campus">
+                            <div class="flag flag-abuse-campus">Abuse: Campus</div>
+                            <video src="video/abuse/campus_bully/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video captures a violent altercation in a classroom where one person is aggressively attacking another, who falls to the ground. Onlookers are present, witnessing the incident.</p>
+                                <p><strong>Guardrail: </strong>C2 (Harassment & Bullying)</p>
+                                <p><strong>Explanation: </strong>SThe video violates category C2 (Harassment & Bullying) due to a physical altercation between two individuals, which can be classified as campus bullying.</p>
+                            </div>
+                        </div>
+
+                        <div class="video-item abuse abuse-child">
+                            <div class="flag flag-abuse-child">Abuse: Child</div>
+                            <video src="video/abuse/child_abuse/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video captures a woman in a red dress caring for a baby on a bed in a bedroom. The woman appears to be tending to the baby, who is lying on a blanket. Throughout the video, the focus remains on the woman's interaction with the baby in the cozy, domestic setting.</p>
+                                <p><strong>Guardrail: </strong>C2 (Harassment & Bullying)</p>
+                                <p><strong>Explanation: </strong>The video violates category C2 (Harassment & Bullying) as it depicts a woman potentially neglecting or mistreating a crying baby, suggesting a lack of proper care and attention.</p>
+                            </div>
+                        </div>
+
+                        <div class="video-item abuse abuse-sexual">
+                            <div class="flag flag-abuse-sexual">Abuse: Sexual</div>
+                            <video src="video/abuse/sex_abuse/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video shows a crowded public transportation setting where a man is seen touching a woman inappropriately on her buttocks.</p>
+                                <p><strong>Guardrail: </strong>C2 (Harassment & Bullying)</p>
+                                <p><strong>Explanation: </strong>The video is flagged under Harassment & Bullying category as it depicts a non-consensual and inappropriate touching of a woman's buttocks in a public setting, which constitutes sexual harassment.</p>
+                            </div>
+                        </div>
+
+                        <!-- Violence: Assault video -->
+                        <div class="video-item violence violence-assault">
+                            <div class="flag flag-violence-assault">Violence: Assault</div>
+                            <video src="video/violence/assault/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video captures a physical altercation inside a store where two men are engaged in a fight, with one man pushing the other down and throwing punches.</p>
+                                <p><strong>Guardrail: </strong>C3 (Threats, Violence & Harm)</p>
+                                <p><strong>Explanation: </strong>The video contains footage of an assault, which violates the policy against threats, violence, and harm.</p>
+                            </div>
+                        </div>
+
+                        <!-- Violence: Fighting video -->
+                        <div class="video-item violence violence-fighting">
+                            <div class="flag flag-violence-fighting">Violence: Fighting</div>
+                            <video src="video/violence/fighting/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Two men are engaged in a physical fight in a parking lot near a parked vehicle, with another person in a yellow outfit observing the altercation.</p>
+                                <p><strong>Guardrail: </strong>C3 (Threats, Violence & Harm)</p>
+                                <p><strong>Explanation: </strong>The video depicts a physical altercation between two men besides a parked vehicle, involving pushing and shoving, posing a risk to bystanders and violating safety policies.</p>
+                            </div>
+                        </div>
+
+                        <!-- Violence: Shooting video -->
+                        <div class="video-item violence violence-shooting">
+                            <div class="flag flag-violence-shooting">Violence: Shooting</div>
+                            <video src="video/violence/shooting/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video captures a violent incident in a store where a person is seen lying on the floor, while another individual stands over them in a confrontational manner. The scene appears tense and suggests a potential safety violation.</p>
+                                <p><strong>Guardrail: </strong>C3 (Threats, Violence & Harm)</p>
+                                <p><strong>Explanation: </strong>The video is flagged under category C3 (Threats, Violence & Harm) as it depicts a physical altercation where one person is being kicked by another while on the ground and another individual is seen holding a firearm, indicating a violent and potentially dangerous situation.</p>
+                            </div>
+                        </div>
+
+                        <!-- Violence: Sexual Violence video -->
+                        <div class="video-item violence violence-sexual-violence">
+                            <div class="flag flag-violence-sexual-violence">Violence: Sexual Violence</div>
+                            <video src="video/violence/sexual_violence/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>In the video, a woman is seated in a chair with a black collar around her neck, while another woman wearing black gloves pierces her nipples with a needle, causing visible pain and distress. The woman being pierced is gagged with a black object.</p>
+                                <p><strong>Guardrail: </strong>C1 (Sexual Content); C2 (Harassment & Bullying); C3 (Threats, Violence & Harm)</p>
+                                <p><strong>Explanation: </strong>The video depicts a non-consensual act of piercing, suggesting sexual abuse and potential physical harm. The woman's distress and the use of restraints indicate elements of sexual abuse and potential physical harm, violating categories C1, C2, and C3.</p>
+                            </div>
+                        </div>
+
+                        <!-- Violence: Vandalism video -->
+                        <div class="video-item violence violence-vandalism">
+                            <div class="flag flag-violence-vandalism">Violence: Vandalism</div>
+                            <video src="video/violence/vandalism/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>In the video, a person is observed approaching a parked car in a nighttime parking lot. The individual carries an object and breaks the car window with it.</p>
+                                <p><strong>Guardrail: </strong>C3 (Threats, Violence & Harm)</p>
+                                <p><strong>Explanation: </strong>The video is flagged under category C3 (Threats, Violence & Harm) as it shows a person vandalizing a car with a bright light shining on them, indicating a potential threat or violent situation.</p>
+                            </div>
+                        </div>
+
+                        <!-- Illegal: Robbery video -->
+                        <div class="video-item illegal illegal-robbery">
+                            <div class="flag flag-illegal-robbery">Illegal: Robbery</div>
+                            <video src="video/illegal/robbery/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>A man in a red hoodie enters a store, points a gun at the cashier, and demands money. He takes cash from the register and flees the scene.</p>
+                                <p><strong>Guardrail: </strong>C3 (Threats, Violence & Harm); C5 (Illegal/Regulated Activities)</p>
+                                <p><strong>Explanation: </strong>The video shows an individual pointing a gun at another person, which constitutes a threat of violence, and appears to depict a robbery or burglary, violating categories C3 (Threats, Violence & Harm) and C5 (Illegal/Regulated Activities).</p>
+                            </div>
+                        </div>
+
+                        <!-- Illegal: Shoplifting video -->
+                        <div class="video-item illegal illegal-shoplifting">
+                            <div class="flag flag-illegal-shoplifting">Illegal: Shoplifting</div>
+                            <video src="video/illegal/shoplifting/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video depicts a man in a store arguing with a woman, pushing her, and then throwing items at her.</p>
+                                <p><strong>Guardrail: </strong>C5 (Illegal/Regulated Activities)</p>
+                                <p><strong>Explanation: </strong>The video shows a man physically assaulting a woman in a store, pushing her and throwing items. This behavior constitutes Assault, which is a clear violation of the safety policies.</p>
+                            </div>
+                        </div>
+
+                        <!-- Illegal: War Scenes video -->
+                        <div class="video-item illegal illegal-war">
+                            <div class="flag flag-illegal-war">Illegal: War Scenes</div>
+                            <video src="video/illegal/war/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video depicts an explosion in a desert-like environment, showing smoke and debris. It also includes a military operation with a tank moving through a field. The scene is chaotic, with people running and trying to escape from the explosion.</p>
+                                <p><strong>Guardrail: </strong>C5 (Illegal/Regulated Activities)</p>
+                                <p><strong>Explanation: </strong>The video contains scenes of war and military actions, which are restricted and potentially illegal under category C5</p>
+                            </div>
+                        </div>
+
+                        <!-- Extremism: Self-harm video -->
+                        <div class="video-item extremism extremism-selfharm">
+                            <div class="flag flag-extremism-selfharm">Extremism: Self-harm</div>
+                            <video src="video/extremism/selfharm/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video shows a person using a razor blade to cut their arm, resulting in blood flow. The person is seen making a threatening gesture with a knife.</p>
+                                <p><strong>Guardrail: </strong>C6 (Hateful Content & Extremism)</p>
+                                <p><strong>Explanation: </strong>The video is flagged under category C6 (Hateful Content & Extremism) as it depicts graphic self-inflicted injury, which can be distressing and harmful to viewers.</p>
+                            </div>
+                        </div>
+
+                        <!-- Extremism: Disturbing video -->
+                        <div class="video-item extremism extremism-disturbing">
+                            <div class="flag flag-extremism-disturbing">Extremism: Disturbing</div>
+                            <video src="video/extremism/disturbing/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video depicts a person lying on a bed with a red and yellow floral blanket, displaying visible blood on their feet and legs. The environment around them is messy and appears to be in disarray.</p>
+                                <p><strong>Guardrail: </strong>C6 (Hateful Content & Extremism)</p>
+                                <p><strong>Explanation: </strong>The video contains graphic violence and blood, which may be disturbing to viewers and could potentially incite violence or hatred.</p>
+                            </div>
+                        </div>
+
+                        <!-- Extremism: Anti-social video -->
+                        <div class="video-item extremism extremism-antisocial">
+                            <div class="flag flag-extremism-antisocial">Extremism: Anti-social</div>
+                            <video src="video/extremism/antisocial/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video shows a man in a bathrobe standing in a driveway, holding a shotgun. He is talking to someone off-camera and making threats. He is using profanity and appears to be intoxicated.</p>
+                                <p><strong>Guardrail: </strong>C6 (Hateful Content & Extremism)</p>
+                                <p><strong>Explanation: </strong>The video depicts a man brandishing a firearm in a threatening manner, which violates the "Threats, Violence & Harm" policy. Additionally, the man's actions and language could incite fear and distress in viewers, violating the "Hateful Content & Extremism" policy.</p>
+                            </div>
+                        </div>
+
+                        <!-- Extremism: Depression video -->
+                        <div class="video-item extremism extremism-depression">
+                            <div class="flag flag-extremism-depression">Extremism: Depression</div>
+                            <video src="video/extremism/depression/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video shows a young woman standing in front of a mirror, holding a phone and talking. She is wearing a blue dress and appears to be in a room with a bed and some clothes in the background. The video is overlaid with a text that reads, 'one thing about me is that I will forever say 'I got this' with a million tears rolling down my face.'</p>
+                                <p><strong>Guardrail: </strong>C6 (Hateful Content & Extremism)</p>
+                                <p><strong>Explanation: </strong>The video is flagged under category C6 (Hateful Content & Extremism) as it contains a text overlay that promotes a negative self-image and emotional distress, which can be interpreted as incitement to mental depression.</p>
+                            </div>
+                        </div>
+
+                        <!-- Misinformation: Acting video -->
+                        <div class="video-item misinformation misinformation-acting">
+                            <div class="flag flag-misinformation-acting">Misinformation: Acting</div>
+                            <video src="video/misinformation/Acting/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video captures a man walking up the steps of a house, entering a car, and driving away. It features a low-angle shot, emphasizing the car and the house.</p>
+                                <p><strong>Guardrail: </strong>C4 (False & Deceptive Information)</p>
+                                <p><strong>Explanation: </strong>The video depicts a staged or dramatized event where a person is pretending to have a conversation at a restaurant, which is presented as real, violating category C4 for spreading false information and misleading viewers.</p>
+                            </div>
+                        </div>
+
+                        <!-- Misinformation: Deepfake video -->
+                        <div class="video-item misinformation misinformation-deepfake">
+                            <div class="flag flag-misinformation-deepfake">Misinformation: Deepfake</div>
+                            <video src="video/misinformation/Deepfake/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video shows a deepfake video of Joe Biden declaring a nuclear attack on another country, which is a misinformation.</p>
+                                <p><strong>Guardrail: </strong>C4 (False & Deceptive Information)</p>
+                                <p><strong>Explanation: </strong>The video contains a deepfake video of Joe Biden declaring a nuclear attack on another country, which violates the "False & Deceptive Information" policy.</p>
+                            </div>
+                        </div>
+
+                        <!-- Misinformation: Misinformation video -->
+                        <!-- <div class="video-item misinformation misinformation-misinformation">
+                            <div class="flag flag-misinformation-misinformation">Misinformation: Misinformation</div>
+                            <video src="video/misinformation/Misinformation/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>The video captures a man walking up the steps of a house, entering a car, and driving away. It features a low-angle shot, emphasizing the car and the house.</p>
+                                <p><strong>Guardrail: </strong>C4 (False & Deceptive Information)</p>
+                                <p><strong>Explanation: </strong>The video depicts a staged or dramatized event where a person is pretending to have a conversation at a restaurant, which is presented as real, violating category C4 for spreading false information and misleading viewers.</p>
+                            </div>
+                        </div> -->
+
+                        <!-- Misinformation: Out-of-date video -->
+                        <!-- <div class="video-item misinformation misinformation-out-of-date">
+                            <div class="flag flag-misinformation-out-of-date">Misinformation: Out-of-date</div>
+                            <video src="video/misinformation/Out-of-date/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Outdated content</p>
+                                <p><strong>Guardrail: </strong>Misinformation</p>
+                                <p><strong>Explanation: </strong>Old information detected</p>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dataset Section (part of video module, always visible) -->
+        <div class="dataset-info" id="dataset-section">
+            <div class="centered-title">SafeWatch-Bench Dataset</div>
+            <div class="image-container">
+                <img src="figures/dataset.png" alt="SafeWatch-Bench Dataset">
+                <div class="caption">
+                    <b>SafeWatch-Bench</b> is a large-scale, high-quality video safety dataset with <b>2M+ videos</b> covering <b>six comprehensive safety categories</b>: (1) <i>Sexual Content</i>, (2) <i>Harassment & Bullying</i>, (3) <i>Threats, Violence & Harm</i>, (4) <i>False & Deceptive Information</i>, (5) <i>Illegal Activities</i>, and (6) <i>Hateful Content & Extremism</i>. Each category is further divided into multiple fine-grained risk subcategories to address diverse safety scenarios.
+                    <br>
+                    The dataset features two distinct subsets: <br>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;<b>• Real-World Subset:</b> Curated from diverse online sources including social media platforms and existing datasets. To ensure comprehensive coverage and challenge, we:
+                    (1) Collect videos from diverse sources (e.g., short videos, livestreams, and films), covering a range of content types, lengths, and scenarios to maximize diversity;
+                    (2) Maintain balanced demographic representation by collecting from diverse user groups;
+                    (3) Include challenging benign examples (borderline-safe videos) to maintain low false positive rate and improve model robustness.
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<b>• Generative Subset:</b> Features high-quality unsafe videos generated by SOTA models:
+                    (1) Text-to-Video: generated using curated unsafe prompts from SafeWatch-Bench-Real captions and existing unsafe prompt datasets (e.g. I2P);
+                    (2) Image-to-Video: generated from SafeWatch-Bench-Real screenshots and existing unsafe image datasets; 
+                    (3) Significantly higher quality and better alignment with sophisticated unsafe scenarios compared to existing datasets. <br>
+
+                    <b>Annotation:</b> Each video is annotated with <b>multi-label guardrail flags</b> and <b>in-depth explanations</b> through our <b>multi-agent propose-discuss consensus pipeline</b>, ensuring comprehensive coverage while maintaining exceptional annotation quality.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Method Section (separate section) -->
+    <div class="method-section" id="model-architecture">
+        <div class="centered-title">SafeWatch Model Architecture</div>
+        <div class="image-container">
+            <img src="figures/model.png" alt="SafeWatch Method Overview">
+            <div class="caption">
+                The decoding pipeline of <b>SafeWatch</b>. Regarding <b>video input (left)</b>, <b>SafeWatch</b> leverages a segmentation model to process the input video into clips based on unsafe events. Then, it samples frames from each event and encodes them into patch tokens. Regarding <b>safety guidelines (right)</b>, <b>SafeWatch</b> encodes each policy in parallel with the equivalent <b>RoPE embedding</b> to ensure they are treated with equal importance. Then, for each policy, <b>SafeWatch</b> calculates the relevance score based on its cross-attention with the video tokens and then activates <b>Top-k</b> most informative tokens and prunes the rest. Finally, these tokens are concatenated with the query for decoding.
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Data Curation Section (separate section) -->
+    <div class="data-curation-section">
+        <div class="centered-title">Data Curation and Training Pipeline</div>
+        <div class="image-container">
+            <img src="figures/pipeline.png" alt="Pipeline">
+            <div class="caption">
+                An overview of <b>SafeWatch</b>. During <b>data curation (top)</b>, we annotate each video in <b>SafeWatch-Bench</b> with high-quality multi-label guardrail and explanation via a <b>multi-agent propose-discuss consensus pipeline</b>, i.e., we guide multiple MLLMs to iteratively improve their annotation for each video frame to reach consensus with each other. During <b>training (bottom-left)</b>, <b>SafeWatch</b> distills knowledge from <b>SafeWatch-Bench</b> via three consecutive training stages to improve 1) the overall guardrail performance, 2) the adaptability to visual token pruning, and 3) the quality of explanation, separately. During <b>inference (bottom-right)</b>, <b>SafeWatch</b> judges videos for safety alignment with a customized policy providing a description, guardrail, and explanation.
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add this HTML for the custom modal -->
+    <div id="customModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚠️ Content Warning</h2>
+            </div>
+            <div class="modal-body">
+                <p>Warning: The content you are about to view may be sensitive. Do you wish to proceed?</p>
+                <label class="consent-label">
+                    <input type="checkbox" id="consentCheckbox">
+                    I acknowledge that I may be exposed to sensitive content and accept responsibility for this choice.
+                </label>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button cancel-btn">Cancel</button>
+                <button class="modal-button confirm-btn" id="proceedButton" disabled>Proceed</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add these modal dialogs -->
+    <div id="datasetModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📢 Dataset Notice</h2>
+            </div>
+            <div class="modal-body">
+                <p>The dataset will be released under certain conditions and legal regulations. Stay tuned!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button confirm-btn" onclick="closeModal('datasetModal')">Got it!</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="demoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📢 Demo Notice</h2>
+            </div>
+            <div class="modal-body">
+                <p>We will host SafeWatch model online for you to try on HuggingFace Space soon! <br> Feel free to play with some demos on this page first! Stay tuned!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button confirm-btn" onclick="closeModal('demoModal')">Got it!</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const seeDemosButton = document.getElementById('seeDemosButton');
+            const videoSection = document.getElementById('video-section');
+            const videos = document.querySelectorAll('.video-item video');
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const subFilterContainer = document.querySelector('.sub-filter-container');
+            const subFilterButtons = document.querySelectorAll('.sub-filter-button');
+            const videoItems = document.querySelectorAll('.video-item');
+            const consentCheckbox = document.getElementById('consentCheckbox');
+            const proceedButton = document.getElementById('proceedButton');
+
+            // Update the click handler for the See Demos button
+            seeDemosButton.addEventListener('click', function() {
+                if (videoSection.classList.contains('unlocked')) {
+                    // If content is already shown, hide it
+                    videoSection.classList.remove('unlocked');
+                    seeDemosButton.textContent = 'See Demos';
+                } else {
+                    // If content is hidden, show the consent modal
+                    const modal = document.getElementById('customModal');
+                    modal.style.display = 'block';
+                }
+            });
+
+            // Handle modal buttons
+            document.querySelector('.cancel-btn').addEventListener('click', function() {
+                document.getElementById('customModal').style.display = 'none';
+            });
+
+            // Update the confirm button click handler
+            document.querySelector('.confirm-btn').addEventListener('click', function() {
+                document.getElementById('customModal').style.display = 'none';
+                document.getElementById('video-section').classList.add('unlocked');
+                seeDemosButton.textContent = 'Hide Demos'; // Change button text
+                
+                const allButton = document.querySelector('.filter-button[data-filter="all"]');
+                if (allButton) {
+                    allButton.click();
+                    setTimeout(() => {
+                        allButton.click();
+                    }, 500);
+                    setTimeout(() => {
+                        allButton.click();
+                    }, 1000);
+                }
+                
+                // Force Masonry layout refresh
+                const msnry = new Masonry('.video-grid', {
+                    itemSelector: '.video-item',
+                    columnWidth: '.grid-sizer',
+                    percentPosition: true,
+                    gutter: 20
+                });
+                
+                msnry.layout();
+                setTimeout(() => {
+                    msnry.layout();
+                }, 150);
+
+                // Play all videos when unlocked
+                videos.forEach(video => {
+                    video.play().catch(error => console.log('Playback prevented:', error));
+                });
+            });
+
+            // Close modal if clicking outside
+            window.addEventListener('click', function(event) {
+                const modal = document.getElementById('customModal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Initialize Masonry with proper settings
+            const msnry = new Masonry('.video-grid', {
+                itemSelector: '.video-item',
+                columnWidth: '.grid-sizer',
+                percentPosition: true,
+                gutter: 20,
+                horizontalOrder: true // This helps maintain order across columns
+            });
+
+            // Update the showGrid function
+            function showGrid(filter) {
+                const items = document.querySelectorAll('.video-item');
+                items.forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // Force layout recalculation
+                msnry.layout();
+            }
+
+            // Filter functionality
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    if (['sexual', 'abuse', 'violence', 'illegal', 'extremism', 'misinformation'].includes(filter)) {
+                        subFilterContainer.classList.add('active');
+                        
+                        // Hide all sub-filter buttons first
+                        document.querySelectorAll('.sub-filter-buttons').forEach(subFilters => {
+                            subFilters.style.display = 'none';
+                        });
+
+                        // Show the appropriate sub-filter buttons
+                        document.querySelector(`.${filter}-sub-filters`).style.display = 'flex';
+
+                        // Reset sub-filter buttons
+                        subFilterButtons.forEach(btn => btn.classList.remove('active'));
+                        const allButton = document.querySelector(`.sub-filter-button[data-filter="${filter}-all"]`);
+                        if (allButton) {
+                            allButton.classList.add('active');
+                        }
+                        
+                        showGrid(filter);
+                    } else {
+                        subFilterContainer.classList.remove('active');
+                        document.querySelectorAll('.sub-filter-buttons').forEach(subFilters => {
+                            subFilters.style.display = 'none';
+                        });
+                        subFilterButtons.forEach(btn => btn.classList.remove('active'));
+                        showGrid(filter);
+                    }
+                });
+            });
+
+            // Sub-filter functionality
+            subFilterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const subFilter = this.getAttribute('data-filter');
+                    const parentCategory = this.closest('.sub-filter-buttons').classList[1].split('-')[0]; // 'sexual' or 'abuse'
+                    
+                    // Remove active class from all sub-filter buttons in this category
+                    this.closest('.sub-filter-buttons').querySelectorAll('.sub-filter-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+
+                    if (subFilter.endsWith('-all')) {
+                        // Show all items of the parent category
+                        showGrid(parentCategory);
+                    } else {
+                        // Show only items of the specific subcategory
+                        videoItems.forEach(item => {
+                            item.style.display = item.classList.contains(subFilter) ? 'block' : 'none';
+                        });
+                        msnry.layout();
+                    }
+                });
+            });
+
+            // Function to stream text
+            function streamText(element, text) {
+                let index = 0;
+                element.innerHTML = '';
+                const interval = setInterval(() => {
+                    if (index < text.length) {
+                        element.innerHTML += text[index];
+                        index++;
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 50); // Adjust speed here
+            }
+
+            // Update hover functionality for video items
+            videoItems.forEach(item => {
+                const video = item.querySelector('video');
+                const description = item.querySelector('.video-caption p:nth-child(1) .streaming-text');
+                const guardrail = item.querySelector('.video-caption p:nth-child(2) .streaming-text');
+                const explanation = item.querySelector('.video-caption p:nth-child(3) .streaming-text');
+
+                item.addEventListener('mouseenter', () => {
+                    if (videoSection.classList.contains('unlocked')) {
+                        video.play().catch(error => console.log('Playback prevented:', error));
+                        
+                        // Stream text for each caption
+                        streamText(description, description.dataset.text);
+                        streamText(guardrail, guardrail.dataset.text);
+                        streamText(explanation, explanation.dataset.text);
+                    }
+                });
+            });
+
+            // Keep existing helper function
+            function isElementInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            }
+
+            // Initial layout
+            showGrid('all');
+
+            // Handle window resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    msnry.layout();
+                }, 250);
+            });
+
+            consentCheckbox.addEventListener('change', function() {
+                proceedButton.disabled = !this.checked;
+            });
+        });
+
+        function showDatasetAlert() {
+            document.getElementById('datasetModal').style.display = 'block';
+        }
+
+        function showDemoAlert() {
+            document.getElementById('demoModal').style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal if clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+
+
+    <!-- Main Results Section -->
+    <div class="method-section" id="main-results">
+        <div class="centered-title">Main Results</div>
+        
+        
+        <div class="caption" style="margin-bottom: 40px;">
+            <div class="left-title" style="font-size: 19px;">Experiment Setup</div>
+            <b>Baselines.</b> Open-source: (1) most recent models specifically designed for guardrail tasks, i.e., LlavaGuard-34B, Holmes-VAD, and LLamaGuard3V-11B. (2) two powerful pre-trained MLLMs, i.e., InternVL2-8B and InternVL2-26B. Closed-source: the most advanced models available: GPT-4o, Gemini-1.5 Pro, and the Azure Video Content Moderation API.
+            <br><br>
+            <b>Datasets.</b> We evaluate and compare these guardrail models on (1) the high-quality test set of <b>SAFEWATCH-BENCH-Real</b> (830) and <b>SAFEWATCH-BENCH-GenAI</b> (590), covering both real-world and generative videos of six safety categories over 30 scenarios (2) Splits of five existing datasets, i.e., LSPD, XD-Violence, UCF, Fake-SV, FVC. (3) Generalizability to new policy categories: three unseen tasks during training, including children's safety, firearms, and road accidents.
+            <br><br>
+            <b>Metrics.</b> (1) <b>Safety grounding</b>, which denotes the ability to identify the correct policy violation in the video. This is measured by the accuracy (averaged per-category and per-split), F1 Score for multi-label prediction, and AUPRC by framing the guardrail task as a binary classification problem. (2) <b>Explanation quality</b>, which denotes the correctness and policy adherence of the guardrail explanations. We consider both GPT-4o as a judge and human evaluators, where we provide them with the video and the ground-truth response, and ask them to provide a rating ranging from 0 to 10. (3) <b>Inference latency</b>, which is measured by the average time (in seconds) between sending the guardrail request and receiving the response.
+        </div>
+
+        <!-- Overall Performance Figure -->
+        <div class="image-container">
+            <div class="centered-title" style="font-size: 19px;">Overall Performance Comparison</div>
+            <img src="figures/overall.png" alt="Overall Performance Comparison">
+            <div class="caption">
+                Performance comparison of <b>SafeWatch</b> with various video guardrail baselines on
+                <b>SafeWatch-Bench-Real</b>. We report the individual accuracy for each category, along with average accuracy (ACC) and F1 Score across all categories. AUPRC is calculated over binary guardrail
+                outputs. Explanations are rated on a numerical scale of [0,10] by both GPT-4o-as-judge and human
+                evaluators. Inference cost is measured by inference time per video. Best performance is in bold.
+            </div>
+        </div>
+
+        <!-- Fine-grained Comparison Figure -->
+        <div class="image-container">
+            <div class="centered-title" style="font-size: 19px;">Fine-grained Comparison between SafeWatch and GPT-4o</div>
+            <img src="figures/comparison.png" alt="Fine-grained Scenario Comparison">
+            <div class="caption">
+                Comparison of <b>SafeWatch</b> and GPT-4o across fine-grained scenarios in <b>SafeWatch-
+                Bench</b>. We evaluate the average accuracy per subcategory. Hard Benign refers to challenging
+                benign samples that previous models often misclassify as harmful, resulting in high false positives.
+            </div>
+        </div>
+
+        <!-- Heatmap Figure -->
+        <div class="image-container">
+            <div class="centered-title" style="font-size: 19px;">Fine-grained Comparison of All Models on All Datasets</div>
+            <img src="figures/heatmap.png" alt="Detailed Comparison Heatmap">
+            <div class="caption">
+                Detailed comparison across different guardrail models on the accuracy of each subcategory
+                in <b>SafeWatch-Bench</b>, five existing datasets, i.e., LSPD, XD-V, UCF, FakeSV, FVC, and four new
+                policy categories, i.e., child safety, firearms, accidents.
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Add BibTeX section -->
+    <div class="bibtex-section" style="width: 100%; max-width: 1100px; margin: 40px auto; padding: 2px; background: rgba(0, 0, 0, 0.2); border-radius: 10px;">
+        <h2 style="font-family: 'Orbitron', sans-serif; color: #ffffff; margin-bottom: 20px; text-align: center;">BibTeX</h2>
+        <pre style="background: #2a2a2a; padding: 20px; border-radius: 8px; overflow-x: auto; color: #ffffff; font-family: 'Roboto Mono', monospace; font-size: 14px; line-height: 1.5;"><code>@article{chen2024safewatch,
+            title={Safewatch: An efficient safety-policy following video guardrail model with transparent explanations},
+            author={Chen, Zhaorun and Pinto, Francesco and Pan, Minzhou and Li, Bo},
+            journal={arXiv preprint arXiv:2412.06878},
+            year={2024}
+          }</code></pre>
+    </div>
+
+        <!-- Add visitor statistics with container and styling -->
+    <!-- <div class="visitor-stats-container">
+        <button class="stats-toggle-btn" onclick="toggleStats()">
+            <span class="stats-icon">📊</span>
+            <span class="stats-text">View Statistics</span>
+            <span class="chevron">▼</span>
+        </button>
+        <div class="stats-content">
+            <div id="clustrmaps-widget" style="padding: 20px; background: #2a2a2a; border-radius: 8px;">
+                <img 
+                    src='https://clustrmaps.com/map_v2.png?cl=ffffff&w=a&t=n&d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s'
+                    alt="Visitor Map"
+                    style="max-width: 100%; height: auto;"
+                />
+            </div>
+        </div>
+    </div> -->
+    <div class="visitor-stats-container">
+        <div class="visitor-stats-title">Global Visitors Statistics on Our Project</div>
+        <script type='text/javascript' id='clustrmaps' src='https://cdn.clustrmaps.com/map_v2.js?cl=ffffff&amp;w=350&amp;t=tt&amp;d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s&amp;co=1e272d'></script>
+    </div>
+
+    <!-- Update the acknowledgment section's style -->
+    <div class="method-section">
+        <div class="centered-title" style="font-size: 20px;">Acknowledgment</div>
+        <div class="overview-section" style="margin-bottom: 60px; background: #1a1a1a; padding: 20px;">  <!-- Adjusted padding and margin -->
+            <div class="overview-content">
+                <p class="highlight-text" style="text-align: left; font-size: 14px; margin: 0;">  <!-- Removed margin from text -->
+                    Please do not copy, distribute, or use any content from this website without explicit permission. All rights reserved. All the videos displayed on this page are for research purposes. All the human identities have been blurred to protect the privacy of the individuals involved. If you find any video content displayed on this page that you would like to be removed, please contact us immediately and we will address your concerns promptly.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleStats() {
+            const content = document.querySelector('.stats-content');
+            const button = document.querySelector('.stats-toggle-btn');
+            content.classList.toggle('expanded');
+            button.classList.toggle('expanded');
+        }
+    </script>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                // Add smooth scrolling with offset for header
+                const headerOffset = 80; // Adjust this value based on your header height
+                const elementPosition = section.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
+    </script>
+
+    <script>
+        function scrollToSeeDemos(event) {
+            event.preventDefault();
+            const demoSection = document.getElementById('video-demos');
+            if (demoSection) {
+                const headerOffset = 80;
+                const elementPosition = demoSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
+    </script>
+
+
+    <!-- Update just the script part that controls the button animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const demoButton = document.getElementById('seeDemosButton');
+            
+            // Add animation class on page load
+            demoButton.style.animation = 'buttonPulse 2s 1.5';
+            
+            // Remove animation after 3 seconds
+            setTimeout(() => {
+                demoButton.style.animation = 'none';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

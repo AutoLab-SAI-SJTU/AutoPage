@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="LLaNA: Large Language and NeRF Assistant">
+  <meta name="keywords" content="LLaVA, NeRF, Text">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LLaNA: Large Language and NeRF Assistant</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> original icon with Ukranian flag-->
+  <!-- <link rel="icon" href="./static/images/llana_favicon.ico"> llana logo favicon -->
+  <!-- <link rel="icon" href="./static/images/bfc_favicon.svg"> -->
+  <link rel="icon" href="static/ama_images/llana_logo.png">
+  
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+
+</head>
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q9JW1HHT05"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Q9JW1HHT05');
+</script>
+
+
+
+<body>
+
+<!-- 
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://github.com/CVLAB-Unibo">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+    </div>
+  </div>
+</nav> -->
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <div class="is-align-items-center">
+            <img src="static/ama_images/llana_logo.png" alt="Description of image" style="margin-right: 1px; width: 50px;">
+            <h1 class="title is-1 publication-title" style="margin-bottom: 10px;">LLaNA: Large Language and NeRF Assistant</h1>
+          </div>
+          <!--<h1 class="title is-1 publication-title">LLaNA: Large Language and NeRF Assistant</h1> -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://andreamaduzzi.github.io">Andrea Amaduzzi*</a>,</span>
+            <span class="author-block">
+              <a href="https://pierlui92.github.io/">Pierluigi Zama Ramirez</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.unibo.it/sitoweb/giuseppe.lisanti">Giuseppe Lisanti</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.unibo.it/sitoweb/samuele.salti">Samuele Salti</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.unibo.it/sitoweb/luigi.distefano">Luigi Di Stefano</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">University of Bologna, Italy</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2406.11840"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Extended PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2504.13995"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Extended Paper</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=o5ggTupO2bo"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/CVLAB-Unibo/LLaNA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/andreamaduzzi/ShapeNeRF-Text/tree/main"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+          <div class="is-size-5 publication-authors">
+              The extended version of this work is available on <a href="https://arxiv.org/pdf/2504.13995" target="_blank" style="color: #3273dc; cursor: pointer; text-decoration: none">arXiv</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- teaser with 1 unique video -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="publication-video" style="margin-bottom: 20px;">
+          <iframe src="https://www.youtube.com/embed/o5ggTupO2bo?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <!-- local video (too slow to load)
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/ama_videos/teaser_full_video.mp4" type="video/mp4">
+      </video> -->
+      <h2 class="subtitle has-text-centered">
+        LLaNA is the first NeRF-language assistant, capable of performing new tasks such as NeRF captioning and NeRF QA.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- CAPTIONING -->
+<!-- videos carousel. modify "is-light" to change the background color -->
+<section class="section hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop is-centered has-text-centered">
+      <h2 class="title is-3">NeRF Captioning</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-cap1">
+          <video poster="index.html" id="cap1" autoplay controls muted loop playsinline height="50%">
+            <source src="static/ama_videos/captioning_1_compressed.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cap2">
+          <video poster="index.html" id="cap2" autoplay controls muted loop playsinline height="50%">
+            <source src="static/ama_videos/captioning_2_compressed.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cap3">
+          <video poster="index.html" id="cap3" autoplay controls muted loop playsinline height="50%">
+            <source src="static/ama_videos/captioning_3_compressed.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cap4">
+          <video poster="index.html" id="cap4" autoplay controls muted loop playsinline height="50%">
+            <source src="static/ama_videos/captioning_4_compressed.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cap5">
+          <video poster="index.html" id="cap5" autoplay controls muted loop playsinline height="50%">
+            <source src="static/ama_videos/captioning_5_compressed.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cap6">
+          <video poster="index.html" id="cap6" autoplay controls muted loop playsinline height="50%">
+            <source src="static/ama_videos/captioning_6_compressed.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QA -->
+<!-- videos carousel. modify "is-light" to change the background color -->
+<section class="section hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop is-centered has-text-centered">
+      <h2 class="title is-3">NeRF QA</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-qa1">
+          <video poster="index.html" id="qa1" autoplay controls muted loop playsinline height="100%">
+            <source src="static/ama_videos/qa_1_compressed.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-qa2">
+          <video poster="index.html" id="chair-qa2" autoplay controls muted loop playsinline height="100%">
+            <source src="static/ama_videos/qa_2_compressed.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-qa3">
+          <video poster="index.html" id="qa3" autoplay controls muted loop playsinline height="100%">
+            <source src="static/ama_videos/qa_3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-qa4">
+          <video poster="index.html" id="qa4" autoplay controls muted loop playsinline height="100%">
+            <source src="static/ama_videos/qa_4_compressed.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-qa5">
+          <video poster="index.html" id="qa5" autoplay controls muted loop playsinline height="100%">
+            <source src="static/ama_videos/qa_5_compressed.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-qa6">
+          <video poster="index.html" id="qa6" autoplay controls muted loop playsinline height="100%">
+            <source src="static/ama_videos/qa_6_compressed.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>  
+  </div>
+</section>
+
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We present LLaNA, the first general-purpose NeRF-language assistant capable of performing new tasks such as NeRF captioning and Q&A.
+          </p>
+          <p>
+            Multimodal Large Language Models (MLLMs) have demonstrated an excellent understanding of images and 3D data. However, both modalities have shortcomings
+            in holistically capturing the appearance and geometry of objects. Meanwhile, Neural Radiance Fields (NeRFs), which encode information within the weights
+            of a simple Multi-Layer Perceptron (MLP), have emerged as an increasingly widespread modality that simultaneously encodes the geometry and appearance of objects. 
+            <b> This work investigates the feasibility and effectiveness of ingesting NeRF into MLLM. </b>
+          </p>
+          <p>
+            Notably, <b>our method directly processes the weights of the NeRF’s MLP to extract information about the represented objects</b> without the need to render
+            images or materialize 3D data structures. Moreover, we build a dataset of NeRFs with text annotations for various NeRF-language tasks with no human intervention.
+            Based on this dataset, we develop a benchmark to evaluate the NeRF understanding capability of our method. Results show that processing NeRF weights performs 
+            favourably against extracting 2D or 3D representations from NeRFs.
+          </p>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- LLaNA Architecture -->
+<section class="section hero is-light is-small">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">LLaNA Architecture</h2>
+        <div class="content has-text-justified">
+          <p>
+            In this work, we explore how a NeRF assistant can be realized by <b> processing the NeRF weights directly. </b>
+            For this reason, we emply as our meta-encoder the architecture <a href="https://arxiv.org/abs/2312.13277" target="_blank">nf2vec</a>, which takes as input the weights of a NeRF and yields a global embedding that distills the content of the input NeRF.
+            Then, we build LLaNA by leveraging on a pre-trained LLM with a Transformer backbone, in our experiments LLaMA 2, and injecting the NeRF modality into its embedding input space. 
+            We employ a trainable linear projection layer, &phi;, to project the embedding of the input NeRF computed by the meta-encoder into the LLaMA 2 embedding space. 
+          </p>
+          <p>
+            LLaNA is trained in two stages, where in the first we train the projector network &phi; to align the NeRF and the word embedding spaces while keeping the LLM weights fixed, and in the second
+            we optimize both the projector and the LLM, to help the model understand and reason about NeRF data.
+          </p>
+        </div>
+        <!-- Add your image here. -->
+        <img src="static/ama_images/framework_hq.png" alt="Architecture of LLaNA">
+      </div>
+    </div>
+</section>
+
+<!-- ShapeNeRF-Text Dataset -->
+<section class="section hero is-small">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">ShapeNeRF-Text Dataset</h2>
+        <div class="content has-text-justified">
+          <p>
+            ShapeNeRF-Text is a NeRF-language benchmark based on ShapeNet, providing conversations about 40K NeRFs. Following the structure defined in <a href="https://arxiv.org/abs/2308.16911" target="_blank">PointLLM</a>, 
+            each object is paired with a brief description, a detailed description, 3 single-round QAs and one multi-round QA. 
+            The automatic annotation pipeline relies on multi-view captioning and text generation, leveraging the LLaVA and LLaMA models.
+          </p>
+        </div>
+        <video id="dataset" autoplay muted loop playsinline height="100%">
+          <source src="static/ama_videos/dataset_full_video_crop.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+</section>
+
+
+<section class="section hero is-light is-small">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Related Works</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            Other recent works have explored the use of LLM to reason on 3D world.
+          </p>
+          <p>
+            <a href="https://arxiv.org/abs/2308.16911" target="_blank" style="color: #3273dc; cursor: pointer; text-decoration: none">PointLLM</a> and <a href="https://arxiv.org/abs/2308.16911" target="_blank" style="color: #3273dc; cursor: pointer; text-decoration: none">GPT4Point</a> achieve 3D-language understanding,
+            leveraging colored point clouds as input data representation.
+            <a href="https://chat-with-nerf.github.io/" target="_blank" style="color: #3273dc; cursor: pointer; text-decoration: none"> LLM-Grounder </a> proposes a method for performing Open-Vocabulary 3D Visual Grounding based on OpenScene and LERF, leveraging multi-view images and point clouds as input data representation.
+            In contrast, LLaNA considers NeRF as the only input modality.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@InProceedings{NeurIPS24,
+      author       = "Amaduzzi, Andrea and Zama Ramirez, Pierluigi and Lisanti, Giuseppe and Salti, Samuele and Di Stefano, Luigi",
+      title        = "{LLaNA}: Large Language and {NeRF} Assistant",
+      booktitle    = "Advances in Neural Information Processing Systems (NeurIPS)",
+      year         = "2024"}
+</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://andreamaduzzi.github.io/llana/static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

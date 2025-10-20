@@ -1,0 +1,76 @@
+template: |
+  Integrate all the extracted tables back into the original HTML.
+
+  Original HTML:  
+  {{ html_content }}  
+
+  Extracted tables:  
+  {{ tables_str }}  
+
+  ---
+
+  ### Instructions:
+
+  1. **Replace `<img src="...">` with its corresponding `<table>`**  
+    * Each image placeholder must be replaced by exactly one `<table>` from the extracted tables.  
+    * Wrap each table in a container that ensures horizontal centering and full visibility.  
+    * Do not change any other part of the HTML.
+
+  2. **Remove any `.content-wrapper` styles that affect `<table>`**  
+    * Parent containers must not constrain or override table layout.  
+    * All table-related styling must be handled explicitly and independently.
+
+  3. **Table centering, sizing, visibility, and aesthetics**  
+    * Tables must be horizontally centered and fully visible on all screen sizes.  
+    * **Width must adapt naturally to text content** — use `table-layout: auto; width: auto;` so column widths follow the content.  
+    * **Prevent tables from becoming overly wide:**  
+      - Use `max-width: 100%;`  
+      - Enable `word-wrap: break-word; white-space: normal;`  
+      - Long text must wrap instead of causing horizontal scrolling.  
+    * Auto-adjust row height to fit wrapped and multi-line content.  
+    * Spacing between tables must be consistent (e.g., `margin: 24px auto;`).  
+    * **Text alignment:** text in all table cells should be horizontally and vertically centered whenever possible, for a neat and balanced appearance.  
+    * Maintain compactness and avoid large empty spaces in tables.
+
+  4. **Preserve table structure and content**  
+    * Remove all square-bracket references like [1], [2].  
+    * Preserve numbers, units, symbols, and any bold or italic formatting.  
+    * Use `<th>` for headers and `<td>` for body cells.  
+    * Multi-row or multi-column headers must be faithfully represented using proper `rowspan` and `colspan`.  
+    * Do not flatten complex headers or merge logically distinct groups.  
+    * Insert vertical or horizontal dividers if necessary to preserve correct alignment.  
+    * If a `<caption>` is used:  
+      - It **must be placed inside the `<table>` element, before all rows (`<thead>`, `<tbody>`, `<tr>`).**  
+      - Must include `style="caption-side: bottom; text-align: center;"`.  
+      - This ensures the caption appears **below the table and horizontally centered**.
+
+  5. **Multiple tables**  
+    * If multiple tables exist, output multiple `<table>` blocks separated by clear markers or comments.
+
+  6. **Theme and colors**  
+    * Follow `{{ color_suggestion }}` to match the page style.  
+    * Dark theme → dark background with light text; light theme → light background with dark text.  
+    * Accent colors may only be used for highlights such as borders or hover effects.  
+    * Alternating row colors must clearly distinguish rows.  
+    * Hover effects must be noticeable without reducing readability.  
+    * All colors must meet WCAG 2.1 accessibility standards.
+
+  7. **Text wrapping and responsiveness**  
+    * Table content must wrap or break as needed to prevent overflow.  
+    * **No fixed-width tables.** Use flexible layout (`max-width: 100%`, `width: auto`) to adapt to screen size and content length.  
+    * Ensure all columns and rows remain visible without horizontal scrolling.  
+    * On smaller screens, allow responsive scaling (e.g., slightly reducing font size or wrapping cells) instead of truncating content.  
+    * Tables must remain horizontally centered at all screen sizes.
+
+  8. **Output rules**  
+    * Only output the full updated HTML containing the tables.  
+    * Do not alter extracted table content.  
+    * Do not flatten or simplify multi-column layouts.
+
+  9. **Do not delete the img in the original web page, just replace the table**,
+      Must retain 'assets/paper x-picture-index.png', replace 'assets/paper x-table-index.png'.
+
+jinja_args:
+ - html_content
+ - tables_str
+ - color_suggestion

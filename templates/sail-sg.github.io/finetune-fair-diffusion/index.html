@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Finetuning Text-to-Image Diffusion Models for Fairness">
+  <meta name="keywords" content="Text-to-Image, Diffusion, Fairness">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finetuning Text-to-Image Diffusion Models for Fairness</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+
+
+  <link rel="stylesheet" href="static/css/index.css">
+  <script src="static/js/index.js"></script>
+  <link href="static/css/DreamBooth_files/style.ccs" rel="stylesheet">
+
+  <script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <style type="text/css">
+    h2 {
+      font-size: 30px;
+      font-weight: 300;
+    }
+    .content_padding {
+      width: 1000px;
+      padding: 25px 50px;
+      margin: 25px auto;
+      background-color: white;
+      box-shadow: 0px 0px 10px #999;
+      border-radius: 15px;
+      font-family: "Google Sans";
+    }
+    </style>
+  
+  <link rel="stylesheet" type="text/css" href="https://sail-sg.github.io/finetune-fair-diffusion/slick/slick.css"/>
+  <!-- Add the new slick-theme.css if you want the default styling -->
+  <link rel="stylesheet" type="text/css" href="https://sail-sg.github.io/finetune-fair-diffusion/slick/slick-theme.css"/>
+  
+  <style>
+    .carousel-caption {
+      background: rgba(0, 0, 0, 0.1); /* Semi-transparent background */
+      color: black;
+      padding: 10px;
+      text-align: center;
+      width: 100%; /* Make caption take the full width */
+      text-align: center;
+      margin-bottom: 20px; /* Adjust as needed */
+    }
+  </style>
+
+  <script>
+    function toggleVisibility_DAL() {
+      var content = document.getElementById("toggleContent_DAL");
+      var button = document.getElementById("toggleButton_DAL");
+    
+      if (content.style.display === "block" || content.style.display === "") {
+        content.style.display = "none";
+        button.innerHTML = "Show Content";
+      } else {
+        content.style.display = "block";
+        button.innerHTML = "Hide Content";
+      }
+    }
+  </script>
+
+<script>
+  function toggleVisibility_DFT() {
+    var content = document.getElementById("toggleContent_DFT");
+    var button = document.getElementById("toggleButton_DFT");
+  
+    if (content.style.display === "block" || content.style.display === "") {
+      content.style.display = "none";
+      button.innerHTML = "Show Content";
+    } else {
+      content.style.display = "block";
+      button.innerHTML = "Hide Content";
+    }
+  }
+</script>
+
+<script>
+  function toggleVisibility_result1() {
+    var content = document.getElementById("toggleContent_result1");
+    var button = document.getElementById("toggleButton_result1");
+  
+    if (content.style.display === "block" || content.style.display === "") {
+      content.style.display = "none";
+      button.innerHTML = "Show Content";
+    } else {
+      content.style.display = "block";
+      button.innerHTML = "Hide Content";
+    }
+  }
+</script>
+
+<script>
+  function toggleVisibility_result2() {
+    var content = document.getElementById("toggleContent_result2");
+    var button = document.getElementById("toggleButton_result2");
+  
+    if (content.style.display === "block" || content.style.display === "") {
+      content.style.display = "none";
+      button.innerHTML = "Show Content";
+    } else {
+      content.style.display = "block";
+      button.innerHTML = "Hide Content";
+    }
+  }
+</script>
+
+<script>
+  function toggleVisibility_result3() {
+    var content = document.getElementById("toggleContent_result3");
+    var button = document.getElementById("toggleButton_result3");
+  
+    if (content.style.display === "block" || content.style.display === "") {
+      content.style.display = "none";
+      button.innerHTML = "Show Content";
+    } else {
+      content.style.display = "block";
+      button.innerHTML = "Hide Content";
+    }
+  }
+</script>
+
+</head>
+
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    </div>
+  </nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Finetuning Text-to-Image Diffusion Models for Fairness</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="venue-block"><span style="color: red;">oral presentation at ICLR, 2024</span></span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://xudongolivershen.github.io">Xudong Shen</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://duchao0726.github.io">Chao Du</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://p2333.github.io">Tianyu Pang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://linmin.me">Min Lin</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/site/yongkangwong">Yongkang Wong</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.comp.nus.edu.sg/~mohan/">Mohan Kankanhalli</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>National University of Singapore,</span>
+            <span class="author-block"><sup>2</sup>Sea AI Lab, Singapore</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2311.07604"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              <span class="link-block">
+                  <a href="https://openreview.net/forum?id=hnrB5YHoYu"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span>OpenReivew</span>
+                  </a>
+                </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/sail-sg/finetune-fair-diffusion"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section", style="margin-top: -80px;">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" >Abstract</h2>
+        <div class="content has-text-justified">
+          The rapid adoption of text-to-image diffusion models in society underscores an urgent need to address their biases. Without interventions, these biases could propagate a skewed worldview and restrict opportunities for minority groups. In this work, <b><u>we frame fairness as a distributional alignment problem</b></u>. Our solution consists of two main technical contributions: (1) a <b><u>distributional alignment loss</b></u> that steers specific characteristics of the generated images towards a user-defined target distribution, and (2) <b><u>adjusted direct finetuning of diffusion model's sampling process (adjusted DFT)</b></u>, which leverages an adjusted gradient to directly optimize losses defined on the generated images. Empirically, our method markedly reduces gender, racial, and their intersectional biases for occupational prompts. Gender bias is significantly reduced even when finetuning just five soft tokens. Crucially, our method supports diverse perspectives of fairness beyond absolute equality, which is demonstrated by controlling age to a 75% young and 25% old distribution while simultaneously debiasing gender and race. Finally, our method is scalable: it can debias multiple concepts at once by simply including these prompts in the finetuning data.
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<div class="content_padding">
+  <h2 class="title is-4" style="display: inline-block; margin-right: 10px;">
+    Method: Distributional Alignment Loss
+  </h2>
+  <button id="toggleButton_DAL" onclick="toggleVisibility_DAL()" class="toggle-button">Hide Content</button>
+  <div id="toggleContent_DAL" style="display: block;">
+    Consider we want to control a categorical attribute of the generated images that has \(K\) classes and align it towards a target distribution \(\mathcal{D}\). Each class is represented as a one-hot vector of length \(K\) and \(\mathcal{D}\) is a discrete distribution over these vectors (or simply points). We first generate a batch of images \(\mathcal{I}=\{\boldsymbol{x}^{(i)}\}_{i\in[N]}\) using the finetuned diffusion model and some prompt P. For every generated image \(\boldsymbol{x}^{(i)}\), we use a pre-trained classifier \(h\) to produce a class probability vector \(\boldsymbol{p}^{(i)}=[p_{1}^{(i)},\cdots,p_{K}^{(i)}]=h(\boldsymbol{x}^{(i)})\), with \(p_{k}^{(i)}\) denoting the estimated probability that \(\boldsymbol{x}^{(i)}\) is from class \(k\). Assume we have another set of vectors \(\{\boldsymbol{u}^{(i)}\}_{i\in[N]}\) that represents the target distribution and where every \(\boldsymbol{u}^{(i)}\) is a one-hot vector representing a class, we can compute the optimal transport (OT) from \(\{\boldsymbol{p}^{(i)}\}_{i\in[N]}\) to \(\{\boldsymbol{u}^{(i)}\}_{i\in[N]}\):
+
+    $$ \sigma^* = {\arg\min}_{\sigma\in \mathcal{S}_{N}}\sum_{i=1}^{N}|\boldsymbol{p}^{(i)}-\boldsymbol{u}^{(\sigma_{i})}|_{2}\textrm{,}$$
+    
+    where \(\mathcal{S}_{N}\) denotes all permutations of \([N]\), \(\sigma=[\sigma_1,\cdots,\sigma_N]\), and \(\sigma_i\in[N]\). Intuitively, \(\sigma^*\) finds, in the class probability space, the most efficient modification of the current images to match the target distribution.
+    
+    We construct \(\{\boldsymbol{u}^{(i)}\}_{i\in[N]}\) to be iid samples from the target distribution and compute the expectation of OT:
+    $$\boldsymbol{q}^{(i)} = \mathbb{E}_{\boldsymbol{u}^{(1)},\cdots,\boldsymbol{u}^{(N)} \sim \mathcal{D}} ~ [\boldsymbol{u}^{(\sigma^*_{i})}],~\forall i\in[N] \textrm{.} $$
+
+    \(\boldsymbol{q}^{(i)}\) is a probability vector where the \(k\)-th element is the probability that \(\boldsymbol{x}^{(i)}\) should have target class \(k\), had the batch of generated images indeed followed the target distribution \(\mathcal{D}\). The expectation of OT can be computed analytically when the number of classes \(K\) is small or approximated by empirical average when \(K\) increases. We note one can also construct a fixed set of \(\{\boldsymbol{u}^{(i)}\}_{i\in[N]}\), for example half male and half female to represent a balanced gender distribution. But this construction poses a stronger finite-sample alignment objective and neglects the sensitivity of OT.<br>
+    
+    Finally, we generate target classes \(y^{(1)},\cdots,y^{(N)}\in [K]\) and confidence of these targets \(c^{(1)},\cdots,c^{(N)}\in [0,1]\) by: \(y^{(i)} = \arg\max(\boldsymbol{q}^{(i)}), c^{(i)} = \max(\boldsymbol{q}^{(i)})\textrm{,}\) \(\forall i\in[N]\). We define DAL as the cross-entropy loss w.r.t. these dynamically generated targets, with a confidence threshold \(C\),
+      $$ \mathcal{L}_{\textrm{align}} = \frac{1}{N}\sum_{i=1}^{N} \mathbb{1}[c^{(i)}\geq C] \mathcal{L}_{\textrm{CE}}(h(\boldsymbol{x}^{(i)}),y^{(i)})\textrm{.} $$
+
+    <br>Besides DAL, we additionally regularize CLIP and DINO similarities between images generated by the original and finetuned models to preserve image semantics.
+  </div>
+</div>
+
+<div class="content_padding">
+  <h2 class="title is-4" style="display: inline-block; margin-right: 10px;">
+    Method: Adjusted Direct Finetuning
+  </h2>
+  <button id="toggleButton_DFT" onclick="toggleVisibility_DFT()" class="toggle-button">Hide Content</button>
+  <div id="toggleContent_DFT" style="display: block;">
+    While most diffusion finetuning methods use the same denoising diffusion loss from pre-training, Direct Finetuning (DFT) aims to directly finetune the diffusion model's sampling process to minimize any loss defined on the generated images, such as ours. We show the naive DFT, which computes the exact gradient of the sampling process, has exploding norm and variances and therefore is ineffective. Adjusted DFT leverages an adjusted gradient to overcome these issues. It opens venues for more refined and targeted diffusion model finetuning and can be applied for objectives beyond fairness. Read Section 4.2 in paper for details.
+  <hr>
+    <table>
+      <tr>
+        <td width="48%" style="vertical-align: middle; text-align: center; border-right: 1px dashed gray;">
+          <img class="round" style="width:100%" src="static/images/adjusted-DFT/grad_paths_new_red_bad.png"/>
+          <p><b>Naive DFT</b></p>
+        </td>
+        <td width="48%" style="vertical-align: middle; text-align: center;">
+          <img class="round" style="width:100%" src="static/images/adjusted-DFT/grad_paths_new_red_good.png"/>
+          <p><b>Adjusted DFT, which also standardize \(A_i\) to 1</b></p>
+        </td>
+      </tr>
+    </table>
+    <table align=center width=850px>
+      <center>
+        <tr>
+          <td>
+            <p style="text-align:justify; text-justify:inter-ideograph;"> 
+              <b>Comparison of naive and adjusted DFT of the diffusion model.</b> Gray solid lines denote the sampling process. Red dashed lines highlight the gradient computation w.r.t. the model parameter (\(\boldsymbol{\theta}\)). Variables \(\boldsymbol{z}_{t}\) and \(\boldsymbol{\epsilon}^{(t)}\) represent data and noise prediction at time step \(t\). \(\textrm{D}_i\) and \(\textrm{I}_i\) denote the direct and indirect gradient paths between data of adjacent time steps. For instance, at \(t=3\), naive DFT computes the exact gradient \(-A_3\boldsymbol{B}_3\frac{\partial\boldsymbol{\epsilon}^{(3)}}{\partial\boldsymbol{\theta}}\) (defined in Eq. 9 in paper), which involve other time step's noise predictions (through the gradient paths \(\textrm{I}_1\textrm{I}_2\textrm{I}_3\textrm{I}_4\textrm{I}_5\), \(\textrm{I}_1\textrm{I}_2\textrm{D}_2\textrm{I}_5\), and \(\textrm{D}_1\textrm{I}_3\textrm{I}_4\textrm{I}_5\)). Adjusted DFT leverages an adjusted gradient, which removes the coupling with other time steps and standardizes \(A_i\) to 1, for more effective finetuning.
+          </td>
+        </tr>
+      </center>
+    </table>
+    <hr>
+    <table>
+      <tr>
+        <td width="48%" style="vertical-align: middle; text-align: center; border-right: 1px dashed gray;">
+          <img class="round" style="width:100%" src="static/images/adjusted-DFT/text_inversion_loss_plot_new.jpg"/>
+          <p><b>Training loss for minimizing avg CLIP & DINO similarity</b></p>
+        </td>
+        <td width="48%" style="vertical-align: middle; text-align: center;">
+          <img class="round" style="width:100%" src="static/images/adjusted-DFT/imbalance_gradient3.jpg"/>
+          <p><b>Estimated gradient scale at different time steps</b></p>
+        </td>
+      </tr>
+    </table>
+    <table align=center width=850px>
+      <center>
+        <tr>
+          <td>
+            <p style="text-align:justify; text-justify:inter-ideograph;"> 
+              <b>The left figure plots the training loss during DFT, w/ three distinct gradients. Each reported w/ 3 random runs. The right figure estimates the scale of these gradients at different time steps. Mean and \(90\%\) CI are computed from 20 random runs.</b> Naive DFT uses the exact gradient, whose norm is illustrated by the "\(|\boldsymbol{R}_tA_t\boldsymbol{B}_t\frac{\partial\boldsymbol{\epsilon}^{(t)}}{\partial\boldsymbol{\theta}}|\)" entry in the right figure. The proposed adjusted DFT is denoted as "ours" entry.
+          </td>
+        </tr>
+      </center>
+    </table>
+  </div>
+</div>
+
+<div class="content_padding">
+  <h2 class="title is-4" style="display: inline-block; margin-right: 10px;">
+    Results: Debiasing Gender & Race for Occupational Prompts
+  </h2>
+  <button id="toggleButton_result1" onclick="toggleVisibility_result1()" class="toggle-button">Hide Content</button>
+  <div id="toggleContent_result1" style="display: block;">
+    Here we debias stable-diffusion v1-5 for the intersection of gender and race, by finetuning LoRA with rank 50 applied on the text encoder. We consider binary gender and four race classes: WMELH, Asian, Black, and Indian. WMELH encompasses White, Middle Eastern, and Latino Hispanic. The prompt is contructed using the template "a photo of the face of a {occupation}, a person". We use 1000 occupations for debiasing finetuning.
+
+    <br> For every prompt P, we compute the following metric: \(\textrm{bias}(\texttt{P}) = \frac{1}{K(K-1)/2}\sum_{i,j\in[K]:i&lt j} |\textrm{freq}(i)-\textrm{freq}(j)| \),
+    where \(\textrm{freq}(i)\) is group \(i\)'s frequency in the generated images. The number of groups \(K\) is 2/4/8 for gender/race/their intersection. The classification of an image into a specific group is based on the face that covers the largest area. This bias metric considers a perfectly balanced target distribution. It measures the disparity of different groups' representations, averaged across all contrasting groups.
+    <hr>
+    <table align="center" width="850px", style="margin-top: 20px;">
+      <tr>
+        <!-- Left panel for the first image with vertical centering -->
+        <td width="33%" style="vertical-align: middle; text-align: center; border-right: 1px dashed gray;">
+          <img class="round" style="width:100%" src="static/images/results-1/representation-plots/debias_both-plot_gender.jpg"/>
+        </td>
+  
+        <!-- Right panel for the next four images -->
+        <td>
+            <center>
+                <img class="round" style="width:49%" src="static/images/results-1/representation-plots/debias_both-plot_race0.jpg"/>
+                <img class="round" style="width:49%" src="static/images/results-1/representation-plots/debias_both-plot_race1.jpg"/>
+                <img class="round" style="width:49%" src="static/images/results-1/representation-plots/debias_both-plot_race2.jpg"/>
+                <img class="round" style="width:49%" src="static/images/results-1/representation-plots/debias_both-plot_race3.jpg"/>
+            </center>
+        </td>
+      </tr>
+  </table>
+    <table align=center width=850px>
+      <center>
+        <tr>
+          <td>
+            <p style="text-align:justify; text-justify:inter-ideograph;"> 
+              <b>Representation of gender (the left figure) and race (the right four figures) in images generated using 50 occupational test prompts (x-axis).</b> The green horizontal lines denote the desired target distribution.
+          </td>
+        </tr>
+      </center>
+    </table>
+    <hr>
+  <table align="center" width="850px", style="margin-top: 20px;">
+    <tr>
+      <td>
+          <center>
+              <img class="round" style="width:80%" src="static/images/results-1/table_comparison.png"/>
+          </center>
+      </td>
+    </tr>
+  </table>
+    <hr>
+    <div class="container", style="margin-top: 20px;">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="image-caption-container-1">
+            <img class="round" style="width:48%" src="static/images/results-1/generated-images/templated/ori_imgs20_electrical_and_electronics_repairer.jpg" />
+            <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-1/generated-images/templated/ours_imgs20_electrical_and_electronics_repairer.jpg" />
+            <div class="carousel-caption">
+              <p>Prompt: "a photo of the face of a <b>electrical and electronics repairer</b>, a person".<br>Gender bias: 0.84 (original) \(\rightarrow\) 0.11 (debiased). Racial bias: 0.48 \(\rightarrow\) 0.10. Gender\(\times\)Race bias: 0.24 \(\rightarrow\) 0.06.</p>
+            </div>
+        </div>
+        <div class="image-caption-container-2">
+          <img class="round" style="width:48%" src="static/images/results-1/generated-images/templated/ori_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;cardiologist,&#32;a&#32;person.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-1/generated-images/templated/ours_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;cardiologist,&#32;a&#32;person.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "a photo of the face of a <b>cardiologist</b>, a person".<br>Gender bias: 0 (original) \(\rightarrow\) 0.10 (debiased). Racial bias: 0.44 \(\rightarrow\) 0.08. Gender\(\times\)Race bias: 0.19 \(\rightarrow\) 0.06.</p>
+          </div>
+        </div>
+        <div class="image-caption-container-3">
+          <img class="round" style="width:48%" src="static/images/results-1/generated-images/templated/ori_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;farm&#32;equipment&#32;service&#32;technician,&#32;a&#32;person.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-1/generated-images/templated/ours_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;farm&#32;equipment&#32;service&#32;technician,&#32;a&#32;person.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "a photo of the face of a <b>farm equipment service technician</b>, a person".<br>Gender bias: 0.95 (original) \(\rightarrow\) 0.10 (debiased). Racial bias: 0.48 \(\rightarrow\) 0.11. Gender\(\times\)Race bias: 0.24\(\rightarrow\) 0.06.</p>
+          </div>
+        </div>
+        <div class="image-caption-container-4">
+          <img class="round" style="width:48%" src="static/images/results-1/generated-images/templated/ori_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;geologist,&#32;a&#32;person.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-1/generated-images/templated/ours_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;geologist,&#32;a&#32;person.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "a photo of the face of a <b>geologist</b>, a person".<br>Gender bias: 0.23 (original) \(\rightarrow\) 0.01 (debiased). Racial bias: 0.47 \(\rightarrow\) 0.11. Gender\(\times\)Race bias: 0.21 \(\rightarrow\) 0.06.</p>
+          </div>
+        </div>
+        <div class="image-caption-container-5">
+          <img class="round" style="width:48%" src="static/images/results-1/generated-images/templated/ori_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;senator,&#32;a&#32;person.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-1/generated-images/templated/ours_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;senator,&#32;a&#32;person.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "a photo of the face of a <b>senator</b>, a person".<br>Gender bias: 0.87 (original) \(\rightarrow\) 0.17 (debiased). Racial bias: 0.49 \(\rightarrow\) 0.33. Gender\(\times\)Race bias: 0.24\(\rightarrow\) 0.15.</p>
+          </div>
+        </div>
+        <div class="image-caption-container-5">
+          <img class="round" style="width:48%" src="static/images/results-1/generated-images/templated/ori_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;gas&#32;compressor&#32;and&#32;gas&#32;pumping&#32;station&#32;operator,&#32;a&#32;person.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-1/generated-images/templated/ours_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;gas&#32;compressor&#32;and&#32;gas&#32;pumping&#32;station&#32;operator,&#32;a&#32;person.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "a photo of the face of a <b>gas compressor and gas pumping station operator</b>, a person".<br>Gender bias: 0.81 (original) \(\rightarrow\) 0.14 (debiased). Racial bias: 0.46 \(\rightarrow\) 0.06. Gender\(\times\)Race bias: 0.23 \(\rightarrow\) 0.05.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table align=center width=850px>
+      <center>
+        <tr>
+          <td>
+            <p style="text-align:justify; text-justify:inter-ideograph;"> 
+              <b>Generated images using templated prompts with unseen occupations using the original SD (left) and the debiased SD (right).</b> For every image, the first color-coded bar denotes the predicted gender: <span style="color: blue;">blue</span> for male and <span style="color: red;">red</span> for female. The second denotes race: <span style="color: green;">green</span> for WMELH, <span style="color: orange;">orange</span> for Asian, <span style="color: black;">black</span> for Black, and <span style="color: brown;">brown</span> for Indian. Bar height represents prediction confidence. Bounding boxes denote detected faces. For the same prompt, images with the same number label are generated using the same noise.
+          </td>
+        </tr>
+      </center>
+    </table>
+    <hr>
+    <div class="container", style="margin-top: 20px;">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="image-caption-container-1">
+            <img class="round" style="width:48%" src="static/images/results-1/generated-images/non-templated/ori_imgs20_A_philosopher_reading._Oil_painting.jpg" />
+            <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-1/generated-images/non-templated/ours_imgs20_A_philosopher_reading._Oil_painting.jpg" />
+            <div class="carousel-caption">
+              <p>Prompt: "<b>A philosopher reading. Oil painting</b>".<br>Gender bias: 0.80 (original) \(\rightarrow\) 0.23 (debiased). Racial bias: 0.45 \(\rightarrow\) 0.31. Gender\(\times\)Race bias: 0.22 \(\rightarrow\) 0.15.</p>
+            </div>
+        </div>
+        <div class="image-caption-container-2">
+          <img class="round" style="width:48%" src="static/images/results-1/generated-images/non-templated/ori_imgs20_A&#32;chef&#32;in&#32;a&#32;white&#32;coat&#32;leans&#32;on&#32;a&#32;table.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-1/generated-images/non-templated/ours_imgs20_A&#32;chef&#32;in&#32;a&#32;white&#32;coat&#32;leans&#32;on&#32;a&#32;table.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "<b>A chef in a white coat leans on a table</b>".<br>Gender bias: 0.84 (original) \(\rightarrow\) 0.03 (debiased). Racial bias: 0.45 \(\rightarrow\) 0.32. Gender\(\times\)Race bias: 0.22 \(\rightarrow\) 0.14.</p>
+          </div>
+        </div>
+        <div class="image-caption-container-3">
+          <img class="round" style="width:48%" src="static/images/results-1/generated-images/non-templated/ori_imgs20_bartender_at_willard_intercontinental_makes_mint_julep.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-1/generated-images/non-templated/ours_imgs20_bartender_at_willard_intercontinental_makes_mint_julep.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "<b>bartender at willard intercontinental makes mint julep</b>".<br>Gender bias: 0.87 (original) \(\rightarrow\) 0.17 (debiased). Racial bias: 0.49 \(\rightarrow\) 0.33. Gender\(\times\)Race bias: 0.24\(\rightarrow\) 0.15.</p>
+          </div>
+        </div>
+        <div class="image-caption-container-4">
+          <img class="round" style="width:48%" src="static/images/results-1/generated-images/non-templated/ori_imgs20_English&#32;writer&#32;and&#32;essayist.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-1/generated-images/non-templated/ours_imgs20_English&#32;writer&#32;and&#32;essayist.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "<b>English writer and essayist</b>".<br>Gender bias: 0.86 (original) \(\rightarrow\) 0.37 (debiased). Racial bias: 0.50 \(\rightarrow\) 0.38. Gender\(\times\)Race bias: 0.24 \(\rightarrow\) 0.18.</p>
+          </div>
+        </div>
+        <div class="image-caption-container-5">
+          <img class="round" style="width:48%" src="static/images/results-1/generated-images/non-templated/ori_imgs20_portrait&#32;of&#32;a&#32;flamenco&#32;dancer.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-1/generated-images/non-templated/ours_imgs20_portrait&#32;of&#32;a&#32;flamenco&#32;dancer.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "<b>portrait of a flamenco dancer</b>".<br>Gender bias: 0.76 (original) \(\rightarrow\) 0.59 (debiased). Racial bias: 0.47 \(\rightarrow\) 0.38. Gender\(\times\)Race bias: 0.23 \(\rightarrow\) 0.18.</p>
+          </div>
+        </div>
+        <div class="image-caption-container-6">
+          <img class="round" style="width:48%" src="static/images/results-1/generated-images/non-templated/ori_imgs20_student&#32;with&#32;globe.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-1/generated-images/non-templated/ours_imgs20_student&#32;with&#32;globe.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "<b>student with globe</b>".<br>Gender bias: 0.23 (original) \(\rightarrow\) 0.04 (debiased). Racial bias: 0.33 \(\rightarrow\) 0.21. Gender\(\times\)Race bias: 0.15\(\rightarrow\) 0.09.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table align=center width=850px>
+      <center>
+        <tr>
+          <td>
+            <p style="text-align:justify; text-justify:inter-ideograph;"> 
+              <b>Generated Images for non-templated occupational prompts using the original SD (left) and the debiased SD (right).</b> For every image, the first color-coded bar denotes the predicted gender: <span style="color: blue;">blue</span> for male and <span style="color: red;">red</span> for female. The second denotes race: <span style="color: green;">green</span> for WMELH, <span style="color: orange;">orange</span> for Asian, <span style="color: black;">black</span> for Black, and <span style="color: brown;">brown</span> for Indian. Bounding boxes denote detected faces. Bar height represents prediction confidence. For the same prompt, images with the same number label are generated using the same noise.
+          </td>
+        </tr>
+      </center>
+    </table>
+  </div>
+</div>
+
+
+<div class="content_padding">
+  <h2 class="title is-4" style="display: inline-block; margin-right: 10px;">
+    Results: Flexible Distributional Alignment of Age
+  </h2>
+  <button id="toggleButton_result2" onclick="toggleVisibility_result2()" class="toggle-button">Hide Content</button>
+  <div id="toggleContent_result2" style="display: block;">
+    <table>
+      <tr>
+        <td width="58%" style="vertical-align: middle; text-align: left; border-right: 1px dashed gray;">
+          <p>A salient feature of our method is its flexibility, allowing users to specify the desired target distribution. In support of this, we demonstrate that our method can effectively adjust the age distribution to achieve a 75% young and 25% old ratio while simultaneously debiasing gender and race. The right figure demonstrates that the original SD displays marked occupational age bias. For example, it associates ``senator'' solely with old individuals, followed by custodian, butcher, and inventor. Our method achieves approximately 25% representation of old individuals for most occupations. And as the below table shows, it neither undermines the efficiency of debiasing gender and race nor negatively impacts the quality of the generated images.</p>
+        </td>
+        <td width="40%" style="vertical-align: middle; text-align: center;">
+          <img class="round" style="width:100%" src="static/images/results-2/age.png"/>
+        </td>
+      </tr>
+    </table>
+    <center>
+    <hr>
+    <img class="round" style="width:80%; margin-top: 20px;" src="static/images/results-2/table_age.png"/>
+    <hr>
+    <div class="container", style="margin-top: 20px;">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="image-caption-container-1">
+          <img class="round" style="width:48%" src="static/images/results-2/generated-images/ori_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;senator,&#32;a&#32;person.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-2/generated-images/ours_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;senator,&#32;a&#32;person.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "a photo of the face of a <b>senator</b>, a person".
+              <br>Freq of Age=old: 0.96 \(\rightarrow\) 0.43 (target is 0.25).
+              <br>Gender bias: 0.49 (original) \(\rightarrow\) 0.09 (debiased). Racial bias: 0.47 \(\rightarrow\) 0.12. Gender\(\times\)Race bias: 0.22 \(\rightarrow\) 0.06.</p>
+          </div>
+        </div>
+        <div class="image-caption-container-2">
+          <img class="round" style="width:48%" src="static/images/results-2/generated-images/ori_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;cardiologist,&#32;a&#32;person.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-2/generated-images/ours_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;cardiologist,&#32;a&#32;person.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "a photo of the face of a <b>cardiologist</b>, a person".
+              <br>Freq of Age=old: 0.13 \(\rightarrow\) 0.28 (target is 0.25).
+              <br>Gender bias: 0 (original) \(\rightarrow\) 0.09 (debiased). Racial bias: 0.44 \(\rightarrow\) 0.10. Gender\(\times\)Race bias: 0.19 \(\rightarrow\) 0.05.</p>
+          </div>
+        </div>
+        <div class="image-caption-container-3">
+          <img class="round" style="width:48%" src="static/images/results-2/generated-images/ori_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;custodian,&#32;a&#32;person.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-2/generated-images/ours_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;custodian,&#32;a&#32;person.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "a photo of the face of a <b>custodian</b>, a person".
+              <br>Freq of Age=old: 0.80 \(\rightarrow\) 0.30 (target is 0.25).
+              <br>Gender bias: 0.71 (original) \(\rightarrow\) 0.21 (debiased). Racial bias: 0.30 \(\rightarrow\) 0.11. Gender\(\times\)Race bias: 0.18\(\rightarrow\) 0.06.</p>
+          </div>
+        </div>
+        <div class="image-caption-container-4">
+          <img class="round" style="width:48%" src="static/images/results-2/generated-images/ori_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;butcher,&#32;a&#32;person.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-2/generated-images/ours_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;butcher,&#32;a&#32;person.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "a photo of the face of a <b>butcher</b>, a person".
+              <br>Freq of Age=old: 0.78 \(\rightarrow\) 0.28 (target is 0.25).
+              <br>Gender bias: 0.97 (original) \(\rightarrow\) 0.15 (debiased). Racial bias: 0.41 \(\rightarrow\) 0.05. Gender\(\times\)Race bias: 0.23 \(\rightarrow\) 0.03.</p>
+          </div>
+        </div>
+        <div class="image-caption-container-5">
+          <img class="round" style="width:48%" src="static/images/results-2/generated-images/ori_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;inventor,&#32;a&#32;person.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-2/generated-images/ours_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;inventor,&#32;a&#32;person.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "a photo of the face of a <b>inventor</b>, a person".
+              <br>Freq of Age=old: 0.77 \(\rightarrow\) 0.26 (target is 0.25).
+              <br>Gender bias: 0.59 (original) \(\rightarrow\) 0.11 (debiased). Racial bias: 0.47 \(\rightarrow\) 0.05. Gender\(\times\)Race bias: 0.22 \(\rightarrow\) 0.04. </p>
+          </div>
+        </div>
+        <div class="image-caption-container-6">
+          <img class="round" style="width:48%" src="static/images/results-2/generated-images/ori_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;citizen,&#32;a&#32;person.jpg" />
+          <img class="round" style="width:48%; margin-left: 20px;" src="static/images/results-2/generated-images/ours_imgs20_A&#32;photo&#32;of&#32;the&#32;face&#32;of&#32;a&#32;citizen,&#32;a&#32;person.jpg" />
+          <div class="carousel-caption">
+            <p>Prompt: "a photo of the face of a <b>citizen</b>, a person".
+              <br>Freq of Age=old: 0.75 \(\rightarrow\) 0.21 (target is 0.25).
+              <br>Gender bias: 0.34 (original) \(\rightarrow\) 0.06 (debiased). Racial bias: 0.27 \(\rightarrow\) 0.13. Gender\(\times\)Race bias: 0.13\(\rightarrow\) 0.08.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table align=center width=850px>
+      <center>
+        <tr>
+          <td>
+            <p style="text-align:justify; text-justify:inter-ideograph;"> 
+              <b>Generated Images using the original SD (left) and the debiased SD (right).</b> In this figure, the color-coded bar denotes age: <span style="color: red;">red</span> is yound and <span style="color: blue;">blue</span> is old. Bar height represents prediction confidence. Bounding boxes denote detected faces. For the same prompt, images with the same number label are generated using the same noise. We do not annotate gender and race for visual clarity.
+          </td>
+        </tr>
+      </center>
+    </table>
+    </center>
+  </div>
+    
+</div>
+
+<div class="content_padding">
+  <h2 class="title is-4" style="display: inline-block; margin-right: 10px;">
+    Results: Debiasing Multiple Concepts at Once
+  </h2>
+  <button id="toggleButton_result3" onclick="toggleVisibility_result3()" class="toggle-button">Hide Content</button>
+  <div id="toggleContent_result3" style="display: block;">
+    <p>Our method is scalable. It can debias multiple concepts at once, such as occupations, sports, and personal descriptors, by expanding the set of prompts used for finetuning.</p>
+    <center>
+    <img class="round" style="width:80%; margin-top: 20px;" src="static/images/results-3/table.png"/>
+    </center>
+  </div>
+    
+</div>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{shen2023finetuning,
+      title={Finetuning Text-to-Image Diffusion Models for Fairness}, 
+      author={Xudong Shen and Chao Du and Tianyu Pang and Min Lin and Yongkang Wong and Mohan Kankanhalli},
+      booktitle={The Twelfth International Conference on Learning Representations},
+      year={2024},
+      url={https://openreview.net/forum?id=hnrB5YHoYu}
+}
+</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This project page is constructed using the wonderful template provided by <a
+            href="https://nerfies.github.io/">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

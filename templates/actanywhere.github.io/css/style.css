@@ -1,0 +1,257 @@
+/* #body * {
+    border: 1px dashed blue;
+} */
+
+:root {
+    --text-color: #444;
+    --shadow: #999;
+}
+
+* {
+    font-family: sans-serif;
+    color: var(--text-color);
+}
+
+body {
+    background-color: #F9F9F9;
+}
+
+#body {
+    text-align: center;
+    margin: auto;
+    padding-top: 1em;
+}
+
+/*
+#title {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    max-width: 80%;
+    margin: auto;
+}
+*/
+
+p a, table.affiliations a, table.menu a {
+	border-bottom: solid 1px #ddd;
+	color: inherit;
+	text-decoration: none;
+}
+
+table.menu {
+	font-size: 13pt;
+	font-weight: 500;
+}
+
+.title {
+	font-family: Google Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	font-size: 250%;
+	font-weight: 500;
+	display: block;
+	text-align: center;
+	margin-bottom: 14px;
+	padding-top: 40px;
+	padding-bottom: 5px;
+	line-height: 1.5em;
+	margin-left: auto;
+    margin-right: auto;
+	max-width: 1080px;
+}
+
+p.author {
+    font-size: 16pt;
+	font-weight: 300;
+	text-align: center;
+	margin-left: auto;
+    margin-right: auto;
+	max-width: 1080px;
+    padding: 0em 3em 0 3em;
+	line-height: 1.5em;
+}
+
+.author {
+	margin: 0pt 8pt;
+}
+
+p.affiliations {
+    font-size: 14pt;
+	font-weight: 200;
+	text-align: center;
+	margin-left: auto;
+    margin-right: auto;
+	max-width: 1080px;
+    padding: 0.5em 4em 0.5em 4em;
+	line-height: 1.5em;
+}
+
+p.venue {
+    font-size: 14pt;
+	font-weight: 200;
+	text-align: center;
+	margin-left: auto;
+    margin-right: auto;
+	max-width: 1080px;
+    padding: 0em 3em 0.5em 3em;
+	line-height: 1.5em;
+}
+p.menu {
+    font-size: 14pt;
+	font-weight: 500;
+	text-align: center;
+	margin-left: auto;
+    margin-right: auto;
+	max-width: 1080px;
+    padding: 0em 3em 0.5em 3em;
+	line-height: 1em;
+}
+
+.section{
+	font-size: 150%;
+	font-weight: 500;
+}
+
+#conference {
+    color: #666;
+    font-weight: 100;
+}
+
+#content {
+    display: inline-block;
+    width: 60%;
+    min-width: 800px;
+    margin: auto;
+    border-right: 3px solid var(--shadow);
+    border-bottom: 3px solid var(--shadow);
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: white;
+}
+
+#content-teaser {
+    display: inline-block;
+    width: 60%;
+    min-width: 800px;
+    margin: auto;
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: white;
+}
+
+summary {
+    text-align: left;
+    font-size: 1.5rem;
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    background-color: #F3F3F3;
+}
+
+details > details {
+    margin:0 2rem 0 2rem;
+    font-size: 1.25rem;
+}
+
+details details summary {
+    background-color: white;
+    border-bottom: 2px solid #999;
+}
+
+details details:last-child summary {
+    border-bottom: none;
+}
+
+details > img {
+    max-width: calc(100% - 2rem);
+    margin: 1rem;
+}
+
+#deepfashion img {
+    width: 512px;
+}
+
+#full_steps div {
+    width: 15% !important;
+    display:inline-block
+}
+
+#full_steps div * {
+    width: 100%;
+}
+
+
+.video_label {
+    display: inline-block;
+    width: 49%;
+}
+
+.video_label video {
+    display: block !important;
+    width: 100% !important;
+}
+
+#qualitative video {
+    width: 1024px;
+    max-width: 100%;
+}
+
+#more video {
+    width: 30%;
+}
+
+#failures video {
+    width: 100%;
+}
+
+#table-wrapper {
+    position:relative;
+  }
+  #table-scroll {
+    overflow:auto;  
+    margin-top:20px;
+  }
+  #table-wrapper table {
+    width:100%;
+  }
+  #table-wrapper table * {
+    background:white;
+    color:black;
+  }
+  #table-wrapper table thead th .text {
+    position:absolute;   
+    top:-20px;
+    z-index:2;
+    height:20px;
+    width:35%;
+    border:1px solid red;
+  }
+
+  /* Parent Container */
+.content_img{
+    position: relative;
+}
+
+/* Child Text Container */
+.content_img div{
+    position: absolute;
+    top: 5%;
+    right: 10%;
+    background: black;
+    color: white;
+    margin-bottom: 5px;
+    font-family: sans-serif;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: visibility 0s, opacity 0.5s linear; 
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+/* Hover on Parent Container */
+.content_img:hover{
+    cursor: pointer;
+}
+
+.content_img:hover div{
+    width: 200px;
+    padding: 8px 15px;
+    visibility: visible;
+    opacity: 0.7; 
+}

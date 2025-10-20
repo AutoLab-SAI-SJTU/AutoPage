@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Divisive Normalization - NeurIPS</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-Fo3rlrZj/k7ujTTX5nH6xuthiyU9E9QeNwwiofXf9La7R5LsCpQ9Ong8/PbOrfLtb/yGT+BY3+Aqdv7WEVPVkQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css" />
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js">
+        </script>
+
+    <link rel="icon" type="image/png" href="figures/sr.png" />
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Unconditional stability of a recurrent neural circuit implementing divisive normalization" />
+    <meta property="og:description" content="A principled approach to dynamic divisive normalization in recurrent neural networks ensuring unconditional stability and improved trainability." />
+    <meta property="og:image" content="https://shivangrawat.github.io/dynamic-divisive-norm/figures/organics_circuit.jpg" />
+    <!-- <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" /> -->
+    <meta property="og:url" content="https://shivangrawat.github.io/dynamic-divisive-norm/" />
+    <meta property="og:type" content="website" />
+
+</head>
+
+
+<body>
+    <header>
+        <h1 class="paper-title">Unconditional stability of a recurrent neural circuit implementing divisive
+            normalization</h1>
+        <p class="conference"><strong>NeurIPS 2024</strong></p>
+        <p class="authors">
+            <strong>Authors:</strong>
+            <a href="https://www.linkedin.com/in/shivang-rawat-b54b6a151/" target="_blank" class="author-link">Shivang
+                Rawat</a>,
+            <a href="https://www.cns.nyu.edu/~david/" target="_blank" class="author-link">David J. Heeger</a>, and 
+            <a href="https://martinianilab.org/" target="_blank" class="author-link">Stefano Martiniani</a>
+        </p>
+        <p class="affiliations"><em>New York University</em></p>
+
+        <div class="links">
+            <button class="pdf-button" onclick="window.open('https://openreview.net/pdf?id=5lLb7aXRN9','_blank')">
+                <img src="figures/pdf_logo.png" alt="GitHub" />
+            </button>
+            <button class="arxiv-button" onclick="window.open('https://arxiv.org/abs/2409.18946','_blank')">
+                <img src="figures/arxiv.jpg" alt="ArXiv" />
+            </button>
+            <button class="github-button"
+                onclick="window.open('https://github.com/martiniani-lab/dynamic-divisive-norm','_blank')">
+                <img src="figures/GitHub_Logo.png" alt="GitHub" />
+            </button>
+            <button class="poster-button"
+                onclick="window.open('https://shivangrawat.github.io/dynamic-divisive-norm/figures/neurips_poster.png','_blank')">
+                <img src="figures/poster_logo.png" alt="Poster" />
+            </button>
+        </div>
+    </header>
+
+
+    <main>
+        <section class="representative-image">
+            <figure>
+                <img src="figures/github_image.png" alt="Representative figure of the model" />
+            </figure>
+        </section>
+
+        <section class="key-takeaways">
+            <h2>Key takeaways</h2>
+            <ul>
+                <li>We introduce a principled way of adding normalization in an RNN (via ORGaNICs).</li>
+                <li>Embedding dynamic divisive normalization induces unconditional stability in the RNN.</li>
+                <li>Stability enhances trainability and leads to an interpretable RNN.</li>
+                <li>ORGaNICs can be trained like other RNNs but without using specialized techniques (e.g., no gradient
+                    clipping).</li>
+            </ul>
+        </section>
+
+        <section class="abstract" id="abstract">
+            <h2>Abstract</h2>
+            <p>Stability in recurrent neural models poses a significant challenge, particularly in developing
+                biologically plausible neurodynamical models that can be seamlessly trained. Traditional cortical
+                circuit models are notoriously difficult to train due to expansive nonlinearities in the dynamical
+                system, leading to an optimization problem with nonlinear stability constraints that are difficult to
+                impose. Conversely, recurrent neural networks (RNNs) excel in tasks involving sequential data but lack
+                biological plausibility and interpretability. In this work, we address these challenges by linking
+                dynamic divisive normalization (DN) to the stability of ORGaNICs, a biologically plausible recurrent
+                cortical circuit model that dynamically achieves DN and that has been shown to simulate a wide range of
+                neurophysiological phenomena. By using the indirect method of Lyapunov, we prove the remarkable property
+                of unconditional local stability for an arbitrary-dimensional ORGaNICs circuit when the recurrent weight
+                matrix is the identity. We thus connect ORGaNICs to a system of coupled damped harmonic oscillators,
+                which enables us to derive the circuit's energy function, providing a normative principle of what the
+                circuit, and individual neurons, aim to accomplish. Further, for a generic recurrent weight matrix, we
+                prove the stability of the 2D model and demonstrate empirically that stability holds in higher
+                dimensions. Finally, we show that ORGaNICs can be trained by backpropagation through time without
+                gradient clipping/scaling, thanks to its intrinsic stability property and adaptive time constants, which
+                address the problems of exploding, vanishing, and oscillating gradients. By evaluating the model's
+                performance on RNN benchmarks, we find that ORGaNICs outperform alternative neurodynamical models on
+                static image classification tasks and perform comparably to LSTMs on sequential tasks.</p>
+        </section>
+
+        <section class="introduction" id="introduction">
+            <h2>Introduction</h2>
+            <p>Our work explores how a biologically-inspired recurrent neural network (RNN) architecture, known as an
+                Oscillatory Recurrent Gated Neural Integrator Circuits (ORGaNICs), can achieve guaranteed stability
+                while
+                implementing divisive normalization—a core computation observed throughout the brain’s sensory
+                processing circuits. Unlike conventional RNNs, where normalization techniques are often added as ad hoc
+                “patches” lacking conceptual grounding, ORGaNICs include a built-in normalization mechanism that ensures
+                stable and robust activity dynamics, regardless of the network’s size or parameter settings. This
+                stability, proven mathematically, opens the door to training these models directly on challenging
+                sequence tasks via standard backpropagation methods, without the need for tricky workarounds. By
+                bridging the gap between biological plausibility and machine learning performance, ORGaNICs offer a
+                fresh perspective on building stable, trainable, and conceptually grounded neural architectures.</p>
+        </section>
+
+        <section class="model-description" id="model-description">
+            <h2>ORGaNICs</h2>
+            <figure>
+                <img src="figures/organics_circuit.png" alt="ORGaNICs circuit" />
+            </figure>
+            <p>
+                The two-neuron-types ORGaNICs model with \(n\) neurons of each type can be written as,
+            </p>
+            <div class="equation-container">
+                <p>
+                    \[
+                    \begin{split}
+                    \boldsymbol{\tau}_y \odot \dot{\mathbf{y}} &= -\mathbf{y} + \mathbf{b} \odot \mathbf{z}
+                    + \left(\mathbf{1} - \mathbf{a}^{+}\right) \odot \mathbf{W}_r
+                    \left(\sqrt{\mathbf{y}^+} - \sqrt{\mathbf{y}^-}\right) \\
+                    \boldsymbol{\tau}_a \odot \dot{\mathbf{a}} &= -\mathbf{a} + \mathbf{b}_0^2 \odot \boldsymbol{\sigma}^2
+                    + \mathbf{W} \left(\left(\mathbf{y}^+ + \mathbf{y}^-\right) \odot \mathbf{a}^{+2}\right)
+                    \end{split}
+                    \]
+                </p>
+            </div>
+            
+            <p>
+                where \(\mathbf{y} \in \mathbb{R}^n\) and \(\mathbf{a} \in \mathbb{R}^n\) are the membrane potentials
+                (relative to an arbitrary threshold potential that we take to be \(0\)) of the excitatory
+                (\(\mathbf{y}\))
+                and inhibitory (\(\mathbf{a}\)) neurons, evolving according to the dynamical equations defined above
+                with \(\dot{\mathbf{y}}\) and \(\dot{\mathbf{a}}\) denoting the time derivatives. The notation
+                \(\odot\) denotes element-wise multiplication of vectors, and squaring, rectification, square-root,
+                and division are also performed element-wise. \(\mathbf{1}\) is an \(n\)-dimensional vector with all
+                entries equal to 1. \(\mathbf{z} \in \mathbb{R}^n\) is the input drive to the circuit and is a
+                weighted sum of the input, \(\mathbf{x} \in \mathbb{R}^m\), i.e., \(\mathbf{z} = \mathbf{W}_{zx}
+                \mathbf{x}\). The firing rates, \(\mathbf{y}^\pm = \lfloor\pm\mathbf{y}\rfloor^2\) and
+                \(\mathbf{a}^+ = \sqrt{\lfloor\mathbf{a}\rfloor}\), are rectified (\(\lfloor .\rfloor\)) power
+                functions of the underlying membrane potentials.
+                \(\mathbf{b} \in {\mathbb{R}^+_*}^n\) and \(\mathbf{b}_0 \in {\mathbb{R}^+_*}^n\) are the input gains
+                for the external inputs \(\mathbf{z}\) and \(\boldsymbol{\sigma}\) fed to neurons \(\mathbf{y}\)
+                and \(\mathbf{a}\), respectively. \({\mathbb{R}^+_*}\) is the set of positive real numbers,
+                \(\{x \in \mathbb{R} \, | \, x > 0\}\). \(\boldsymbol{\sigma} \in {\mathbb{R}^+_*}^n\) determines
+                the semisaturation of the responses of neurons \(\mathbf{y}\) by contributing to the depolarization
+                of neurons \(\mathbf{a}\). \(\boldsymbol{\tau}_y \in {\mathbb{R}^+_*}^n\) and
+                \(\boldsymbol{\tau}_a \in {\mathbb{R}^+_*}^n\) represent the time constants of \(\mathbf{y}\) and
+                \(\mathbf{a}\) neurons.
+            </p>
+            <p>
+                The differential equations are designed in such a way that when \(\mathbf{W}_r = \mathbf{I}\) and
+                \(\mathbf{b} = \mathbf{b}_0\) (i.e., with all elements equal to a constant \(b_0\)), the principal
+                neurons
+                follow the normalization equation exactly (and approximately when \(\mathbf{W}_r \neq \mathbf{I}\))
+                at steady-state:
+            </p>
+            <div class="equation-container">
+                <p>
+                    \[
+                    \mathbf{y}^+_s \equiv \lfloor \mathbf{y}_s \rfloor^2 =
+                    \frac{\lfloor \mathbf{z} \rfloor^2}{\boldsymbol{\sigma}^2 +
+                    \mathbf{W} \left(\lfloor \mathbf{z} \rfloor^2 + \lfloor -\mathbf{z} \rfloor^2\right)}.
+                    \]
+                </p>
+            </div>
+        </section>
+
+        <section class="divise-norm" id="divise-norm">
+            <h2>Divisive normalization</h2>
+            <figure>
+                <img src="figures/divisive_normalization.png" alt="Divisive normalization">
+            </figure>
+            <p>Divisive normalization (DN) [Carandini & Heeger 2012] is a canonical neural computation proposed to
+                explain the responses of
+                neurons in the primary visual cortex (V1) and has since been generalized to model a wide variety of
+                cognitive and neural processes. At its core, DN operates by dividing each neuron’s response by a
+                weighted sum of the activity of a pool of neurons, akin to normalizing the length of a vector. This
+                mechanism underlies various neural phenomena such as adaptation, attention, automatic gain control,
+                decorrelation, and statistical whitening. DN's broad applicability extends across neurophysiological and
+                psychophysical phenomena, including responses to sensory stimuli, competitive interactions in attention,
+                and mechanisms of gain control. In addition to its biological significance, DN has parallels in
+                artificial neural networks, generalizing normalization techniques like batch and layer normalization.
+                Models leveraging DN have shown superior performance in machine learning tasks, highlighting its dual
+                relevance in neuroscience and artificial intelligence. DN's ability to ensure stability, enhance
+                trainability, and robustly explain neurophysiological observations suggests that it should be a
+                foundational element of any neurodynamical model, offering a principled basis for understanding and
+                simulating cortical computations.</p>
+        </section>
+
+        <section class="stability" id="stability">
+            <h2>Stability of ORGaNICs</h2>
+            <p>
+                The stability analysis of ORGaNICs with
+                all weights and inputs arbitrarily varying is intractable. Therefore, we consider two special cases and
+                empirically analyze the most general case.
+            </p>
+            <ul>
+                <li>
+                    <strong>High-dimensional ORGaNICs with identity recurrent weight matrix:</strong>
+                    <p>Under the constraint of \( \mathbf{W}_r = \mathbf{I} \), ORGaNICs exhibit the remarkable property
+                        of unconditional, independent of model parameters and input, local asymptotic stability of the
+                        normalization fixed point. </p>
+                    <figure>
+                        <img id="identity" src="figures/wr_identity.png"
+                            alt="Stability for identity recurrent weight matrix">
+                    </figure>
+                </li>
+                <li>
+                    <strong>Two-dimensional ORGaNICs:</strong>
+                    <p>For 2D ORGaNICs with one excitatory and one inhibitory neuron, we prove the existence of an
+                        asymptotically stable fixed point under unconstrained parameters and inputs. The phase portrait
+                        changes as
+                        the recurrent scalar \(w_r\) is changed from \(0\) to \(\infty\). </p>
+                    <figure>
+                        <img id="2d" src="figures/main_fig.png" alt="Stability for 2D ORGaNICs">
+                    </figure>
+                </li>
+                <li>
+                    <strong>General high-dimensional ORGaNICs:</strong>
+                    <p>
+                        We conjecture that an asymptotically stable fixed point always exists for ORGaNICs circuits when
+                        \( ||\mathbf{z}|| \leq 1 \) and the maximum singular value of \( \mathbf{W}_r \) is 1. Empirical
+                        evidence (see below) supports this conjecture, as stability was observed in 100% of trials.
+                        Additionally,
+                        100% stability was observed when increasing the constraint on the maximum singular value of \(
+                        \mathbf{W}_r \) to 2, but this breaks down at a value of 3.
+                    </p>
+                    <figure>
+                        <img id="wr_not_identity" src="figures/wr_not_identity.png"
+                            alt="General high-dimensional ORGaNICs stability">
+                    </figure>
+                </li>
+            </ul>
+        </section>
+
+        <section class="energy" id="energy">
+            <h2>Interpretability</h2>
+            <p>Since we followed a direct Lyapunov approach to prove the stability of ORGaNICs when
+                \(\mathbf{W}=\mathbf{I}\), we have access to the energy of ORGaNICs</p>
+            <figure>
+                <img src="figures/energy.png" alt="Energy function">
+            </figure>
+            <p>
+                This result demonstrates that ORGaNICs minimize the residual of the instantaneously reconstructed gated
+                input drive \(\sqrt{a}_i y_i - b_i z_i\), while also ensuring that the principal neuron's response,
+                \(y_i\),
+                achieves DN. The balance between these objectives is governed by the parameters and the external input
+                strength. With fixed parameters, weaker inputs, \(z_i\), cause the model to prioritize input matching
+                over
+                normalization, whereas stronger inputs increasingly engage the normalization objective. Therefore, we
+                have a normative principle of what the circuit, and
+                individual neurons, aim to accomplish.
+            </p>
+        </section>
+
+        <section class="results" id="results">
+            <h2>Classification experiments</h2>
+            <p>To show the trainability of ORGaNICs using vanilla backpropagation, without using specialized techniques
+                like gradient clipping/scaling, we train it on two classification tasks,</p>
+            <ul>
+                <li>
+                    <strong>Static input classification:</strong>
+                    <p>ORGaNICs were trained on the MNIST dataset with static
+                        inputs.
+                        The model achieved test accuracies better than state-of-the-art neurodynamical model while maintaining stability.</p>
+                    <figure>
+                        <img id="mnist" src="figures/mnist_table.png" alt="MNIST table">
+                    </figure>
+                </li>
+                <li>
+                    <strong>Time-varying input classification:</strong>
+                    <p>ORGaNICs were evaluated on sequential pixel-by-pixel MNIST
+                        (sMNIST) and permuted sMNIST tasks,
+                        involving long-term dependencies. The model demonstrated stability, competitive performance with
+                        state-of-the-art RNNs,
+                        and can be trained with backpropagation through time (BPTT) without specialized techniques
+                        (i.e., without gradient clipping/scaling).</p>
+                    <figure>
+                        <img id="smnist" src="figures/smnist_table.png" alt="sMNIST table">
+                    </figure>
+                </li>
+            </ul>
+        </section>
+
+        <section class="discussion" id="discussion">
+            <h2>Discussion</h2>
+            <p>
+                Extensive research has been directed at identifying expressive RNN architectures for modeling
+                complex data; however, advancements in biologically plausible recurrent neural circuits remain limited.
+                In this study, we bridge these gaps by leveraging the ORGaNICs model, which dynamically implements
+                divisive normalization (DN) in a recurrent circuit. We establish the unconditional stability of ORGaNICs
+                for certain conditions and provide empirical evidence for arbitrary recurrent weight matrices
+                (\(\mathbf{W}_r\)). ORGaNICs' stability mitigates exploding and oscillating gradients, allowing the use
+                of
+                "vanilla" BPTT without gradient clipping. Unlike
+                conventional normalization techniques like batch and layer normalization,
+                ORGaNICs integrate DN dynamically, leading to inherent stability and improved robustness in training. By
+                drawing connections to coupled damped harmonic oscillators, we derive an interpretable energy function,
+                providing insight into the relationship between normalization and stability. ORGaNICs also feature a
+                built-in attention mechanism through input gain modulation and DN, analogous to attention heads in
+                machine learning systems. Future work will explore multi-layer ORGaNICs with feedback connections for
+                tasks involving long-term dependencies, further investigating their potential to implement working
+                memory circuits capable of maintaining and manipulating information across various timescales.
+            </p>
+        </section>
+
+        <section class="citation" id="citation">
+            <h2>BibTeX Citation</h2>
+            <pre>
+@article{rawat2024unconditional,
+    title={Unconditional stability of a recurrent neural circuit implementing divisive normalization},
+    author={Rawat, Shivang and Heeger, David and Martiniani, Stefano},
+    journal={Advances in Neural Information Processing Systems},
+    volume={37},
+    pages={14712--14750},
+    year={2024}
+    }
+            </pre>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Shivang Rawat</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

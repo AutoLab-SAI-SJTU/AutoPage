@@ -1,0 +1,625 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="PrefPaint: Aligning Image Inpainting Diffusion Model with Human Preference">
+  <meta name="keywords" content="Diffusion models, Inpainting models, Reinforcement Learning, Human Preference">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PrefPaint: Aligning Image Inpainting Diffusion Model with Human Preference</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/click.css">
+  <!-- <link rel="stylesheet" href="./static/css/warp.css"> -->
+  <!-- <link rel="stylesheet" href="./static/css/row.css"> -->
+  <link rel="icon" href="https://prefpaint.github.io/static/images/favicon.ico">
+  
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <style>
+        /* Gradient text style */
+        .gradient-text {
+            background-image: linear-gradient(to right, #b59f00, green, blue);
+            /* Darker yellow */
+            -webkit-background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            /* Make the text bold */
+        }
+
+        .title.is-1.publication-title {
+            font-size: 48px;
+            font-weight: bold;
+            background-image: linear-gradient(to right, #b59f00, green, blue);
+            /* Darker yellow */
+            -webkit-background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-clip: text;
+        }
+
+        .title.is-3.publication-title {
+            font-size: 36px;
+            font-weight: bold;
+            background-image: linear-gradient(to right, #b59f00, green, blue);
+            /* Darker yellow */
+            -webkit-background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-clip: text;
+        }
+
+
+        .center-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+            /* Optional: centers the section vertically on the page */
+            margin: 20px 0;
+        }
+
+        #canvas-container {
+            width: 512px;
+            max-width: 512px;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            margin-top: -5px;
+            margin-bottom: 10px;
+            display: flex;
+        }
+
+        canvas {
+            width: 100%;
+            height: auto;
+            background-color: #fff;
+        }
+
+        #img-controls {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            /* Allow buttons to wrap on small screens */
+        }
+
+        .scriptButton {
+            cursor: pointer;
+            width: 164px;
+            height: auto;
+            margin: 10px;
+        }
+
+        #reloadButton {
+            padding: 10px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            #canvas-container {
+                max-width: 90vw;
+                /* Use 90% of the viewport width on small screens */
+                height: auto;
+                /* Let height adjust to maintain aspect ratio */
+            }
+
+            canvas {
+                width: 100%;
+                height: auto;
+                /* Ensure the aspect ratio is maintained */
+            }
+
+            .center-section h2 {
+                font-size: 24px;
+                /* Scale down heading font sizes for mobile */
+            }
+
+            #img-controls {
+                flex-direction: row;
+                /* Stack the controls vertically on smaller screens */
+                gap: 15px;
+            }
+
+            .scriptButton {
+                width: 100px;
+                /* Reduce button size on smaller screens */
+                height: auto;
+            }
+
+            button {
+                font-size: 14px;
+                /* Scale down the font size for buttons */
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">PrefPaint: Aligning Image Inpainting Diffusion Model with Human Preference</h1>
+              <div class="is-size-5 publication-authors">
+                            <span class="author-block">Kendong Liu*<sup>1</sup>,</span>
+                            <span class="author-block"><a href ="https://scholar.google.com/citations?user=d1L0KkoAAAAJ&hl=en">Zhiyu Zhu*</a><sup>1</sup>,</span>
+                            <span class="author-block"><a href="https://www.chuanhao-li.com/">Chuanhao Li*</a><sup>2</sup>,</span>
+                            <span class="author-block">Hui Liu<sup>3</sup>,</span>
+                            <span class="author-block">Huanqiang Zeng<sup>4</sup>,</span>
+                            <span class="author-block"><a href="https://sites.google.com/site/junhuihoushomepage/">Junhui Hou</a><sup>1</sup></span>
+                        </div>
+
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block"><sup>1</sup>City University of Hong Kong, </span>
+                            <span class="author-block"><sup>2</sup>Yale University, </span>
+                            <span class="author-block"><sup>3</sup>Saint Francis University, </span><br />
+                            <span class="author-block"><sup>4</sup>Huaqiao University, </span>
+                            <span class="authors-block">&ast; Equal Contribution</span><br />
+                        </div>
+
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block"><b>Neurips 2024</b></span>
+                        </div>
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- PDF Link. -->
+<!--                   <span class="link-block"> -->
+<!--                     <a href="" -->
+<!--                         class="external-link button is-normal is-rounded is-dark"> -->
+<!--                         <span class="icon"> -->
+<!--                             <i class="ai ai-arxiv"></i> -->
+<!--                         </span> -->
+<!--                         <span>arXiv</span> -->
+<!--                     </a> -->
+<!--                   </span> -->
+                  <!-- Code Link. -->
+                  <span class="link-block">
+                    <a href="https://github.com/Kenkenzaii/PrefPaint" 
+                       class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                          <i class="fab fa-github"></i>
+                      </span>
+                      <span>Code</span>
+                    </a>
+                  <!-- Dateset Link. -->
+                  <span class="link-block">
+                    <a href="https://drive.google.com/drive/folders/1uR1bVtJHNjD5SNZXFwR5paem3GrJwvku?usp=sharing" 
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                              <i class="fas fa-images"></i>
+                      </span>
+                      <span>Dataset</span>
+                    </a>
+                  </span>
+                  <!-- Online Model Link. -->
+                  <span class="link-block">
+                    <a href="https://huggingface.co/spaces/kd5678/prefpaint" 
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                              <i class="fas fa-link"></i>
+                      </span>
+                      <span>Huggingface Demo</span>
+                    </a>
+                  </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+     
+    </section>
+
+    
+    <section>
+        <div class="container is-max-desktop">
+            <div class="row">
+                <div class="col-12 text-center" id="gif1">
+                  <img src="static/images/sampling/gif/4.gif"  width=19%>
+                  <img src="static/images/sampling/gif/5.gif"  width=19%>
+                  <img src="static/images/sampling/gif/3.gif"  width=19%>
+                  <img src="static/images/sampling/gif/2.gif"  width=19%>
+                  <img src="static/images/sampling/gif/1.gif"  width=19%>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container is-max-desktop">
+            <div class="row">
+                <div class="col-12 text-center" id="gif2">
+                  <img src="static/images/sampling/gif/6.gif"  width=19%>
+                  <img src="static/images/sampling/gif/7.gif"  width=19%>
+                  <img src="static/images/sampling/gif/10.gif"  width=19%  >
+                  <img src="static/images/sampling/gif/8.gif"  width=19%>
+                  <img src="static/images/sampling/gif/9.gif"  width=19%>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container is-max-desktop">
+            <div class="row">
+                <div class="col-12 text-center" id="gif3">
+                  <img src="static/images/sampling/gif/11.gif"  width=19%>
+                  <img src="static/images/sampling/gif/12.gif"  width=19%>
+                  <img src="static/images/sampling/gif/13.gif"  width=19%>
+                  <img src="static/images/sampling/gif/14.gif"  width=19%>
+                  <img src="static/images/sampling/gif/15.gif"  width=19%>
+                </div>
+            </div>
+        </div>
+        <h2 class="subtitle has-text-centered">
+            Multiple sampling results of <span class="dnerf">PrefPaint</span>.
+        </h2>
+    </section>
+
+    
+    <section class="section">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-nine-tenths">
+              <h2 class="title is-3">Abstract</h2>
+              <div class="content has-text-justified">
+                <p class="small-margin">In this paper, we make the first attempt to align diffusion models for image inpainting with human aesthetic standards via a reinforcement learning framework, significantly improving the quality and visual appeal of inpainted images. Specifically, instead of directly measuring the divergence with paired images, we train a reward model with the dataset we construct, consisting of nearly 51,000 images annotated with human preferences. Then, we adopt a reinforcement learning process to fine-tune the distribution of a pre-trained diffusion model for image inpainting in the direction of higher reward. Moreover, we theoretically deduce the upper bound on the error of the reward model, which illustrates the potential confidence of reward estimation throughout the reinforcement alignment process, thereby facilitating accurate regularization.
+                    Extensive experiments on inpainting comparison and downstream tasks, such as image extension and 3D reconstruction, demonstrate the effectiveness of our approach, showing significant improvements in the alignment of inpainted images with human preference compared with state-of-the-art methods. This research not only advances the field of image inpainting but also provides a framework for incorporating human preference into the iterative refinement of generative models based on modeling reward accuracy, with broad implications for the design of visually driven AI applications.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+   
+    
+    <!-- <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+            <center>
+                <h2 class="title is-3">Outpainting Results</h2>
+            </center>
+            <center>
+                <p><b>Click the button below the image to view the results of multiple outpaintings.</b></p>
+            </center>
+        </div>
+    </div>
+    </section> -->
+    
+    <section class="section" style="margin-bottom: 5px;">
+        <center>
+            <h2 class="title is-3" style="margin-bottom: 15px;">Applications of Image Extension</h2>
+            <p style="line-height: 1.5;"><b>Click the button below the image to view different sampling results.</b></p>
+        </center>
+    </section>
+    
+
+    <section>
+        <div class="container is-max-desktop">
+            <div class="sliderlong" id="sliderlong1">
+                <img src="static/images/outpainting/Fig_outpainting_aa.jpg"  class="slidelong" width=80%  >
+                <img src="static/images/outpainting/Fig_outpainting_aa2.jpg"  class="slidelong" style="display:none;">
+                <img src="static/images/outpainting/Fig_outpainting_aa3.jpg"  class="slidelong" style="display:none;">
+                <div class="dotslong">
+                    <span class="dotlong" onclick="currentSlidelong(1, 1)"></span>
+                    <span class="dotlong" onclick="currentSlidelong(1, 2)"></span>
+                    <span class="dotlong" onclick="currentSlidelong(1, 3)"></span>
+                </div>
+            </div>
+            
+            <div class="sliderlong" id="sliderlong2">
+                <img src="static/images/outpainting/Fig_outpainting_b.jpg"  class="slidelong" width=80%  >
+                <img src="static/images/outpainting/Fig_outpainting_b2.jpg"  class="slidelong" style="display:none;">
+                <img src="static/images/outpainting/Fig_outpainting_b3.jpg"  class="slidelong" style="display:none;">
+                <div class="dotslong">
+                    <span class="dotlong" onclick="currentSlidelong(2, 1)"></span>
+                    <span class="dotlong" onclick="currentSlidelong(2, 2)"></span>
+                    <span class="dotlong" onclick="currentSlidelong(2, 3)"></span>
+                </div>
+            </div>
+          
+        </div>
+        <script src="static/js/clicklong.js"></script>
+    </section>
+
+
+    <section>
+        <div class="container is-max-desktop">
+            <div class="slider" id="slider1">
+                <img src="static/images/outpainting/a.jpg" class="slide">
+                <img src="static/images/outpainting/a2.jpg" class="slide" style="display:none;">
+                <img src="static/images/outpainting/a3.jpg" class="slide" style="display:none;">
+                <div class="dots">
+                    <span class="dot" onclick="currentSlide(1, 1)"></span>
+                    <span class="dot" onclick="currentSlide(1, 2)"></span>
+                    <span class="dot" onclick="currentSlide(1, 3)"></span>
+                </div>
+            </div>
+            
+            <div class="slider" id="slider2">
+                <img src="static/images/outpainting/b.jpg" class="slide">
+                <img src="static/images/outpainting/b2.jpg" class="slide" style="display:none;">
+                <img src="static/images/outpainting/b3.jpg" class="slide" style="display:none;">
+                <div class="dots">
+                    <span class="dot" onclick="currentSlide(2, 1)"></span>
+                    <span class="dot" onclick="currentSlide(2, 2)"></span>
+                    <span class="dot" onclick="currentSlide(2, 3)"></span>
+                </div>
+            </div>
+
+            <div class="slider" id="slider3">
+                <img src="static/images/outpainting/c.jpg" class="slide">
+                <img src="static/images/outpainting/c2.jpg" class="slide" style="display:none;">
+                <img src="static/images/outpainting/c3.jpg" class="slide" style="display:none;">
+                <div class="dots">
+                    <span class="dot" onclick="currentSlide(3, 1)"></span>
+                    <span class="dot" onclick="currentSlide(3, 2)"></span>
+                    <span class="dot" onclick="currentSlide(3, 3)"></span>
+                </div>
+            </div>
+            </div>
+        </div>
+        <script src="static/js/click.js"></script>
+    </section>
+
+    <section>
+        <div class="container is-max-desktop">
+            <div class="slider" id="slider4">
+                <img src="static/images/outpainting/d.jpg" class="slide">
+                <img src="static/images/outpainting/d2.jpg" class="slide" style="display:none;">
+                <img src="static/images/outpainting/d3.jpg" class="slide" style="display:none;">
+                <div class="dots">
+                    <span class="dot" onclick="currentSlide(4, 1)"></span>
+                    <span class="dot" onclick="currentSlide(4, 2)"></span>
+                    <span class="dot" onclick="currentSlide(4, 3)"></span>
+                </div>
+            </div>
+            
+            <div class="slider" id="slider5">
+                <img src="static/images/outpainting/e.jpg" class="slide">
+                <img src="static/images/outpainting/e2.jpg" class="slide" style="display:none;">
+                <img src="static/images/outpainting/e3.jpg" class="slide" style="display:none;">
+                <div class="dots">
+                    <span class="dot" onclick="currentSlide(5, 1)"></span>
+                    <span class="dot" onclick="currentSlide(5, 2)"></span>
+                    <span class="dot" onclick="currentSlide(5, 3)"></span>
+                </div>
+            </div>
+
+            <div class="slider" id="slider6">
+                <img src="static/images/outpainting/f.jpg" class="slide">
+                <img src="static/images/outpainting/f2.jpg" class="slide" style="display:none;">
+                <img src="static/images/outpainting/f3.jpg" class="slide" style="display:none;">
+                <div class="dots">
+                    <span class="dot" onclick="currentSlide(6, 1)"></span>
+                    <span class="dot" onclick="currentSlide(6, 2)"></span>
+                    <span class="dot" onclick="currentSlide(6, 3)"></span>
+                </div>
+            </div>
+            </div>
+        </div>
+        <script src="static/js/click.js"></script>
+    </section>
+
+    <section>
+        <div class="container is-max-desktop">
+            <div class="slider" id="slider7">
+                <img src="static/images/outpainting/g.jpg" class="slide">
+                <img src="static/images/outpainting/g2.jpg" class="slide" style="display:none;">
+                <img src="static/images/outpainting/g3.jpg" class="slide" style="display:none;">
+                <div class="dots">
+                    <span class="dot" onclick="currentSlide(7, 1)"></span>
+                    <span class="dot" onclick="currentSlide(7, 2)"></span>
+                    <span class="dot" onclick="currentSlide(7, 3)"></span>
+                </div>
+            </div>
+            
+            <div class="slider" id="slider8">
+                <img src="static/images/outpainting/h.jpg" class="slide">
+                <img src="static/images/outpainting/h2.jpg" class="slide" style="display:none;">
+                <img src="static/images/outpainting/h3.jpg" class="slide" style="display:none;">
+                <div class="dots">
+                    <span class="dot" onclick="currentSlide(8, 1)"></span>
+                    <span class="dot" onclick="currentSlide(8, 2)"></span>
+                    <span class="dot" onclick="currentSlide(8, 3)"></span>
+                </div>
+            </div>
+
+            <div class="slider" id="slider9">
+                <img src="static/images/outpainting/i.jpg" class="slide">
+                <img src="static/images/outpainting/i2.jpg" class="slide" style="display:none;">
+                <img src="static/images/outpainting/i3.jpg" class="slide" style="display:none;">
+                <div class="dots">
+                    <span class="dot" onclick="currentSlide(9, 1)"></span>
+                    <span class="dot" onclick="currentSlide(9, 2)"></span>
+                    <span class="dot" onclick="currentSlide(9, 3)"></span>
+                </div>
+            </div>
+            </div>
+        </div>
+        <script src="static/js/click.js"></script>
+    </section>
+
+    <section class="section" style="margin-bottom: 5px;">
+        <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-nine-tenths">
+                <center><h2 class="title is-3"  style="margin-bottom: 15px;">Applications of Novel View Synthesis</h2></center>
+              <div class="content has-text-justified">
+                <p style="line-height: 1.5;">Novel view synthesis on KITTI dataset. For each scene, we give the warping prompt, which is warped from the given view, with holes/missing regions. We inpaint the result from given prompt and synthesize novel view. Note that for the synthesized novel view, there is no ground-truth available.</p>
+              </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <section>
+        <div class="container is-max-desktop">
+            <div class="row">
+                <div class="col-12 text-center" id="pipeline">
+                  <video src="static/videos/video_000195_v2.mp4" autoplay loop muted controls width=24%></video>
+                  <video src="static/videos/video_000275_v3.mp4" autoplay loop muted controls width=24%></video>
+                  <video src="static/videos/video_000377_v2.mp4" autoplay loop muted controls width=24%></video>
+                  <video src="static/videos/video_000389_v2.mp4" autoplay loop muted controls width=24%></video> 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container is-max-desktop">
+            <div class="row">
+                <div class="col-12 text-center" id="pipeline2">
+                  <video src="static/videos/video_000581_v2.mp4" autoplay loop muted controls width=24%></video>
+                  <video src="static/videos/video_000607_v2.mp4" autoplay loop muted controls width=24%></video>
+                  <video src="static/videos/video_000783_v3.mp4" autoplay loop muted controls width=24%></video>
+                  <video src="static/videos/video_000906_v3.mp4" autoplay loop muted controls width=24%></video> 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container is-max-desktop">
+            <div class="row">
+                <div class="col-12 text-center" id="pipeline3">
+                  <video src="static/videos/video_000908_v2.mp4" autoplay loop muted controls width=24%></video>
+                  <video src="static/videos/video_000995_v2.mp4" autoplay loop muted controls width=24%></video>
+                  <video src="static/videos/video_001009_v3.mp4" autoplay loop muted controls width=24%></video>
+                  <video src="static/videos/video_001014_v2.mp4" autoplay loop muted controls width=24%></video> 
+                </div>
+            </div>
+        </div>
+   
+    <section>
+        <div class="container is-max-desktop">
+            <div class="row">
+                <div class="col-12 text-center" id="pipeline4">
+                  <video src="static/videos/video_001027_v2.mp4" autoplay loop muted controls width=24%></video>
+                  <video src="static/videos/video_001048_v2.mp4" autoplay loop muted controls width=24%></video>
+                  <video src="static/videos/video_001049_v2.mp4" autoplay loop muted controls width=24%></video>
+                  <video src="static/videos/video_001213_v2.mp4" autoplay loop muted controls width=24%></video> 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="margin-bottom: 5px;">
+        <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-nine-tenths">
+                <center><h2 class="title is-3"  style="margin-bottom: 15px;">Reward Model Results</h2></center>
+              <div class="content has-text-justified">
+                <p style="line-height: 1.5;">Our reward model can effectively evaluate the quality of inpainted image. The demo colab link for the model is as follows 
+                  <a href="https://colab.research.google.com/drive/1QLKFp0hTe37tkSNhl0oVNVqtKgnAKOxX?usp=drive_link.">
+                    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+                  </a>
+                  </p>
+              </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    <section>
+        <div class="container is-max-desktop">
+            <div class="row">
+                <div class="col-12 text-center" id="comparisons">
+                 <center> <img src="static/images/Fig_reward.png" width=88%  >
+                 </center>
+                </div>
+            </div>
+        </div>
+    </section>
+     
+    <section class="section" style="margin-bottom: 5px;">
+        <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-nine-tenths">
+                <center><h2 class="title is-3"  style="margin-bottom: 15px;">Comparison with SOTA Methods</h2></center>
+              <div class="content has-text-justified">
+                <p style="line-height: 1.5;">Visual comparisons of our approach and SOTA methods. The prompted images of fifth and seventh rows are generated by boundary cropping, while the remaining rows by warping. All images were generated with the same random seeds.</p>
+              </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    <section>
+        <div class="container is-max-desktop">
+            <div class="row">
+                <div class="col-12 text-center" id="comparisons">
+                 <center> <img src="static/images/Fig_comprisons.png" width=97%  >
+                 </center>
+                </div>
+            </div>
+        </div>
+    </section>
+      
+<section class="section" id="BibTeX">
+          <div class="container is-max-desktop content">
+            <h2 class="title">BibTeX</h2>
+
+    <pre style="background-color:#e9eeef;padding: 1.25em 1.5em">
+<code>@article{liu2024prefpaint,
+  title={PrefPaint: Aligning Image Inpainting Diffusion Model with Human Preference},
+  author={Liu, Kendong and Zhu, Zhiyu and Li, Chuanhao and Liu, Hui and Zeng, Huanqiang and Hou, Junhui},
+  journal={arXiv preprint arXiv:2410.21966},
+  year={2024}
+}</code></pre> 
+        </div>
+        </section>
+
+
+    <footer class="footer">
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content">
+            <p>
+              <center>Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page. If you want to reuse their <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
+              </center>
+            </p>
+          </div>
+        </div>
+        </div>
+      </footer>
+
+</body>
+</html>

@@ -1,0 +1,1291 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Kaushan+Script|Droid+Serif:400,700,400italic,700italic|Roboto+Slab:400,100,300,700|Gowun+Batang:wght@400;700&display=swap" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css" integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous">
+	  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="icon" href="images/co3_logo.png" type="image/x-icon">
+
+    <title>Co3</title>
+
+    <!-- Custom styles for this template -->
+    <link href="css/agency.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+      .video-caption-container {
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Center align items vertically */
+            height: 40vh; /* Full viewport height for demonstration */
+            padding: 0 60px;
+        }
+
+        .video-container {
+            flex: 1;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        .caption-container {
+            flex: 1;
+            color: rgb(65, 63, 60);
+            height: 300px; /* Set a fixed height */
+            overflow-y: auto; /* Add vertical scroll */
+        }
+
+        .caption-container ul {
+            margin-left: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .caption-container li {
+            margin-bottom: 5px;
+        }
+
+        /* Custom styles for the carousel controls */
+        .carousel-control-prev, .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .carousel-control-prev {
+            left: 0px;
+        }
+
+        .carousel-control-next {
+            right: 0px;
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .table-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: transparent;
+        }
+
+        .custom-table th, .custom-table td {
+            border: 1px solid #dee2e62c;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .custom-table th {
+            background-color: rgba(248, 249, 250, 0.2);
+        }
+
+        .custom-table tbody tr:nth-child(even) {
+            background-color: rgba(248, 249, 250, 0.2);
+        }
+
+        .custom-table tbody tr:nth-child(odd) {
+            background-color: rgba(105, 98, 90, 0.2);
+        }
+
+        .code-content {
+            font-family: monospace;
+            font-weight: 450;
+            background-color: rgba(226, 220, 233, 0.2);
+            color: rgb(125, 120, 115);
+            border-radius: 5px;
+            padding: 15px;
+            white-space: pre;
+        }
+
+        .author-list {
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            line-height: 1.6;
+        }
+        .author {
+            display: block;
+        }
+        .institution {
+            font-style: italic;
+        }
+        .email {
+            font-size: 0.9em;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .footnote {
+            font-size: 0.8em;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+    
+  </head>
+
+  <body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav", style = "background-color: rgba(94, 57, 158, 0.884)">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="index.html#page-top"> <img style="width:5em;" src="images/co3_head_logo.png" alt="Logo"></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ml-auto">
+            <li class="nav-item" style="font-size: 110%">
+              <a class="nav-link js-scroll-trigger" href="index.html#dataset">Dataset</a>
+            </li>
+            <li class="nav-item" style="font-size: 110%">
+              <a class="nav-link js-scroll-trigger" href="index.html#pipeline">Model</a>
+            </li>
+            <!-- <li class="nav-item" style="font-size: 110%">
+              <a class="nav-link js-scroll-trigger" href="#downloads">Downloads</a>
+            </li> -->
+            <li class="nav-item" style="font-size: 110%">
+              <a class="nav-link js-scroll-trigger" href="index.html#metadata">metadata</a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- Header -->
+    <header class="masthead">
+      <div class="container">
+            <div class="row align-items-center intro-text">
+              <div class="intro-lead-in">Co\(^3\)Gesture: Towards <u>Co</u>herent <u>Co</u>ncurrent <u>Co</u>-speech 3D Gesture Generation with Interactive Diffusion</div>
+            <div class="row">
+              <div class="w-100">
+                <img style="float: right; width: 100%" src="images/teaser.png" alt="">
+              </div>
+              <div class="w-100" style="margin-top: 40px;">
+                  <p>We propose <b>Co\(^3\)Gesture</b>, a novel framework that enables coherent concurrent co-speech gesture synthesis
+                    including two-person interactive movements. We also present a Temporal Interaction Module (<b>TIM</b>) to ensure 
+                    the temporal synchronization of gestures <i>w.r.t</i>. the corresponding speaker voices while preserving desirable 
+                    interactive dynamics. </p >
+                  <p>Moreover, we collect a large-scale concurrent co-speech gesture dataset that contains more than <b>7M</b> frames
+                     for diverse high-quality two-person interactive posture sequences, dubbed <b>GES-Inter</b>. </p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </header>
+
+<!-- Dataset -->
+<section class="bg-white" id="dataset"">
+  <div class="row text-center">
+    <div class="col-md-12" style="text-align:center">
+        <h1 class="section-heading text-uppercase" style="color: rgb(5, 4, 0); margin-top: 50px; margin-bottom: 40px;">GES-Inter Dataset</h1>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <!-- news column -->
+      <div class="col-md-8">
+        <h4 class="service-heading">Basic information</h4>
+        <ul class="text-muted">
+          <li class="text-muted">Our conversational videos are collected mostly from talk show and interview videos.</li>
+          <li class="text-muted">Videos contain only two people with appropriate sizes and noticable gestures.</li>
+          <li class="text-muted">Accompanied with attributes such as 3D poses (including facial, mesh, phoneme, text, etc.), audios, speaker diarizations, and audio-speaker alignment tables.</li>
+        </ul>
+      </div>
+      <!-- characteristics column -->
+      <div class="col-md-4" >
+        <h4 class="service-heading">Basic statistics</h4>
+        <ul class="text-muted">
+          <li class="text-muted"><b>1462</b> high-quality videos in total.</li>
+          <li class="text-muted">Videos are cut into <b>27,390</b> clips.</li>
+          <li class="text-muted">Total duration of videos is <b>70 hours</b>.</li>
+          <li class="text-muted">More than <b>7M</b> video frames.</li>
+        </ul>
+      </div>
+
+    <!-- video banner row -->
+    <div class="row text-center">
+      <div class="col-md-12" style="text-align:center">
+        <h2 class="section-heading text-uppercase" style="color: rgb(5, 4, 0); margin-top: 70px">VIDEO Examples</h2>
+      </div>
+      <p style="text-align: left; margin-left: 15px; margin-bottom: 0px; color: rgb(65, 63, 60)">
+        Some video examples and their pose visualizations in GES-Inter dataset. Orignial video clips are shown on the left, and the corresponding pose visualizations are shown on the right. <br>
+        If it takes too long to load the videos below, please view the videos <a href="https://www.udrop.com/folder/f1606078f0ef3d716e3411809eba5b72/Examples">here.</a>
+      </p>
+      <p style="text-align: left; margin-left: 13px; margin-bottom: 0px; color: rgb(65, 63, 60)"><i>(Slight differences are inevitable because of smooth operation.)</i></p>
+	   <div class="col-md-12" style="text-align:left">
+
+      <div class="container">
+          <!-- Carousel -->
+          <div id="carouselExampleIndicators" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="8"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="video-caption-container">
+                  <div class="video-container">
+                      <video controls class="d-block w-100">
+                          <source src="videos/dataset/2p2zzclpmus_0000003.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                  </div>
+                  <div class="video-container">
+                    <video controls class="d-block w-100">
+                        <source src="videos/dataset/2p2zzclpmus_0000003_001_000015_withAudio.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+              </div>
+            </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                  <video controls class="d-block w-100">
+                      <source src="videos/dataset/mxc6adoUwzE_0000009.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <video controls class="d-block w-100">
+                    <source src="videos/dataset/mxc6adoUwzE_0000009_001_000110_withAudio.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="video-caption-container">
+            <div class="video-container">
+                <video controls class="d-block w-100">
+                    <source src="videos/dataset/dvBbxbjFRw4_0000509.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="video-container">
+              <video controls class="d-block w-100">
+                  <source src="videos/dataset/dvBbxbjFRw4_0000509_011_000002_withAudio.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+          </div>
+        </div>
+      </div>
+            <div class="carousel-item">
+              <div class="video-caption-container">
+                <div class="video-container">
+                    <video controls class="d-block w-100">
+                        <source src="videos/dataset/JCBCpKcv18U_0000120.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="video-container">
+                  <video controls class="d-block w-100">
+                      <source src="videos/dataset/JCBCpKcv18U_0000120001_000028_withAudio.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+            </div>
+          </div>
+              <div class="carousel-item">
+                <div class="video-caption-container">
+                  <div class="video-container">
+                      <video controls class="d-block w-100">
+                          <source src="videos/dataset/pj42zGEYJeY_0000094.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                  </div>
+                  <div class="video-container">
+                    <video controls class="d-block w-100">
+                        <source src="videos/dataset/pj42zGEYJeY_0000094001_000006_withAudio.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+              </div>
+              </div>
+              <div class="carousel-item">
+                <div class="video-caption-container">
+                  <div class="video-container">
+                      <video controls class="d-block w-100">
+                          <source src="videos/dataset/xI-nAElOtmM_0000036.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                  </div>
+                  <div class="video-container">
+                    <video controls class="d-block w-100">
+                        <source src="videos/dataset/xI-nAElOtmM_0000036011_000000_withAudio.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+              </div>
+              </div>
+              <div class="carousel-item">
+                <div class="video-caption-container">
+                  <div class="video-container">
+                      <video controls class="d-block w-100">
+                          <source src="videos/dataset/4m-810w1z1g_0000037.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                  </div>
+                  <div class="video-container">
+                    <video controls class="d-block w-100">
+                        <source src="videos/dataset/4m-810w1z1g_0000037001_000003_withAudio.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+              </div>
+              </div>
+                <div class="carousel-item">
+                  <div class="video-caption-container">
+                    <div class="video-container">
+                        <video controls class="d-block w-100">
+                            <source src="videos/dataset/AkXSglxYxuw_0000074.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-container">
+                      <video controls class="d-block w-100">
+                          <source src="videos/dataset/AkXSglxYxuw_0000074002_000009_withAudio.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                  </div>
+                </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="video-caption-container">
+                    <div class="video-container">
+                        <video controls class="d-block w-100">
+                            <source src="videos/dataset/xI-nAElOtmM_0000078.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-container">
+                      <video controls class="d-block w-100">
+                          <source src="videos/dataset/xI-nAElOtmM_0000078003_000000_withAudio.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                  </div>
+                </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="index.html#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="index.html#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>  
+  </div>
+</div>
+<div class="row justify-content-md-center text-center">
+      <div class="col-lg-12 text-center" style="margin-bottom: -20px;">
+        <h3 class="section-subheading" style="text-align:left; color: rgb(65, 63, 60); margin-top: 80px; ">• Long Video examples </h3>
+        <p class="text-muted" style="text-align:left; margin-top: -60px;">
+          Video exmples with relatively long duration.  
+          If it takes too long to load the videos below, please view the videos <a href="https://www.udrop.com/folder/5685866c7adeb4c2311d59eccc1372ea/Long">here.</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Carousel -->
+      <div id="carouselExampleIndicators-Long" class="carousel slide">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="video-caption-container">
+              <div class="video-container">
+                  <video controls class="d-block w-100">
+                      <source src="videos/long/jiI_r8hjk9A_0000035_000_000122_withAudio.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <video controls class="d-block w-100">
+                    <source src="videos/long/PmE2VPI5sGg_0000515_000_000154_withAudio.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                  <video controls class="d-block w-100">
+                      <source src="videos/long/CquiSjgJNc8_0000023_003_000000_withAudio.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <video controls class="d-block w-100">
+                    <source src="videos/long/JHUghbHqJpY_0000009_000_000243_withAudio.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                  <video controls class="d-block w-100">
+                      <source src="videos/long/CquiSjgJNc8_0000027_011_000000_withAudio.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <video controls class="d-block w-100">
+                    <source src="videos/long/SFxIazwNP_0_0000326_087_000001_withAudio.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="index.html#carouselExampleIndicators-Long" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="index.html#carouselExampleIndicators-Long" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div> 
+<div class="row text-center">
+  <div class="col-md-12" style="text-align:center">
+    <h2 class="section-heading text-uppercase" style="color: rgb(5, 4, 0); margin-top: 70px">AUDIO Examples</h2>
+  </div>
+  <p style="text-align: left; margin-left: 15px; margin-bottom: 0px; color: rgb(65, 63, 60)">
+    Some examples of extracted audios and the corresponding separated audios in GES-Inter dataset. Orignial audios / mixed audios are shown on the left, and the corresponding separated ones are shown on the right. <br>
+  </p>
+ <div class="col-md-12" style="text-align:left">
+
+  <div class="container">
+      <!-- Carousel -->
+      <div id="carouselExampleIndicators-Audio" class="carousel slide">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 90px"> Mixed </h6>
+                  <audio controls class="d-block w-100">
+                    <source src="audio/0x5XkzlEvMI_0000027_SPEAKER.wav" type="audio/wav">
+                    Your browser does not support the audio tag.
+                  </audio>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 15px"> Separated </h6>
+                  <audio controls class="d-block w-100 h-40">
+                    <source src="audio/0x5XkzlEvMI_0000027_SPEAKER_00.wav" type="audio/wav">
+                    Your browser does not support the audio tag.
+                  </audio>
+                  <br>
+                  <audio controls class="d-block w-100 h-40">
+                    <source src="audio/0x5XkzlEvMI_0000027_SPEAKER_01.wav" type="audio/wav">
+                    Your browser does not support the audio tag.
+                  </audio>
+            </div>
+          </div>
+        </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 90px"> Mixed </h6>
+                  <audio controls class="d-block w-100">
+                    <source src="audio/0vadsLx8Rq0_0000230_SPEAKER.wav" type="audio/wav">
+                    Your browser does not support the audio tag.
+                  </audio>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 15px"> Separated </h6>
+                  <audio controls class="d-block w-100 h-40">
+                    <source src="audio/0vadsLx8Rq0_0000230_SPEAKER_00.wav" type="audio/wav">
+                    Your browser does not support the audio tag.
+                  </audio>
+                  <br>
+                  <audio controls class="d-block w-100 h-40">
+                    <source src="audio/0vadsLx8Rq0_0000230_SPEAKER_01.wav" type="audio/wav">
+                    Your browser does not support the audio tag.
+                  </audio>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 90px"> Mixed </h6>
+                  <audio controls class="d-block w-100">
+                    <source src="audio/0YBxPmC7H5s_0000062_SPEAKER.wav" type="audio/wav">
+                    Your browser does not support the audio tag.
+                  </audio>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 15px"> Separated </h6>
+                  <audio controls class="d-block w-100 h-40">
+                    <source src="audio/0YBxPmC7H5s_0000062_SPEAKER_00.wav" type="audio/wav">
+                    Your browser does not support the audio tag.
+                  </audio>
+                  <br>
+                  <audio controls class="d-block w-100 h-40">
+                    <source src="audio/0YBxPmC7H5s_0000062_SPEAKER_01.wav" type="audio/wav">
+                    Your browser does not support the audio tag.
+                  </audio>
+            </div>
+          </div>
+          </div>
+            <div class="carousel-item">
+              <div class="video-caption-container">
+                <div class="video-container">
+                  <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 90px"> Mixed </h6>
+                    <audio controls class="d-block w-100">
+                      <source src="audio/1pQVshDcE28_0000003_SPEAKER.wav" type="audio/wav">
+                      Your browser does not support the audio tag.
+                    </audio>
+                </div>
+                <div class="video-container">
+                  <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 15px"> Separated </h6>
+                    <audio controls class="d-block w-100 h-40">
+                      <source src="audio/1pQVshDcE28_0000003_SPEAKER_00.wav" type="audio/wav">
+                      Your browser does not support the audio tag.
+                    </audio>
+                    <br>
+                    <audio controls class="d-block w-100 h-40">
+                      <source src="audio/1pQVshDcE28_0000003_SPEAKER_01.wav" type="audio/wav">
+                      Your browser does not support the audio tag.
+                    </audio>
+              </div>
+            </div>
+            </div>
+            <div class="carousel-item">
+              <div class="video-caption-container">
+                <div class="video-container">
+                  <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 90px"> Mixed </h6>
+                    <audio controls class="d-block w-100">
+                      <source src="audio/1pQVshDcE28_0000005_SPEAKER.wav" type="audio/wav">
+                      Your browser does not support the audio tag.
+                    </audio>
+                </div>
+                <div class="video-container">
+                  <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 15px"> Separated </h6>
+                    <audio controls class="d-block w-100 h-40">
+                      <source src="audio/1pQVshDcE28_0000005_SPEAKER_00.wav" type="audio/wav">
+                      Your browser does not support the audio tag.
+                    </audio>
+                    <br>
+                    <audio controls class="d-block w-100 h-40">
+                      <source src="audio/1pQVshDcE28_0000005_SPEAKER_01.wav" type="audio/wav">
+                      Your browser does not support the audio tag.
+                    </audio>
+              </div>
+            </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="index.html#carouselExampleIndicators-Audio" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="index.html#carouselExampleIndicators-Audio" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>  
+</div>
+</div>
+</div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center" style="margin-bottom: -20px;">
+        <h2 class="section-heading text-uppercase" style="color: rgb(5, 4, 0); margin-top: 90px">Data Processing</h2>
+        <h3 class="section-subheading" style="text-align:left; color: rgb(65, 63, 60); margin-top: 50px;">• Dataset Processing Pipeline</h3>
+      </div>
+    </div>
+    <div class="row justify-content-md-center text-center">
+      <div class="col-md centered">
+        <img src="images/data_processing.png" style="width: 100%" class="img-responsive"/> 
+      </div>
+      <p class="text-muted" style="text-align:left; margin-left:12px; margin-top: 20px"> 
+        Acquisition, processing, and filtering of our GES-Inter dataset. To build a high-quality 3D co-speech gesture dataset 
+        with concurrent and interactive body dynamics, we collect a considerable number of videos. They are then processed 
+        using automated methods to extract both audio and motion information.
+      </p>
+    </div>
+    
+    <div class="row">
+      <div class="col-lg-12 text-center" style="margin-bottom: -20px;">
+        <h3 class="section-subheading" style="text-align:left; color: rgb(65, 63, 60); margin-top: 50px;">• Audio Separation and Alignment</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7">
+        <img src="images/audio_separate.png" style="width: 90%" class="img-responsive"/> 
+      </div>
+      <!-- characteristics column -->
+      <div class="col-md-5" >
+        <p class="text-muted" style="text-align:left; margin-left:10px; margin-top: 20px"> 
+          To obtain the individual sound signals of each speaker in the conversation while preserving the identity consistency 
+          with the posture movement, we employ the pyannote-audio to separate the mixed speech. Afterward, by utilizing the automatic
+          speech recognition techniques Whisper-X, we acquire the consistent text transcript and speech phoneme with speaker audio.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="section-subheading" style="color: rgb(5, 4, 0); margin-top: 90px"> Statistical Comparison</h2>
+        <h6 class="section-subheading" style="color: rgb(65, 63, 60); margin-bottom: 20px"><i>Comparison of GES-Inter with other datasets</i></h6>
+      </div>
+    </div>
+	    <div class="row justify-content-md-center text-center">
+      <div class="col-md-10 centered" style="padding:1rem;">
+        <img src="images/data_table.png" style="width: 100%" class="img-responsive"/> 
+      </div>
+      <p class="text-muted" style="text-align:left; margin-left:12px; margin-top: 20px"> 
+        The dotted line separates whether the speech content in the dataset is built based on the conversational corpus.
+      </p>
+    </div>
+   
+  </div>
+
+	
+    </div>
+  </div>
+</section>
+
+<!-- Model -->
+<section class="bg-white" id="model">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center" >
+        <h1 class="section-heading text-uppercase" style="color: rgb(5, 4, 0); margin-top: 50px; margin-bottom:40px">Co\(^3\)Gesture</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 text-center" >
+	      <h2 class="section-subheading" style="color: rgb(5, 4, 0); margin-top: 30px"">Model Pipeline</h2>
+      </div>
+    </div>
+    <div class="row justify-content-md-center text-center">
+      <div class="col-md centered" style="padding:1rem; margin-top:20px; ">
+        <img src="images/pipeline.png" style="width: 100%" class="img-responsive"/> 
+      </div>
+      <p class="text-muted" style="text-align:left; margin-left:12px"> 
+        The overall pipeline of our Co\(^3\)Gesture. Given conversational speech audios, our framework generates concurrent co-speech gestures with coherent interactions.
+      </p>
+    </div>
+    <div class="row justify-content-md-center text-center">
+      <div class="col-lg-12 text-center" style="margin-bottom: -20px;">
+	      <h2 class="section-subheading" style="color: rgb(5, 4, 0); margin-top: 40px; margin-bottom: 30px;"">SOTA Methods Comparison</h2>
+        <p class="text-muted" style="text-align: left; margin-left: 0px; color: rgb(65, 63, 60)">
+          Here we compare results of our model Co\(^3\)Gesture and those of other state-of-the-art methods through visualization and statistics.  
+        </p>
+        <h3 class="section-subheading" style="text-align:left; color: rgb(65, 63, 60); margin-top: 50px;">• Videos Comparison</h3>
+        <p class="text-muted" style="text-align:left; margin-top: -60px;">
+          Our results are shown on the left, and the results of compared methods are shown on the right.  
+          If it takes too long to load the videos below, please view the videos <a href="https://www.udrop.com/folder/ae4721cb1a05020e8ad4a46c91e7fb74/compare_vis">here.</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Carousel -->
+      <div id="carouselExampleIndicators-Scores" class="carousel slide">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="8"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="9"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="10"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Co\(^3\)Gesture</h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/demo/Co3+InterGen/94_0000001_withAudio_Co3.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> InterGen</h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/demo/Co3+InterGen/94_0000001_withAudio_InterGen.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Co\(^3\)Gesture</h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/demo/Co3+InterGen/42_0000000_withAudio_Co3Gesture.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> InterGen</h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/demo/Co3+InterGen/42_0000000_withAudio_InterGen.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Co\(^3\)Gesture</h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/demo/Co3+InterGen/90_0000002_withAudio_Co3Gesture.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> InterGen</h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/demo/Co3+InterGen/90_0000002_withAudio_InterGen.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Co\(^3\)Gesture</h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/demo/Co3+InterX/92_0000001_withAudio_Co3.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> InterX</h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/demo/Co3+InterX/92_0000001_withAudio_InterX.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Co\(^3\)Gesture</h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/demo/Co3+InterX/87_0000001_withAudio_Co3Gesture.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> InterX</h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/demo/Co3+InterX/87_0000001_withAudio_InterX.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Co\(^3\)Gesture</h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/demo/Co3+InterX/43_0000003_withAudio_Co3Gesture.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> InterX</h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/demo/Co3+InterX/43_0000003_withAudio_InterX.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Co\(^3\)Gesture</h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/demo/Co3+DiffSHEG/66_0000000_withAudio_Co3.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> DiffSHEG</h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/demo/Co3+DiffSHEG/66_0000000_withAudio_DiffSHEG.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+        </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Co\(^3\)Gesture</h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/demo/Co3+EMAGE/72_0000001_withAudio_Co3.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> EMAGE</h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/demo/Co3+EMAGE/72_0000001_withAudio_EMAGE.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+            <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Co\(^3\)Gesture</h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/demo/Co3+MDM/68_0000001_withAudio_Co3.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> MDM</h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/demo/Co3+MDM/68_0000001_withAudio_MDM.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Co\(^3\)Gesture</h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/demo/Co3+ProbTalk/61_0000002_withAudio_Co3.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> ProbTalk</h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/demo/Co3+ProbTalk/61_0000002_withAudio_ProbTalk.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Co\(^3\)Gesture</h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/demo/Co3+Talkshow/95_0000002_withAudio_Co3.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Talkshow</h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/demo/Co3+Talkshow/95_0000002_withAudio_TalkSHOW.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="index.html#carouselExampleIndicators-Scores" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="index.html#carouselExampleIndicators-Scores" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div> 
+
+    <div class="row justify-content-md-center text-center">
+      <div class="col-lg-12 text-center" style="margin-bottom: -20px;">
+        <h3 class="section-subheading" style="text-align:left; color: rgb(65, 63, 60); margin-top: 80px; ">• Ablation Study Comparison </h3>
+        <p class="text-muted" style="text-align:left; margin-top: -60px;">
+          Ablation Study Comparison: Full version results are shown on the left, and the ablated results are shown on the right.  
+          If it takes too long to load the videos below, please view the videos <a href="https://www.udrop.com/folder/9109fd1827d2ee38cd4880e6d0a36e3f/ablation_study">here.</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Carousel -->
+      <div id="carouselExampleIndicators-Ablation" class="carousel slide">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Full Version </h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/ablation_study/39_0000001_withAudio_full_version.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> W/O Audio Separation </h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/ablation_study/39_0000001_withAudio_wo_audio_separation_unnatural_posture.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Full Version </h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/ablation_study/39_0000001_withAudio_full_version.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> W/O Bilateral Mechanism </h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/ablation_study/39_0000001_withAudio_wo_Bilateral_stiff_posture.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Full Version </h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/ablation_study/39_0000001_withAudio_full_version.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> W/O Mutual Attention </h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/ablation_study/39_0000001_withAudio_wo_mutual_attention_less_interaction.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <div class="video-caption-container">
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> Full Version </h6>
+                  <video controls class="d-block w-100">
+                      <source src="videos/ablation_study/39_0000001_withAudio_full_version.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+              <div class="video-container">
+                <h6 class="section-subheading" style="text-align:center; margin-top: -20px; color: rgb(125, 120, 115); margin-bottom: 10px"> W/O TIM </h6>
+                <video controls class="d-block w-100">
+                    <source src="videos/ablation_study/39_0000001_withAudio_wo_TIM_less_rhymic.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+          </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="index.html#carouselExampleIndicators-Ablation" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="index.html#carouselExampleIndicators-Ablation" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div> 
+
+    <div class="row justify-content-md-center text-center">
+      <div class="col-lg-12 text-center" style="margin-bottom: -20px;">
+        <h3 class="section-subheading" style="text-align:left; color: rgb(65, 63, 60); margin-top: 80px; ">• Image Comparison (Screenshots from Videos)</h3>
+      </div>
+      <div class="col-md centered">
+        <img src="images/comparison.png" style="width: 90%" class="img-responsive"/> 
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center text-center">
+      <div class="col-lg-12 text-center" style="margin-bottom: -50px;">
+        <h3 class="section-subheading" style="text-align:left; color: rgb(65, 63, 60); margin-top: 80px; ">• Statistical Comparison</h3>
+      </div>
+      <div class="row">
+        <div class="col-md-7">
+            <img src="images/model_table.png" style="width: 100%" class="img-responsive"/> 
+        </div>
+        <!-- characteristics column -->
+        <div class="col-md-5" >
+          <img src="images/user_study.png" style="width: 90%" class="img-responsive"/> 
+        </div>
+      </div>
+      <p class="text-muted" style="text-align:left; margin-left:10px; margin-top: 20px"> 
+        Comparison with the state-of-the-art counterparts on our newly collected GES-Inter dataset.↑ means the higher the better, and ↓ indicates the lower the better. ± means 95% confidence interval.
+        The dotted line separates whether the methods are adopted from single-person co-speech generation or text2motion counterparts.
+        <br>
+        User study on gesture naturalness, motion smoothness, and interaction coherency also verify the superiority of our method.
+      </p>
+    </div>
+
+	</br>
+	  </div>
+</section>
+
+
+<!-- Downloads -->
+<!-- <section class="bg-white" id="download">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center" style="margin-bottom: 40px">
+        <h2 class="section-heading text-uppercase" style="color: rgb(5, 4, 0); margin-top: 60px">Downloads</h2>
+      </div>
+    </div>
+    <div class="table-container">
+    <table class="custom-table">
+        <thead>
+        <tr>
+            <th>Split</th>
+            <th>Download</th>
+            <th># Samples</th>
+            <th>Video Duration</th>
+            <th>Storage Space</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><a href="">Training (20M)</a></td>
+            <td>TODO (-)</td>
+            <td>20M</td>
+            <td>27.1 khrs</td>
+            <td>~8.0 TB</td>
+        </tr>
+        <tr>
+            <td><a href="">Training (3M)</a></td>
+            <td>TODO (-)</td>
+            <td>3.2M</td>
+            <td>12.2 khrs</td>
+            <td>~1.6 TB</td>
+        </tr>
+        <tr>
+            <td><a href="">Testing</a></td>
+            <td>TODO (2.77 MB)</td>
+            <td>1,000</td>
+            <td>3.5 hrs</td>
+            <td>794 Mb</td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
+</section> -->
+
+
+<section class="bg-white" id="metadata">
+  <div class="container">
+    
+    <!-- <div class="row">
+      <div class="col-md-12 text-center">
+        <h2 class="section-heading text-uppercase">Download</h2>
+        <h3 class="section-subheading text-muted">Dataset publicly available for research purposes</h3>
+      </div>
+    </div> -->
+
+    <div class="row">
+      <div class="col-md-12 text-center" style="margin-bottom: 20px;">
+        <h1 class="section-heading text-uppercase" style="color: rgb(5, 4, 0); margin-top: 50px; margin-bottom: 20px;">Metadata</h1>
+        <h4 class="section-subheading text-muted"">Dataset metadata format</h4>
+      </div>
+    </div>
+<!-- 
+    <div class="row">
+      <div class="col-md-12"> 
+        
+        <h4 class="section-subheading" id="downloadFiles">Data download </h4><hr/>
+        
+        <p><b>Resources (Anonymous Now):</b>
+          <ul>
+            <li>All untrimmed videos: &nbsp;&nbsp; Download from&nbsp;
+              <a href="#">Google Drive</a>,&nbsp;</li>
+            <li>Mask Annotations: &nbsp;&nbsp; Download from&nbsp;
+               <a href="#">Google Drive</a>,&nbsp;</li>
+            <li>Bounding Box Annotations: &nbsp;&nbsp;, Download from&nbsp;
+			<a href="#">Google Drive</a>,&nbsp;</li>
+            </ul>
+        </p>
+
+        <p> <b>Annotations</b> (train, val and test set): Available for download at <a href="#">GitHub  (Anonymous Now):</a></p> -->
+		
+        <p> The format of a metadata JSON file is shown in below:</p>
+       <pre class="hidden-sm hidden-md hidden-lg">
+<!-- <em class="comment">(Please view the JSON format in larger screen.)</em> -->
+</pre>
+
+<pre class="code-content" style="margin-top: -30px;">
+
+[
+  
+{'basic':       <em class="comment", style="color:#FFC64B"># Each item in metadata list is a dict of a clip extracted from a longer video</em>
+{'video_id': 'J-LQxBbQPTY',                 <em class="comment", style="color:#FFC64B"># Video ID in GES-Inter</em>
+'video_path': './J-LQxBbQPTY.mp4',                       <em class="comment", style="color:#FFC64B"># Relative path of the dataset root path</em>
+'video_duration': 792.52,               <em class="comment", style="color:#FFC64B"># Duration of the video</em>
+'video_resolution': [360, 640],
+'video_fps': 25.0, 
+'clip_id': 'J-LQxBbQPTY_0000000',           <em class="comment", style="color:#FFC64B"># Clip ID</em>
+'clip_path': 'J-LQxBbQPTY_0000000.mp4',          <em class="comment", style="color:#FFC64B"># Relative path of the dataset root path</em>
+'clip_duration': 0.96,            <em class="comment", style="color:#FFC64B"># Duration of the clip itself/em>
+'clip_start_end_idx': [0, 24],     <em class="comment", style="color:#FFC64B"># Start frame_id and end frame_id</em>
+'clip_start_end_time': ['00:00:00.000', '00:00:00.960']     <em class="comment", style="color:#FFC64B"># Start timestamp and end timestamp</em>
+}, 
+{
+  ...
+}
+}
+]
+
+</pre>
+        
+        <br/>
+        <!-- <h4 class="section-subheading">Publication(s)</h4>
+        <p>
+          If you find our work useful in your research, please cite our paper.
+        </p>
+        <pre class="bibtex" style="text-align:left; margin-left:2px">
+        <code>
+        @ARTICLE{
+          title={Benchmarking Audio Visual Segmentation for Long-Untrimmed Videos},
+          author={anonymous},
+          year={2024},
+        }</code>
+        </pre> -->
+
+
+        <!-- <br/>
+        <h4 class="section-subheading">Disclaimer </h4>
+        <p> The released GES-X dataset is curated, which perhaps owns potential correlation between instrument and geographical area. This issue warrants further research and consideration.
+        </p> -->
+
+      </div>
+    </div>
+
+<!-- 
+    <br/>
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="section-subheading">Copyright <img alt="Creative Commons License" style="border-width:1px;float:left;margin-right:15px;margin-bottom:0px;" src="https://i.creativecommons.org/l/by-nc/3.0/88x31.png"/></h4>
+        <p>
+          All datasets and frameworks on this page are copyright by us and published under the <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International</a> License. This means that  you must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use. You may not use the material for commercial purposes.
+        </p>
+      </div>
+    </div> -->
+  </div>
+</section>
+
+    <div class="container">
+      <div class="row">
+      </div>
+    </div>
+</section>
+
+
+
+    
+    <!-- Footer -->
+    <footer style="background-color:rgb(75, 75, 75);">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- <img alt="Creative Commons License" style="border-width:1px;float:left;margin-right:15px;margin-bottom:0px;" src="http://i.creativecommons.org/l/by-nc/3.0/88x31.png"/> -->
+            <span class="copyright" style="color:#eee;"> 
+              **We will remove the video samples from our dataset / Github / project webpage / technical presentation as long as you need it. 
+              <br>
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="jquery/jquery.min.js"></script>
+    <script src="jquery/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="jquery/jquery.easing.min.js"></script>
+    <!-- Custom scripts for this template -->
+    <script src="jquery/agency.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>

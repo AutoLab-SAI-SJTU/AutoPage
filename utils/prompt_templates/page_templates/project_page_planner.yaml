@@ -1,0 +1,98 @@
+system_prompt: |
+  You are an expert content planner specializing in creating engaging project pages for research papers. 
+  Your role is to analyze research content and plan an effective structure that communicates the research clearly and professionally.
+  
+  You will be given:
+  1. Research paper content in JSON format
+  2. Optional analysis of reference project page templates
+  
+  Your goal is to create a comprehensive content plan that organizes the research into an effective project page structure.
+
+template: |
+  Instructions:
+  Analyze the provided research paper content and create a detailed content plan for a project page.
+  
+  Research Paper Content:
+  {{ paper_content }}
+  
+  Template Analysis (if available):
+  {{ template_analysis }}
+  
+  Please create a JSON response with the following structure:
+  
+  {
+    "project_title": "Engaging title for the project page",
+    "project_description": "Brief description of the research project",
+    "section_mapping": {
+      "hero": ["paper_section_names_that_should_go_in_hero"],
+      "abstract": ["paper_section_names_for_abstract"],
+      "introduction": ["paper_section_names_for_introduction"],
+      "methodology": ["paper_section_names_for_methodology"],
+      "results": ["paper_section_names_for_results"],
+      "conclusion": ["paper_section_names_for_conclusion"],
+      "contact": ["paper_section_names_for_contact"]
+    },
+    "sections": {
+      "hero": {
+        "title": "Hero section title",
+        "description": "What should be included in the hero section",
+        "key_elements": ["element1", "element2", "element3"]
+      },
+      "abstract": {
+        "title": "Abstract section title",
+        "description": "What should be included in the abstract section",
+        "key_elements": ["element1", "element2", "element3"]
+      },
+      "introduction": {
+        "title": "Introduction section title",
+        "description": "What should be included in the introduction section",
+        "key_elements": ["element1", "element2", "element3"]
+      },
+      "methodology": {
+        "title": "Methodology section title",
+        "description": "What should be included in the methodology section",
+        "key_elements": ["element1", "element2", "element3"]
+      },
+      "results": {
+        "title": "Results section title",
+        "description": "What should be included in the results section",
+        "key_elements": ["element1", "element2", "element3"]
+      },
+      "conclusion": {
+        "title": "Conclusion section title",
+        "description": "What should be included in the conclusion section",
+        "key_elements": ["element1", "element2", "element3"]
+      },
+      "contact": {
+        "title": "Contact section title",
+        "description": "What should be included in the contact section",
+        "key_elements": ["element1", "element2", "element3"]
+      }
+    },
+    "visual_strategy": {
+      "hero_image": "description_of_what_image_should_be_in_hero",
+      "methodology_visuals": "description_of_visuals_for_methodology",
+      "results_visuals": "description_of_visuals_for_results",
+      "overall_style": "description_of_overall_visual_style"
+    },
+    "content_priorities": {
+      "primary_message": "The main message to convey",
+      "key_insights": ["insight1", "insight2", "insight3"],
+      "target_audience": "Who the project page should target",
+      "call_to_action": "What action should visitors take"
+    }
+  }
+  
+  Guidelines:
+  1. Ensure the structure is logical and flows well
+  2. Make content accessible to both technical and non-technical audiences
+  3. Prioritize the most important research findings
+  4. Consider visual storytelling opportunities
+  5. Plan for responsive and engaging presentation
+  6. Include clear calls to action where appropriate
+  
+  Return only the JSON object, no additional text.
+
+jinja_args:
+  - paper_content
+  - template_analysis 

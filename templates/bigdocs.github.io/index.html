@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="BigDocs">
+  <meta name="keywords" content="BigDocs">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BigDocs - ICLR 2025</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="icon" type="image/png" href="static/images/logo.png">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.16.0/gradio.js"></script>
+  
+  <style>
+    /* Clean modern styles inspired by WebMMU */
+    .venue-badge {
+      text-align: center;
+      margin-bottom: 2rem;
+      animation: fadeIn 0.8s ease-in;
+    }
+    
+    .venue-badge .badge-text {
+      display: inline-block;
+      background: linear-gradient(135deg, #1BC5BD 0%, #4E9BE2 50%, #F64E87 100%);
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(27, 197, 189, 0.3);
+      letter-spacing: 0.5px;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Cleaner header styling */
+    .hero.custom-hero {
+      background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+      padding: 3rem 0;
+    }
+    
+    .header-container {
+      margin-bottom: 1.25rem;
+    }
+    
+    .main-title {
+      font-size: 2.5rem !important;
+      line-height: 1.3 !important;
+      font-weight: 700;
+    }
+    
+    /* Clean button styling */
+    .publication-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin: 1rem 0 0.75rem 0;
+    }
+    
+    .publication-links .button {
+      background: #4A90E2;
+      border: 2px solid #4A90E2;
+      color: white;
+      transition: all 0.3s ease;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+    }
+    
+    .publication-links .button:hover {
+      background: #3A7BC8;
+      color: white;
+      border-color: #3A7BC8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(74, 144, 226, 0.4);
+    }
+    
+    .publication-links .button .icon {
+      color: white;
+    }
+    
+    .publication-links .button:hover .icon {
+      color: white;
+    }
+    
+    /* Clean section styling */
+    section {
+      padding: 3rem 0;
+    }
+    
+    .box {
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .box:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      transform: translateY(-4px);
+    }
+    
+    /* Optimize spacing */
+    .container.is-max-desktop {
+      max-width: 1200px;
+      padding: 0 1.5rem;
+    }
+    
+    h2.title {
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+    }
+    
+    .section-intro {
+      color: #718096;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero custom-hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column">
+            <!-- ICLR 2025 Acceptance Badge -->
+            <div class="venue-badge">
+              <span class="badge-text">🎉 Accepted at ICLR 2025</span>
+            </div>
+            <!-- Improved horizontal header layout with logo on left -->
+            <div class="header-container">
+              <div class="logo-title-wrapper">
+                <div class="logo-wrapper">
+                  <img src="static/images/logo.png" alt="BigDocs Logo" class="main-logo">
+                </div>
+                <div class="title-container">
+                  <h1 class="title main-title main-gradient">BigDocs: An Open Dataset for Training Multimodal Models on Document and Code Tasks</h1>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Moved Links Section above authors -->
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2412.04626" target="_blank" class="external-link button is-normal is-rounded">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2412.04626" target="_blank" class="external-link button is-normal is-rounded">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>PDF</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/ServiceNow/BigDocs-7.5M" target="_blank" class="external-link button is-normal is-rounded">
+                  <span class="icon"><img src="static/images/huggingface_logo-noborder.svg" alt="Hugging Face" style="height: 1em;"></span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/ServiceNow/BigDocs-Bench" target="_blank" class="external-link button is-normal is-rounded">
+                  <span class="icon"><img src="static/images/huggingface_logo-noborder.svg" alt="Hugging Face" style="height: 1em;"></span>
+                  <span>BigDocs-Bench</span>
+                </a>
+              </span>
+            </div>
+
+            <!-- Authors Section with all authors visible -->
+            <div class="authors-container">
+              <div class="authors-list">
+                <span class="author-item"><a href="https://joanrod.github.io">Juan A. Rodriguez<sup>1,2,3</sup></a>,</span>
+                <span class="author-item"><a href="https://scholar.google.com/citations?user=kq17trAAAAAJ&hl=zh-CN">Xiangru Jian<sup>1,4</sup></a>,</span>
+                <span class="author-item"><a href="https://sibasmarak.github.io/">Siba Smarak Panigrahi<sup>1,2</sup></a>,</span>
+                <span class="author-item"><a href="https://tyz.netlify.app/">Tianyu Zhang<sup>1,2,5</sup></a>,</span>
+                <span class="author-item"><a href="https://aarashfeizi.github.io/">Aarash Feizi<sup>1,2,6</sup></a>,</span>
+                <span class="author-item"><a href="https://scholar.google.ca/citations?user=s8vVSvIAAAAJ&hl=en">Abhay Puri<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="https://scholar.google.com/citations?user=-GV1fg4AAAAJ&hl=en">Akshay Kalkunte<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">François Savard<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="https://ahmedmasryku.github.io/">Ahmed Masry<sup>1,7</sup></a>,</span>
+                <span class="author-item"><a href="https://bajuka.github.io/">Shravan Nayak<sup>1,2,5</sup></a>,</span>
+                <span class="author-item"><a href="https://rabiul.me/">Rabiul Awal<sup>1,2,5</sup></a>,</span>
+                <span class="author-item"><a href="https://mila.quebec/en/directory/mahsa-massoud">Mahsa Massoud<sup>1,2,6</sup></a>,</span>
+                <span class="author-item"><a href="https://amirabaskohi.github.io/">Amirhossein Abaskohi<sup>1,8</sup></a>,</span>
+                <span class="author-item"><a href="https://mila.quebec/en/directory/zichao-li">Zichao Li<sup>1,2,6</sup></a>,</span>
+                <span class="author-item"><a href="https://scholar.google.com/citations?user=fiy_i68AAAAJ&hl=zh-CN">Suyuchen Wang<sup>2,5</sup></a>,</span>
+                <span class="author-item"><a href="https://scholar.google.com/citations?user=FxU9cG0AAAAJ&hl=en">Pierre-André Noël<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="https://scholar.google.com/citations?user=cnTEUtoAAAAJ&hl=en">Chao Wang<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="https://scholar.google.com/citations?user=xtlV5SAAAAAJ&hl=de">Mats Leon Richter<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Saverio Vadacchino<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Shubham Agarwal<sup>1,2</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Sanket Biswas<sup>9</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Sara Shanian<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Ying Zhang<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Noah Bolger<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Kurt MacDonald<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Simon Fauvel<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Sathwik Tejaswi<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Srinivas Sunkara<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Joao Monteiro<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Krishnamurthy DJ Dvijotham<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Torsten Scholak<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Nicolas Chapados<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Sepideh Kharagani<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Sean Hughes<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">M. Özsu<sup>4</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Siva Reddy<sup>1,2,6,10</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Marco Pedersoli<sup>1,3</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Yoshua Bengio<sup>2,5,10</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Christopher Pal<sup>1,2,10,11</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Issam Laradji<sup>1,8</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Spandana Gella<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">Perouz Taslakian<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="index.html#">David Vazquez<sup>1</sup></a>,</span>
+                <span class="author-item"><a href="https://sairajeswar.com/">Sai Rajeswar<sup>1,2</sup></a></span>
+              </div>
+            </div>
+
+            <!-- Simplified Affiliations Section -->
+            <div class="affiliations-container">
+              <div class="affiliations-list">
+                <span class="affiliation-item"><sup>1</sup>ServiceNow,</span>
+                <span class="affiliation-item"><sup>2</sup>Mila,</span>
+                <span class="affiliation-item"><sup>3</sup>École de Technologie Supérieure,</span>
+                <span class="affiliation-item"><sup>4</sup>University of Waterloo,</span>
+                <span class="affiliation-item"><sup>5</sup>Université de Montréal,</span>
+                <span class="affiliation-item"><sup>6</sup>McGill University,</span>
+                <span class="affiliation-item"><sup>7</sup>York University,</span>
+                <span class="affiliation-item"><sup>8</sup>University of British Columbia,</span>
+                <span class="affiliation-item"><sup>9</sup>Universitat Autònoma de Barcelona,</span>
+                <span class="affiliation-item"><sup>10</sup>CIFAR AI Chair,</span>
+                <span class="affiliation-item"><sup>11</sup>Polytechnique Montréal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="content">
+        <!-- Updated TLDR Box -->
+        <div class="tldr-container">
+          <h3 class="tldr-title"><i class="fas fa-lightbulb"></i> TL;DR</h3>
+          <div class="tldr-content">
+            <p>BigDocs is a large-scale multimodal dataset designed to enhance document understanding through 7.5 million diverse samples across 30 tasks. It empowers models to tackle complex document challenges with innovative tasks involving multimodal code generation, reasoning over graphical user interfaces (GUI), websites and documents and generating code from images.</p>
+            <ul class="tldr-list">
+              <li><i class="fas fa-check-circle"></i> <strong>Bridging the Document AI Gap</strong> With comprehensive multimodal samples, enabling models to move beyond basic OCR.</li>
+              <li><i class="fas fa-check-circle"></i> <strong>Complete Transparency</strong> With clear documentation and permissive licensing for broad use.</li>
+              <li><i class="fas fa-check-circle"></i> <strong>Real-World Innovation</strong> Through novel tasks like GUI reasoning and multimodal code synthesis.</li>
+              <li><i class="fas fa-check-circle"></i> <strong>Performance Gains</strong> With up to 15.14% improvement on document benchmarks when training with BigDocs.</li>
+            </ul>
+          </div>
+        </div>
+        
+        <h2 class="title is-3 main-gradient">What is BigDocs?</h2>
+        <p>
+          BigDocs is a multimodal dataset effort for advanced document understanding, consisting of two key components:
+        </p>
+        <ul>
+          <li><strong>BigDocs-7.5M:</strong> A high-quality, open-access, large-scale dataset of 7.5 million multimodal documents spanning 30 tasks</li>
+          <li><strong>BigDocs-Bench:</strong> A benchmark suite with 10 real-world-inspired tasks like reasoning over graphical user interfaces (GUI), websites and documents and generating code from images</li>
+        </ul>
+
+
+        <div class="column has-text-centered">
+          <img src="static/images/pie-chart-data.png" alt="Data Distribution" width="100%">
+        </div>
+  
+
+        <div class="container is-max-desktop">
+          <h2 class="title is-3 main-gradient">BigDocs-Bench Datasets & Tasks</h2>
+          <p class="section-intro">
+            BigDocs-Bench comprises a diverse set of tasks designed to evaluate model performance across different document understanding scenarios. Below is a detailed breakdown of the dataset composition for each task:
+          </p>
+          <div class="table-wrapper">
+            <div class="table-scroll-container">
+              <table class="small-font-table task-table">
+                <thead>
+                  <tr>
+                    <th>Task</th>
+                    <th>Train</th>
+                    <th>Val</th>
+                    <th>Test</th>
+                    <th>Hidden</th>
+                    <th>Tokens</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="task-name">
+                        <i class="fas fa-desktop"></i>
+                        <span>Screenshot-2HTML</span>
+                      </div>
+                    </td>
+                    <td>9.3K</td>
+                    <td>1000</td>
+                    <td>500</td>
+                    <td>500</td>
+                    <td>32.7K±53K</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="task-name">
+                        <i class="fas fa-table"></i>
+                        <span>Table-2LaTeX</span>
+                      </div>
+                    </td>
+                    <td>77.7K</td>
+                    <td>1000</td>
+                    <td>500</td>
+                    <td>500</td>
+                    <td>438±540</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="task-name">
+                        <i class="fas fa-vector-square"></i>
+                        <span>Image2SVG</span>
+                      </div>
+                    </td>
+                    <td>198K</td>
+                    <td>2000</td>
+                    <td>748</td>
+                    <td>500</td>
+                    <td>2.9K±1.7K</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="task-name">
+                        <i class="fas fa-project-diagram"></i>
+                        <span>Image2Flow (GraphViz)</span>
+                      </div>
+                    </td>
+                    <td>8.0K</td>
+                    <td>1000</td>
+                    <td>500</td>
+                    <td>500</td>
+                    <td>418±124</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="task-name">
+                        <i class="fas fa-code"></i>
+                        <span>Image2Flow (JSON)</span>
+                      </div>
+                    </td>
+                    <td>8000</td>
+                    <td>1000</td>
+                    <td>500</td>
+                    <td>500</td>
+                    <td>1800±601</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="task-name">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Chart-2Markdown</span>
+                      </div>
+                    </td>
+                    <td>4500</td>
+                    <td>1000</td>
+                    <td>500</td>
+                    <td>500</td>
+                    <td>1.6K±4.4K</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="task-name">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Chart2Caption</span>
+                      </div>
+                    </td>
+                    <td>5.4K</td>
+                    <td>1300</td>
+                    <td>650</td>
+                    <td>500</td>
+                    <td>94±49</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="task-name">
+                        <i class="fas fa-user-alt"></i>
+                        <span>GUI2UserIntent</span>
+                      </div>
+                    </td>
+                    <td>79K</td>
+                    <td>1000</td>
+                    <td>500</td>
+                    <td>500</td>
+                    <td>28±4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="task-name">
+                        <i class="fas fa-file-alt"></i>
+                        <span>GUI2Summary</span>
+                      </div>
+                    </td>
+                    <td>79K</td>
+                    <td>1000</td>
+                    <td>500</td>
+                    <td>500</td>
+                    <td>132±25</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="task-name">
+                        <i class="fas fa-question-circle"></i>
+                        <span>GUI-VQA</span>
+                      </div>
+                    </td>
+                    <td>78.9k</td>
+                    <td>1000</td>
+                    <td>500</td>
+                    <td>500</td>
+                    <td>35±24</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        <div class="container is-max-desktop">
+          <h2 class="title is-3 main-gradient">BigDocs-Bench Leaderboard</h2>
+          <p class="section-intro">
+            Our comprehensive evaluation demonstrates the effectiveness of models fine-tuned on BigDocs. The leaderboard below showcases performance comparisons across various metrics, highlighting the improvements achieved through our approach:
+          </p>
+          <div class="table-wrapper">
+            <div class="table-scroll-container">
+              <table class="small-font-table task-table">
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>Chart2MD</th>
+                    <th>Chart2Cap.</th>
+                    <th>Image2Flow (GraphViz)</th>
+                    <th>Image2Flow (JSON)</th>
+                    <th>GUI2Sum.</th>
+                    <th>GUI2Intent</th>
+                    <th>Image2SVG</th>
+                    <th>Screenshot2HTML</th>
+                    <th>Table2Latex</th>
+                    <th>GUI-VQA</th>
+                    <th>Avg. Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>DocOwl-1.5-8B</td>
+                    <td>0.08</td>
+                    <td>18.69</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>11.22</td>
+                    <td>13.88</td>
+                    <td>3.58</td>
+                    <td>3.50</td>
+                    <td>75.07</td>
+                    <td>27.22</td>
+                    <td>15.32</td>
+                  </tr>
+                  <tr>
+                    <td>Qwen2-VL-2B</td>
+                    <td>41.17</td>
+                    <td>22.88</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>23.98</td>
+                    <td>17.70</td>
+                    <td>23.18</td>
+                    <td>6.46</td>
+                    <td>74.83</td>
+                    <td>26.40</td>
+                    <td>23.66</td>
+                  </tr>
+                  <tr>
+                    <td>Phi3.5-V-4B</td>
+                    <td>60.64</td>
+                    <td>21.88</td>
+                    <td>1.61</td>
+                    <td>0.65</td>
+                    <td>27.80</td>
+                    <td>10.81</td>
+                    <td>34.57</td>
+                    <td>4.25</td>
+                    <td>74.14</td>
+                    <td>34.96</td>
+                    <td>27.13</td>
+                  </tr>
+                  <tr>
+                    <td>LLAVA-NeXT-7B</td>
+                    <td>22.00</td>
+                    <td>20.67</td>
+                    <td>1.58</td>
+                    <td>0.46</td>
+                    <td>21.99</td>
+                    <td>12.38</td>
+                    <td>20.53</td>
+                    <td>5.00</td>
+                    <td>73.81</td>
+                    <td>27.54</td>
+                    <td>20.60</td>
+                  </tr>
+                  <tr>
+                    <td>Idefics2-8B</td>
+                    <td>25.34</td>
+                    <td>20.95</td>
+                    <td>1.17</td>
+                    <td>0.00</td>
+                    <td>8.75</td>
+                    <td>5.06</td>
+                    <td>37.73</td>
+                    <td>3.56</td>
+                    <td>74.50</td>
+                    <td>27.76</td>
+                    <td>20.48</td>
+                  </tr>
+                  <tr>
+                    <td>Llama-3.2.90B</td>
+                    <td>45.21</td>
+                    <td>20.60</td>
+                    <td>0.73</td>
+                    <td>0.52</td>
+                    <td>22.16</td>
+                    <td>12.04</td>
+                    <td>45.97</td>
+                    <td>7.32</td>
+                    <td>74.79</td>
+                    <td>27.28</td>
+                    <td>25.66</td>
+                  </tr>
+                  <tr>
+                    <td>Qwen2-VL-72B</td>
+                    <td>70.47</td>
+                    <td>19.42</td>
+                    <td>1.07</td>
+                    <td>0.23</td>
+                    <td>18.80</td>
+                    <td>33.94</td>
+                    <td>54.43</td>
+                    <td>10.03</td>
+                    <td>74.51</td>
+                    <td>30.67</td>
+                    <td>31.36</td>
+                  </tr>
+                  <tr>
+                    <td>GeminiPro-1.5</td>
+                    <td>66.70</td>
+                    <td>25.23</td>
+                    <td>22.66</td>
+                    <td>27.28</td>
+                    <td>27.12</td>
+                    <td>17.57</td>
+                    <td>60.34</td>
+                    <td>10.33</td>
+                    <td>74.65</td>
+                    <td>36.58</td>
+                    <td>36.84</td>
+                  </tr>
+                  <tr>
+                    <td>DocOwl-1.5-8B + BigDocs</td>
+                    <td>54.81</td>
+                    <td>23.59</td>
+                    <td>13.92</td>
+                    <td>37.46</td>
+                    <td>26.45</td>
+                    <td>13.12</td>
+                    <td>25.46</td>
+                    <td>9.70</td>
+                    <td>74.44</td>
+                    <td>26.58</td>
+                    <td>30.55</td>
+                  </tr>
+                  <tr class="bigdocs-row">
+                    <td>LLAVA-NeXT-7B + BigDocs</td>
+                    <td>76.63</td>
+                    <td>25.90</td>
+                    <td>11.51</td>
+                    <td>33.59</td>
+                    <td>25.54</td>
+                    <td>16.79</td>
+                    <td>15.21</td>
+                    <td>7.43</td>
+                    <td>75.22</td>
+                    <td>35.35</td>
+                    <td>32.32</td>
+                  </tr>
+                  <tr>
+                    <td>Idefics2-8B + BigDocs</td>
+                    <td>74.43</td>
+                    <td>33.38</td>
+                    <td>42.16</td>
+                    <td>48.54</td>
+                    <td>45.55</td>
+                    <td>89.15</td>
+                    <td>33.66</td>
+                    <td>3.64</td>
+                    <td>81.28</td>
+                    <td>43.46</td>
+                    <td>49.52</td>
+                  </tr>
+                  <tr>
+                    <td>Llama-3.2.90B + BigDocs</td>
+                    <td>72.25</td>
+                    <td>33.74</td>
+                    <td>41.61</td>
+                    <td>52.11</td>
+                    <td>42.59</td>
+                    <td>71.65</td>
+                    <td>33.51</td>
+                    <td>9.20</td>
+                    <td>78.54</td>
+                    <td>33.97</td>
+                    <td>46.92</td>
+                  </tr>
+                  <tr>
+                    <td>Qwen2-VL-2B + BigDocs</td>
+                    <td>72.78</td>
+                    <td>32.88</td>
+                    <td>59.66</td>
+                    <td>71.49</td>
+                    <td>46.14</td>
+                    <td>79.55</td>
+                    <td>60.63</td>
+                    <td>10.40</td>
+                    <td>80.79</td>
+                    <td>40.67</td>
+                    <td>55.50</td>
+                  </tr>
+                  <tr class="bigdocs-row">
+                    <td>Qwen2-VL-2B (base) + BigDocs (Ours)</td>
+                    <td>84.01</td>
+                    <td>36.78</td>
+                    <td>63.07</td>
+                    <td>71.86</td>
+                    <td>47.32</td>
+                    <td>86.91</td>
+                    <td>34.65</td>
+                    <td>12.05</td>
+                    <td>81.94</td>
+                    <td>44.81</td>
+                    <td>56.34</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <style>
+            /* Consolidated and optimized table styling */
+            .table-wrapper {
+              position: relative;
+              overflow: hidden;
+              max-width: 100%;
+              margin: 2rem 0;
+              border-radius: 12px;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            }
+
+            .table-scroll-container {
+              overflow-x: auto;
+              max-width: 100%;
+              position: relative;
+              display: block;
+              padding: 0.5rem;
+            }
+
+            /* Clean table design */
+            .task-table {
+              width: 100%;
+              border-collapse: collapse;
+              font-size: 0.85rem;
+              background: white;
+            }
+
+            /* Clean header styling */
+            .task-table thead th {
+              padding: 1rem 0.5rem;
+              font-size: 0.8rem;
+              min-width: 70px;
+              text-align: center;
+              white-space: normal;
+              vertical-align: middle;
+              background: linear-gradient(180deg, #fafbfc 0%, #f8f9fa 100%);
+              border-bottom: 2px solid #e2e8f0;
+              font-weight: 600;
+              color: #2d3748;
+            }
+
+            /* First column styling */
+            .task-table th:first-child,
+            .task-table td:first-child {
+              min-width: 150px;
+              padding-left: 1rem;
+              text-align: left;
+              white-space: normal;
+              font-weight: 500;
+            }
+
+            /* Clean data cell styling */
+            .task-table td {
+              padding: 0.75rem 0.5rem;
+              font-size: 0.8rem;
+              text-align: center;
+              border-bottom: 1px solid #f0f4f8;
+              color: #4a5568;
+            }
+
+            /* Numeric cells */
+            .task-table td:not(:first-child) {
+              font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            }
+
+            /* Average score column */
+            .task-table th:last-child,
+            .task-table td:last-child {
+              min-width: 80px;
+              font-weight: 600;
+              background: linear-gradient(90deg, transparent 0%, rgba(27, 197, 189, 0.05) 100%);
+            }
+
+            /* Subscripts in headers */
+            .task-table thead th sub {
+              font-size: 0.65em;
+              display: block;
+              line-height: 1.1;
+              margin-top: 2px;
+              opacity: 0.7;
+            }
+
+            /* Task name styling */
+            .task-name {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+            }
+
+            .task-name i {
+              font-size: 0.9rem;
+              width: 1.2rem;
+              flex-shrink: 0;
+              color: #1BC5BD;
+            }
+            
+            /* Highlight BigDocs rows */
+            .bigdocs-row {
+              background: linear-gradient(90deg, rgba(27, 197, 189, 0.08) 0%, rgba(78, 155, 226, 0.08) 50%, rgba(246, 78, 135, 0.08) 100%);
+              font-weight: 600;
+            }
+            
+            .bigdocs-row td {
+              border-bottom: 2px solid rgba(27, 197, 189, 0.3);
+            }
+            
+            /* Hover effects for table rows */
+            .task-table tbody tr:hover {
+              background-color: rgba(27, 197, 189, 0.05);
+              transition: background-color 0.3s ease;
+            }
+            }
+
+            .task-name span {
+              line-height: 1.1 !important;
+              font-size: 0.8rem !important;
+            }
+
+            /* Enable sticky first column with proper styling */
+            .task-table thead th:first-child {
+              z-index: 101 !important;
+              background: linear-gradient(to right, #2d3748, #1a202c) !important;
+            }
+
+            .task-table tbody td:first-child {
+              background-color: #ffffff !important;
+            }
+
+            .task-table tbody tr:nth-child(even) td:first-child {
+              background-color: rgba(247, 250, 252, 1) !important;
+            }
+
+            /* Maximize container width */
+            .container.is-max-desktop {
+              max-width: 98% !important;
+              width: 98% !important;
+            }
+
+            /* Adjust hover effect to be less disruptive */
+            .task-table tbody tr:hover {
+              transform: translateX(2px) !important;
+            }
+
+            /* Ensure the table doesn't overflow mobile devices */
+            @media (max-width: 768px) {
+              .container.is-max-desktop {
+                max-width: 100% !important;
+                padding: 0 !important;
+              }
+              
+              .table-wrapper {
+                margin: 2rem -0.5rem !important;
+              }
+              
+              .task-table thead th {
+                font-size: 0.7rem !important;
+                padding: 0.6rem 0.2rem !important;
+              }
+              
+              .task-table td {
+                font-size: 0.7rem !important;
+              }
+            }
+          </style>
+
+        </div>
+
+        <h2 class="title is-3 main-gradient">Current Limitations in the Field</h2>
+        <p class="section-intro">           
+          Despite recent advances in document AI, several challenges persist in the field. We identify three key limitations that BigDocs aims to address:
+        </p>
+
+        <div class="columns">
+          <div class="column">
+            <div class="box">
+              <h4 class="title is-5">Scarcity of Open Datasets</h4>
+              <p>Many datasets for training VLMs are not publicly available, with limited transparency about their content.</p>
+            </div>
+          </div>
+          <div class="column">
+            <div class="box">
+              <h4 class="title is-5">Simple Tasks in Open Datasets</h4>
+              <p>Public datasets often address only basic tasks, insufficient for complex real-world challenges.</p>
+            </div>
+          </div>
+          <div class="column">
+            <div class="box">
+              <h4 class="title is-5">Restrictive Licensing</h4>
+              <p>Unclear or restrictive licenses make many datasets difficult to use for business purposes.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="title is-3 main-gradient">BigDocs-7.5M Dataset</h2>
+        <p class="section-intro">
+          The BigDocs-7.5M dataset represents a significant advancement in document understanding, offering comprehensive coverage across multiple domains and tasks. Our dataset is structured around three primary categories:
+        </p>
+
+        <h3 class="title is-4 main-gradient">Task Categories</h3>
+        <div class="columns">
+          <div class="column">
+            <div class="box">
+              <h4 class="title is-5">Document Information Extraction</h4>
+              <p>Enhanced OCR, layout analysis, and table detection</p>
+            </div>
+          </div>
+          <div class="column">
+            <div class="box">
+              <h4 class="title is-5">Document Understanding</h4>
+              <p>Document classification, question answering, and diagram analysis</p>
+            </div>
+          </div>
+          <div class="column">
+            <div class="box">
+              <h4 class="title is-5">Document Creation and Manipulation</h4>
+              <p>Transform visual data into HTML, LaTeX, Markdown and JSON</p>
+            </div>
+          </div>
+        </div>
+        
+        <style>
+          .table-wrapper {
+            position: relative;
+            overflow: hidden;
+          }
+
+          .table-scroll {
+            overflow-x: auto;
+            margin-left: 200px;  /* Width of first fixed column */
+            margin-right: 100px; /* Width of last fixed column */
+          }
+
+          .small-font-table {
+            position: relative;
+          }
+
+          /* Style for fixed columns */
+          .fixed-column {
+            position: absolute;
+            width: 200px; /* Width of first column */
+            left: 0;
+            top: auto;
+            background: white;
+            border-right: 2px solid #e2e8f0;
+          }
+
+          .fixed-column-right {
+            position: absolute;
+            width: 100px; /* Width of last column */
+            right: 0;
+            top: auto;
+            background: white;
+            border-left: 2px solid #e2e8f0;
+          }
+
+          /* Remove shadows to indicate scrolling */
+          .table-wrapper::before,
+          .table-wrapper::after {
+            display: none;
+          }
+
+          /* Clean, modern hero */
+          .custom-hero {
+            background: #ffffff;
+            color: #333;
+            padding: 2rem 1.5rem 1rem;
+            border-bottom: 1px solid #eaeaea;
+          }
+
+          /* Gradient style for title */
+          .main-gradient {
+            background: linear-gradient(45deg, #1BC5BD, #4E9BE2, #F64E87);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+          }
+          
+          /* Updated header layout styles */
+          .header-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+            width: 100%;
+          }
+          
+          .logo-title-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+            justify-content: center;
+          }
+          
+          .logo-wrapper {
+            display: flex;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+          }
+          
+          .logo-wrapper:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 10px rgba(27, 197, 189, 0.3));
+          }
+          
+          .main-logo {
+            width: 100px;
+            height: auto;
+            object-fit: contain;
+            transition: all 0.3s ease;
+          }
+          
+          .title-container {
+            text-align: center;
+            max-width: 900px;
+            position: relative;
+            flex: 1;
+          }
+          
+          .main-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.8px;
+            transition: all 0.3s ease;
+            cursor: default;
+            line-height: 1.15;
+          }
+          
+          .main-title:hover {
+            transform: translateY(-2px);
+            text-shadow: 
+              2px 2px 4px rgba(27, 197, 189, 0.2),
+              -2px -2px 4px rgba(246, 78, 135, 0.2);
+            background: linear-gradient(45deg, 
+              #1BC5BD 0%, 
+              #4E9BE2 50%, 
+              #F64E87 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s linear infinite;
+          }
+          
+          @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          
+          /* Responsive adjustments */
+          @media (max-width: 768px) {
+            .logo-title-wrapper {
+              flex-direction: column;
+              gap: 16px;
+            }
+            
+            .title-container {
+              text-align: center;
+              max-width: 100%;
+            }
+            
+            .main-logo {
+              width: 80px;
+            }
+            
+            .main-title {
+              font-size: 1.8rem;
+            }
+            
+            .main-gradient {
+              text-align: center;
+            }
+          }
+          
+          /* Modern Authors Section */
+          .authors-container {
+            margin: 1.5rem auto;
+            max-width: 960px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+          }
+          
+          .authors-list {
+            text-align: center;
+            line-height: 1.9;
+            padding: 0.25rem;
+            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          }
+          
+          .author-item {
+            display: inline-block;
+            margin: 0.15rem 0.08rem;
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+          
+          .author-item a {
+            color: #1a202c;
+            text-decoration: none;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-block;
+            background: linear-gradient(135deg, transparent 0%, rgba(27, 197, 189, 0.05) 100%);
+            border: 1px solid transparent;
+          }
+          
+          .author-item a:hover {
+            background: linear-gradient(135deg, rgba(27, 197, 189, 0.12) 0%, rgba(78, 155, 226, 0.08) 100%);
+            color: #0f172a;
+            transform: translateY(-2px) scale(1.02);
+            border: 1px solid rgba(27, 197, 189, 0.2);
+            box-shadow: 0 4px 16px rgba(27, 197, 189, 0.2), 0 2px 8px rgba(0, 0, 0, 0.08);
+          }
+          
+          .author-item a sup {
+            color: #1BC5BD;
+            font-weight: 600;
+            font-size: 0.75em;
+            margin-left: 2px;
+            transition: all 0.3s ease;
+          }
+          
+          .author-item a:hover sup {
+            color: #F64E87;
+            transform: scale(1.1);
+          }
+          
+          /* Updated affiliations styling - more compact */
+          .affiliations-container {
+            margin: 1rem auto;  /* Reduced from 1.5rem */
+            max-width: 900px;
+            padding: 1rem;  /* Reduced from 1.5rem */
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+          }
+          
+          .affiliations-list {
+            text-align: center;
+            line-height: 1.6;  /* Reduced from 2 */
+            color: #2d3748;
+            font-size: 1rem;  /* Reduced from 1.1rem */
+          }
+          
+          .affiliation-item {
+            display: inline-block;
+            margin: 0.2rem 0.5rem;  /* Reduced margins */
+            padding: 0.2rem 0.4rem;  /* Reduced padding */
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: default;
+          }
+          
+          .affiliation-item:hover {
+            background: rgba(27, 197, 189, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(27, 197, 189, 0.1);
+          }
+          
+          .affiliation-item sup {
+            color: #1BC5BD;
+            font-weight: 600;
+            font-size: 0.8em;  /* Slightly smaller superscript */
+            margin-right: 0.2rem;
+            transition: all 0.2s ease;
+          }
+          
+          .affiliation-item:hover sup {
+            color: #F64E87;
+            transform: scale(1.1);
+          }
+
+          /* Responsive adjustments */
+          @media (max-width: 768px) {
+            .affiliations-list {
+              font-size: 0.9rem;  /* Even smaller on mobile */
+            }
+            
+            .affiliation-item {
+              margin: 0.15rem 0.3rem;
+            }
+          }
+          
+          /* Links section improvements */
+          .publication-links {
+            margin: 1.5rem auto;
+            text-align: center;
+          }
+          
+          .link-block {
+            margin: 0 0.3rem 0.5rem;
+            display: inline-block;
+          }
+          
+          .link-block .button {
+            background: white;
+            color: #4a5568;
+            border: 1px solid #edf2f7;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+          }
+          
+          .link-block .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-color: #1bc5bd;
+            color: #1bc5bd;
+          }
+          
+          /* Consistent styling for content sections */
+          .section {
+            padding: 2rem 1.5rem;
+          }
+          
+          .content p, .content ul {
+            color: #4a5568;
+            line-height: 1.7;
+          }
+
+          /* Add styling for the new section introductions */
+          .section-intro {
+            color: #4a5568;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 900px;
+            text-align: justify;
+          }
+
+          /* Ensure consistent gradient styling for all titles */
+          .title.main-gradient {
+            background: linear-gradient(45deg, #1BC5BD, #4E9BE2, #F64E87);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            margin-bottom: 1rem;
+            position: relative;
+          }
+
+          .title.main-gradient::after {
+            content: '';
+            display: block;
+            height: 2px;
+            width: 50px;
+            background: linear-gradient(45deg, #1BC5BD, #4E9BE2);
+            margin-top: 0.5rem;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+          }
+
+          .title.main-gradient:hover::after {
+            width: 100px;
+          }
+
+          /* Add some spacing between sections */
+          .content > h2.title {
+            margin-top: 3rem;
+          }
+
+          /* Task table styling improvements */
+          .task-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            margin: 2rem 0;
+          }
+
+          /* Header styling */
+          .task-table thead th,
+          .fixed-column table thead th,
+          .fixed-column-right table thead th,
+          .small-font-table thead th {
+            background: linear-gradient(to right, #2d3748, #1a202c);
+            color: white !important;
+            font-weight: 700;
+            padding: 1.2rem 1.5rem; /* Increased padding */
+            text-align: left;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            white-space: nowrap;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            min-width: 120px; /* Added minimum width */
+          }
+
+          /* Add specific styling for header text wrapping */
+          .task-table thead th span {
+            display: inline-block;
+            white-space: normal; /* Allow text to wrap */
+            line-height: 1.2; /* Reduced line height */
+          }
+
+          /* Style for subscript text in headers */
+          .task-table thead th sub {
+            font-size: 0.7em;
+            margin-left: 2px;
+            color: rgba(255, 255, 255, 0.9);
+          }
+
+          /* Ensure table cells have consistent width */
+          .task-table td {
+            min-width: 120px; /* Match header minimum width */
+          }
+
+          /* First column can be wider */
+          .task-table th:first-child,
+          .task-table td:first-child {
+            min-width: 200px;
+          }
+
+          /* Row styling */
+          .task-table tbody tr {
+            transition: all 0.2s ease;
+          }
+
+          .task-table tbody tr:hover {
+            background: linear-gradient(to right, rgba(27, 197, 189, 0.05), rgba(78, 155, 226, 0.05));
+            transform: translateX(4px);
+            box-shadow: -4px 0 0 #1BC5BD;
+          }
+
+          /* Task name styling */
+          .task-name {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+          }
+
+          .task-name i {
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1BC5BD;  /* Accent color */
+            font-size: 1rem;
+            opacity: 0.9;
+          }
+
+          .task-name span {
+            font-weight: 500;
+            color: #2d3748;
+          }
+
+          /* Zebra striping */
+          .task-table tbody tr:nth-child(even) {
+            background-color: rgba(247, 250, 252, 0.5);
+          }
+
+          /* Column styling */
+          .task-table td:not(:first-child),
+          .task-table th:not(:first-child) {
+            text-align: center;
+          }
+
+          /* Add subtle border between columns */
+          .task-table td,
+          .task-table th {
+            border-right: 1px solid rgba(0, 0, 0, 0.03);
+          }
+
+          .task-table td:last-child,
+          .task-table th:last-child {
+            border-right: none;
+          }
+
+          /* Fixed columns styling */
+          .fixed-column,
+          .fixed-column-right {
+            background: white;
+          }
+
+          .fixed-column table thead th,
+          .fixed-column-right table thead th {
+            background: linear-gradient(to right, #2d3748, #1a202c);
+            color: white;
+            padding: 1.2rem 1.5rem; /* Increased padding */
+            font-size: 0.9rem;
+          }
+
+          /* Highlight rows with BigDocs */
+          .bigdocs-row {
+            background: rgba(27, 197, 189, 0.02) !important;
+          }
+
+          .bigdocs-row:hover {
+            background: linear-gradient(to right, rgba(27, 197, 189, 0.08), rgba(78, 155, 226, 0.08)) !important;
+          }
+
+          /* Responsive adjustments */
+          @media (max-width: 768px) {
+            .task-table {
+              font-size: 0.85rem;
+            }
+            
+            .task-table td,
+            .task-table th {
+              padding: 0.5rem 0.75rem;
+            }
+          }
+        </style>
+
+        <div class="container is-max-desktop">
+          <h2 class="title is-3 main-gradient">Results of Training on BigDocs-7.5M</h2>
+          <p class="section-intro">
+            Our experimental results demonstrate significant improvements across multiple benchmarks, showcasing the effectiveness of training with BigDocs-7.5M:
+          </p>
+          
+          <div class="results-grid">
+            <div class="result-card">
+              <div class="result-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3>Performance Boost</h3>
+              <p>Up to <strong>34.5%</strong> improvement through fine-tuning on BigDocs, enabling superior document understanding capabilities.</p>
+            </div>
+            
+            <div class="result-card">
+              <div class="result-icon">
+                <i class="fas fa-trophy"></i>
+              </div>
+              <h3>Competitive Edge</h3>
+              <p>Surpasses proprietary models by <strong>25.8%</strong> on BigDocs-Bench, demonstrating the dataset's excellence for real-world tasks.</p>
+            </div>
+          </div>
+          
+          <div class="table-wrapper">
+            <div class="table-scroll-container">
+              <table class="small-font-table task-table">
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>DocVQA<sub>VAL</sub></th>
+                    <th>InfoVQA<sub>VAL</sub></th>
+                    <th>DeepForm<sub>TEST</sub></th>
+                    <th>KLC<sub>TEST</sub></th>
+                    <th>WTQ<sub>TEST</sub></th>
+                    <th>TabFact<sub>TEST</sub></th>
+                    <th>ChartQA<sub>TEST</sub></th>
+                    <th>TextVQA<sub>VAL</sub></th>
+                    <th>MMIM<sub>TEST</sub></th>
+                    <th>DudeMini<sub>TEST</sub></th>
+                    <th>SlideVQA-M<sub>TEST</sub></th>
+                    <th>TableVQA<sub>TEST</sub></th>
+                    <th>Avg. Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- DocOwl Section -->
+                  <tr class="model-section"></tr>
+                  <tr>
+                    <td>DocOwl1.5-8B (instruct)</td>
+                    <td>80.73</td>
+                    <td>49.94</td>
+                    <td>68.84</td>
+                    <td>37.99</td>
+                    <td>38.87</td>
+                    <td>79.67</td>
+                    <td>68.56</td>
+                    <td>68.91</td>
+                    <td>33.67</td>
+                    <td>34.64</td>
+                    <td>31.62</td>
+                    <td>52.60</td>
+                    <td>53.84</td>
+                  </tr>
+                  <tr>
+                    <td>DocOwl1.5-8B (base)</td>
+                    <td>2.07</td>
+                    <td>1.84</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>24.44</td>
+                    <td>19.07</td>
+                    <td>3.30</td>
+                    <td>13.63</td>
+                    <td>5.36</td>
+                  </tr>
+                  <tr>
+                    <td>DocOwl1.5-8B (base) + DocStruct4M</td>
+                    <td>75.99</td>
+                    <td>46.88</td>
+                    <td>62.77</td>
+                    <td>35.21</td>
+                    <td>32.86</td>
+                    <td>71.56</td>
+                    <td>68.36</td>
+                    <td>65.08</td>
+                    <td>33.67</td>
+                    <td>29.00</td>
+                    <td>27.03</td>
+                    <td>46.27</td>
+                    <td>49.56</td>
+                  </tr>
+                  <tr class="bigdocs-row">
+                    <td>DocOwl1.5-8B (base) + BigDocs (Ours)</td>
+                    <td>78.70</td>
+                    <td>47.62</td>
+                    <td>64.39</td>
+                    <td>36.93</td>
+                    <td>35.69</td>
+                    <td>72.65</td>
+                    <td>65.80</td>
+                    <td>67.30</td>
+                    <td>32.33</td>
+                    <td>32.55</td>
+                    <td>29.60</td>
+                    <td>49.03</td>
+                    <td>51.05</td>
+                  </tr>
+                  <tr>
+                    <td>Qwen2-VL-2B (instruct)</td>
+                    <td>89.16</td>
+                    <td>64.11</td>
+                    <td>32.38</td>
+                    <td>25.18</td>
+                    <td>38.20</td>
+                    <td>57.21</td>
+                    <td>73.40</td>
+                    <td>79.90</td>
+                    <td>42.00</td>
+                    <td>45.23</td>
+                    <td>46.50</td>
+                    <td>43.07</td>
+                    <td>53.03</td>
+                  </tr>
+                  <tr>
+                    <td>Qwen2-VL-2B (base)</td>
+                    <td>7.26</td>
+                    <td>0.78</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>1.14</td>
+                    <td>34.89</td>
+                    <td>28.43</td>
+                    <td>14.55</td>
+                    <td>0.00</td>
+                    <td>7.25</td>
+                  </tr>
+                  <tr>
+                    <td>Qwen2-VL-2B (base) + DocStruct4M</td>
+                    <td>59.53</td>
+                    <td>32.00</td>
+                    <td>53.98</td>
+                    <td>36.38</td>
+                    <td>28.48</td>
+                    <td>64.24</td>
+                    <td>54.44</td>
+                    <td>55.89</td>
+                    <td>34.89</td>
+                    <td>28.78</td>
+                    <td>22.68</td>
+                    <td>46.53</td>
+                    <td>43.15</td>
+                  </tr>
+                  <tr class="bigdocs-row">
+                    <td>Qwen2-VL-2B (base) + BigDocs (Ours)</td>
+                    <td>57.23</td>
+                    <td>31.88</td>
+                    <td>49.31</td>
+                    <td>34.39</td>
+                    <td>31.61</td>
+                    <td>64.75</td>
+                    <td>68.60</td>
+                    <td>61.01</td>
+                    <td>35.67</td>
+                    <td>27.19</td>
+                    <td>17.46</td>
+                    <td>47.53</td>
+                    <td>43.89</td>
+                  </tr>
+                  <tr>
+                    <td>Phi3.5-Vision-4B (instruct)</td>
+                    <td>86.00</td>
+                    <td>56.20</td>
+                    <td>10.47</td>
+                    <td>7.49</td>
+                    <td>17.18</td>
+                    <td>30.43</td>
+                    <td>82.16</td>
+                    <td>73.12</td>
+                    <td>46.00</td>
+                    <td>37.20</td>
+                    <td>30.93</td>
+                    <td>70.70</td>
+                    <td>45.66</td>
+                  </tr>
+                  <tr>
+                    <td>Phi3.5-Vision-4B + DocStruct4M</td>
+                    <td>86.76</td>
+                    <td>68.90</td>
+                    <td>70.12</td>
+                    <td>37.83</td>
+                    <td>51.30</td>
+                    <td>82.12</td>
+                    <td>79.76</td>
+                    <td>68.60</td>
+                    <td>44.11</td>
+                    <td>35.52</td>
+                    <td>31.90</td>
+                    <td>69.17</td>
+                    <td>60.51</td>
+                  </tr>
+                  <tr class="bigdocs-row">
+                    <td>Phi3.5-Vision-4B + BigDocs (Ours)</td>
+                    <td>87.05</td>
+                    <td>70.05</td>
+                    <td>70.97</td>
+                    <td>37.45</td>
+                    <td>51.21</td>
+                    <td>81.24</td>
+                    <td>81.56</td>
+                    <td>68.72</td>
+                    <td>45.00</td>
+                    <td>36.15</td>
+                    <td>32.47</td>
+                    <td>67.77</td>
+                    <td>60.80</td>
+                  </tr>
+                  <tr>
+                    <td>LLAVA-NeXT-7B (instruct)</td>
+                    <td>63.51</td>
+                    <td>30.90</td>
+                    <td>1.30</td>
+                    <td>5.35</td>
+                    <td>20.06</td>
+                    <td>52.83</td>
+                    <td>52.12</td>
+                    <td>65.10</td>
+                    <td>38.89</td>
+                    <td>17.94</td>
+                    <td>7.46</td>
+                    <td>32.87</td>
+                    <td>32.36</td>
+                  </tr>
+                  <tr>
+                    <td>LLAVA-NeXT-7B + DocStruct4M</td>
+                    <td>60.95</td>
+                    <td>26.14</td>
+                    <td>39.78</td>
+                    <td>28.34</td>
+                    <td>25.90</td>
+                    <td>67.72</td>
+                    <td>61.20</td>
+                    <td>52.25</td>
+                    <td>25.78</td>
+                    <td>21.70</td>
+                    <td>15.33</td>
+                    <td>27.03</td>
+                    <td>37.68</td>
+                  </tr>
+                  <tr class="bigdocs-row">
+                    <td>LLAVA-NeXT-7B + BigDocs (Ours)</td>
+                    <td>57.13</td>
+                    <td>24.47</td>
+                    <td>46.38</td>
+                    <td>31.09</td>
+                    <td>27.06</td>
+                    <td>72.58</td>
+                    <td>54.72</td>
+                    <td>49.06</td>
+                    <td>17.78</td>
+                    <td>22.88</td>
+                    <td>16.07</td>
+                    <td>33.13</td>
+                    <td>37.70</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Citation Section -->
+        <h2 class="title is-3 main-gradient">Citation</h2>
+        <p class="section-intro">
+          If you find this work useful for your research, please consider citing our paper:
+        </p>
+        <div class="citation-container">
+          <pre class="citation-text"><code>@misc{rodriguez2025bigdocsopendatasettraining,
+    title={BigDocs: An Open Dataset for Training Multimodal Models on Document and Code Tasks}, 
+    author={Juan Rodriguez and Xiangru Jian and Siba Smarak Panigrahi and Tianyu Zhang and 
+            Aarash Feizi and Abhay Puri and Akshay Kalkunte and François Savard and 
+            Ahmed Masry and Shravan Nayak and Rabiul Awal and Mahsa Massoud and 
+            Amirhossein Abaskohi and Zichao Li and Suyuchen Wang and Pierre-André Noël and 
+            Mats Leon Richter and Saverio Vadacchino and Shubham Agarwal and Sanket Biswas and 
+            Sara Shanian and Ying Zhang and Noah Bolger and Kurt MacDonald and Simon Fauvel and 
+            Sathwik Tejaswi and Srinivas Sunkara and Joao Monteiro and Krishnamurthy DJ Dvijotham and 
+            Torsten Scholak and Nicolas Chapados and Sepideh Kharagani and Sean Hughes and 
+            M. Özsu and Siva Reddy and Marco Pedersoli and Yoshua Bengio and Christopher Pal and 
+            Issam Laradji and Spandana Gella and Perouz Taslakian and David Vazquez and Sai Rajeswar},
+    year={2025},
+    eprint={2412.04626},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG},
+    url={https://arxiv.org/abs/2412.04626}
+}</code></pre>
+
+        </div>
+
+        <style>
+
+          /* Improved TL;DR container styling with hover effects */
+          .tldr-container {
+            background: #f8fafc;
+            border-left: 4px solid #1BC5BD;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+          }
+          
+          .tldr-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(27, 197, 189, 0.12);
+            background: linear-gradient(to right, #f8fafc, #f0f9f9);
+            border-left: 4px solid #4E9BE2;
+          }
+          
+          .tldr-title {
+            color: #1BC5BD;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+          }
+          
+          .tldr-container:hover .tldr-title {
+            color: #4E9BE2;
+            transform: translateX(3px);
+          }
+          
+          .tldr-title i {
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+          }
+          
+          .tldr-container:hover .tldr-title i {
+            transform: rotate(10deg) scale(1.1);
+            color: #F64E87;
+          }
+          
+          .tldr-content {
+            color: #4a5568;
+            line-height: 1.6;
+          }
+          
+          .tldr-list {
+            margin-top: 0.8rem;
+            padding-left: 0.5rem;
+          }
+          
+          .tldr-list li {
+            margin-bottom: 0.5rem;
+            list-style-type: none;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            transition: all 0.3s ease;
+          }
+          
+          .tldr-list li:hover {
+            transform: translateX(5px);
+          }
+          
+          .tldr-list i {
+            color: #1BC5BD;
+            font-size: 1rem;
+            margin-top: 4px;
+            transition: all 0.3s ease;
+          }
+          
+          .tldr-list li:hover i {
+            color: #F64E87;
+            transform: rotate(360deg) scale(1.1);
+          }
+
+          /* Enhanced title hover effects for ALL titles with main-gradient class */
+          .title.is-3.main-gradient,
+          .title.is-4.main-gradient {
+            background: linear-gradient(45deg, #1BC5BD, #4E9BE2, #F64E87);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            margin-bottom: 1rem;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease;
+          }
+
+          .title.is-3.main-gradient::after,
+          .title.is-4.main-gradient::after {
+            content: '';
+            display: block;
+            height: 2px;
+            width: 50px;
+            background: linear-gradient(45deg, #1BC5BD, #4E9BE2);
+            margin-top: 0.5rem;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+          }
+
+          /* Explicitly define hover states for all titles */
+          .title.is-3.main-gradient:hover,
+          .title.is-4.main-gradient:hover {
+            transform: translateY(-3px);
+            text-shadow: 
+              2px 2px 4px rgba(27, 197, 189, 0.2),
+              -2px -2px 4px rgba(246, 78, 135, 0.2);
+            background: linear-gradient(45deg, 
+              #1BC5BD 0%, 
+              #4E9BE2 50%, 
+              #F64E87 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s linear infinite;
+          }
+
+          .title.is-3.main-gradient:hover::after,
+          .title.is-4.main-gradient:hover::after {
+            width: 100px;
+            background: linear-gradient(45deg, #F64E87, #4E9BE2);
+          }
+
+          /* Make sure the animation keyframes are defined */
+          @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          
+          /* Box hover effects for the limitations and task categories sections */
+          .box {
+            transition: all 0.3s ease;
+            border-top: 3px solid transparent;
+          }
+          
+          .box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(27, 197, 189, 0.1);
+            border-top: 3px solid #1BC5BD;
+          }
+          
+          .box:nth-child(3n+2):hover {
+            border-top: 3px solid #4E9BE2;
+          }
+          
+          .box:nth-child(3n+3):hover {
+            border-top: 3px solid #F64E87;
+          }
+          
+          .box .title.is-5 {
+            transition: all 0.3s ease;
+          }
+          
+          .box:hover .title.is-5 {
+            color: #1BC5BD;
+          }
+          
+          .box:nth-child(3n+2):hover .title.is-5 {
+            color: #4E9BE2;
+          }
+          
+          .box:nth-child(3n+3):hover .title.is-5 {
+            color: #F64E87;
+          }
+
+          /* Results cards styling - horizontal layout with proper design */
+          .results-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+          }
+          
+          .result-card {
+            flex: 1;
+            min-width: 280px;
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            border-bottom: 3px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          }
+          
+          .result-card:first-child {
+            border-bottom: 3px solid #1BC5BD;
+          }
+          
+          .result-card:last-child {
+            border-bottom: 3px solid #F64E87;
+          }
+          
+          .result-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(27, 197, 189, 0.1);
+          }
+          
+          .result-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #f5f9ff, #f0f9f9);
+            transition: all 0.3s ease;
+          }
+          
+          .result-card:first-child .result-icon {
+            background: linear-gradient(45deg, rgba(27, 197, 189, 0.1), rgba(78, 155, 226, 0.1));
+          }
+          
+          .result-card:last-child .result-icon {
+            background: linear-gradient(45deg, rgba(78, 155, 226, 0.1), rgba(246, 78, 135, 0.1));
+          }
+          
+          .result-card:hover .result-icon {
+            transform: scale(1.1) rotate(5deg);
+          }
+          
+          .result-icon i {
+            font-size: 28px;
+            color: #1BC5BD;
+            transition: all 0.3s ease;
+          }
+          
+          .result-card:last-child .result-icon i {
+            color: #F64E87;
+          }
+          
+          .result-card:hover .result-icon i {
+            transform: scale(1.2);
+          }
+          
+          .result-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2d3748;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #1BC5BD, #4E9BE2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+          
+          .result-card:last-child h3 {
+            background: linear-gradient(45deg, #4E9BE2, #F64E87);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+          
+          .result-card p {
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0;
+          }
+          
+          /* Add flourish behind the icons */
+          .result-icon::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(27, 197, 189, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            transition: all 0.5s ease;
+          }
+          
+          .result-card:last-child .result-icon::before {
+            background: radial-gradient(circle, rgba(246, 78, 135, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+          }
+          
+          .result-card:hover .result-icon::before {
+            transform: scale(1.5);
+            opacity: 0.8;
+          }
+          
+          /* Responsive adjustments */
+          @media (max-width: 768px) {
+            .results-grid {
+              flex-direction: column;
+            }
+            
+            .result-card {
+              width: 100%;
+              margin-bottom: 20px;
+            }
+          }
+        </style>
+
+        <style>
+          /* Additional responsive and clean styling */
+          .task-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.8rem; /* Slightly larger base font */
+          }
+
+          /* Responsive table headers */
+          .task-table thead th:not(:first-child) {
+            padding: 0.8rem 0.4rem;
+            font-size: 0.75rem;
+            min-width: 65px;
+            text-align: center;
+            white-space: normal;
+          }
+
+          /* Ensure first column readability */
+          .task-table th:first-child,
+          .task-table td:first-child {
+            min-width: 150px;
+            padding-left: 1rem;
+            position: sticky;
+            left: 0;
+            background: white;
+            z-index: 1;
+          }
+
+          /* Clean numeric cells */
+          .task-table td:not(:first-child) {
+            padding: 0.6rem 0.4rem;
+            font-size: 0.8rem;
+            font-family: 'SF Mono', monospace;
+            min-width: 65px;
+            letter-spacing: -0.3px;
+          }
+
+          /* Highlight average score column */
+          .task-table th:last-child,
+          .task-table td:last-child {
+            min-width: 80px;
+            font-weight: 700;
+            background: linear-gradient(90deg, transparent 0%, rgba(78, 155, 226, 0.08) 100%);
+            color: #1BC5BD;
+          }
+
+          /* Clean table wrapper */
+          .table-wrapper {
+            margin: 2rem auto;
+            max-width: 100%;
+          }
+
+          /* Optimal container sizing */
+          .container.is-max-desktop {
+            max-width: 1200px;
+            width: 100%;
+            padding: 0 1.5rem;
+          }
+
+          /* Make benchmark name subscripts easier to read */
+          .task-table thead th sub {
+            font-size: 0.65em !important;
+            display: block !important;
+            line-height: 1.1 !important;
+            margin-top: 2px !important;
+          }
+
+          /* Mobile optimizations maintain readability */
+          @media (max-width: 768px) {
+            .task-table thead th:not(:first-child),
+            .task-table td:not(:first-child) {
+              padding: 0.3rem 0.2rem !important;
+              min-width: 50px !important;
+              width: 50px !important;
+              max-width: 50px !important;
+              font-size: 0.7rem !important;
+            }
+          }
+        </style>

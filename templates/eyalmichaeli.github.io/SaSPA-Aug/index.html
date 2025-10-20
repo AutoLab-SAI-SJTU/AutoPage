@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="keywords" content="Diffusion-based Data Augmentation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SaSPA: Advancing Fine-Grained Classification by Structure and Subject Preserving Augmentation</title>
+  <!-- Existing links and meta tags -->
+  <style>
+    * {
+        box-sizing: border-box; /* Include padding and borders in the width calculation */
+    }
+    body, html {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Prevents horizontal scrolling */
+    }
+    .section, .hero {
+    margin-bottom: 20px; /* Adds space between sections */
+    padding: 20px; /* Padding inside the sections */
+    background-color: #fff; /* White background for each section */
+    box-shadow: 0 0 10px #999; /* Shadow around the sections for a bounded appearance */
+    border-radius: 15px; /* Rounded corners */
+    width: 65%; /* Adjust width to match your layout needs */
+    margin: 25px auto; /* Centering the section with automatic horizontal margins */
+    }
+
+    @media (max-width: 768px) { /* Adjustments for tablets and smaller */
+        .section, .hero {
+            width: 95%; /* Wider sections on smaller screens */
+        }
+    }
+
+    .container {
+        width: 100%; /* Ensure the container takes full width */
+        max-width: 100%; /* Prevents the container from exceeding the width of its parent */
+        padding: 0; /* No padding inside the container to allow full-width sections */
+        margin: 0 auto; /* Center the container */
+    }
+
+    .footer {
+    padding: 40px 0; /* Adds vertical padding */
+    }
+    figure, .image, .image-caption {
+        width: 100%;
+        max-width: 100%; /* Prevents any element from exceeding the screen width */
+    }
+    .image-caption {
+        font-size: 3.5vw; /* Responsive font size appropriate for most devices */
+        padding: 10px;
+        text-align: center;
+        line-height: 1.2;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    @media (max-width: 400px) {
+        .image-caption {
+            font-size: 5vw; /* Smaller font size for smaller devices */
+            padding: 5px;
+        }
+    }
+    .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    width: 100%;
+  }
+
+  .footer .container {
+      text-align: center;
+  }
+
+  .footer .columns {
+      justify-content: center;
+      text-align: center;
+  }
+
+  .footer .content, .footer .column {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+  }
+  .image-caption {
+        font-size: 18px; /* Responsive font size appropriate for most devices */
+  }
+</style>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- /* repeating here because some setting get run over */ -->
+  <style>
+  .image-caption {
+    font-size: calc(11.5px + 0.28vw); /* Ensures a minimum of 16px font size while still scaling with viewport width */
+  }
+  .table.is-hoverable tr:hover {
+        background-color: #ffffff ;
+    }
+  .table.is-hoverable tr:hover {
+      background-color: #f2f2f2 !important; /* Adding !important to test overriding issues */
+  }
+</style>
+</head>
+<body>
+ 
+
+<section class="hero space-background has-text-black">
+  <div class="hero-body space-background-overlay">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title has-text-black">SaSPA: Advancing Fine-Grained Classification by Structure and Subject Preserving Augmentation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://www.linkedin.com/in/eyal-michaeli-807b75151">Eyal Michaeli</a>,</span>
+            <span class="author-block"><a href="https://www.ohadf.com/">Ohad Fried</a></span>
+        </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Computer Vision & Graphics Lab, Reichman University</span>
+            
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2406.14551"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/EyalMichaeli/SaSPA-Aug"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- NeurIPS 2024 Link -->
+              <span class="link-block">
+                <a href="https://neurips.cc/virtual/2024/poster/95527"
+                  class="external-link button is-normal is-rounded is-purple">
+                  <span class="icon">
+                      <i class="fas fa-graduation-cap"></i> <!-- NeurIPS-style academic icon -->
+                  </span>
+                  <span>NeurIPS 2024</span>
+                </a>
+              </span>
+            </div>
+            <br>
+            <p class="is-size-5 publication-title has-text-black">
+              SaSPA enhances fine-grained classification datasets by generating realistic, class-consistent image augmentations from the training set. This consistently leads to significant accuracy improvements.                <br>
+              </p>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- # teaser -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- A -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Qualitative Comparison</h2>
+        <!-- <h2 class="title is-3">SaSPA Overview</h2> -->
+        <!-- <p class="subtitle">Below is a visual guide to the stages in our image generation workflow.</p> -->
+        <div class="content has-text-justified">
+        </div>
+        <figure class="image" id="fig-method">
+          <img src="assets/teaser.svg" class="image-spacing, center" style="width: 1000px">
+	  	    <!-- <img src="./assets/approach.png" class="center" style="width: 750px"> -->
+          <figcaption class="center image-caption" style="width: 950px">
+            Various generative augmentation methods applied on the Aircraft dataset. Text-to-image often compromises class fidelity, visible by the unrealistic aircraft design (i.e., tail at both ends). Img2Img trades off fidelity and diversity: lower strength (e.g., 0.5) introduces minimal semantic changes, resulting in higher fidelity but limited diversity, whereas higher strength (e.g., 0.75) introduces diversity but also inaccuracies such as the incorrectly added engine. In contrast, SaSPA achieves high fidelity and diversity, critical for Fine-Grained Visual Classification tasks. <strong>D - Diversity. F - Fidelity</strong>
+          </figcaption>
+	  	</figure>
+      </div>
+    </div>
+</section>
+
+
+<!-- # abstract  -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <!-- center -->
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Fine-grained visual classification (FGVC) involves classifying closely related subcategories. This task is inherently difficult due to the subtle differences between classes and the high intra-class variance. Moreover, FGVC datasets are typically small and challenging to gather, thus highlighting a significant need for effective data augmentation.
+            Recent advancements in text-to-image diffusion models offer new possibilities for augmenting image classification datasets. While these models have been used to generate training data for classification tasks, their effectiveness in full-dataset training of FGVC models remains under-explored.
+            Recent techniques that rely on text-to-image generation or Img2Img methods, such as SDEdit, often struggle to generate images that accurately represent the class while modifying them to a degree that significantly increases the dataset's diversity.
+            To address these challenges, we present SaSPA: Structure and Subject Preserving Augmentation. Contrary to recent methods, our method does not use real images as guidance, thereby increasing generation flexibility and promoting greater diversity. To ensure accurate class representation, we employ conditioning mechanisms, specifically by conditioning on image edges and subject representation.
+            We conduct extensive experiments and benchmark SaSPA against both traditional and recent generative data augmentation techniques. SaSPA consistently outperforms all established baselines across multiple settings, including full dataset training, contextual bias, and few-shot classification.
+            Additionally, our results reveal interesting patterns in using synthetic data for FGVC models; for instance, we find a relationship between the amount of real data used and the optimal <em>proportion</em> of synthetic data.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+  </div>
+  </div>
+</section>
+
+
+<!-- # overview -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- A -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">SaSPA Overview</h2>
+        <!-- <p class="subtitle">Below is a visual guide to the stages in our image generation workflow.</p> -->
+        <div class="content has-text-justified">
+        </div>
+        <figure class="image" id="fig-method">
+          <img src="assets/approach.svg" loading="lazy" class="center" style="width: 1000px">
+	  	    <!-- <img src="./assets/approach.png" class="center" style="width: 750px"> -->
+         <figcaption
+          class="center image-caption"  style="width: 950px">
+          For a given FGVC dataset, we generate prompts via GPT-4 based on the meta-class. Each real image undergoes edge detection to provide structural outlines. These edges are used multiple times, each time with a different prompt and a different subject reference image from the same sub-class, as inputs to a ControlNet with BLIP-Diffusion as the base model. The generated images are then filtered using a dataset-trained model and CLIP to ensure relevance and quality.
+        </figcaption>
+	  	</figure>
+      </div>
+    </div>
+</section>
+
+
+<!-- examples -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- A -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Example Augmentations</h2>
+        <div class="content has-text-justified">
+        </div>
+        <figure class="image" id="fig-examples">
+          <img src="assets/examples.svg" loading="lazy" class="center" style="width: 1000px">
+          <figcaption class="center image-caption" style="width: 950px">
+            Example augmentations using our method (SaSPA). The {} placeholder represents the specific sub-class.
+          </figcaption>
+      </figure>
+      
+      </div>
+    </div>
+</section>
+
+
+<!-- # results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Results on Full FGVC Datasets</h2>
+        <p class="subtitle">Our method produces better accuracy than both traditional and recent generative augmentation methods.</p>
+        <div class="content has-text-justified">
+          <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Augmentation Method</th>
+                <th>Aircraft</th>
+                <th>CompCars</th>
+                <th>Cars</th>
+                <th>CUB</th>
+                <th>DTD</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="6"><em>Traditional</em></td>
+                <td>No Aug</td>
+                <td>81.4</td>
+                <td>67.0</td>
+                <td>91.8</td>
+                <td>81.5</td>
+                <td>68.5</td>
+              </tr>
+              <tr>
+                <td>CAL-Aug</td>
+                <td><u>84.9</u></td>
+                <td>70.5</td>
+                <td>92.4</td>
+                <td><u>82.5</u></td>
+                <td><u>69.7</u></td>
+              </tr>
+              <tr>
+                <td>RandAug</td>
+                <td>83.7</td>
+                <td>72.5</td>
+                <td>92.6</td>
+                <td>81.5</td>
+                <td>69.3</td>
+              </tr>
+              <tr>
+                <td>CutMix</td>
+                <td>81.8</td>
+                <td>66.9</td>
+                <td>91.7</td>
+                <td>81.8</td>
+                <td>69.2</td>
+              </tr>
+              <tr>
+                <td>CAL-Aug + CutMix</td>
+                <td>84.5</td>
+                <td>70.2</td>
+                <td><u>92.7</u></td>
+                <td>82.4</td>
+                <td><u>69.7</u></td>
+              </tr>
+              <tr>
+                <td>RandAug + CutMix</td>
+                <td>84.0</td>
+                <td><u>72.6</u></td>
+                <td><u>92.7</u></td>
+                <td>81.2</td>
+                <td>69.2</td>
+              </tr>
+              <tr style="border-bottom: 1.2px solid #ccc;">
+                <td colspan="7"></td>
+              </tr>
+              <tr>
+                <td rowspan="2"><em>Generative</em></td>
+                <td>Real Guidance</td>
+                <td>84.8</td>
+                <td>73.1</td>
+                <td>92.9</td>
+                <td>82.8</td>
+                <td>68.5</td>
+              </tr>
+              <tr>
+                <td>ALIA</td>
+                <td>83.1</td>
+                <td>72.9</td>
+                <td>92.6</td>
+                <td>82.0</td>
+                <td>69.1</td>
+              </tr>
+              <tr style="border-bottom: 1.2px solid #ccc;">
+                <td colspan="7"></td>
+              </tr>
+              <tr>
+                <td rowspan="2"><em>Ours</em></td>
+                <td>SaSPA w/o BLIP-diffusion</td>
+                <td><strong>87.4</strong></td>
+                <td>74.8</td>
+                <td>93.7</td>
+                <td>83.0</td>
+                <td>69.8</td>
+              </tr>
+              <tr>
+                <td>SaSPA</td>
+                <td>86.6</td>
+                <td><strong>76.2</strong></td>
+                <td><strong>93.8</strong></td>
+                <td><strong>83.2</strong></td>
+                <td><strong>71.9</strong></td>
+              </tr>
+            </tbody>
+          </table>
+          <caption><strong>Results on full FGVC Datasets.</strong> This table presents the test accuracy of various augmentation strategies across five FGVC datasets. The highest values for each dataset are shown in <strong>bold</strong>, while the highest validation accuracies achieved by traditional augmentation methods are <u>underlined</u>. ALIA and Real Guidance are both recent generative augmenntation methods.</caption>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- few shot results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- A -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Results on Few-shot Scenerios</h2>
+        <div class="content has-text-justified">
+        </div>
+        <figure class="image" id="fig-examples">
+          <img src="assets/few_shot.svg" loading="lazy" class="center" style="width: 1000px">
+          <figcaption class="center image-caption" style="width: 950px">
+            Few-shot test accuracy across three FGVC datasets using different augmentation methods.
+          </figcaption>
+      </figure>
+      
+      </div>
+    </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{
+      michaeli2024advancing,
+      title={Advancing Fine-Grained Classification by Structure and Subject Preserving Augmentation},
+      author={Eyal Michaeli and Ohad Fried},
+      booktitle={The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS)},
+      year={2024},
+      url={https://openreview.net/forum?id=MNg331t8Tj}
+      }
+  </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a 
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+              Creative Commons Attribution-ShareAlike 4.0 International License.
+            </a> 
+            The website template is from the 
+            <a href="https://github.com/nerfies/nerfies.github.io">
+              Nerfies
+            </a> 
+            project page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

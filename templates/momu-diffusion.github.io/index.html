@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>MoMu-Diffusion: On Learning Long-Term Motion-Music Synchronization and Correspondence</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="MoMu-Diffusion: On Learning Long-Term Motion-Music Synchronization and Correspondence" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="index.html" />
+<meta property="og:url" content="https://momu-diffusion.github.io/" />
+<meta property="og:site_name" content="MoMu-Diffusion: On Learning Long-Term Motion-Music Synchronization and Correspondence" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="MoMu-Diffusion: On Learning Long-Term Motion-Music Synchronization and Correspondence" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","headline":"MoMu-Diffusion: On Learning Long-Term Motion-Music Synchronization and Correspondence","name":"MoMu-Diffusion: On Learning Long-Term Motion-Music Synchronization and Correspondence","url":"https://momu-diffusion.github.io/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="assets/css/style.css%3Fv=418dd5348a3f6ba5d1cfb114b66cc96dddc974fd.css">
+  </head>
+  <body>
+    <a id="skip-to-content" href="index.html#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">MoMu-Diffusion: On Learning Long-Term Motion-Music Synchronization and Correspondence</h1>
+      <h2 class="project-tagline"></h2>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      
+<h2 id="overview">Overview</h2>
+<p align="justify">
+Motion-to-music and music-to-motion have been studied separately, each attracting substantial research interest within their respective domains. The interaction between human motion and music is a reflection of advanced human intelligence, and establishing a unified relationship between them is particularly important. However, to date, there has been no work that considers them jointly to explore the modality alignment within. To bridge this gap, we propose a novel framework, termed MoMu-Diffusion, for long-term and synchronous motion-music generation. Firstly, to mitigate the huge computational costs raised by long sequences, we propose a novel Bidirectional Contrastive Rhythmic Variational Auto-Encoder (BiCoR-VAE) that extracts the modality-aligned latent representations for both motion and music inputs. Subsequently, leveraging the aligned latent spaces, we introduce a multi-modal diffusion Transformer model and a cross-guidance sampling strategy to enable various generation tasks, including cross-modal, multi-modal, and variable-length generation. Extensive experiments demonstrate that MoMu-Diffusion surpasses recent state-of-the-art methods both qualitatively and quantitatively, and can synthesize realistic, diverse, long-term, and beat-matched music or motion sequences.
+</p>
+
+<h2 id="model-architecture">Model Architecture</h2>
+
+<p align="justify">
+An overview of the proposed MoMu-Diffusion framework. MoMu-Diffusion contains two integral components: a bidirectional contrastive rhythmic Variational Autoencoder (BiCoR-VAE) designed to learn the aligned latent space, and a diffusion transformer model responsible for sequence generation. This framework is adept at facilitating both cross-modal and multi-modal joint generations, offering a robust approach to the integrated synthesis of motion and music.
+</p>
+
+<table>
+    <tr>
+        <td><center><img src="assets/image/overview.png" /> </center></td>
+    </tr>
+</table>
+
+<p align="center">Figure.1 The overall architecture of MoMu-Diffusion.</p>
+
+<h2 id="motion-to-music">Motion to Music</h2>
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/motion2music/dance/new_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/motion2music/dance/concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/motion2music/dance/62_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/motion2music/dance/62_concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/motion2music/fe/fe1_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/motion2music/fe/fe1_concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/motion2music/fe/fe2_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/motion2music/fe/fe2_concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/motion2music/fs/fs1_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/motion2music/fs/fs1_concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/motion2music/fs/fs2_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/motion2music/fs/fs2_concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+<h2 id="music-to-motion">Music to Motion</h2>
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/music2motion/6_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/music2motion/6_concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/music2motion/9_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/music2motion/9_concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/music2motion/16_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/music2motion/16_concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/music2motion/21_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/music2motion/21_concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/music2motion/32_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/music2motion/32_concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/music2motion/46_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/music2motion/46_concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+<h2 id="joint-generation">Joint Generation</h2>
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/joint/0_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/joint/0_concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+<center>
+<video width="400" height="250" controls="">
+  <source src="assets/joint/4_with_new_audio.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</center>
+<table>
+    <tr>
+        <td>
+            <center>
+                <img src="assets/joint/4_concatenated.gif" />
+            </center>
+        </td>
+    </tr>
+</table>
+
+
+      <footer class="site-footer">
+        
+        <!-- ><span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span><!-->
+      </footer>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warped Diffusion: Solving Temporally Correlated Inverse Problems with Image Diffusion Models</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: white;
+}
+.results_container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 1px;
+
+}
+
+.results_container_wrapper{
+    width: 100%;
+    /* use light grey background */
+    background-color: #f8f9fa;
+}
+
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.title h1 {
+    font-size: 2.5em;
+}
+.title p {
+    color: #888;
+    font-size: 1.2em;
+}
+.authors, .institution {
+    text-align: center;
+    margin: 10px 0;
+}
+.button-group {
+    text-align: center;
+    margin: 20px 0;
+}
+.button-group a {
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+.button-group a:hover {
+    background-color: #0056b3;
+}
+.videos {
+    display: flex;
+    margin: 20px;
+    justify-content: center;
+}
+.videos video {
+    width: 240px;
+    height: auto;
+    margin-right: 5px;
+}
+.video-caption {
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
+}
+/* abstract */
+.abstract {
+    margin-top: 30px;
+}
+.abstract h2 {
+    font-size: 1.8em;
+}
+.abstract p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #333;
+}
+/* results */
+.results {
+    margin-top: 30px;
+}
+.results h2 {
+    font-size: 1.8em;
+}
+.results p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #333;
+}
+.play-pause-btn {
+    display: inline-block;
+    margin: 15px auto;
+    padding: 8px 24px;
+    background-color: #808080;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+.play-pause-btn:hover {
+    background-color: #666666;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+.play-pause-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    </style>
+    <!-- <link rel="stylesheet" href="main.css"> -->
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h1>Warped Diffusion:</h1>
+            <h1>Solving Video Inverse Problems with Image Diffusion Models</h1>
+            <p>Giannis Daras, Weili Nie, Karsten Kreis, Alexandros G. Dimakis,</p>
+            <p>Morteza Mardani, Nikola B. Kovachki, Arash Vahdat</p>
+            <p><strong>Accepted to NeurIPS 2024</strong></p>
+        </div>
+        <div class="button-group">
+            <a href="https://arxiv.org" class="button grey-button" target="_blank"> 📝 Paper Link</a>
+        </div>
+        <button class="play-pause-btn" id="playPauseBtn1" onclick="toggleVideos('row1')">▶️ Play Videos</button>
+        <script>
+            function toggleVideos(rowId) {
+                const videos = document.querySelectorAll(`#${rowId} video`);
+                const btn = document.getElementById(`playPauseBtn${rowId.slice(-1)}`);
+                
+                videos.forEach(video => {
+                    if (video.paused) {
+                        video.play();
+                        btn.textContent = '⏸️ Pause Videos';
+                    } else {
+                        video.pause();
+                        btn.textContent = '▶️ Play Videos';
+                    }
+                });
+            }
+        </script>
+        <div class="videos" id="row1">
+          <div>
+              <video controls muted loop playbackRate="1.0">
+                  <source src="assets/videos/3_input_video.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <div class="video-caption">Input Video</div>
+          </div>
+          <div>
+              <video controls muted loop playbackRate="1.0">
+                  <source src="assets/videos/3_noises.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <div class="video-caption">Noise Warping</div>
+          </div>
+          <div>
+              <video controls muted loop playbackRate="1.0">
+                  <source src="assets/videos/3_output_latent_video.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <div class="video-caption">Video Output Latent Space</div>
+          </div>
+          <div>
+            <video controls muted loop playbackRate="1.0">
+                <source src="assets/videos/3_output_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-caption">Video Output Pixel Space</div>
+        </div>
+        </div>
+
+        <div class="abstract">
+            <h2>Abstract</h2>
+            <p>
+              Using image models naively for solving inverse video problems often suffers from flickering, texture-sticking, and temporal inconsistency in generated videos. To tackle these problems, in this paper, we view frames as continuous functions in the 2D space, and videos as a sequence of continuous warping transformations between different frames. This perspective allows us to train function space diffusion models only on <i>images</i> and utilize them to solve temporally correlated inverse problems. The function space diffusion models need to be equivariant with respect to the underlying spatial transformations. To ensure temporal consistency, we introduce a simple post-hoc test-time guidance towards (self)-equivariant solutions. Our method allows us to deploy state-of-the-art latent diffusion models such as Stable Diffusion XL to solve video inverse problems. We demonstrate the effectiveness of our method for video inpainting and 8&times; video super-resolution, outperforming existing techniques based on noise transformations. 
+            </p>
+        </div>
+      </div>
+
+            <!--  Super Resolution -->
+            <div class="results_container_wrapper">
+              <div class="results_container">
+                <div class="results">
+                  <h2>Super-resolution for real videos</h2>
+                  <!-- Woman walking -->
+                  <button class="play-pause-btn" id="playPauseBtn2" onclick="toggleVideos('row2')">▶️ Play Videos</button>
+                  <div class="videos" id="row2">
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/341_input_video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Input Video</div>
+                    </div>
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/341_noises.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Noise Warping</div>
+                    </div>
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/341_output_latent_video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Video Output Latent Space</div>
+                    </div>
+                    <div>
+                      <video controls muted loop playbackRate="1.0">
+                          <source src="assets/videos/341_output_video.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                      <div class="video-caption">Video Output Pixel Space</div>
+                  </div>
+                  </div>
+                  <!-- Simsons -->
+                  <button class="play-pause-btn" id="playPauseBtn3" onclick="toggleVideos('row3')">▶️ Play Videos</button>
+                  <div class="videos" id="row3">
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/301_input_video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Input Video</div>
+                    </div>
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/301_noises.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Noise Warping</div>
+                    </div>
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/301_output_latent_video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Video Output Latent Space</div>
+                    </div>
+                    <div>
+                      <video controls muted loop playbackRate="1.0">
+                          <source src="assets/videos/301_output_video.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                      <div class="video-caption">Video Output Pixel Space</div>
+                  </div>
+                  </div>
+                </div>
+                  <!-- 216 videos -->
+                  <button class="play-pause-btn" id="playPauseBtn4" onclick="toggleVideos('row4')">▶️ Play Videos</button>
+                  <div class="videos" id="row4">
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/216_input_video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Input Video</div>
+                    </div>
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/216_noises.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Noise Warping</div>
+                    </div>
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/216_output_latent_video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Video Output Latent Space</div>
+                    </div>
+                    <div>
+                      <video controls muted loop playbackRate="1.0">
+                          <source src="assets/videos/216_output_video.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                      <div class="video-caption">Video Output Pixel Space</div>
+                  </div>
+                  </div>
+                  <!-- make-up -->
+                  <button class="play-pause-btn" id="playPauseBtn5" onclick="toggleVideos('row5')">▶️ Play Videos</button>
+                  <div class="videos" id="row5">
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/310_input_video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Input Video</div>
+                    </div>
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/310_noises.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Noise Warping</div>
+                    </div>
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/310_output_latent_video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Video Output Latent Space</div>
+                    </div>
+                    <div>
+                      <video controls muted loop playbackRate="1.0">
+                          <source src="assets/videos/310_output_video.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                      <div class="video-caption">Video Output Pixel Space</div>
+                  </div>
+                  </div>
+                  <!-- Animation -->
+                  <button class="play-pause-btn" id="playPauseBtn6" onclick="toggleVideos('row6')">▶️ Play Videos</button>
+                  <div class="videos" id="row6">
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/522_input_video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Input Video</div>
+                    </div>
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/522_noises.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Noise Warping</div>
+                    </div>
+                    <div>
+                        <video controls muted loop playbackRate="1.0">
+                            <source src="assets/videos/522_output_latent_video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-caption">Video Output Latent Space</div>
+                    </div>
+                    <div>
+                      <video controls muted loop playbackRate="1.0">
+                          <source src="assets/videos/522_output_video.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                      <div class="video-caption">Video Output Pixel Space</div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+      <!-- Inpainting -->
+      <div class="results_container_wrapper">
+        <div class="results_container">
+          <div class="results">
+            <h2>Comparisons </h2>
+            </div>
+            <!-- Cat -->
+            <button class="play-pause-btn" id="playPauseBtn7" onclick="toggleVideos('row7')">▶️ Play Videos</button>
+            <div class="videos" id="row7">
+              <div>
+                  <video controls muted loop playbackRate="1.0">
+                      <source src="assets/videos/inp/ours/1_input_video.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <div class="video-caption">Input Video</div>
+              </div>
+              <div>
+                <video controls muted loop playbackRate="1.0">
+                    <source src="assets/videos/inp/fixed_noise/2_output_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-caption">Fixed Noise</div>
+            </div>
+              <div>
+                  <video controls muted loop playbackRate="1.0">
+                      <source src="assets/videos/inp/baseline/2_output_video.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <div class="video-caption">How I Warped Your Noise</div>
+              </div>
+              <div>
+                <video controls muted loop playbackRate="1.0">
+                    <source src="assets/videos/inp/ours/2_output_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-caption">Warped Diffusion (Ours)</div>
+            </div>
+            </div>
+            <!-- Robot -->
+            <button class="play-pause-btn" id="playPauseBtn8" onclick="toggleVideos('row8')">▶️ Play Videos</button>
+            <div class="videos" id="row8">
+              <div>
+                  <video controls muted loop playbackRate="1.0">
+                      <source src="assets/videos/inp/ours/1_input_video.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <div class="video-caption">Input Video</div>
+              </div>
+              <div>
+                <video controls muted loop playbackRate="1.0">
+                    <source src="assets/videos/inp/fixed_noise/1_output_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-caption">Fixed Noise</div>
+            </div>
+              <div>
+                  <video controls muted loop playbackRate="1.0">
+                      <source src="assets/videos/inp/baseline/1_output_video.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <div class="video-caption">How I Warped Your Noise</div>
+              </div>
+              <div>
+                <video controls muted loop playbackRate="1.0">
+                    <source src="assets/videos/inp/ours/1_output_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-caption">Warped Diffusion (Ours)</div>
+            </div>
+            </div>
+            <!-- Dog Shifting -->
+            <button class="play-pause-btn" id="playPauseBtn9" onclick="toggleVideos('row9')">▶️ Play Videos</button>
+            <div class="videos" id="row9">
+              <div>
+                  <video controls muted loop playbackRate="1.0">
+                      <source src="assets/videos/super_res/ours/1_input_video.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <div class="video-caption">Input Video</div>
+              </div>
+              <div>
+                <video controls muted loop playbackRate="1.0">
+                    <source src="assets/videos/super_res/fixed/1_output_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-caption">Fixed Noise</div>
+            </div>
+              <div>
+                  <video controls muted loop playbackRate="1.0">
+                      <source src="assets/videos/super_res/baseline/1_output_video.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <div class="video-caption">How I Warped Your Noise</div>
+              </div>
+              <div>
+                <video controls muted loop playbackRate="1.0">
+                    <source src="assets/videos/super_res/ours/1_output_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-caption">Warped Diffusion (Ours)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  </body>
+  </html>

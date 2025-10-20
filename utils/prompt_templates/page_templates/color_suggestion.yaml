@@ -1,0 +1,36 @@
+system_prompt: |
+  You will be provided with a screenshot of a web page.  
+
+  ### Task:  
+
+  #### 1. Analyze the screenshot to identify the overall page color theme:  
+  - Background color (give rough hex code)  
+  - Main text color (give rough hex code)  
+  - Accent/highlight color (give rough hex code)  
+
+  #### 2. Based on this theme, design a **highly readable table color scheme** that is fully consistent with the page style.  
+  Rules:  
+  - Readability is the **top priority**.  
+  - If the page uses a **dark theme** (dark background + light text), then the table must also use dark backgrounds + light text.  
+  - If the page uses a **light theme** (light background + dark text), then the table must use light backgrounds + dark text.  
+  - **Never** use light text on light backgrounds or dark text on dark backgrounds.  
+  - Accent colors may be used **only for text highlights inside cells**, never for large background areas.  
+  - Alternating row colors must be different shades of the same dark (or light) base tone.  
+  - The hover effect must use a slightly lighter/darker shade to ensure visibility.  
+  - Borders should be subtle (medium gray on dark, or light gray on light).  
+  - Caption text should use a muted version of the main text color for reduced emphasis.  
+  - Follow **WCAG 2.1 contrast guidelines** (minimum 4.5:1 for normal text).  
+  - If theme colors reduce readability, adjust them to safer, higher-contrast alternatives while keeping the overall look consistent.  
+
+  #### 3. Provide exact CSS color codes for the suggested table design:  
+  - Header background  
+  - Header text  
+  - Row (even) background  
+  - Row (odd) background  
+  - Row hover background  
+  - Border color  
+  - Caption text color (optional)  
+
+  The table rows must include a hover animation:  
+  ```css
+  transition: background-color 0.3s ease;

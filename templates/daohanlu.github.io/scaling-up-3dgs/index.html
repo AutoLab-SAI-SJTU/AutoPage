@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Scaling Up 3D Gaussian Splatting Training</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="Scaling Up 3D Gaussian Splatting Training" />
+    <meta property="og:description" content="We present Grendel, a distributed training system, to partition 3D Gaussian Splatting (3D GS) parameters and parallelize its
+        computation across multiple GPUs." />
+    <meta property="og:url" content="https://daohanlu.github.io/scaling-up-3dgs/" />
+    <meta property="og:image" content="https://daohanlu.github.io/scaling-up-3dgs/static/preview.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="We present Grendel, a distributed training system, to partition 3D Gaussian Splatting (3D GS) parameters and parallelize its
+        computation across multiple GPUs." />
+    <meta name="twitter:url" content="https://daohanlu.github.io/scaling-up-3dgs/" />
+    <meta name="twitter:image" content="https://daohanlu.github.io/scaling-up-3dgs/static/preview.png" />
+    <script src="template.v2.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-collection.v1.min.js"></script>
+    <script src="https://rawgit.com/nstrayer/slid3r/master/dist/slid3r.js"></script>
+    <script src="cross_fade.js"></script>
+    <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.35.2/gradio.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="favicon/png" href="https://daohanlu.github.io/scaling-up-3dgs/favicon.png">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+            onload="renderMathInElement(document.body);"></script>
+</head>
+<body>
+<div class="header-container" id="top">
+    <div class="header-content">
+        <h1>Scaling Up 3D Gaussian Splatting Training</h1>
+        <h2>ICLR 2025 Oral</h2>
+        <div class="button-container">
+            <a href="https://arxiv.org/abs/2406.18533" class="button">Paper</a>
+            <a href="https://github.com/nyu-systems/Grendel-GS" class="button">Code</a>
+            <a href="index.html#showcase" class="button">Videos</a>
+        </div>
+    </div>
+    <div class="header-image">
+        <img src="static/cover-art.png" height="640" width="640" alt="Cover Image" class="teaser-image">
+    </div>
+</div>
+<d-article>
+    <d-contents>
+        <nav>
+            <h4>Contents</h4>
+            <div><a href="index.html#">Top</a></div>
+            <div><a href="index.html#showcase">Showcase</a></div>
+            <div><a href="index.html#introduction">Introduction</a></div>
+            <div><a href="index.html#results">Results</a></div>
+            <div><a href="index.html#grendel">System Design</a></div>
+            <div><a href="index.html#hyperparameter-scaling">Hyperparam Scaling</a></div>
+        </nav>
+    </d-contents>
+    <div class="byline">
+        <div class="byline-container">
+            <div class="byline-column">
+                <h3>Authors</h3>
+                <p><a href="https://tarzanzhao.github.io/" class="author-link">Hexu Zhao ‡<sup>1</sup></a></p>
+                <p><a href="https://www.angliphd.com/" class="author-link">Ang Li ‡<sup>2</sup></a></p>
+                <p><a href="https://www.sainingxie.com/" class="author-link">Saining Xie ‡<sup>1</sup></a></p>
+
+<!--                <h3>Date</h3>-->
+<!--                <p>XXX. yy, 2024</p>-->
+            </div>
+            <div class="byline-column">
+                <h3 style="visibility: hidden">Authors</h3>
+                <p><a href="https://egalahad.github.io/" class="author-link">Haoyang Weng ‡<sup>1</sup></a></p>
+                <p><a href="https://www.news.cs.nyu.edu/~jinyang/" class="author-link">Jinyang Li ‡<sup>1</sup></a></p>
+            </div>
+            <div class="byline-column">
+                <h3 style="visibility: hidden">Authors</h3>
+                <p><a href="https://daohanlu.github.io/" class="author-link">Daohan Lu ‡<sup>1</sup></a></p>
+                <p><a href="https://cs.nyu.edu/~apanda/" class="author-link">Aurojit Panda ‡<sup>1</sup></a></p>
+            </div>
+        </div>
+        <div class="byline-container">
+            <div class="byline-column">
+                <h3>Affiliations</h3>
+                <p><a href="https://cs.nyu.edu/home/index.html" class="affiliation-link">New York University ‡<sup>1</sup></a></p>
+            </div>
+            <div class="byline-column">
+                <h3 style="visibility: hidden">Affiliations</h3>
+                <p><a href="https://www.pnnl.gov/" class="affiliation-link">Pacific Northwest National Laboratory ‡<sup>2</sup></a></p>
+            </div>
+            <div class="byline-column">
+                <h3 style="visibility: hidden">Affiliations</h3>
+                <p style="visibility: hidden"><a class="affiliation-link">New York University ‡<sup>1</sup></a></p>
+            </div>
+        </div>
+        <div class="byline-container">
+            <div class="byline-column">
+                <h3>Date</h3>
+                <p>06/25/2024</p>
+            </div>
+        </div>
+    </div>
+    <p>
+        We present Grendel, a distributed training system, to partition 3D Gaussian Splatting (3D GS) parameters and parallelize its
+        computation across multiple GPUs. To optimize batched training, we explore different optimization hyperparameter
+        scaling strategies and identify the simple <i>√(batch_size)</i> scaling rule to be highly effective.
+        Using Grendel, we show that scaling up 3D GS training in terms of parameters and compute leads to significant
+        improvements in visual quality on multiple large-scale scene reconstruction datasets.
+    </p>
+    <section id="showcase">
+        <h2>Videos Showcase</h2>
+        <p><i>Please select the highest playback quality. Youtube defaults to low-resolution :(</i></p>
+        <h3>MegaNeRF Rubble (4K) <d-cite key="meganerf"></d-cite></h3>
+        <p style="text-align: center">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/WaYfY3GTs6U?si=hctLtB2xqU9_L90I?vq=hd1080" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </p>
+        <p style="text-align: center">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/-5PPSQEJj_w?si=eNrb-vpzdj-UxFub" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </p>
+        <h3>MatrixCity (1080p) <d-cite key="matrixcity"></d-cite></h3>
+        <p style="text-align: center">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Z0_J6f6BU4c?si=5u1w_Luk0aLPpSKs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </p>
+        <p style="text-align: center">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Ee-YMVz_-GI?si=9XC-1U28xD81giI6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </p>
+    </section>
+    <section id="introduction">
+        <h2>Introduction</h2>
+        <p>
+            3D Gaussian Splatting (3D GS)<d-cite key="3dgs"></d-cite> has been an emerging and popular technique for novel 3D view synthesis. Its popularity is because it offers faster training and rendering than comparable previous approaches such as NeRF <d-cite key="nerf"></d-cite>.
+            However, most existing 3D GS pipelines are limited to using a single GPU for training, where the memory and computation constraints become a bottleneck when applying 3D GS to higher-resolution or larger-scale scenes.
+            To address these constraints, our Grendel system enables fast distributed training with an increased number of Gaussians and larger batches to improve reconstruction quality.
+        </p>
+    </section>
+    <section id="results">
+        <h2>Quantitative Results</h2>
+        <d-figure>
+            <figure>
+                <div style="display: flex; justify-content: center;">
+                    <img src="static/plots/perf_vs_n3dgs_psnr_lpips_0.png" style="display: block; margin-left: auto; margin-right: auto; width: 50%;" alt="density interpolation">
+                    <img src="static/plots/perf_vs_n3dgs_psnr_lpips_1.png" style="display: block; margin-left: auto; margin-right: auto; width: 50%;" alt="density interpolation">
+                </div>
+                <figcaption>Image Quality vs. # of Gaussians on Rubble and MatrixCity. Grendel enables fitting more
+                    Gaussians than possible on one GPU, leading to improved PSNR and LPIPS metrics.
+                    <b>Left</b>: On Rubble, PSNR and LPIPS continue to improve when more Gaussians are used.
+                    <b>Right</b>: Similarly, on MatrixCity, image quality continues with the # of Gaussians.
+                </figcaption>
+            </figure>
+        </d-figure>
+    </section>
+    <section id="grendel">
+        <h2>Grendel System Design</h2>
+        <p>
+            We design Grendel to leverage the inherent mixed parallelism of 3D GS. For tasks exhibiting Gaussian-wise parallelism,
+            such as projection, color computation, and parameter storage, Grendel distributes Gaussians across GPUs.
+            For pixel-wise rendering and loss computation, pixels are distributed across GPUs. Grendel then uses sparse
+            all-to-all communication to transfer Gaussians to their designated GPUs by exploiting spatial locality.
+            Additionally, Grendel employs a dynamic load balancer that utilizes observations from previous training
+            iterations to partition images, aiming to minimize workload imbalance.
+        </p>
+        <d-figure>
+            <figure>
+                <img src="static/grendel-system-design.png" style="display: block; margin-left: auto; margin-right: auto; width: 100%;" alt="density interpolation">
+                <figcaption><b>Grendel System Design. </b> (left) conventional 3D GS training using a single GPU. (right) Our Grendel system distributes 3D Gaussians across multiple GPUs to alleviate the GPU
+                    memory bottleneck. We partition rendering in both the pixel and batch dimensions to achieve optimal speedup.
+                </figcaption>
+            </figure>
+        </d-figure>
+    </section>
+    <section id="hyperparameter-scaling">
+        <h2>Hyperparameter Scaling for Batched Training</h2>
+        <p>
+            To efficiently scale to many GPUs, Grendel increases the batch size beyond one so it can partition training into a batch of images and into pixels inside each image.
+            However, increasing the batch size without tuning optimization hyperparameters can lead to unstable and inefficient training <d-cite key="goyal2017accurate"></d-cite> <d-cite key="pollux"></d-cite>, yet hyperparameter tuning is itself a time-consuming and tedious process.
+            Driven by a heuristic <i>Independent Gradients Hypothesis</i> for 3D GS training, we propose to scale Adam’s learning rate and momentum coefficients with a square-root and exponential rule:
+        </p>
+        <h3 style="text-align: center">
+            <math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mi>&#x3bb;</mi><mo lspace="0em" rspace="0em">&#x2032;</mo></msup><mo>=</mo><mi>&#x3bb;</mi><mo>&#xd7;</mo><msqrt><mtext>batch_size</mtext></msqrt></mrow></math>
+        </h3>
+        <h3 style="text-align: center">
+            <math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msubsup><mi>&#x3b2;</mi><mn>1</mn><mo lspace="0em" rspace="0em">&#x2032;</mo></msubsup><mo separator="true">,</mo><msubsup><mi>&#x3b2;</mi><mn>2</mn><mo lspace="0em" rspace="0em">&#x2032;</mo></msubsup><mo>=</mo><msubsup><mi>&#x3b2;</mi><mn>1</mn><mtext>batch_size</mtext></msubsup><mo separator="true">,</mo><msubsup><mi>&#x3b2;</mi><mn>2</mn><mtext>batch_size</mtext></msubsup></mrow></math>
+        </h3>
+        <p>
+            Assuming the gradients from different images in a batch are independent, we want a batched update step to
+            equal the sum of individual images' updates. Thus, we scale the learning rate to "undo" the Adam optimizer's
+            second moment normalization and scale the momentum coefficient to keep the effective per-image momentum similar.
+            Our learning rate and momentum scaling rules together enable
+            hyperparameter-tuning-free training by making the training trajectory approximately invariant to the batch size.
+            In experiments below, we first train a 3D GS model on the Rubble scene to
+            iteration 15,000, then reset the Adam and continue training with different batch sizes.
+            Since different parameter groups of 3D GS have vastly different magnitudes, we focus on one
+            specific group, namely the diffuse color, to make the comparisons meaningful.
+            We discover that our proposed scaling rules maintain high cosine similarity and approximately equal magnitudes
+            regardless of batch size:
+        </p>
+        <d-figure>
+            <figure>
+                    <img src="static/plots/rubble_lr_scaling_ablation.png" style="display: block; margin-left: auto; margin-right: auto; width: 100%;" alt="density interpolation">
+                <figcaption><b>Learning rate scaling rules vs. similarity to BS 1 training.</b> Our proposed sqrt(batch_size)
+                    learning rate scaling (<span style="color: #ff3333">red</span> curves) maintains similar training trajectories
+                    to BS 1 training in terms of direction and magnitude, while other scaling rules differ more.
+                    Variants tested here adopt our proposed exponential momentum scaling.
+                </figcaption>
+            </figure>
+        </d-figure>
+        <d-figure>
+            <figure>
+                <img src="static/plots/rubble_momentum_ablation.png" style="display: block; margin-left: auto; margin-right: auto; width: 100%;" alt="density interpolation">
+                <figcaption><b>Momentum scaling rules vs. similarity to BS 1 training.</b> Our proposed exponential
+                    momentum scaling (<span style="color: #ff3333">red</span> curves) maintains similar training trajectories
+                    to BS 1 training in terms of direction and magnitude, while other scaling rules differ more.
+                    Variants tested here adopt our proposed sqrt(batch_size) learning rate scaling.
+                </figcaption>
+            </figure>
+        </d-figure>
+    </section>
+</d-article>
+<d-appendix>
+    <h3>BibTeX</h3>
+    <p class="bibtex">
+        @inproceedings{<br>
+        zhao2025on,<br>
+        title={On Scaling Up 3D Gaussian Splatting Training},<br>
+        author={Hexu Zhao and Haoyang Weng and Daohan Lu and Ang Li and Jinyang Li and Aurojit Panda and Saining Xie},<br>
+        booktitle={The Thirteenth International Conference on Learning Representations},<br>
+        year={2025},<br>
+        url={https://openreview.net/forum?id=pQqeQpMkE7}<br>
+        }
+    </p>
+
+    <d-footnote-list></d-footnote-list>
+    <d-citation-list></d-citation-list>
+</d-appendix>
+
+<d-footnote-list></d-footnote-list>
+<d-citation-list></d-citation-list>
+</d-appendix>
+
+<!-- bibliography will be inlined during Distill pipeline's pre-rendering -->
+<d-bibliography src="bibliography.bib"></d-bibliography>
+
+<!-- <script type="text/bibliography">
+
+</script> -->
+<script src="contents_bar.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Evaluating mathematical reasoning of foundation models in visual contexts">
+  <meta name="keywords" content="MathVista, Math Vista">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <body style="background-color: #ccd6d4">
+    <p align="center">
+      <img src="static/images/Puzzle_logo2.png" alt="logo" style="width:40%;">
+    </p>
+  </body>
+  <title> Can LLMs Solve Molecule Puzzles? A Multimodal Benchmark for Molecular Structure Elucidation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+  <!-- <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+/Users/panlu/Library/Mobile Documents/com~apple~CloudDocs/ImageMath/visual-mathqa-server/data_final/images
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link rel="icon" href="static/images/logos/molecule.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/leaderboard.css">
+
+  <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/explorer-index.js"></script>
+  <script src="static/js/question_card.js"></script>
+
+  <script src="static/js/leaderboard_testmini.js"></script>  
+  <script src="https://kehanguo2.github.io/Molpuzzle.io/data/results/output_folders.js" defer></script>
+  <script src="https://kehanguo2.github.io/Molpuzzle.io/data/results/model_scores.js" defer></script>
+
+  <script src="visualizer/data/data_public.js" defer></script>
+    <style>
+        table {
+            width: 100%; /* 将整体宽度减小 */
+            border-collapse: collapse;
+            margin: auto; /* 让表格居中显示 */
+        }
+        th, td {
+            padding: 4px; /* 减小单元格的内边距 */
+            border: 1px solid #ddd;
+            font-size: 0.9em; /* 可选：减小字体大小以节省空间 */
+        }
+        .highlight {
+            background-color: #f0f0f0;
+            color: #9932CC; /* 近似于violet */
+        }
+        thead {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .checkmark {
+            color: green;
+        }
+        .xmark {
+            color: red;
+        }
+        .xcheck {
+            color: lightskyblue;
+        }
+        caption {
+            caption-side: top;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+.hero {
+    position: relative;
+    overflow: hidden; /* 确保背景不超出这个区域 */
+}
+
+.hero .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('static/images/background5.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px); /* 高斯模糊效果 */
+    z-index: 0; /* 确保背景在内容之下 */
+}
+
+.hero-body {
+    position: relative;
+    z-index: 1; /* 确保内容显示在背景之上 */
+    /* 其他样式保持不变 */
+}
+
+        .video-container {
+            max-width: 60%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #823e3e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+        }
+        .video-title {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <!-- <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a> -->
+      <!-- @PAN TODO: consider adding links? -->
+      <!-- <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://gui-world.github.io/">
+            <b>GUI-World</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="https://github.com/Flossiee/HonestyLLM">
+            <b>HonestyLLM</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="https://trustllmbenchmark.github.io/TrustLLM-Website/">
+            <b>TrustLLM</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="https://mllm-judge.github.io">
+            <b>MLLM-as-a-Judge</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="https://llm-coauthor.github.io/">
+            LLM-as-a-Coauthor
+          </a>
+          <a class="navbar-item" href="https://unigen-framework.github.io/">
+            UniGen
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> --> 
+
+
+<section class="hero">
+    <!-- <div class="background"></div> 添加的背景层 -->
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <!-- <h1 class="title is-1 publication-title is-bold">
+            <img src="static/images/unigen_logo.png" style="width:7em;vertical-align: middle" alt="Logo"/>
+            </h1> -->
+            <h2 class="subtitle is-3 publication-subtitle" style="color: rgb(255, 255, 255); font-weight: bold; text-shadow: 2px 2px 4px rgba(255,255,255, 0.5);">
+    <span style="color: rgb(0,0, 0); font-weight: bold;">Can LLMs Solve Molecule Puzzles? A Multimodal Benchmark for Molecular Structure Elucidation</span>
+            </h2>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                  <a href="https://kehanguo2.github.io/">Kehan Guo</a><sup style="color:#b53524;">1,*</sup>,
+              </span>
+              <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=k1nZE2sAAAAJ&hl=en">Bozhao Nan</a><sup style="color:#6fbf73;;">2,*</sup>,
+              </span>
+              <span class="author-block">
+                  <a href="https://yujunzhou.github.io/">Yujun Zhou</a><sup style="color:#b53524">1,</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://taichengguo.github.io/">Taicheng Guo</a><sup style="color:#b53524">1</sup>,
+              </span>
+              <span class="author-block">
+                  <a href="https://zguo.io/">Zhichun Guo</a><sup style="color:#b53524">1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://ccas.nd.edu/people/mihir-surve/">Mihir Surve</a><sup style="color:#6fbf73;">2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://zhenwen-nlp.github.io/">Zhenwen Liang</a><sup style="color:#b53524;;">1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://niteshchawla.nd.edu/">Nitesh V. Chawla</a><sup style="color:#b53524;;">1</sup>,
+              </span>
+              <span class="author-block"></span>
+                <a href="https://chemistry.nd.edu/people/olaf-wiest/">Olaf Wiest</a><sup style="color:#6fbf73;">2</sup>,
+              </span>
+              <span class="author-block">
+                  <a href="https://engineering.nd.edu/faculty/xiangliang-zhang/">Xiangliang Zhang</a><sup style="color:#b53524;">1,††</sup>
+              </span>
+          </div>
+          
+          <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup style="color:#50b155;">1</sup>Department of Computer Science and Engineering, University of Notre Dame,</span>
+              <span class="author-block"><sup style="color:#b53524;">2</sup>Department of Chemistry and Biochemitry, University of Notre Dame,</span>
+          </div>
+          
+          <div>
+              (* Equal contribution,†† Corresponding author)
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+
+              <span class="link-block">
+                <!-- @PAN TODO: change links -->
+                <a href="https://kehanguo2.github.io/Molpuzzle.io/paper/NeurIPS24_MolPuzzle.pdf" class="external-link button is-normal is-rounded is-dark">                  <span class="icon">
+                  <i class="fas fa-file-powerpoint"></i>
+                  </span>
+                  <span>Slides</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://github.com/KehanGuo2/MolPuzzle"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">  
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/kguo2/MolPuzzle_data"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">  
+                    <i class="fas fa-database"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+              </span>
+              
+              <span class="link-block">
+                <!-- @PAN TODO: change links -->
+                <a href="https://kehanguo2.github.io/Molpuzzle.io/paper/SpectrumLLM__Arxiv_.pdf" class="external-link button is-normal is-rounded is-dark">                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered">
+      <img src="static/images/tease_scores_gpt4v.png" alt="geometric reasoning" width="99%"/>
+      <p> Accuracy scores of one leading LLM (i.e., PoT GPT-4), four primary LMMs, random chance, and human performance our proposed 
+      <img src="static/images/mathvista.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+      <span class="mathvista">MathVista</span>
+      across mathematical reasoning and visual context types. PoT refers to program-of-thought prompting, and PoT GPT-4 is a textual LLM augmented with the caption and OCR text. GPT-4V is manually evaluated via the playground chatbot.
+      </p>
+    </div>
+  </div>
+</section> -->
+<section class="section">
+  <div class="container" style="margin-top: -150px; margin-bottom: -100px;">
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        
+        <!-- <div id="results-carousel" class="carousel results-carousel"> -->
+          <!-- Display the image -->
+          <p align="center">
+            <img src="static/images/intro_spectrum.png" alt="benchmark overview" style="width:80%;">
+          </p>
+          <!-- Accompanying text below the image -->
+          <p>Comparison of molecular structure elucidation to solving a crossword puzzle. Just as crossword clues provide hints for fitting words into a grid, spectroscopic data such as NMR, IR, and mass spectrometry offer complementary clues about a molecule’s structure. Integrating these diverse clues leads to a complete and consistent picture of the molecule, similar to how words fit together in a puzzle.</p>
+        <!-- </div> -->
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <div class="video-container">
+        <div class="video-title">How to Use UniGen?</div>
+        <iframe src="https://www.youtube.com/embed/kWVC7GGGh2o" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div> -->
+
+
+    <section class="section">
+      <div class="container" style="margin-bottom: 2vh;">
+        <!-- Introduction. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Introduction</h2>
+            <div class="content has-text-justified">
+              <p> Artificial intelligence (AI) is revolutionizing chemistry, with significant impacts on industrial chemical engineering, drug discovery, and education. Large language models (LLMs) have successfully addressed predictive tasks such as molecular property prediction, reaction prediction, and experiment automation. Here, we introduce <strong>molecular structure elucidation</strong>, a task that presents a new challenge for AI. <strong>This task requires integrating diverse spectroscopic data, iterative hypothesis testing, and deep chemical reasoning to determine a molecule’s structure</strong>. Much like solving a complex crossword puzzle, it involves piecing together clues to form a coherent solution. The Figure highlights this analogy, illustrating the similarities in strategy and complexity between molecular structure elucidation and solving a crossword puzzle.</p>
+
+              <p> In this work, we present a novel approach to molecular structure elucidation, adapting the task for Large Language Models (LLMs) to explore their potential in chemical research. <strong>Our primary contribution is the introduction of the MolPuzzle dataset, comprising 234 complex structure elucidation challenges involving multimodal data like IR, MASS, H-NMR, and C-NMR spectra, as well as molecular formulas.</strong> Each instance requires LLMs to navigate three key sub-tasks: molecule understanding, spectrum interpretation, and molecule construction. </p>
+              
+              <p> We tested 11 state-of-the-art LLMs, including GPT-4o and Claude-3-opus, alongside human benchmarks. Key findings include: <strong>(1) GPT-4o outperforms other models but still underperforms compared to humans, with only 1.4% of its answers exactly matching the ground truth;</strong><strong>(2) LLMs struggle particularly in spectrum interpretation and molecule construction.</strong></p>
+              
+              <p>In summary, our contributions are two-fold: Our contributions are twofold: <strong>(1) A new reasoning challenge for the AI community focused on complex problem-solving in chemistry; and (2) New AI tools for the chemistry community, showcasing LLMs’ potential to accelerate molecular structure elucidation and inspire interdisciplinary collaboration.</strong></p>            </div>
+        </div>
+        <!--/ Introduction. -->
+      </div>
+    </section>
+
+
+    <section class="section">
+      <div class="container" style="margin-bottom: 2vh;">
+        <!-- Introduction. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Overview of the MolPuzzle Benchmark</h2>
+            <div class="content has-text-justified">
+              <p>The MolPuzzle benchmark is designed to test the reasoning capabilities of Large Language Models (LLMs) in molecular structure elucidation tasks. This dataset contains 200 instances of molecular structure elucidation challenges, simulating real-world chemistry tasks. Each instance in MolPuzzle involves three interlinked sub-tasks:</p>
+              <ul>
+                <li><strong>Molecule Understanding:</strong> This stage evaluates the model’s ability to identify and understand basic molecular structures, starting from the molecular formula derived from mass spectrometry data. The dataset includes questions about the degree of saturation, aromatic rings, and functional groups, helping the model narrow down possible molecular structures.</li>
+                <li><strong> Spectrum Interpretation:</strong> This stage involves analyzing multimodal data, including IR, MASS, 1H-NMR, and 13C-NMR spectra. These spectral images provide critical information about functional groups, molecular mass, and the arrangement of atoms. The dataset challenges models to integrate these clues and refine molecular hypotheses based on the spectral data.</li>
+                <li><strong>Molecule Construction:</strong> In this final stage, the models attempt to assemble the molecule based on the information gathered from previous steps. This involves constructing a valid molecular structure that fits the constraints provided by the NMR data.</li>
+              </ul>
+                        <!-- Image below the content -->
+            <p align="center">
+              <img src= "static/images/intro_spectrum(1).png" alt="benchmark overview" style="width:100%;">
+            </p>
+            <p> In total, Molpuzzle includes 23,678 data examples collected from each Stage.</p>
+            <p align="center">
+                <img src= "static/images/molpuzzle_stats2.png" alt="molpuzzle statistics" style="width:100%;">
+             </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section class="section">
+      <div class="container" style="margin-bottom: 2vh;">
+        <!-- Introduction. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3  mathvista">Experiment Results</h2>
+            <h3 class="subtitle is-4 left-align">Addressing individual QA tasks in three stages</h3>
+            <div class="content has-text-justified">
+              <p>We first conducted evaluation of a variety of LLMs for completing the individual tasks in each stage, including  GPT-4o, GPT-3.5-turbo, Claude-3-opus, Gemini-pro, LLama-3-8B-Instruct, Vicuna-13B-v1.5,  Mistral-7B-Instruct-v0.3, and in particular multimodal LLMs such as Gemini-pro-vision, LLava-Llama-3-8B, Qwen-VL-Chat, and InstructBlip-Vicuna-7B/13B.</p>
+              <table border="1" cellspacing="0" cellpadding="5">
+
+                <thead>
+                  <tr>
+                    <th rowspan="2" style="text-align: center;">Method</th>
+                    <th colspan="4" style="text-align: center;">Stage 1 (Molecule Understanding) Tasks</th>
+                  </tr>
+                  <tr>
+                    <th>SI</th>
+                    <th>ARI</th>
+                    <th>FGI</th>
+                    <th>SDC</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>GPT-4o</td>
+                    <td><strong>1.00±0.000</strong></td>
+                    <td>0.943±0.016</td>
+                    <td>0.934±0.005</td>
+                    <td>0.667±0.003</td>
+                  </tr>
+                  <tr>
+                    <td>GPT-3.5-turbo</td>
+                    <td>0.451±0.025</td>
+                    <td>0.816±0.017</td>
+                    <td>0.826±0.075</td>
+                    <td>0.5±0.099</td>
+                  </tr>
+                  <tr>
+                    <td>Claude-3-opus</td>
+                    <td>0.361±0.009</td>
+                    <td><strong>0.988±0.015</strong></td>
+                    <td><strong>0.934±0.001</strong></td>
+                    <td><strong>0.856±0.016</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Llama3</td>
+                    <td>0.228±0.043</td>
+                    <td>0.696±0.051</td>
+                    <td>0.521±0.003</td>
+                    <td>0.000±0.000</td>
+                  </tr>
+                  <tr>
+                    <td>Human</td>
+                    <td><strong>1.00±0.000</strong></td>
+                    <td><strong>1.000±0.000</strong></td>
+                    <td>0.890±0.259</td>
+                    <td>0.851±0.342</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              <table border="1" cellspacing="0" cellpadding="5">
+                <thead>
+                  <tr>
+                    <th rowspan="2">Method</th>
+                    <th colspan="4" style="text-align: center;">Stage 2 (Spectrum Interpretation) Tasks</th>
+                  </tr>
+                  <tr>
+                    <th>IR Interpretation</th>
+                    <th>MASS Interpretation</th>
+                    <th>H-NMR Interpretation</th>
+                    <th>C-NMR Interpretation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>GPT-4o</td>
+                    <td><strong>0.656±0.052</strong></td>
+                    <td><strong>0.609±0.042</strong></td>
+                    <td><strong>0.618±0.026</strong></td>
+                    <td><strong>0.639±0.010</strong></td>
+                  </tr>
+                  <tr>
+                    <td>LLava</td>
+                    <td>0.256±0.026</td>
+                    <td>0.101±0.021</td>
+                    <td>0.118±0.008</td>
+                    <td>0.254±0.015</td>
+                  </tr>
+                  <tr>
+                    <td>Human</td>
+                    <td>0.753±0.221</td>
+                    <td>0.730±0.110</td>
+                    <td>0.764±0.169</td>
+                    <td>0.769±0.101</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              <table border="1" cellspacing="0" cellpadding="5">
+                <thead>
+                  <tr>
+                    <th rowspan="2" style="text-align: center;">Method</th>
+                    <th colspan="2" style="text-align: center;">Stage 3 (Molecule Construction) Tasks</th>
+                  </tr>
+                  <tr>
+                    <th style="text-align: center;">H-NMR Elucidation</th>
+                    <th style="text-align: center;">C-NMR Elucidation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="text-align: center;">GPT-4o</td>
+                    <td style="text-align: center;"><strong>0.524±0.021</strong></td>
+                    <td style="text-align: center;"><strong>0.506±0.037</strong></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;">Llama3</td>
+                    <td style="text-align: center;">0.341±0.015</td>
+                    <td style="text-align: center;">0.352±0.017</td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;">Human</td>
+                    <td style="text-align: center;">0.867±0.230</td>
+                    <td style="text-align: center;">0.730±0.220</td>
+                  </tr>
+                </tbody>
+              </table>
+              <caption>
+              <p><strong>Table 1: F1 scores (↑) of individual QA tasks in three stages. The best LLMs results are in bold font.</strong><br> </p>
+
+              <p>Tasks in stage 1 are SI: Saturation Identification, ARI: Aromatic Ring Identification, FGI: Functional Group Identification, and SDC: Saturation Degree Calculation.</p>
+              </caption>
+        </div>
+        <h3 class="subtitle is-4 left-align">Addressing entire molecule puzzles</h3>
+        <div class="content has-text-justified">
+          <p> For solving the entire molecule puzzles, the evaluation is limited to the three most advanced multimodal LMMs: GPT-4o, Claude-3-opus, and Gemini-pro, due to the involvement of spectrum image analysis in Stage 2. </p>
+          <table border="1" cellspacing="0" cellpadding="5">
+            
+            <thead>
+              <tr>
+                <th style="text-align: center;">Method</th>
+                <th style="text-align: center;">Acc. (↑)</th>
+                <th style="text-align: center;">Levenshtein (↓)</th>
+                <th style="text-align: center;">Validity (↑)</th>
+                <th style="text-align: center;">MACCS FTS (↑)</th>
+                <th style="text-align: center;">RDK FTS (↑)</th>
+                <th style="text-align: center;">Morgan FTS (↑)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="text-align: center;">GPT-4o</td>
+                <td style="text-align: center;"><strong>0.014±0.004</strong></td>
+                <td style="text-align: center;"><strong>11.653±0.013</strong></td>
+                <td style="text-align: center;"><strong>1.000±0.000</strong></td>
+                <td style="text-align: center;"><strong>0.431±0.009</strong></td>
+                <td style="text-align: center;"><strong>0.293±0.013</strong></td>
+                <td style="text-align: center;">0.232±0.007</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">Claude-3-opus</td>
+                <td style="text-align: center;">0.013±0.008</td>
+                <td style="text-align: center;">12.680±0.086</td>
+                <td style="text-align: center;"><strong>1.000±0.000</strong></td>
+                <td style="text-align: center;">0.383±0.050</td>
+                <td style="text-align: center;">0.264±0.040</td>
+                <td style="text-align: center;">0.241±0.037</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">Gemini-pro</td>
+                <td style="text-align: center;">0.000±0.000</td>
+                <td style="text-align: center;">12.711±0.196</td>
+                <td style="text-align: center;"><strong>1.000±0.000</strong></td>
+                <td style="text-align: center;">0.340±0.017</td>
+                <td style="text-align: center;">0.208±0.002</td>
+                <td style="text-align: center;">0.171±0.007</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">Human</td>
+                <td style="text-align: center;">0.667±0.447</td>
+                <td style="text-align: center;">1.332±2.111</td>
+                <td style="text-align: center;"><strong>1.000±0.000</strong></td>
+                <td style="text-align: center;"><strong>0.985±0.022</strong></td>
+                <td style="text-align: center;">0.795±0.317</td>
+                <td style="text-align: center;">0.810±0.135</td>
+              </tr>
+            </tbody>
+          </table>
+          <caption><strong>Table 2: The performance of LLMs and human baseline in solving MolPuzzle. The best LLM results are in bold font. Acc. stands for the Accuracy of Exact Match.</strong></caption>
+
+
+        </div>
+        <!--/ Introduction. -->
+      </div>
+    </section>
+
+
+
+
+    <section class="section">
+      <div class="container" style="margin-bottom: 2vh;">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+              <h2 class="title is-3">Success and Failure Analysis</h2>
+   
+          <p align="center">
+            <img src= "static/images/molpuzzle_analysis.png" alt="benchmark overview" style="width:100%;">
+          </p>
+          <p> Error in solving the molecule puzzle</p>
+          <div class="content has-text-justified">
+          <p>The Figure presents case studies that illustrate the iterative steps involved in Stage 3, showcasing the most common errors made by GPT-4o: <strong>the accumulation of errors in iterative steps, which can lead to catastrophic failures.</strong> Note that this stage focuses on selecting the correct fragments and assembling them step by step to form the final molecular structure. We find that <strong>GPT-4o can initially succeed in picking the correct fragment when the structure is comparatively simple. However, as the process progresses, it does no select structures that satisfy all the requirements indicated by the NMR data.</strong></p>
+          </div>
+           </div>
+        </div>
+      </div>
+      
+    </section>
+    
+    <!-- @PAN TODO: bibtex -->
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <h2 class="title is-3 has-text-centered">BibTeX</h2>
+        <pre><code>{@inproceedings{guocan,
+          title={Can LLMs Solve Molecule Puzzles? A Multimodal Benchmark for Molecular Structure Elucidation},
+          author={Guo, Kehan and Nan, Bozhao and Zhou, Yujun and Guo, Taicheng and Guo, Zhichun and Surve, Mihir and Liang, Zhenwen and Chawla, Nitesh V and Wiest, Olaf and Zhang, Xiangliang},
+          booktitle={The Thirty-eight Conference on Neural Information Processing Systems Datasets and Benchmarks Track}}}
+        </code></pre>
+      </div>
+    </section>
+    
+    <section>
+      <div class="section" id="org-banners" style="display:flex">
+        <a href="https://www.nd.edu/" target="blank" class="ext-link">
+          <img class="center-block org-banner" src="static/images/molpuzzle_fundlogo.png" style="width: 1200px; height: auto;">
+        </a>
+
+      </div>
+    </section>
+    
+    
+    <footer class="footer">
+      <!-- <div class="container"> -->
+        <div class="content has-text-centered">
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content">
+              <p>
+                This website is website adapted from <a href="https://nerfies.github.io/">Nerfies</a>, licensed under a <a rel="license"
+                                                    href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      <!-- </div> -->
+    </footer>
+    
+    </body>
+    </html>
+    
+
+    <!-- <section class="section">
+      <div class="container" style="margin-bottom: 2vh;">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Bias Type, Description and Example</h2>
+            <br>
+            <table style="font-size: 1em; width: 100%; border-collapse: collapse;">
+              <caption style="caption-side: top; text-align: left; margin-bottom: 10px;">
+                Types of biases in LLM-as-a-Judge, with descriptions and examples that demonstrate how particular bias affects LLM's judgment.
+              </caption>
+              <thead>
+                <tr style="background-color: #f2f2f2;">
+                  <th style="padding: 10px; text-align: center; border-bottom: 2px solid #ddd;">Bias Type</th>
+                  <th style="padding: 10px; text-align: center; border-bottom: 2px solid #ddd;">Description</th>
+                  <th style="padding: 10px; text-align: center; border-bottom: 2px solid #ddd;">Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>🔀 Position (Pos.)</strong></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">When an LLM exhibits a propensity to favor certain positions over others.</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    <span style="color: #15be75;">$R_1$: 3.11 > 3.8</span><br>
+                    <span style="color: #877eeb;">$R_2$: 3.8 > 3.11</span><br>
+                    <span style="color: #877eeb;">$R_1$: 3.8 > 3.11</span><br>
+                    <span style="color: #15be75;">$R_2$: 3.11 > 3.8</span>
+                  </td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>📄 Verbosity (Ver.)</strong></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">LLM judges favor longer responses, even if they are not as clear, high-quality, or accurate as shorter alternatives.</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    <span style="color: #15be75;">$R_1$: As we all know, in mathematics, 3.11 is greater than 3.8.</span> <i>(Longer)</i><br>
+                    <span style="color: #877eeb;">$R_2$: 3.11 > 3.8</span> <i>(Shorter)</i>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>🎭 Compassion-Fade (Com.)</strong></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">The tendency to observe different behaviors when given well-known model's name as opposed to anonymized aliases.</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    <span style="color: #15be75;">GPT-4: 3.11 > 3.8</span><br>
+                    <span style="color: #877eeb;">Llama-7B: 3.8 > 3.11</span>
+                  </td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>👥 Bandwagon (Ban.)</strong></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">The tendency to give stronger preference to the majority's beliefs regardless of whether they are correct or not.</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    <span style="color: #15be75;">$R_1$: 3.11 > 3.8</span><br>
+                    <span style="color: #877eeb;">$R_2$: 3.8 > 3.11</span><br>
+                    <span>$I$: <i>90%</i> believe that $R_1$ is better.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>🥝 Distraction (Dis.)</strong></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">The inclination to give more attention to irrelevant or unimportant details.</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    <span style="color: #15be75;">$R_1$: 3.11 > 3.8</span><br>
+                    <span>$I$: $R_1$ loves eating pasta, especially with homemade tomato sauce.</span>
+                  </td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>👁 Fallacy-Oversight (Fal.)</strong></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">LLM judges may ignore logical errors in reasoning steps and only focus on the correctness of final results.</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    <span style="color: #15be75;">$R_1$: 0.8 is greater than 0.11, so 3.8 > 3.11.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>✍ Authority (Aut.)</strong></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">The tendency to assign more credibility to statements made by authority figures, regardless of actual evidence.</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    <span style="color: #15be75;">$R_1$: 3.11 > 3.8 (Citation: Patel, R. (2018). Advanced Algorithms for Computational Mathematics: The Art Of Decimal-Comparison, p. 143)</span>
+                  </td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>😂 Sentiment (Sen.)</strong></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">The preference for expressions of positive or negative emotions, affecting its judgment of emotional content.</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    <span style="color: #15be75;">$R_1$: Regrettably, 3.11 > 3.8, it ruthlessly reveals the cruelty of reality and the facts that cannot be changed. </span> (<i>Frustrated tone</i>)
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>🎓 Chain-of-Thought (CoT)</strong></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">The model's evaluation results may vary with and without CoT.</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    <span>$I_1$: Compare both assistants’ answers...</span><br>
+                    <span>$I_2$: You should independently solve the user question step-by-step first. Then compare both assistants’ answers with your answer.</span>
+                  </td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>🕴 Self-Enhancement (Sel.)</strong></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">LLM judges may favor the answers generated by themselves.</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    <span style="color: #15be75;">$R_1$: 3.11 > 3.8 (LLM judge generated $R_1$ itself)</span><br>
+                    <span style="color: #877eeb;">$R_2$: 3.8 > 3.11</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>🖋 Refinement-Aware (Ref.)</strong></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">Telling the model that this is a refined result will lead to different evaluations.</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    <span style="color: #15be75;">Original Answer: The data is inaccurate. (Score: 6 points)</span><br>
+                    <span style="color: #877eeb;">Refined Answer with Original Answer: The data is inaccurate ...(refining content)...Upon careful review...contains inaccuracies (Score: 8 points)</span><br>
+                    <span style="color: #A13242;">Refined Answer Only: Upon careful review...contains inaccuracies (Score: 7 points)</span>
+                  </td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>⚧ Diversity (Div.)</strong></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">Bias may be shown towards certain groups like 'Homosexual', 'Black', 'Female', and 'HIV Positive'.</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    <span style="color: #15be75;">$R_1$: 3.8 > 3.11</span><br>
+                    <span style="color: #877eeb;">$R_2$: 3.11 > 3.8</span><br>
+                    <span>$I$: $R_1$'s true identity is <i>Homosexual</i></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+
+
+    <!-- <section class="section">
+      <div class="container" style="margin-bottom: 2vh;">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Overview of the types of bias</h2>
+            <br>
+    <table>
+      <caption>An overview of the types of bias, dataset, the judgment task, the number of used samples, the evaluation metrics, and their corresponding dimensions. Metrics are chosen based on their relevance to each bias type. <strong>RR</strong>: Robustness rate, <strong>Err.<sub>SE</sub></strong>: ErrorRate<sub>SE</sub>, <strong>Acc<sub>hack</sub></strong>: Accuracy for hack detection, <strong>Err.<sub>RA</sub></strong>: ErrorRate<sub>RA</sub>. Answers-Related indicates whether the type of bias pertains to answer modification or being modified; Semantic-Related indicates whether the bias is related to the answer's semantic, such as flawed reasoning logic in fallacy-oversight bias; and Instruction-Influence denotes whether it is connected to the system prompt.</caption>
+      <thead>
+        <tr>
+          <th rowspan="3">Bias</th>
+          <th rowspan="3">Dataset</th>
+          <th rowspan="3"># Sample</th>
+          <th rowspan="3">Metric</th>
+          <th colspan="2">Judge Task</th>
+          <th colspan="3">Dimensions</th>
+        </tr>
+        <tr>
+          <th rowspan="2">Scoring</th>
+          <th rowspan="2">Pairwise-Comparison</th>
+          <th>Answers-Related</th>
+          <th>Semantic-Related</th>
+          <th>Instruction-Influence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background-color: #f2f2f2;">
+          <td><strong>Position</strong></td>
+          <td>Align.</td>
+          <td>439</td>
+          <td>RR</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td><strong>Verbosity</strong></td>
+          <td>Fac.</td>
+          <td>500</td>
+          <td>RR</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+        <tr style="background-color: #f2f2f2;">
+          <td><strong>Compassion-Fade</strong></td>
+          <td>Align.</td>
+          <td>439</td>
+          <td>RR</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td><strong>Bandwagon</strong></td>
+          <td>Align.</td>
+          <td>150</td>
+          <td>RR</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>✅</td>
+        </tr>
+        <tr style="background-color: #f2f2f2;">
+          <td><strong>Distraction</strong></td>
+          <td>Align.</td>
+          <td>439</td>
+          <td>RR</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td><strong>Fallacy-Oversight</strong></td>
+          <td>Fac.</td>
+          <td>500</td>
+          <td>RR</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>❌</td>
+        </tr>
+        <tr style="background-color: #f2f2f2;">
+          <td><strong>Authority</strong></td>
+          <td>Align.</td>
+          <td>150</td>
+          <td>RR</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td><strong>Sentiment</strong></td>
+          <td>Fac.</td>
+          <td>500</td>
+          <td>RR</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+        <tr style="background-color: #f2f2f2;">
+          <td><strong>Diversity</strong></td>
+          <td>Align.</td>
+          <td>150</td>
+          <td>RR</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td><strong>Chain-of-Thought</strong></td>
+          <td>Align.</td>
+          <td>439</td>
+          <td>Acc</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>✅</td>
+        </tr>
+        <tr style="background-color: #f2f2f2;">
+          <td><strong>Self-Enhancement</strong></td>
+          <td>Align.</td>
+          <td>150</td>
+          <td>Err.<sub>SE</sub></td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td><strong>Refine-Aware</strong></td>
+          <td>Ref.</td>
+          <td>500</td>
+          <td>Err.<sub>RA</sub></td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+      <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+              <h2 class="title is-3">Robustness rate Overview</h2>
+              <br>
+              <table>
+                <caption>Robustness rate for various models across different metrics are presented. D<sub>FR</sub> and D<sub>AL</sub> represent fact-related datasets and alignment datasets, respectively, while CR<sub>FR</sub> and CR<sub>Al</sub> indicate the consistency rate on these two datasets without changing any values.</caption>
+                <thead>
+                  <tr>
+                    <th rowspan="2">Model</th>
+                    <th colspan="4">D<sub>FR</sub> RR<sub><span style="color: #8B0000;">↑</span></sub></th>
+                    <th colspan="7">D<sub>AL</sub> RR<sub><span style="color: #8B0000;">↑</span></sub></th>
+                    <th>D<sub>AL</sub> Acc<sub><span style="color: #8B0000;">↑</span></sub></th>
+                  </tr>
+                  <tr>
+                    <th>Ver.</th>
+                    <th>Fal.</th>
+                    <th>Sen.</th>
+                    <th>CR<sub>FR</sub></th>
+                    <th>Pos.</th>
+                    <th>Com.</th>
+                    <th>Ban.</th>
+                    <th>Aut.</th>
+                    <th>Dst.</th>
+                    <th>Div.</th>
+                    <th>CR<sub>Al</sub></th>
+                    <th>CoT.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>ChatGPT</strong></td>
+                    <td>0.900</td>
+                    <td>0.917</td>
+                    <td><strong>0.804</strong></td>
+                    <td>0.998</td>
+                    <td>0.566</td>
+                    <td>0.862</td>
+                    <td>0.688</td>
+                    <td>0.662</td>
+                    <td>0.713</td>
+                    <td>0.679</td>
+                    <td>0.906</td>
+                    <td>0.560</td>
+                  </tr>
+                  <tr>
+                    <td><strong>GPT-4-Turbo</strong></td>
+                    <td>0.915</td>
+                    <td>0.969</td>
+                    <td>0.653</td>
+                    <td>0.990</td>
+                    <td>0.818</td>
+                    <td>0.858</td>
+                    <td>0.638</td>
+                    <td>0.846</td>
+                    <td>0.729</td>
+                    <td>0.855</td>
+                    <td>0.856</td>
+                    <td>0.720</td>
+                  </tr>
+                  <tr>
+                    <td><strong>GPT-4o</strong></td>
+                    <td><strong>0.977</strong></td>
+                    <td>0.984</td>
+                    <td>0.699</td>
+                    <td>0.998</td>
+                    <td>0.776</td>
+                    <td>0.868</td>
+                    <td><strong>0.791</strong></td>
+                    <td>0.787</td>
+                    <td>0.790</td>
+                    <td>0.814</td>
+                    <td>0.925</td>
+                    <td>0.700</td>
+                  </tr>
+                  <tr>
+                    <td><strong>GLM-4</strong></td>
+                    <td>0.887</td>
+                    <td>0.979</td>
+                    <td>0.679</td>
+                    <td>0.970</td>
+                    <td>0.781</td>
+                    <td>0.835</td>
+                    <td>0.690</td>
+                    <td>0.796</td>
+                    <td>0.814</td>
+                    <td>0.788</td>
+                    <td>0.884</td>
+                    <td>0.688</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Claude-3.5</strong></td>
+                    <td>0.952</td>
+                    <td><strong>0.985</strong></td>
+                    <td>0.660</td>
+                    <td>0.999</td>
+                    <td><strong>0.832</strong></td>
+                    <td>0.875</td>
+                    <td>0.610</td>
+                    <td><strong>0.865</strong></td>
+                    <td><strong>0.878</strong></td>
+                    <td><strong>0.914</strong></td>
+                    <td>0.915</td>
+                    <td><strong>0.745</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Qwen2</strong></td>
+                    <td>0.884</td>
+                    <td>0.935</td>
+                    <td>0.651</td>
+                    <td>0.994</td>
+                    <td>0.760</td>
+                    <td><strong>0.877</strong></td>
+                    <td>0.710</td>
+                    <td>0.779</td>
+                    <td>0.785</td>
+                    <td>0.826</td>
+                    <td>0.904</td>
+                    <td>0.704</td>
+                  </tr>
+                </tbody>
+              </table>
+              <br>
+              <br>
+              <img src="static/images/bias_metrics_00.png" alt="consistency_all" width="85%">
+          </div>
+      </div>
+  </div>
+</section> -->
+
+
