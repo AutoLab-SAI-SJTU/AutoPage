@@ -21,7 +21,7 @@
 To address the question **How to create a webpage from a paper** and **How to evaluate the project webpage.**, we propose **AutoPage** and **PageBench**, where AutoPage transforms academic papers into polished, editable project webpages via a human-in-the-loop multi-agent pipeline, and PageBench offers automatic evaluation along content quality, and visual design quality dimensions.
 
 <p align="center">
-  <img src=".assets/overall.png" alt="Overall" />
+  <img src="assets/overall.png" alt="Overall" />
 </p>
 
 
@@ -31,7 +31,7 @@ To address the question **How to create a webpage from a paper** and **How to ev
 
 ## 📚 Pipeline
 **AutoPage** is a top-down, visual-in-the-loop multi-agent system from `pdf` to **editable** `HTML`.
-![AutoPage Overview](.assets/method.png)
+![AutoPage Overview](assets/method.png)
 
 
 ## 📋 Table of Contents
