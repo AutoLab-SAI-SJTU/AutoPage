@@ -1,12 +1,14 @@
 # AutoPage: Human-Agent Collaborative Paper-to-Page Crafting for Under $0.1
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2410.06664" target="_blank"><img src="https://img.shields.io/badge/arXiv-2410.06664-red"></a>
+  <a href="https://arxiv.org/abs/2510.xxxxx" target="_blank"><img src="https://img.shields.io/badge/arXiv-2510.xxxxx-red"></a>
   <a href='https://mqleet.github.io/AutoPage_ProjectPage/'><img src='https://img.shields.io/badge/Project-Page-blue'></a>
+  <a href="https://huggingface.co/spaces/AutoLab-SJTU/AutoPage" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Space-red%22"></a>
+
 </p >
 
 ## 🔥 News
-- [2025.10.20] We release the paper, code and [project pages](https://mqleet.github.io/AutoPage_ProjectPage/) (Refresh to get a new view).
+- [2025.10.20] We release the paper, code and [project pages](https://mqleet.github.io/AutoPage_ProjectPage/) (Refresh the page to see a new version each time).
 
 
 ## :memo: TODO
@@ -16,9 +18,22 @@
 - [ ] Datasets
 - [ ] Huggingface Demo
 
+## 📋 Table of Contents
+
+- [AutoPage: Human-Agent Collaborative Paper-to-Page Crafting for Under $0.1](#autopage-human-agent-collaborative-paper-to-page-crafting-for-under-01)
+  - [🔎 Overview](#-overview)
+  - [📚 Pipeline](#-pipeline)
+  - [🛠️ Installation](#-installation)
+  - [🚀 Quick Start](#-quick-start)
+  - [💻 Start with Gradio](#-start-with-gradio)
+  - [📐 Evaluation](#-evaluation)
+  - [⚙️ Add Model for Camel](#-add-model-for-camel)
+
+
+
 
 ## 🔎 Overview
-To address the question **How to create a webpage from a paper** and **How to evaluate the project webpage.**, we propose **AutoPage** and **PageBench**, where AutoPage transforms academic papers into polished, editable project webpages via a human-in-the-loop multi-agent pipeline, and PageBench offers automatic evaluation along content quality, and visual design quality dimensions.
+To address the questions **"How to create a webpage from an academic paper?"** and **"How to evaluate the project webpage?"**, we propose **AutoPage** and **PageBench**. AutoPage transforms academic papers into polished, published-ready project webpages through a human-in-the-loop multi-agent pipeline, while PageBench provides automatic evaluation across content quality and visual design quality dimensions.
 
 <p align="center">
   <img src="assets/overall.png" alt="Overall" />
@@ -30,19 +45,11 @@ To address the question **How to create a webpage from a paper** and **How to ev
 
 
 ## 📚 Pipeline
-**AutoPage** is a top-down, visual-in-the-loop multi-agent system from `pdf` to **editable** `HTML`.
+**AutoPage** is a human-agent collaborative multi-agent system that transforms PDF documents into HTML project pages through interactive human feedback.
 ![AutoPage Overview](assets/method.png)
 
 
-## 📋 Table of Contents
 
-- [AutoPage: Human-Agent Collaborative Paper-to-Page Crafting for Under $0.1](#autopage-human-agent-collaborative-paper-to-page-crafting-for-under-01)
-  - [🛠️ Installation](#️-installation)
-  - [🚀 Quick Start](#-quick-start)
-  - [💻 Start with Gradio](#-start-with-gradio)
-  - [📐 Evaluation](#-evaluation)
-  - [⚙️ Add Model for Camel](#️-add-model-for-camel)
----
 
 ## 🛠️ Installation
 
@@ -115,14 +122,24 @@ AutoPage **supports flexible combination of LLM / VLM**, feel free to try other 
 
 
 ## 💻 Start with Gradio
-If you prefer to run it in the frontend, just use the gradio via :
+If you prefer to run it in the frontend, just use the gradio via:
 ```python
 python app.py
 ```
 
+### 📹 Demo Video
+We provide a complete Gradio demo video that demonstrates how to use AutoPage to generate project webpages from academic papers:
+
+<video width="100%" controls>
+  <source src="assets/demo_video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+*You can watch this video to understand the complete usage workflow and interface operations.*
+
 ## 📐 Evaluation
 
-In evaluation, papers are stored under a directory called `generated_project_pages`.
+In evaluation, project pages are stored under a directory called `generated_project_pages`.
 
 To evaluate a generated webpage :
 ```
