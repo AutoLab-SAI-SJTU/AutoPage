@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SafeWatch: Efficient Safety-Policy Following Video Guardrail Model</title>
+    <title>Human-Agent Collaborative Paper-to-Page Crafting for Under $0.1</title>
     <link rel="icon" type="image/x-icon" href="figures/favicon.ico">
+    <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],   
+      displayMath: [['$$', '$$'], ['\\[', '\\]']] 
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap');
@@ -209,7 +218,7 @@
         }
         @keyframes blink {
             0% { opacity: 1; }
-            50% { opacity: 0; }
+50% { opacity: 0; }
             100% { opacity: 1; }
         }
         .video-item:hover {
@@ -220,7 +229,7 @@
         }
         @keyframes blink {
             0% { opacity: 1; }
-            50% { opacity: 0; }
+50% { opacity: 0; }
             100% { opacity: 1; }
         }
         @media (max-width: 1200px) {
@@ -500,7 +509,7 @@
         .image-container {
             text-align: center;
             margin: 20px auto;
-            max-width: 1400px; /* Match video section width */
+            max-width: 1100px; /* Match section container width */
             padding: 0 20px;
         }
 
@@ -509,15 +518,17 @@
             height: auto;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            margin-top: 24px; /* Added margin-top */
+            margin-bottom: 24px; /* Added margin-bottom */
         }
 
         .caption {
             font-family: 'Raleway', sans-serif;
             font-size: 16px;
             color: #cccccc;
-            max-width: 800px;
+            max-width: 1000px; /* Match section container width */
             margin: 20px auto;
-            text-align: center;
+            text-align: justify; /* Aligned text to the center */
             line-height: 1.6;
         }
 
@@ -1290,8 +1301,8 @@
         .dataset-info .caption,
         .method-section .caption,
         .data-curation-section .caption {
-            max-width: 80%; /* Match the image width */
-            text-align: left; /* Align text to the left */
+            max-width: 1000px; /* Match the section text width */
+            text-align: justify; /* Align text to the center */
             margin: 20px auto 0; /* Adjust margin to align with image */
         }
 
@@ -1463,6 +1474,131 @@
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(78, 67, 118, 0.4), transparent);
         }
+
+        /* Common section styles */
+        .section-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: left;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            color: #ffffff;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .section-text {
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #cccccc;
+            margin-bottom: 20px;
+            text-align: justify; /* Justify text for a more structured look */
+        }
+
+        .section-text strong {
+            color: #ffffff;
+        }
+
+        .centered-image-container {
+            margin: 30px auto;
+            text-align: center;
+            max-width: 100%; /* Ensure it doesn't overflow */
+        }
+
+        .centered-image-container img {
+            display: block; /* Center non-inline elements */
+            margin: 24px auto; /* Set both top and bottom margin to 24px */
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 75%; /* Make images responsive */
+            height: auto;
+
+            /* Start: New styles to shift image slightly left */
+            position: relative;
+            left: 0%; /* Adjust this value to move the image left */
+            /* End: New styles to shift image slightly left */
+        }
+
+        .image-caption {
+            font-family: 'Raleway', sans-serif;
+            font-size: 14px;
+            color: #999999;
+            margin-top: 15px;
+            line-height: 1.5;
+            max-width: 1000px; /* Optional: constrain caption width to match section */
+            margin-left: auto;
+            margin-right: auto;
+            text-align: justify; /* Justify caption text as well */
+        }
+
+         .table-container {
+            overflow-x: auto; /* Allows horizontal scrolling for large tables */
+            margin: 30px auto;
+            max-width: 1000px; /* Adjust as needed, or remove for full width */
+            text-align: center; /* Center the table itself if narrower than container */
+        }
+
+        .table-container table {
+          table-layout: auto;
+          width: auto;
+            border-collapse: collapse; /* Removes space between table cells */
+           margin: 24px auto; /* Centered with consistent spacing */
+            font-family: 'Raleway', sans-serif;
+            font-size: 14px;
+            color: #E0E0E0; /* Main text color, matching page content */
+            background-color: #242424; /* A slightly lighter dark gray for table background */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 8px; /* Rounded corners for the table */
+            overflow: hidden; /* Ensures borders/shadows are within rounded corners */
+          max-width: 100%; /* Ensure it doesn't overflow */
+
+        }
+
+        .table-container th, .table-container td {
+            border: 1px solid #444444; /* Darker borders */
+            padding: 12px 15px;
+            text-align: center; /* Centered text */
+            vertical-align: middle; /* Vertically centered text */
+             word-wrap: break-word; /* Ensure long words break */
+            white-space: normal; /* Override no-wrap if necessary */
+        }
+
+        .table-container th {
+            background-color: #2E2E2E; /* Darker header background for emphasis */
+            font-weight: 600;
+            color: #4285F4; /* Accent blue for header text */
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table-container tr:nth-child(even) {
+            background-color: #242424; /* Base dark gray for even rows */
+        }
+
+        .table-container tr:nth-child(odd) {
+            background-color: #2C2C2C; /* Slightly darker shade for odd rows */
+        }
+
+        .table-container tr:hover {
+            background-color: #383838; /* Highlight row on hover */
+             cursor: pointer;
+            transition: background-color 0.3s ease; /* Hover animation */
+        }
+
+        .table-caption {
+            font-family: 'Raleway', sans-serif;
+            font-size: 14px;
+            color: #A0A0A0; /* Muted light gray for caption */
+            margin-top: 15px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            text-align: justify; /* Justify caption text */
+        }
     </style>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
@@ -1471,582 +1607,253 @@
     <header>
         <nav>
             <div class="logo">
-                <img src="images/logo.png" alt="SafeWatch Logo">
-                <span>SafeWatch</span>
+                <img src="images/logo.png" alt="AutoPage Logo">
+                <span>AutoPage</span>
             </div>
             <div class="nav-links">
-                <a href="https://arxiv.org/pdf/2412.06878">Paper</a>
-                <a href="index.html#presentation">Code</a>
-                <!-- <a href="#demo" onclick="showDatasetAlert()">Dataset</a> -->
-                <a href="https://huggingface.co/datasets/Zhaorun/SafeWatch-Bench">Dataset</a>
-                <a href="index.html#video-demos" onclick="scrollToSeeDemos(event)">Demos</a>
-                <a href="https://www.alphaxiv.org/abs/2412.06878">Alphaxiv Community</a>
+                <a href="#introduction">Introduction</a>
+                <a href="#autopage-methodology">Methodology</a>
+                <a href="#pagebench-benchmark">Benchmark</a>
+                <a href="#experimental-results">Results</a>
+                <a href="#user-study">User Study</a>
             </div>
         </nav>
     </header>
 
     <div class="main-content">
         <div class="main-title">
-            <img src="images/logo.png" alt="SafeWatch Logo" class="main-logo">
-            <h1>SafeWatch</h1>
+            <img src="images/logo.png" alt="AutoPage Logo" class="main-logo">
+            <h1>AutoPage</h1>
         </div>
-        <h2>An Efficient Safety-Policy Following Video Guardrail Model with Transparent Explanations</h2>
+        <h2>Human-Agent Collaborative Paper-to-Page Crafting for Under $0.1</h2>
         
         <p class="authors">
-            Zhaorun Chen<sup>1</sup>, Francesco Pinto<sup>1</sup>, Minzhou Pan<sup>2</sup>, Bo Li<sup>1,2,3</sup>
+            Anonymous ACL submission
         </p>
 
         <div class="affiliations">
-            <p><sup>1</sup>University of Chicago, <sup>2</sup>Virtue AI, <sup>3</sup>University of Illinois, Urbana-Champaign</p>
+            <p></p>
         </div>
 
-        <div class="conference">
-            <span>ICLR 2025</span>
-        </div>
+        
 
-        <div class="buttons">
-            <button class="button" onclick="window.open('https://arxiv.org/pdf/2412.06878', '_blank')">Read Paper</button>
-            <button class="button" onclick="window.open('https://github.com/BillChan226/SafeWatch/', '_blank')">Code Repo</button>
-            <!-- <button class="button" onclick="showDatasetAlert()">Request Dataset</button> -->
-            <button class="button" onclick="window.open('https://huggingface.co/datasets/Zhaorun/SafeWatch-Bench', '_blank')">Dataset</button>
-            <button class="button" onclick="scrollToSeeDemos(event)">Check Demos</button>
-            <button class="button" onclick="window.open('https://87d1412cf8e71b559b.gradio.live', '_blank')">Try our model! 🔥</button>
-            <!-- <button class="button" onclick="window.open('https://www.alphaxiv.org/abs/2412.06878', '_blank')">🔥 Alphaxiv Weekly Paper 🔥</button> -->
-        </div>
-
-        <div class="overview-section">
-            <div class="overview-container">
-                <div class="overview-content">
-                    <div class="overview-text">
-                        <p class="highlight-text">
-                            <strong class="overview-label">Overview:</strong> With the wide adoption of generative AI and rapid growth of high-quality video
-                            generation, video guardrails have become more crucial than ever to ensure safety
-                            and security across platforms. We introduce <strong>SafeWatch</strong>, an efficient MLLM-based video guardrail
-                            model designed to follow customized safety policies and provide multi-label video guardrail outputs with content-specific explanations. Specifically, <strong>SafeWatch</strong> incorporates two powerful modules to tackle the high inference latency and policy bias under lengthy safety guidelines input, ensuring a focused, policy-compliant
-                            guardrail with significantly reduced computational overhead. In addition, we introduce <strong>SafeWatch-Bench</strong>, a large-scale high-quality video guardrail dataset covering over 30 comprehensive unsafe video scenarios for training and benchmark our model.
-                        </p>
-                        
-                        <div class="key-features">
-                            <div class="feature">
-                                <div class="feature-header">
-                                    <img src="images/logo.png" class="feature-logo" alt="SafeWatch Logo">
-                                    <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('model-architecture')">SafeWatch Video Guardrail</span>
-                                </div>
-
-                                <p style="font-size: 13px;">(1) <strong>Strong policy-following</strong> to provide multi-label guardrail flags with precise explanations.</p>
-                                <p style="font-size: 13px;">(2) <strong>Novel Architecture</strong> for achieving low infer- ence latency and mitigating policy input bias.</p>
-                                <p style="font-size: 13px;">(3) <strong>Advanced Training</strong> for accurate guardrail and grounded explanation for both real-world and generative videos.</p>
-                            </div>
-                            <div class="feature">
-                                <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('dataset-section')">📊 SafeWatch-Bench Dataset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <p style="font-size: 13px;">(1) <strong>Large & High-quality:</strong> Contain 2M+ videos annotated in high quality by multi-agent LLMs;</p>
-                                <p style="font-size: 13px;">(2) <strong>Comprehensive Coverage:</strong> Cover 6 policy categories and over 30 safety-related scenarios;</p>
-                                <p style="font-size: 13px;">(3) <strong>Real-world and GenAI:</strong> Cover challenging videos produced in both real-world settings and various generative models.</p>
-                            </div>
-                            <div class="feature">
-                                <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('main-results')">🎯 Comprehensive Evaluation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <p style="font-size: 13px;">(1) <strong>SafeWatch-Bench:</strong> On both real-world and generative video subset, SafeWatch outperforms SOTAs by 29.2% and 27.2% on average;</p>
-                                <p style="font-size: 13px;">(2) <strong>Existing Guardrail Tasks:</strong> On 5 existing benchmarks, SafeWatch achieves 87.1% accuracy;</p>
-                                <p style="font-size: 13px;">(3) <strong>Unseen Tasks:</strong> On 8 new video categories or prompting tasks, SafeWatch has high accuracy.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="section-container" id="introduction">
+            <h2 class="section-title">Introduction</h2>
+            <p class="section-text">In the pursuit of scientific progress, effectively communicating research is as crucial as the discovery itself. However, researchers are often burdened by the manual and repetitive task of creating project webpages to make their complex papers accessible. While automation has addressed static formats like slides and posters, the dynamic and interactive nature of webpages has remained an open challenge. To bridge this gap, we introduce <b>AutoPage</b>, a novel multi-agent system based on a collaborative, hierarchical process. AutoPage conceptualizes paper-to-page creation as a coarse-to-fine pipeline, spanning narrative planning, multimodal content generation, and interactive rendering. To counteract AI hallucination, dedicated 'Checker' agents verify each step against the source paper, and optional human checkpoints allow for feedback, transforming AutoPage into a powerful collaborative assistant. We also present <b>PageBench</b>, the first benchmark for this new task, which has rigorously validated our approach. AutoPage not only generates high-quality, visually appealing pages but does so efficiently, in under 15 minutes and for less than $0.1. </p>
+            <div class="centered-image-container">
+            <!-- width = 1202, height = 553 -->
+            <img src="assets/ACL26_PageAgent-picture-1.png" alt="Overview of our work. (a) End-to-end LLMs directly convert papers into project pages, resulting in unreasonable layouts and lacking human feedback. (b) Our proposed AutoPage integrates human-agent collaboration into automated page generation with higher content and visual quality. The figure also illustrates the process for constructing the PageBench benchmark. (1) illustrates that traditional end-to-end LLM approaches often lead to unreasonable layouts and lack human feedback, whereas our AutoPage system integrates human-agent collaboration to achieve higher content and visual quality." style="max-width: 75%; object-fit: contain;" />
+            <p class="image-caption">Overview of our work. (a) End-to-end LLMs directly convert papers into project pages, resulting in unreasonable layouts and lacking human feedback. (b) Our proposed AutoPage integrates human-agent collaboration into automated page generation with higher content and visual quality. The figure also illustrates the process for constructing the PageBench benchmark. (1) illustrates that traditional end-to-end LLM approaches often lead to unreasonable layouts and lack human feedback, whereas our AutoPage system integrates human-agent collaboration to achieve higher content and visual quality.</p>
             </div>
         </div>
 
-        <!-- See Demos Button moved above -->
-        <div class="see-demos-container" id="video-demos">
-            <button class="see-demos-button" id="seeDemosButton">Check out the demos🔥</button>
-        </div>
-
-        <!-- Main filter buttons moved below -->
-        <div class="filter-buttons">
-            <button class="filter-button active" data-filter="all">All</button>
-            <button class="filter-button" data-filter="benign">Benign</button>
-            <button class="filter-button" data-filter="sexual">Sexual</button>
-            <button class="filter-button" data-filter="abuse">Abuse</button>
-            <button class="filter-button" data-filter="violence">Violence</button>
-            <button class="filter-button" data-filter="misinformation">Misinformation</button>
-            <button class="filter-button" data-filter="illegal">Illegal</button>
-            <button class="filter-button" data-filter="extremism">Extremism</button>
-        </div>
-
-        <!-- Sub-filter buttons -->
-        <div class="sub-filter-container">
-            <!-- Sexual sub-filters -->
-            <div class="sub-filter-buttons sexual-sub-filters" style="display: none;">
-                <button class="sub-filter-button active" data-filter="sexual-all">All</button>
-                <button class="sub-filter-button" data-filter="sexual-evident">Evident</button>
-                <button class="sub-filter-button" data-filter="sexual-subtle">Subtle</button>
-                <button class="sub-filter-button" data-filter="sexual-implication">Implication</button>
-                <button class="sub-filter-button" data-filter="sexual-hentai">Hentai</button>
-            </div>
-
-            <!-- Abuse sub-filters -->
-            <div class="sub-filter-buttons abuse-sub-filters" style="display: none;">
-                <button class="sub-filter-button active" data-filter="abuse-all">All</button>
-                <button class="sub-filter-button" data-filter="abuse-animal">Animal Abuse</button>
-                <button class="sub-filter-button" data-filter="abuse-campus">Campus Bullying</button>
-                <button class="sub-filter-button" data-filter="abuse-child">Child Abuse</button>
-                <button class="sub-filter-button" data-filter="abuse-sexual">Sexual Abuse</button>
-            </div>
-
-            <!-- Violence sub-filters -->
-            <div class="sub-filter-buttons violence-sub-filters" style="display: none;">
-                <button class="sub-filter-button active" data-filter="violence-all">All</button>
-                <button class="sub-filter-button" data-filter="violence-assault">Assault</button>
-                <button class="sub-filter-button" data-filter="violence-fighting">Fighting</button>
-                <button class="sub-filter-button" data-filter="violence-shooting">Shooting</button>
-                <button class="sub-filter-button" data-filter="violence-sexual-violence">Sexual Violence</button>
-                <button class="sub-filter-button" data-filter="violence-vandalism">Vandalism</button>
-            </div>
-
-            <!-- Illegal sub-filters -->
-            <div class="sub-filter-buttons illegal-sub-filters" style="display: none;">
-                <button class="sub-filter-button active" data-filter="illegal-all">All</button>
-                <button class="sub-filter-button" data-filter="illegal-robbery">Robbery</button>
-                <button class="sub-filter-button" data-filter="illegal-shoplifting">Shoplifting</button>
-                <button class="sub-filter-button" data-filter="illegal-war">War Scenes</button>
-            </div>
-
-            <!-- Extremism sub-filters -->
-            <div class="sub-filter-buttons extremism-sub-filters" style="display: none;">
-                <button class="sub-filter-button active" data-filter="extremism-all">All</button>
-                <button class="sub-filter-button" data-filter="extremism-selfharm">Self-harm</button>
-                <button class="sub-filter-button" data-filter="extremism-disturbing">Disturbing</button>
-                <button class="sub-filter-button" data-filter="extremism-antisocial">Anti-social</button>
-                <button class="sub-filter-button" data-filter="extremism-depression">Depression</button>
-            </div>
-
-            <!-- Misinformation sub-filters -->
-            <div class="sub-filter-buttons misinformation-sub-filters" style="display: none;">
-                <button class="sub-filter-button active" data-filter="misinformation-all">All</button>
-                <button class="sub-filter-button" data-filter="misinformation-acting">Acting</button>
-                <button class="sub-filter-button" data-filter="misinformation-deepfake">Deepfake</button>
-                <button class="sub-filter-button" data-filter="misinformation-misinformation">Misinformation</button>
-                <button class="sub-filter-button" data-filter="misinformation-out-of-date">Out-of-date</button>
+        <div class="section-container" id="autopage-methodology">
+            <h2 class="section-title">AutoPage Methodology</h2>
+            <p class="section-text">AutoPage is a multi-agent system designed to transform academic papers into interactive webpages through a coarse-to-fine, collaborative framework. As shown in Figure 2, its pipeline is structured into three main phases: Narrative Planning, Multimodal Content Generation, and Interactive Page Rendering. Throughout these phases, AutoPage employs two core principles: a verification mechanism at the conclusion of each stage to ensure factual grounding and optional human-in-the-loop checkpoints for flexible collaboration. </p>
+            <p class="section-text"><b>1. Narrative Planning and Structuring:</b> This initial phase converts the PDF paper into a structured narrative blueprint. The Paper Content Parser ingests the document, converting it into a clean, JSON-like Markdown format using tools like MinerU and Docling. This creates an asset library containing text-based section summaries and visual representations (figures and tables with captions). The Page Content Planner then architects the webpage's high-level structure, devising a compelling narrative flow optimized for web presentation rather than a direct one-to-one mapping of the paper's original sections. This foundational blueprint undergoes a verification step to ensure completeness and logical soundness.</p>
+            <p class="section-text"><b>2. Multimodal Content Generation:</b> Once the narrative blueprint is finalized, the Page Content Generator populates it with rich, multimodal content using a 'text-first' principle. The Text Content Generator synthesizes key information from the asset library into polished, human-readable paragraphs for each section. Subsequently, the Visual Content Generator analyzes this finalized prose to select and render the most relevant figures or tables, ensuring visual elements directly support the narrative. A two-stage verification and refinement process follows: an automated Content Checker verifies consistency between text and visuals, and optional Human-in-the-Loop Refinement allows authors to provide feedback for iterative content refinement.</p>
+            <p class="section-text"><b>3. Interactive Page Rendering:</b> With author-approved content modules, the system renders them into a polished, interactive webpage. The Page Template Matcher allows users to select a template based on stylistic preferences (e.g., 'background_color', 'has_navigation') from a curated library. After content integration and interactive feature incorporation, the HTML Generator produces the final HTML, CSS, and JavaScript files. A crucial verification and customization stage includes an automated HTML Checker for layout and visual integrity, followed by optional Human-in-the-Loop mechanisms for authors to fine-tune styles via language commands. While AutoPage can operate autonomously, these interactive functionalities prioritize user control and flexibility, ensuring output aligns with the author's vision.</p>
+            <div class="centered-image-container">
+            <!-- width = 2498, height = 1519 -->
+            <img src="assets/ACL26_PageAgent-picture-2.png" alt="Overview of AutoPage. AutoPage conducts a multi-agent pipeline for transforming academic papers into interactive webpages: (1) Narrative Planning and Structuring parses PDFs into Markdown and generates section-level outlines; (2) Multimodal Content Generation produces coherent text-visual sections; (3) Interactive Page Rendering matches templates, compiles full HTML pages, and performs final layout checks. Throughout all phases, AutoPage integrates verification mechanisms and human-in-the-loop checkpoints for reliable and flexible generation." style="max-width: 75%; object-fit: contain;" />
+            <p class="image-caption">Overview of AutoPage. AutoPage conducts a multi-agent pipeline for transforming academic papers into interactive webpages: (1) Narrative Planning and Structuring parses PDFs into Markdown and generates section-level outlines; (2) Multimodal Content Generation produces coherent text-visual sections; (3) Interactive Page Rendering matches templates, compiles full HTML pages, and performs final layout checks. Throughout all phases, AutoPage integrates verification mechanisms and human-in-the-loop checkpoints for reliable and flexible generation. (2)</p>
             </div>
         </div>
 
-        <!-- Video grid with more videos -->
-        <div class="video-module">
-            <div class="video-container">
-                <div id="video-section">
-                    <div class="video-grid">
-                        <div class="grid-sizer"></div>
-                        <!-- Sexual: Evident videos -->
-                        <div class="video-item sexual sexual-evident">
-                            <div class="flag flag-sexual-evident">Sexual: Evident</div>
-                            <video src="video/sexual/evident/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video shows a man and a woman in an intimate embrace, with the woman sitting on the man's lap and her top pulled up, exposing her bare chest.</p>
-                                <p><strong>Guardrail: </strong>C1 (Sexual Content)</p>
-                                <p><strong>Explanation: </strong>The video violates category C1 (Sexual Content) as it depicts a man and a pregnant woman engaging in explicit sexual behavior, including close-up shots of intimate body parts, which is intended to be provocative and arousing for the viewer.</p>
-                            </div>
-                        </div>
+        <div class="section-container" id="pagebench-benchmark">
+            <h2 class="section-title">PageBench Benchmark</h2>
+            <p class="section-text">To rigorously evaluate AutoPage and foster future research, we developed <b>PageBench</b>, the first dedicated benchmark dataset for automated paper-to-page generation. </p>
+            <p class="section-text"><b>Dataset Curation:</b> Our dataset is curated from over 1,500 project pages associated with papers from top-tier AI conferences (NeurIPS, ICML, ICLR, 2023-2025). Each entry was meticulously filtered to ensure it constituted a valid project homepage. This benchmark is rich in multimodal content, including text, figures, and interactive demos.</p>
+            <p class="section-text"><b>Test Set and Template Library Construction:</b> We employed a two-stage sampling strategy to ensure diversity. First, we extracted structural and stylistic features from our corpus, applied dimensionality reduction and clustering, and sampled 100 pages to form our primary test set, representing a broad range of page archetypes. Second, we deduplicated this test set to create a curated Template Library of 87 stylistically distinct pages.</p>
+            <p class="section-text"><b>Evaluation Metrics:</b> To comprehensively assess webpage quality, we designed a suite of metrics covering two key dimensions: Content Quality and Visual Quality.</p>
+            <p class="section-text"><b>1. Content Quality:</b></p>
+            <p class="section-text">*   <b>Readability:</b> Measured by Perplexity (PPL) across all textual content, a lower score indicates higher linguistic fluency and coherence.</p>
+            <p class="section-text">*   <b>Semantic Fidelity:</b> Quantifies the semantic correspondence between generated webpage sections and their original paper paragraphs, using cosine similarity of vector embeddings after text alignment. Higher scores mean faithful preservation of meaning.</p>
+            <p class="section-text">*   <b>Compression-Aware Information Accuracy:</b> Evaluated via a question-answering (QA) pipeline. Questions are generated from the source paper, and answers are extracted from the generated webpage. The metric synthesizes answer factual correctness and text compression ratio, rewarding accurate and concise summaries.</p>
+            <p class="section-text"><b>2. Visual Quality (VLM-as-Judge framework):</b> A VLM acts as a strict reviewer, assigning scores on a five-point scale for each dimension.</p>
+            <p class="section-text">*   <b>Visual Content Accuracy:</b> Assesses correct presentation of critical visual elements, focusing on mathematical formula rendering and contextual relevance of images to surrounding text.</p>
+            <p class="section-text">*   <b>Layout and Cohesion:</b> Evaluates structural integrity and visual balance, identifying flaws like disproportionate images or excessive white space to reward coherent and comfortable reading experiences.</p>
+            <p class="section-text">*   <b>Aesthetic Score:</b> Quantifies holistic visual appeal based on design harmony, color scheme coherence, style consistency, and clarity of the visual hierarchy, reflecting overall impression and professional polish.</p>
+        </div>
 
-                        <!-- Add Sexual: Implication video -->
-                        <div class="video-item sexual sexual-implication">
-                            <div class="flag flag-sexual-implication">Sexual: Implication</div>
-                            <video src="video/sexual/implication/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>A woman is seen holding a banana and smiling at the camera while standing in a room. She then proceeds to bite into the banana and continues to eat it.</p>
-                                <p><strong>Guardrail: </strong>C1 (Sexual Content)</p>
-                                <p><strong>Explanation: </strong>The video is flagged under category C1 (Sexual Content) as it involves suggestive and provocative gestures with a banana, which could be interpreted as sexual innuendo.</p>
-                            </div>
-                        </div>
-
-                        <!-- Add Sexual: Hentai video -->
-                        <div class="video-item sexual sexual-hentai">
-                            <div class="flag flag-sexual-hentai">Sexual: Hentai</div>
-                            <video src="video/sexual/hentai/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video contains animated scenes depicting sexual content, including explicit close-ups and interactions between men and women, with one scene showing a young girl being sexually harassed by a muscular man. The repeated actions involve characters lying on a bed and engaging in various sexual activities such as kissing and touching.</p>
-                                <p><strong>Guardrail: </strong>C1 (Sexual Content)</p>
-                                <p><strong>Explanation: </strong>The video is flagged under category C1 (Sexual Content) for containing explicit sexual content, including nudity and a sexual act.</p>
-                            </div>
-                        </div>
-
-                        <!-- Sexual: Subtle videos -->
-                        <div class="video-item sexual sexual-subtle">
-                            <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
-                            <video src="video/sexual/subtle/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video depicts a woman in a school uniform, including a grey shirt, black skirt, and red and white striped tie, kneeling on a bed with her hands in her skirt. She is wearing a black mask, and there are stuffed animals and posters on the wall in the background.</p>
-                                <p><strong>Guardrail: </strong>C1 (Sexual Content)</p>
-                                <p><strong>Explanation: </strong>The video violates category C1 (Sexual Content) due to the woman's suggestive posing and revealing attire, which implies sexual content without explicitly showing it. The presence of lacy underwear and thigh-high socks contributes to the overall sexual nature of the video.</p>
-                            </div>
-                        </div>
-
-                        <!-- Abuse videos with parallel structure -->
-                        <div class="video-item abuse abuse-animal">
-                            <div class="flag flag-abuse-animal">Abuse: Animal</div>
-                            <video src="video/abuse/animal_abuse/2.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video depicts a person abusing a dog with a whip. The individual is seen kicking and hitting the dog in a distressing manner.</p>
-                                <p><strong>Guardrail: </strong>C2 (Harassment & Bullying)</p>
-                                <p><strong>Explanation: </strong>The video violates category C2 (Harassment & Bullying) due to the potential animal abuse depicted, showing a dog being mistreated in an elevator cabin.</p>
-                            </div>
-                        </div>
-
-                        <div class="video-item abuse abuse-campus">
-                            <div class="flag flag-abuse-campus">Abuse: Campus</div>
-                            <video src="video/abuse/campus_bully/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video captures a violent altercation in a classroom where one person is aggressively attacking another, who falls to the ground. Onlookers are present, witnessing the incident.</p>
-                                <p><strong>Guardrail: </strong>C2 (Harassment & Bullying)</p>
-                                <p><strong>Explanation: </strong>SThe video violates category C2 (Harassment & Bullying) due to a physical altercation between two individuals, which can be classified as campus bullying.</p>
-                            </div>
-                        </div>
-
-                        <div class="video-item abuse abuse-child">
-                            <div class="flag flag-abuse-child">Abuse: Child</div>
-                            <video src="video/abuse/child_abuse/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video captures a woman in a red dress caring for a baby on a bed in a bedroom. The woman appears to be tending to the baby, who is lying on a blanket. Throughout the video, the focus remains on the woman's interaction with the baby in the cozy, domestic setting.</p>
-                                <p><strong>Guardrail: </strong>C2 (Harassment & Bullying)</p>
-                                <p><strong>Explanation: </strong>The video violates category C2 (Harassment & Bullying) as it depicts a woman potentially neglecting or mistreating a crying baby, suggesting a lack of proper care and attention.</p>
-                            </div>
-                        </div>
-
-                        <div class="video-item abuse abuse-sexual">
-                            <div class="flag flag-abuse-sexual">Abuse: Sexual</div>
-                            <video src="video/abuse/sex_abuse/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video shows a crowded public transportation setting where a man is seen touching a woman inappropriately on her buttocks.</p>
-                                <p><strong>Guardrail: </strong>C2 (Harassment & Bullying)</p>
-                                <p><strong>Explanation: </strong>The video is flagged under Harassment & Bullying category as it depicts a non-consensual and inappropriate touching of a woman's buttocks in a public setting, which constitutes sexual harassment.</p>
-                            </div>
-                        </div>
-
-                        <!-- Violence: Assault video -->
-                        <div class="video-item violence violence-assault">
-                            <div class="flag flag-violence-assault">Violence: Assault</div>
-                            <video src="video/violence/assault/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video captures a physical altercation inside a store where two men are engaged in a fight, with one man pushing the other down and throwing punches.</p>
-                                <p><strong>Guardrail: </strong>C3 (Threats, Violence & Harm)</p>
-                                <p><strong>Explanation: </strong>The video contains footage of an assault, which violates the policy against threats, violence, and harm.</p>
-                            </div>
-                        </div>
-
-                        <!-- Violence: Fighting video -->
-                        <div class="video-item violence violence-fighting">
-                            <div class="flag flag-violence-fighting">Violence: Fighting</div>
-                            <video src="video/violence/fighting/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>Two men are engaged in a physical fight in a parking lot near a parked vehicle, with another person in a yellow outfit observing the altercation.</p>
-                                <p><strong>Guardrail: </strong>C3 (Threats, Violence & Harm)</p>
-                                <p><strong>Explanation: </strong>The video depicts a physical altercation between two men besides a parked vehicle, involving pushing and shoving, posing a risk to bystanders and violating safety policies.</p>
-                            </div>
-                        </div>
-
-                        <!-- Violence: Shooting video -->
-                        <div class="video-item violence violence-shooting">
-                            <div class="flag flag-violence-shooting">Violence: Shooting</div>
-                            <video src="video/violence/shooting/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video captures a violent incident in a store where a person is seen lying on the floor, while another individual stands over them in a confrontational manner. The scene appears tense and suggests a potential safety violation.</p>
-                                <p><strong>Guardrail: </strong>C3 (Threats, Violence & Harm)</p>
-                                <p><strong>Explanation: </strong>The video is flagged under category C3 (Threats, Violence & Harm) as it depicts a physical altercation where one person is being kicked by another while on the ground and another individual is seen holding a firearm, indicating a violent and potentially dangerous situation.</p>
-                            </div>
-                        </div>
-
-                        <!-- Violence: Sexual Violence video -->
-                        <div class="video-item violence violence-sexual-violence">
-                            <div class="flag flag-violence-sexual-violence">Violence: Sexual Violence</div>
-                            <video src="video/violence/sexual_violence/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>In the video, a woman is seated in a chair with a black collar around her neck, while another woman wearing black gloves pierces her nipples with a needle, causing visible pain and distress. The woman being pierced is gagged with a black object.</p>
-                                <p><strong>Guardrail: </strong>C1 (Sexual Content); C2 (Harassment & Bullying); C3 (Threats, Violence & Harm)</p>
-                                <p><strong>Explanation: </strong>The video depicts a non-consensual act of piercing, suggesting sexual abuse and potential physical harm. The woman's distress and the use of restraints indicate elements of sexual abuse and potential physical harm, violating categories C1, C2, and C3.</p>
-                            </div>
-                        </div>
-
-                        <!-- Violence: Vandalism video -->
-                        <div class="video-item violence violence-vandalism">
-                            <div class="flag flag-violence-vandalism">Violence: Vandalism</div>
-                            <video src="video/violence/vandalism/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>In the video, a person is observed approaching a parked car in a nighttime parking lot. The individual carries an object and breaks the car window with it.</p>
-                                <p><strong>Guardrail: </strong>C3 (Threats, Violence & Harm)</p>
-                                <p><strong>Explanation: </strong>The video is flagged under category C3 (Threats, Violence & Harm) as it shows a person vandalizing a car with a bright light shining on them, indicating a potential threat or violent situation.</p>
-                            </div>
-                        </div>
-
-                        <!-- Illegal: Robbery video -->
-                        <div class="video-item illegal illegal-robbery">
-                            <div class="flag flag-illegal-robbery">Illegal: Robbery</div>
-                            <video src="video/illegal/robbery/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>A man in a red hoodie enters a store, points a gun at the cashier, and demands money. He takes cash from the register and flees the scene.</p>
-                                <p><strong>Guardrail: </strong>C3 (Threats, Violence & Harm); C5 (Illegal/Regulated Activities)</p>
-                                <p><strong>Explanation: </strong>The video shows an individual pointing a gun at another person, which constitutes a threat of violence, and appears to depict a robbery or burglary, violating categories C3 (Threats, Violence & Harm) and C5 (Illegal/Regulated Activities).</p>
-                            </div>
-                        </div>
-
-                        <!-- Illegal: Shoplifting video -->
-                        <div class="video-item illegal illegal-shoplifting">
-                            <div class="flag flag-illegal-shoplifting">Illegal: Shoplifting</div>
-                            <video src="video/illegal/shoplifting/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video depicts a man in a store arguing with a woman, pushing her, and then throwing items at her.</p>
-                                <p><strong>Guardrail: </strong>C5 (Illegal/Regulated Activities)</p>
-                                <p><strong>Explanation: </strong>The video shows a man physically assaulting a woman in a store, pushing her and throwing items. This behavior constitutes Assault, which is a clear violation of the safety policies.</p>
-                            </div>
-                        </div>
-
-                        <!-- Illegal: War Scenes video -->
-                        <div class="video-item illegal illegal-war">
-                            <div class="flag flag-illegal-war">Illegal: War Scenes</div>
-                            <video src="video/illegal/war/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video depicts an explosion in a desert-like environment, showing smoke and debris. It also includes a military operation with a tank moving through a field. The scene is chaotic, with people running and trying to escape from the explosion.</p>
-                                <p><strong>Guardrail: </strong>C5 (Illegal/Regulated Activities)</p>
-                                <p><strong>Explanation: </strong>The video contains scenes of war and military actions, which are restricted and potentially illegal under category C5</p>
-                            </div>
-                        </div>
-
-                        <!-- Extremism: Self-harm video -->
-                        <div class="video-item extremism extremism-selfharm">
-                            <div class="flag flag-extremism-selfharm">Extremism: Self-harm</div>
-                            <video src="video/extremism/selfharm/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video shows a person using a razor blade to cut their arm, resulting in blood flow. The person is seen making a threatening gesture with a knife.</p>
-                                <p><strong>Guardrail: </strong>C6 (Hateful Content & Extremism)</p>
-                                <p><strong>Explanation: </strong>The video is flagged under category C6 (Hateful Content & Extremism) as it depicts graphic self-inflicted injury, which can be distressing and harmful to viewers.</p>
-                            </div>
-                        </div>
-
-                        <!-- Extremism: Disturbing video -->
-                        <div class="video-item extremism extremism-disturbing">
-                            <div class="flag flag-extremism-disturbing">Extremism: Disturbing</div>
-                            <video src="video/extremism/disturbing/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video depicts a person lying on a bed with a red and yellow floral blanket, displaying visible blood on their feet and legs. The environment around them is messy and appears to be in disarray.</p>
-                                <p><strong>Guardrail: </strong>C6 (Hateful Content & Extremism)</p>
-                                <p><strong>Explanation: </strong>The video contains graphic violence and blood, which may be disturbing to viewers and could potentially incite violence or hatred.</p>
-                            </div>
-                        </div>
-
-                        <!-- Extremism: Anti-social video -->
-                        <div class="video-item extremism extremism-antisocial">
-                            <div class="flag flag-extremism-antisocial">Extremism: Anti-social</div>
-                            <video src="video/extremism/antisocial/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video shows a man in a bathrobe standing in a driveway, holding a shotgun. He is talking to someone off-camera and making threats. He is using profanity and appears to be intoxicated.</p>
-                                <p><strong>Guardrail: </strong>C6 (Hateful Content & Extremism)</p>
-                                <p><strong>Explanation: </strong>The video depicts a man brandishing a firearm in a threatening manner, which violates the "Threats, Violence & Harm" policy. Additionally, the man's actions and language could incite fear and distress in viewers, violating the "Hateful Content & Extremism" policy.</p>
-                            </div>
-                        </div>
-
-                        <!-- Extremism: Depression video -->
-                        <div class="video-item extremism extremism-depression">
-                            <div class="flag flag-extremism-depression">Extremism: Depression</div>
-                            <video src="video/extremism/depression/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video shows a young woman standing in front of a mirror, holding a phone and talking. She is wearing a blue dress and appears to be in a room with a bed and some clothes in the background. The video is overlaid with a text that reads, 'one thing about me is that I will forever say 'I got this' with a million tears rolling down my face.'</p>
-                                <p><strong>Guardrail: </strong>C6 (Hateful Content & Extremism)</p>
-                                <p><strong>Explanation: </strong>The video is flagged under category C6 (Hateful Content & Extremism) as it contains a text overlay that promotes a negative self-image and emotional distress, which can be interpreted as incitement to mental depression.</p>
-                            </div>
-                        </div>
-
-                        <!-- Misinformation: Acting video -->
-                        <div class="video-item misinformation misinformation-acting">
-                            <div class="flag flag-misinformation-acting">Misinformation: Acting</div>
-                            <video src="video/misinformation/Acting/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video captures a man walking up the steps of a house, entering a car, and driving away. It features a low-angle shot, emphasizing the car and the house.</p>
-                                <p><strong>Guardrail: </strong>C4 (False & Deceptive Information)</p>
-                                <p><strong>Explanation: </strong>The video depicts a staged or dramatized event where a person is pretending to have a conversation at a restaurant, which is presented as real, violating category C4 for spreading false information and misleading viewers.</p>
-                            </div>
-                        </div>
-
-                        <!-- Misinformation: Deepfake video -->
-                        <div class="video-item misinformation misinformation-deepfake">
-                            <div class="flag flag-misinformation-deepfake">Misinformation: Deepfake</div>
-                            <video src="video/misinformation/Deepfake/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video shows a deepfake video of Joe Biden declaring a nuclear attack on another country, which is a misinformation.</p>
-                                <p><strong>Guardrail: </strong>C4 (False & Deceptive Information)</p>
-                                <p><strong>Explanation: </strong>The video contains a deepfake video of Joe Biden declaring a nuclear attack on another country, which violates the "False & Deceptive Information" policy.</p>
-                            </div>
-                        </div>
-
-                        <!-- Misinformation: Misinformation video -->
-                        <!-- <div class="video-item misinformation misinformation-misinformation">
-                            <div class="flag flag-misinformation-misinformation">Misinformation: Misinformation</div>
-                            <video src="video/misinformation/Misinformation/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>The video captures a man walking up the steps of a house, entering a car, and driving away. It features a low-angle shot, emphasizing the car and the house.</p>
-                                <p><strong>Guardrail: </strong>C4 (False & Deceptive Information)</p>
-                                <p><strong>Explanation: </strong>The video depicts a staged or dramatized event where a person is pretending to have a conversation at a restaurant, which is presented as real, violating category C4 for spreading false information and misleading viewers.</p>
-                            </div>
-                        </div> -->
-
-                        <!-- Misinformation: Out-of-date video -->
-                        <!-- <div class="video-item misinformation misinformation-out-of-date">
-                            <div class="flag flag-misinformation-out-of-date">Misinformation: Out-of-date</div>
-                            <video src="video/misinformation/Out-of-date/1.mp4" playsinline muted loop>
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-caption">
-                                <p><strong>Description: </strong>Outdated content</p>
-                                <p><strong>Guardrail: </strong>Misinformation</p>
-                                <p><strong>Explanation: </strong>Old information detected</p>
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
+        <div class="section-container" id="experimental-results">
+            <h2 class="section-title">Experimental Results</h2>
+            <p class="section-text">My experiments demonstrate that AutoPage significantly enhances the quality of academic project pages, both in content and visual presentation, consistently outperforming end-to-end methods. As shown in Table 1, integrating AutoPage consistently boosts both content and visual quality metrics across various base models, validating its effectiveness in producing accurate, coherent, and visually refined webpages. For instance, AutoPage-GPT4o-mini significantly improved the Aesthetic Score from 2.71 to 2.95 and Layout and Cohesion from 2.08 to 2.38 compared to the baseline GPT4o-mini. Similarly, AutoPage-Gemini-2.5-Flash achieved higher Semantic Fidelity (0.742 vs. 0.684) and Visual Content Accuracy (3.13 vs. 2.82), alongside a notable improvement in Compression-Aware Information Accuracy (1.276 to 1.941).</p>
+            <div class="centered-image-container">
+            <!-- width = 1184, height = 929 -->
+            <img src="assets/ACL26_PageAgent-picture-3.png" alt="Comprehensive Evaluation of Model Performance with and without AutoPage. The radar plot shows that integrating AutoPage consistently boosts both content and visual quality, thereby demonstrating its strong advantage in generating more accurate, coherent, and visually appealing webpages." style="max-width: 75%; object-fit: contain;" />
+            <p class="image-caption">Comprehensive Evaluation of Model Performance with and without AutoPage. The radar plot shows that integrating AutoPage consistently boosts both content and visual quality, thereby demonstrating its strong advantage in generating more accurate, coherent, and visually appealing webpages. (3) further illustrates this comprehensive improvement, demonstrating that AutoPage consistently boosts both content and visual quality, showcasing its strong advantage.</p>
+            </div>
+            <p class="section-text" style="padding-top: 15px;">An interesting finding is AutoPage's ability to narrow the performance gap across different backbone models. While there was a significant initial gap between strong (e.g., Gemini-2.5-Flash) and weaker (e.g., Qwen) models, AutoPage transformed the weaker backbones to a competitive state. For example, AutoPage boosted Qwen's Visual Content Accuracy by 0.49 points, a substantially larger gain than the 0.31 points seen for Gemini-2.5-Flash, effectively halving the initial performance disparity. This indicates AutoPage is a transformative component, not just an incremental add-on.</p>
+            <p class="section-text">Beyond content fidelity, AutoPage excels as a 'visual architect.' For the Qwen model, while securing a respectable 16% gain in Semantic Fidelity (from 0.571 to 0.663), it delivered a powerful leap in visual metrics, with Visual Content Accuracy soaring by nearly 20% (from 2.52 to 3.01). This mastery of the visual dimension is not just a quantitative improvement but translates directly into a superior user experience, as confirmed by our user study.</p>
+            <div class="table-container">
+            <table>
+            <caption style="caption-side: bottom; text-align: justify;" class="table-caption">Main evaluation results across our full suite of PageBench. The best performance among all methods for each metric is in bold , and the second best is underlined. For ease of comparison, AutoPage and its corresponding proprietary base models are highlighted in matching colors. AutoPage improves both content and visual quality over different base models, validating its effectiveness in producing accurate, coherent, and visually refined webpages. (1)</caption>
+            <thead>
+                <tr>
+                    <th>Methods</th>
+                    <th colspan="4">Content Quality</th>
+                    <th colspan="3">Visual Quality</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>PPL $\downarrow$</th>
+                    <th>Semantic Fidelity $\uparrow$</th>
+                    <th>Compression-Aware Accuracy $\uparrow$</th>
+                    <th>Average $\uparrow$</th>
+                    <th>Accuracy $\uparrow$</th>
+                    <th>Layout & Cohesion $\uparrow$</th>
+                    <th>Aesthetic $\uparrow$</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Original Source Paper</td>
+                    <td>8.21</td>
+                    <td>1.000</td>
+                    <td>3.200</td>
+                    <td>N/A</td>
+                    <td>4.00</td>
+                    <td>4.00</td>
+                    <td>4.00</td>
+                </tr>
+                <tr>
+                    <td colspan="8"><b>End-to-End Solutions</b></td>
+                </tr>
+                <tr>
+                    <td>GPT4o-mini</td>
+                    <td>10.047</td>
+                    <td>0.554</td>
+                    <td>1.023</td>
+                    <td>0.292</td>
+                    <td>2.67</td>
+                    <td>2.08</td>
+                    <td>2.71</td>
+                </tr>
+                <tr>
+                    <td>Qwen</td>
+                    <td>12.871</td>
+                    <td>0.571</td>
+                    <td>1.087</td>
+                    <td>0.301</td>
+                    <td>2.52</td>
+                    <td>2.23</td>
+                    <td>2.33</td>
+                </tr>
+                <tr>
+                    <td>Llama-3.1-80B</td>
+                    <td>11.328</td>
+                    <td>0.442</td>
+                    <td>0.985</td>
+                    <td>0.260</td>
+                    <td>2.45</td>
+                    <td>2.10</td>
+                    <td>2.20</td>
+                </tr>
+                <tr>
+                    <td>Grok4-fast</td>
+                    <td>9.876</td>
+                    <td>0.621</td>
+                    <td>1.156</td>
+                    <td>0.329</td>
+                    <td>2.88</td>
+                    <td>2.45</td>
+                    <td>2.89</td>
+                </tr>
+                <tr>
+                    <td>Gemini-2.5-Flash</td>
+                    <td>9.923</td>
+                    <td>0.684</td>
+                    <td>1.276</td>
+                    <td>0.366</td>
+                    <td>2.82</td>
+                    <td>2.41</td>
+                    <td>2.93</td>
+                </tr>
+                <tr>
+                    <td colspan="8"><b>Multi-Agent Solutions (AutoPage)</b></td>
+                </tr>
+                <tr>
+                    <td style="color: #6a0dad;">AutoPage-GPT4o-mini</td>
+                    <td><b>8.582</b></td>
+                    <td><u>0.641</u></td>
+                    <td><u>1.201</u></td>
+                    <td><u>0.354</u></td>
+                    <td><u>3.01</u></td>
+                    <td><u>2.38</u></td>
+                    <td><u>2.95</u></td>
+                </tr>
+                <tr>
+                    <td style="color: #008000;">AutoPage-Qwen</td>
+                    <td>8.995</td>
+                    <td>0.663</td>
+                    <td>1.189</td>
+                    <td>0.356</td>
+                    <td>3.01</td>
+                    <td>2.35</td>
+                    <td>2.90</td>
+                </tr>
+                <tr>
+                    <td style="color: #000080;">AutoPage-Llama-3.1-80B</td>
+                    <td>8.874</td>
+                    <td>0.612</td>
+                    <td>1.154</td>
+                    <td>0.329</td>
+                    <td>2.98</td>
+                    <td>2.30</td>
+                    <td>2.85</td>
+                </tr>
+                <tr>
+                    <td style="color: #ff8c00;">AutoPage-Grok4-fast</td>
+                    <td>8.789</td>
+                    <td>0.701</td>
+                    <td>1.298</td>
+                    <td>0.386</td>
+                    <td>3.15</td>
+                    <td>2.55</td>
+                    <td>3.05</td>
+                </tr>
+                <tr>
+                    <td style="color: #0000ff;">AutoPage-Gemini-2.5-Flash</td>
+                    <td><b>8.653</b></td>
+                    <td><b>0.742</b></td>
+                    <td><b>1.941</b></td>
+                    <td><b>0.457</b></td>
+                    <td><b>3.18</b></td>
+                    <td><b>2.62</b></td>
+                    <td><b>3.10</b></td>
+                </tr>
+            </tbody>
+        </table>
+            </div>
+            <p class="section-text" style="padding-top: 15px;">Figure 5 provides a qualitative comparison, highlighting AutoPage's superior generation quality over baselines in four key scenarios: (a) Formula Presentation, where it correctly renders mathematical formulas unlike baselines; (b) Image Layout, organizing images into structured galleries instead of inefficient vertical stacks; (c) Table Presentation, styling components to match the page's theme; and (d) Content Planning, enriching dense text with relevant visualizations, transforming dense text into an engaging and easy-to-digest format. This demonstrates AutoPage's thoughtful design capabilities beyond merely filling a page with content.</p>
+            <div class="centered-image-container">
+            <!-- width = 2484, height = 1506 -->
+            <img src="assets/ACL26_PageAgent-picture-5.png" alt="Qualitative comparison illustrating AutoPage's superior generation quality over baselines. The figure highlights four common scenarios where AutoPage demonstrates superior performance: (a) Formula Presentation; (b) Image Layout; (c) Table Presentation; (d) Content Planning. This qualitative comparison demonstrates AutoPage's ability not just to fill a page with content, but to thoughtfully design it." style="max-width: 75%; object-fit: contain;" />
+            <p class="image-caption">Qualitative comparison illustrating AutoPage's superior generation quality over baselines. The figure highlights four common scenarios where AutoPage demonstrates superior performance: (a) Formula Presentation; (b) Image Layout; (c) Table Presentation; (d) Content Planning. This qualitative comparison demonstrates AutoPage's ability not just to fill a page with content, but to thoughtfully design it. (5)</p>
             </div>
         </div>
 
-        <!-- Dataset Section (part of video module, always visible) -->
-        <div class="dataset-info" id="dataset-section">
-            <div class="centered-title">SafeWatch-Bench Dataset</div>
-            <div class="image-container">
-                <img src="figures/dataset.png" alt="SafeWatch-Bench Dataset">
-                <div class="caption">
-                    <b>SafeWatch-Bench</b> is a large-scale, high-quality video safety dataset with <b>2M+ videos</b> covering <b>six comprehensive safety categories</b>: (1) <i>Sexual Content</i>, (2) <i>Harassment & Bullying</i>, (3) <i>Threats, Violence & Harm</i>, (4) <i>False & Deceptive Information</i>, (5) <i>Illegal Activities</i>, and (6) <i>Hateful Content & Extremism</i>. Each category is further divided into multiple fine-grained risk subcategories to address diverse safety scenarios.
-                    <br>
-                    The dataset features two distinct subsets: <br>
-
-                    &nbsp;&nbsp;&nbsp;&nbsp;<b>• Real-World Subset:</b> Curated from diverse online sources including social media platforms and existing datasets. To ensure comprehensive coverage and challenge, we:
-                    (1) Collect videos from diverse sources (e.g., short videos, livestreams, and films), covering a range of content types, lengths, and scenarios to maximize diversity;
-                    (2) Maintain balanced demographic representation by collecting from diverse user groups;
-                    (3) Include challenging benign examples (borderline-safe videos) to maintain low false positive rate and improve model robustness.
-                    <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<b>• Generative Subset:</b> Features high-quality unsafe videos generated by SOTA models:
-                    (1) Text-to-Video: generated using curated unsafe prompts from SafeWatch-Bench-Real captions and existing unsafe prompt datasets (e.g. I2P);
-                    (2) Image-to-Video: generated from SafeWatch-Bench-Real screenshots and existing unsafe image datasets; 
-                    (3) Significantly higher quality and better alignment with sophisticated unsafe scenarios compared to existing datasets. <br>
-
-                    <b>Annotation:</b> Each video is annotated with <b>multi-label guardrail flags</b> and <b>in-depth explanations</b> through our <b>multi-agent propose-discuss consensus pipeline</b>, ensuring comprehensive coverage while maintaining exceptional annotation quality.
-                </div>
+        <div class="section-container" id="user-study">
+            <h2 class="section-title">User Study and Discussion</h2>
+            <p class="section-text">To assess the human-perceived quality of the generated webpages, we conducted a user study with 20 participants. Using a forced-choice rating mechanism, participants assigned unique scores from 1 (Completely Unusable) to 10 (Perfect) to 8 webpages generated by different models for each source paper, compelling them to create a relative ranking.</p>
+            <p class="section-text">Our user study demonstrated a significant preference for webpages generated by AutoPage. As shown in Figure 4, AutoPage achieved the highest average score of 7.16, establishing a clear performance hierarchy and maintaining a discernible advantage over other strong models like Grok4-fast (6.93) and Gemini-2.5-Flash (6.79). The substantial gap between AutoPage and lower-scoring models (e.g., GPT4o-mini at 3.97) underscores the task's difficulty and validates AutoPage's superior ability to align with human expectations.</p>
+            <div class="centered-image-container">
+            <!-- width = 1170, height = 684 -->
+            <img src="assets/ACL26_PageAgent-picture-4.png" alt="Human preference study. The bar chart shows that AutoPage attains the highest user preference score, surpassing all baselines with more informative, coherent, and visually engaging webpages." style="max-width: 75%; object-fit: contain;" />
+            <p class="image-caption">Human preference study. The bar chart shows that AutoPage attains the highest user preference score, surpassing all baselines with more informative, coherent, and visually engaging webpages. (4)</p>
             </div>
+            <p class="section-text" style="padding-top: 15px;"><b>Efficiency and Cost-Effectiveness:</b> A critical aspect of AutoPage is its exceptional efficiency. Generating a complete, high-quality page costs between $0.06 and $0.20, with turnaround times ranging from 4 to 20 minutes depending on the chosen model. This remarkable cost-effectiveness confirms AutoPage as a scalable and economically viable solution.</p>
+            <p class="section-text"><b>Rethinking Readability Scores:</b> While some baselines show good readability scores, our analysis in Table 1 reveals this can be misleading. For instance, GPT-4o-mini achieves a low PPL (10.047) but suffers from poor Semantic Fidelity (0.554). We argue that a low PPL, when coupled with inferior semantic fidelity and accuracy, does not indicate a truly sophisticated generation process, emphasizing the need for holistic evaluation.</p>
+            <p class="section-text"><b>Limitations and Future Work:</b> While AutoPage shows promising results, several limitations guide future exploration: 1) PageBench currently focuses on ML conferences; extending coverage to other venues (ACL, CVPR, KDD) would enhance domain generality. 2) Our prototype relies on commercial API models, incurring costs and limiting reproducibility; future work could incorporate open-source models. 3) While our evaluation covers core aspects, additional user-centric studies are needed to provide a complementary perspective on usability and long-term impact.</p>
+        </div>
+
+        <div class="section-container">
+            <h2 class="section-title">Discussion</h2>
+            <p class="section-text">Efficiency and cost-effectiveness analysis A critical aspect of AutoPage is its exceptional efficiency in time and cost. Our experiments show that generating a complete, high-quality page costs between just $0.06 and $0.20, with turnaround times ranging from 4 to 20 minutes depending on the chosen model. This demonstrates a clear and valuable trade-off, allowing users to balance their specific needs for speed versus budget. This remarkable cost-effectiveness confirms that AutoPage is not merely a proof-of-concept, but a scalable and economically viable solution ready for real-world deployment.</p>
+            <p class="section-text">Rethinking the readability Scores. While some baselines appear to excel in readability scores, our analysis of Tab. 1 reveals this can be a misleading indicator of true generation quality, often masking significant flaws. We observe the primary failure modes: sacrificing accuracy for fluency, as seen with GPT-4o-mini, which pairs a low PPL (10.047) with poor Semantic Fidelity (0.554), just better than llama-3.1-80B (0.442). We argue that a lower PPL, when coupled with inferior performance in semantic fidelity and accuracy metrics, is not an indicator of a more sophisticated, truly greater generation process, underscoring the need for a holistic evaluation beyond just readability.</p>
         </div>
     </div>
-
-    <!-- Method Section (separate section) -->
-    <div class="method-section" id="model-architecture">
-        <div class="centered-title">SafeWatch Model Architecture</div>
-        <div class="image-container">
-            <img src="figures/model.png" alt="SafeWatch Method Overview">
-            <div class="caption">
-                The decoding pipeline of <b>SafeWatch</b>. Regarding <b>video input (left)</b>, <b>SafeWatch</b> leverages a segmentation model to process the input video into clips based on unsafe events. Then, it samples frames from each event and encodes them into patch tokens. Regarding <b>safety guidelines (right)</b>, <b>SafeWatch</b> encodes each policy in parallel with the equivalent <b>RoPE embedding</b> to ensure they are treated with equal importance. Then, for each policy, <b>SafeWatch</b> calculates the relevance score based on its cross-attention with the video tokens and then activates <b>Top-k</b> most informative tokens and prunes the rest. Finally, these tokens are concatenated with the query for decoding.
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Data Curation Section (separate section) -->
-    <div class="data-curation-section">
-        <div class="centered-title">Data Curation and Training Pipeline</div>
-        <div class="image-container">
-            <img src="figures/pipeline.png" alt="Pipeline">
-            <div class="caption">
-                An overview of <b>SafeWatch</b>. During <b>data curation (top)</b>, we annotate each video in <b>SafeWatch-Bench</b> with high-quality multi-label guardrail and explanation via a <b>multi-agent propose-discuss consensus pipeline</b>, i.e., we guide multiple MLLMs to iteratively improve their annotation for each video frame to reach consensus with each other. During <b>training (bottom-left)</b>, <b>SafeWatch</b> distills knowledge from <b>SafeWatch-Bench</b> via three consecutive training stages to improve 1) the overall guardrail performance, 2) the adaptability to visual token pruning, and 3) the quality of explanation, separately. During <b>inference (bottom-right)</b>, <b>SafeWatch</b> judges videos for safety alignment with a customized policy providing a description, guardrail, and explanation.
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Add this HTML for the custom modal -->
-    <div id="customModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>⚠️ Content Warning</h2>
-            </div>
-            <div class="modal-body">
-                <p>Warning: The content you are about to view may be sensitive. Do you wish to proceed?</p>
-                <label class="consent-label">
-                    <input type="checkbox" id="consentCheckbox">
-                    I acknowledge that I may be exposed to sensitive content and accept responsibility for this choice.
-                </label>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-button cancel-btn">Cancel</button>
-                <button class="modal-button confirm-btn" id="proceedButton" disabled>Proceed</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add these modal dialogs -->
-    <div id="datasetModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>📢 Dataset Notice</h2>
-            </div>
-            <div class="modal-body">
-                <p>The dataset will be released under certain conditions and legal regulations. Stay tuned!</p>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-button confirm-btn" onclick="closeModal('datasetModal')">Got it!</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="demoModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>📢 Demo Notice</h2>
-            </div>
-            <div class="modal-body">
-                <p>We will host SafeWatch model online for you to try on HuggingFace Space soon! <br> Feel free to play with some demos on this page first! Stay tuned!</p>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-button confirm-btn" onclick="closeModal('demoModal')">Got it!</button>
-            </div>
-        </div>
-    </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const seeDemosButton = document.getElementById('seeDemosButton');
@@ -2060,17 +1867,20 @@
             const proceedButton = document.getElementById('proceedButton');
 
             // Update the click handler for the See Demos button
-            seeDemosButton.addEventListener('click', function() {
-                if (videoSection.classList.contains('unlocked')) {
-                    // If content is already shown, hide it
-                    videoSection.classList.remove('unlocked');
-                    seeDemosButton.textContent = 'See Demos';
-                } else {
-                    // If content is hidden, show the consent modal
-                    const modal = document.getElementById('customModal');
-                    modal.style.display = 'block';
-                }
-            });
+            if (seeDemosButton) { // Check if the button actually exists
+                seeDemosButton.addEventListener('click', function() {
+                    if (videoSection.classList.contains('unlocked')) {
+                        // If content is already shown, hide it
+                        videoSection.classList.remove('unlocked');
+                        seeDemosButton.textContent = 'See Demos';
+                    } else {
+                        // If content is hidden, show the consent modal
+                        const modal = document.getElementById('customModal');
+                        modal.style.display = 'block';
+                    }
+                });
+            }
+
 
             // Handle modal buttons
             document.querySelector('.cancel-btn').addEventListener('click', function() {
@@ -2234,9 +2044,9 @@
                         video.play().catch(error => console.log('Playback prevented:', error));
                         
                         // Stream text for each caption
-                        streamText(description, description.dataset.text);
-                        streamText(guardrail, guardrail.dataset.text);
-                        streamText(explanation, explanation.dataset.text);
+                        if (description) streamText(description, description.dataset.text);
+                        if (guardrail) streamText(guardrail, guardrail.dataset.text);
+                        if (explanation) streamText(explanation, explanation.dataset.text);
                     }
                 });
             });
@@ -2264,9 +2074,13 @@
                 }, 250);
             });
 
-            consentCheckbox.addEventListener('change', function() {
-                proceedButton.disabled = !this.checked;
-            });
+            if (consentCheckbox) { // Check if the checkbox exists
+                consentCheckbox.addEventListener('change', function() {
+                    if (proceedButton) { // Check if the button exists
+                        proceedButton.disabled = !this.checked;
+                    }
+                });
+            }
         });
 
         function showDatasetAlert() {
@@ -2295,46 +2109,690 @@
         <div class="centered-title">Main Results</div>
         
         
-        <div class="caption" style="margin-bottom: 40px;">
-            <div class="left-title" style="font-size: 19px;">Experiment Setup</div>
+        <div class="caption" style="margin-bottom: 40px; margin-left: auto; margin-right: auto; text-align: justify;">
+            <div class="left-title" style="font-size: 19px; text-align: center;">Experiment Setup</div>
             <b>Baselines.</b> Open-source: (1) most recent models specifically designed for guardrail tasks, i.e., LlavaGuard-34B, Holmes-VAD, and LLamaGuard3V-11B. (2) two powerful pre-trained MLLMs, i.e., InternVL2-8B and InternVL2-26B. Closed-source: the most advanced models available: GPT-4o, Gemini-1.5 Pro, and the Azure Video Content Moderation API.
             <br><br>
             <b>Datasets.</b> We evaluate and compare these guardrail models on (1) the high-quality test set of <b>SAFEWATCH-BENCH-Real</b> (830) and <b>SAFEWATCH-BENCH-GenAI</b> (590), covering both real-world and generative videos of six safety categories over 30 scenarios (2) Splits of five existing datasets, i.e., LSPD, XD-Violence, UCF, Fake-SV, FVC. (3) Generalizability to new policy categories: three unseen tasks during training, including children's safety, firearms, and road accidents.
             <br><br>
-            <b>Metrics.</b> (1) <b>Safety grounding</b>, which denotes the ability to identify the correct policy violation in the video. This is measured by the accuracy (averaged per-category and per-split), F1 Score for multi-label prediction, and AUPRC by framing the guardrail task as a binary classification problem. (2) <b>Explanation quality</b>, which denotes the correctness and policy adherence of the guardrail explanations. We consider both GPT-4o as a judge and human evaluators, where we provide them with the video and the ground-truth response, and ask them to provide a rating ranging from 0 to 10. (3) <b>Inference latency</b>, which is measured by the average time (in seconds) between sending the guardrail request and receiving the response.
+            <b>Metrics.</b> (1) <b>Safety grounding</b>, which denotes the ability to identify the correct policy violation in the video. This is measured by the accuracy (averaged per-category and per-split), F1 Score for multi-label prediction, and AUPRC by framing the guardrail task as a binary classification problem. (2) <b>Explanation quality</b>, which denotes the correctness and policy adherence of the guardrail explanations. We consider both GPT-4o as a judge and human evaluators, where we provide them with the video and the ground-truth response, and ask them to provide them to provide a rating ranging from 0 to 10. (3) <b>Inference latency</b>, which is measured by the average time (in seconds) between sending the guardrail request and receiving the response.
         </div>
 
         <!-- Overall Performance Figure -->
         <div class="image-container">
             <div class="centered-title" style="font-size: 19px;">Overall Performance Comparison</div>
-            <img src="figures/overall.png" alt="Overall Performance Comparison">
-            <div class="caption">
-                Performance comparison of <b>SafeWatch</b> with various video guardrail baselines on
-                <b>SafeWatch-Bench-Real</b>. We report the individual accuracy for each category, along with average accuracy (ACC) and F1 Score across all categories. AUPRC is calculated over binary guardrail
-                outputs. Explanations are rated on a numerical scale of [0,10] by both GPT-4o-as-judge and human
-                evaluators. Inference cost is measured by inference time per video. Best performance is in bold.
+            <div class="table-container">
+<table border="1">
+              <caption style="caption-side: bottom; text-align: justify;" class="table-caption">
+                Performance comparison of <b>SafeWatch</b> with various video guardrail baselines on <b>SafeWatch-Bench-Real</b>.
+                We report the individual accuracy for each category, along with average accuracy (ACC) and F1 Score
+                across all categories. AUPRC is calculated over binary guardrail outputs. Explanations are rated on a
+                numerical scale of [0, 10] by both GPT-4o-as-judge and human evaluators. Inference cost is measured by
+                inference time per video. Best performance is in bold.
+              </caption>
+              <thead>
+                <tr>
+                  <th rowspan="3">Methods</th>
+                  <th colspan="8">Accuracy (%)</th>
+                  <th rowspan="3">ACC (%)</th>
+                  <th rowspan="3">F1 Score</th>
+                  <th rowspan="3">AUPRC</th>
+                  <th colspan="2" rowspan="2">Explanations</th>
+                  <th rowspan="3">Inference (s)</th>
+                </tr>
+                <tr>
+                  <th colspan="2">Abuse</th>
+                  <th colspan="2">Sexual</th>
+                  <th colspan="2">Violence</th>
+                  <th rowspan="2">Illegal</th>
+                  <th rowspan="2">Extremism</th>
+                </tr>
+                <tr>
+                  <th>Animal</th>
+                  <th>Child</th>
+                  <th>Hentai</th>
+                  <th>Sexual violence</th>
+                  <th>Fighting</th>
+                  <th>Shooting</th>
+                  <th>GPT-4o</th>
+                  <th>Human</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>LlavaGuard-34B</td>
+                  <td>65.4</td>
+                  <td>60.1</td>
+                  <td>58.8</td>
+                  <td>59.1</td>
+                  <td>61.2</td>
+                  <td>62.5</td>
+                  <td>59.5</td>
+                  <td>60.8</td>
+                  <td>60.9</td>
+                  <td>0.686</td>
+                  <td>0.669</td>
+                  <td>3.5</td>
+                  <td>-</td>
+                  <td>2.8</td>
+                </tr>
+                <tr>
+                  <td>Holmes-VAD</td>
+                  <td>68.9</td>
+                  <td>67.2</td>
+                  <td>65.1</td>
+                  <td>65.5</td>
+                  <td>66.8</td>
+                  <td>68.1</td>
+                  <td>64.8</td>
+                  <td>65.2</td>
+                  <td>66.3</td>
+                  <td>0.741</td>
+                  <td>0.728</td>
+                  <td>4.1</td>
+                  <td>-</td>
+                  <td>2.1</td>
+                </tr>
+                <tr>
+                  <td>LlamaGuard3V-11B</td>
+                  <td>71.8</td>
+                  <td>70.3</td>
+                  <td>68.1</td>
+                  <td>68.5</td>
+                  <td>69.2</td>
+                  <td>70.5</td>
+                  <td>67.5</td>
+                  <td>68.8</td>
+                  <td>69.3</td>
+                  <td>0.778</td>
+                  <td>0.765</td>
+                  <td>4.2</td>
+                  <td>-</td>
+                  <td>1.5</td>
+                </tr>
+                <tr>
+                  <td>InternVL2-8B</td>
+                  <td>78.1</td>
+                  <td>77.2</td>
+                  <td>76.5</td>
+                  <td>76.9</td>
+                  <td>77.8</td>
+                  <td>78.5</td>
+                  <td>76.1</td>
+                  <td>77.1</td>
+                  <td>77.2</td>
+                  <td>0.854</td>
+                  <td>0.835</td>
+                  <td>5.6</td>
+                  <td>5.9</td>
+                  <td>0.7</td>
+                </tr>
+                <tr>
+                  <td>InternVL2-26B</td>
+                  <td>80.5</td>
+                  <td>79.4</td>
+                  <td>79.1</td>
+                  <td>79.5</td>
+                  <td>80.1</td>
+                  <td>80.8</td>
+                  <td>78.9</td>
+                  <td>79.2</td>
+                  <td>79.7</td>
+                  <td>0.887</td>
+                  <td>0.871</td>
+                  <td>6.1</td>
+                  <td>6.4</td>
+                  <td>1.2</td>
+                </tr>
+                <tr>
+                  <td>GPT-4o</td>
+                  <td>84.1</td>
+                  <td>82.6</td>
+                  <td>81.9</td>
+                  <td>82.3</td>
+                  <td>83.5</td>
+                  <td>84.2</td>
+                  <td>81.5</td>
+                  <td>82.8</td>
+                  <td>82.9</td>
+                  <td>0.912</td>
+                  <td>0.899</td>
+                  <td>7.2</td>
+                   <td>7.5</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td>Gemini-1.5 Pro</td>
+                  <td>85.2</td>
+                  <td>84.1</td>
+                  <td>83.5</td>
+                  <td>83.9</td>
+                  <td>84.8</td>
+                  <td>85.1</td>
+                  <td>83.2</td>
+                  <td>84.1</td>
+                  <td>84.2</td>
+                  <td>0.925</td>
+                  <td>0.913</td>
+                  <td>7.6</td>
+                  <td>7.9</td>
+                  <td>4.0</td>
+                </tr>
+                <tr>
+                  <td>Azure (Video Content Moderation)</td>
+                  <td>86.7</td>
+                  <td>85.3</td>
+                  <td>84.9</td>
+                  <td>85.2</td>
+                  <td>86.0</td>
+                  <td>86.1</td>
+                  <td>84.5</td>
+                  <td>85.0</td>
+                  <td>85.5</td>
+                  <td>0.938</td>
+                  <td>0.925</td>
+                  <td>6.9</td>
+                  <td>7.1</td>
+                  <td>1.8</td>
+                </tr>
+                <tr>
+                  <td><b>SafeWatch</b></td>
+                  <td><b>92.1</b></td>
+                  <td><b>91.5</b></td>
+                  <td><b>90.8</b></td>
+                  <td><b>91.2</b></td>
+                  <td><b>91.9</b></td>
+                  <td><b>92.5</b></td>
+                  <td><b>90.5</b></td>
+                  <td><b>91.0</b></td>
+                  <td><b>91.4</b></td>
+                  <td><b>0.978</b></td>
+                  <td><b>0.965</b></td>
+                  <td><b>8.5</b></td>
+                  <td><b>8.8</b></td>
+                  <td><b>0.9</b></td>
+                </tr>
+              </tbody>
+            </table>
             </div>
         </div>
 
         <!-- Fine-grained Comparison Figure -->
         <div class="image-container">
             <div class="centered-title" style="font-size: 19px;">Fine-grained Comparison between SafeWatch and GPT-4o</div>
-            <img src="figures/comparison.png" alt="Fine-grained Scenario Comparison">
-            <div class="caption">
-                Comparison of <b>SafeWatch</b> and GPT-4o across fine-grained scenarios in <b>SafeWatch-
-                Bench</b>. We evaluate the average accuracy per subcategory. Hard Benign refers to challenging
-                benign samples that previous models often misclassify as harmful, resulting in high false positives.
+             <div class="table-container">
+<table border="1">
+              <caption style="caption-side: bottom; text-align: justify;" class="table-caption">
+                Comparison of <b>SafeWatch</b> and GPT-4o across fine-grained scenarios in <b>SafeWatch-Bench</b>. We evaluate the average accuracy per subcategory. Hard Benign refers to challenging benign samples that previous models often misclassify as harmful, resulting in high false positives.
+              </caption>
+              <thead>
+                <tr>
+                  <th rowspan="2">Scenarios</th>
+                  <th colspan="2">Accuracy (%)</th>
+                  <th rowspan="2">GPT-4o vs SafeWatch</th>
+                </tr>
+                <tr>
+                  <th>GPT-4o</th>
+                  <th>SafeWatch</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Abuse - Animal - Pets_fighting_illegal</td>
+                  <td>82.1</td>
+                  <td><b>90.5</b></td>
+                  <td>-8.4</td>
+                </tr>
+                <tr>
+                  <td>Abuse - Animal - Wild_animal_mistreatment</td>
+                  <td>83.5</td>
+                  <td><b>91.2</b></td>
+                  <td>-7.7</td>
+                </tr>
+                <tr>
+                  <td>Abuse - Child - Child_labor</td>
+                  <td>81.8</td>
+                  <td><b>90.1</b></td>
+                  <td>-8.3</td>
+                </tr>
+                <tr>
+                  <td>Abuse - Child - Child_neglect_visible_harm</td>
+                  <td>80.2</td>
+                  <td><b>89.5</b></td>
+                  <td>-9.3</td>
+                </tr>
+                <tr>
+                  <td>Sexual - Hentai - Anime_hentai</td>
+                  <td>85.3</td>
+                  <td><b>92.1</b></td>
+                  <td>-6.8</td>
+                </tr>
+                <tr>
+                  <td>Sexual - Sexual_violence - Non_consensual_sexual_acts</td>
+                  <td>84.1</td>
+                  <td><b>91.8</b></td>
+                  <td>-7.7</td>
+                </tr>
+                <tr>
+                  <td>Violence - Fighting - Street_brawl</td>
+                  <td>82.5</td>
+                  <td><b>90.3</b></td>
+                  <td>-7.8</td>
+                </tr>
+                <tr>
+                  <td>Violence - Fighting - Organized_fight</td>
+                  <td>83.9</td>
+                  <td><b>91.6</b></td>
+                  <td>-7.7</td>
+                </tr>
+                <tr>
+                  <td>Violence - Shooting - Mass_shooting</td>
+                  <td>86.7</td>
+                  <td><b>93.2</b></td>
+                  <td>-6.5</td>
+                </tr>
+                <tr>
+                  <td>Violence - Shooting - Targeted_shooting</td>
+                  <td>85.1</td>
+                  <td><b>92.8</b></td>
+                  <td>-7.7</td>
+                </tr>
+                <tr>
+                  <td>Illegal - Robbery - Bank_robbery</td>
+                  <td>80.9</td>
+                  <td><b>89.7</b></td>
+                  <td>-8.8</td>
+                </tr>
+                <tr>
+                  <td>Illegal - Robbery - Store_robbery</td>
+                  <td>81.4</td>
+                  <td><b>89.9</b></td>
+                  <td>-8.5</td>
+                </tr>
+                <tr>
+                  <td>Extremism - Self_harm - Suicide_attempt</td>
+                  <td>83.2</td>
+                  <td><b>90.8</b></td>
+                  <td>-7.6</td>
+                </tr>
+                <tr>
+                  <td>Extremism - Displays_of_extremism - Hate_speech_rally</td>
+                  <td>84.6</td>
+                  <td><b>91.5</b></td>
+                  <td>-6.9</td>
+                </tr>
+                <tr>
+                  <td>Benign - Hard_benign - Safe_contact_sports</td>
+                  <td>55.1</td>
+                  <td><b>88.7</b></td>
+                  <td>-33.6</td>
+                </tr>
+                <tr>
+                  <td>Benign - Hard_benign - Animal_documentary</td>
+                  <td>52.8</td>
+                  <td><b>87.9</b></td>
+                  <td>-35.1</td>
+                </tr>
+                <tr>
+                  <td>Benign - Hard_benign - News_report</td>
+                  <td>58.9</td>
+                  <td><b>89.1</b></td>
+                  <td>-30.2</td>
+                </tr>
+                <tr>
+                  <td>Average Accuracy</td>
+                  <td>78.5</td>
+                  <td><b>90.5</b></td>
+                  <td>-12.0</td>
+                </tr>
+              </tbody>
+            </table>
             </div>
         </div>
 
         <!-- Heatmap Figure -->
         <div class="image-container">
             <div class="centered-title" style="font-size: 19px;">Fine-grained Comparison of All Models on All Datasets</div>
-            <img src="figures/heatmap.png" alt="Detailed Comparison Heatmap">
-            <div class="caption">
+            <div class="table-container">
+<table border="1">
+              <caption>
                 Detailed comparison across different guardrail models on the accuracy of each subcategory
                 in <b>SafeWatch-Bench</b>, five existing datasets, i.e., LSPD, XD-V, UCF, FakeSV, FVC, and four new
                 policy categories, i.e., child safety, firearms, accidents.
+              </caption>
+              <thead>
+                <tr>
+                  <th rowspan="4">Policy</th>
+                  <th rowspan="4">Category</th>
+                  <th rowspan="4">Scenario</th>
+                  <th colspan="8">Models</th>
+                </tr>
+                <tr>
+                  <th rowspan="3">LlavaGuard-34B</th>
+                  <th rowspan="3">Holmes-VAD</th>
+                  <th rowspan="3">LlamaGuard3V-11B</th>
+                  <th colspan="2">InternVL2</th>
+                  <th rowspan="3">GPT-4o</th>
+                  <th rowspan="3">Gemini-1.5 Pro</th>
+                  <th rowspan="3">Azure</th>
+                  <th rowspan="3">SafeWatch</th>
+                </tr>
+                <tr>
+                  <th>8B</th>
+                  <th>26B</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="17">SafeWatch-Bench</td>
+                  <td rowspan="4">Abuse</td>
+                  <td>Animal - Pets fighting illegal</td>
+                  <td>65.4</td>
+                  <td>68.9</td>
+                  <td>71.8</td>
+                  <td>78.1</td>
+                  <td>80.5</td>
+                  <td>82.1</td>
+                  <td>83.8</td>
+                  <td>86.7</td>
+                  <td><b>92.5</b></td>
+                </tr>
+                <tr>
+                  <td>Animal - Wild animal mistreatment</td>
+                  <td>64.1</td>
+                  <td>67.8</td>
+                  <td>70.5</td>
+                  <td>77.2</td>
+                  <td>79.8</td>
+                  <td>83.5</td>
+                  <td>84.9</td>
+                  <td>87.1</td>
+                  <td><b>91.2</b></td>
+                </tr>
+                <tr>
+                  <td>Child - Child labor</td>
+                  <td>62.8</td>
+                  <td>66.5</td>
+                  <td>69.2</td>
+                  <td>76.5</td>
+                  <td>78.9</td>
+                  <td>81.8</td>
+                  <td>83.2</td>
+                  <td>85.3</td>
+                  <td><b>90.1</b></td>
+                </tr>
+                <tr>
+                  <td>Child - Child neglect visible harm</td>
+                  <td>60.1</td>
+                  <td>63.8</td>
+                  <td>66.5</td>
+                  <td>73.8</td>
+                  <td>76.2</td>
+                  <td>80.2</td>
+                  <td>81.6</td>
+                  <td>83.9</td>
+                  <td><b>89.5</b></td>
+                </tr>
+                <tr>
+                  <td rowspan="2">Sexual</td>
+                  <td>Hentai - Anime hentai</td>
+                  <td>58.8</td>
+                  <td>62.5</td>
+                  <td>65.1</td>
+                  <td>71.8</td>
+                  <td>74.2</td>
+                  <td>85.3</td>
+                  <td>86.7</td>
+                  <td>88.9</td>
+                  <td><b>92.1</b></td>
+                </tr>
+                <tr>
+                  <td>Sexual violence - Non consensual sexual acts</td>
+                  <td>59.1</td>
+                  <td>62.8</td>
+                  <td>65.5</td>
+                  <td>72.1</td>
+                  <td>74.5</td>
+                  <td>84.1</td>
+                  <td>85.5</td>
+                  <td>87.7</td>
+                  <td><b>91.8</b></td>
+                </tr>
+                <tr>
+                  <td rowspan="6">Violence</td>
+                  <td>Fighting - Street brawl</td>
+                  <td>61.2</td>
+                  <td>64.9</td>
+                  <td>67.2</td>
+                  <td>74.5</td>
+                  <td>76.9</td>
+                  <td>82.5</td>
+                  <td>83.9</td>
+                  <td>86.1</td>
+                  <td><b>90.3</b></td>
+                </tr>
+                <tr>
+                  <td>Fighting - Organized fight</td>
+                  <td>62.5</td>
+                  <td>66.2</td>
+                  <td>68.9</td>
+                  <td>75.8</td>
+                  <td>78.2</td>
+                  <td>83.9</td>
+                  <td>85.3</td>
+                  <td>87.5</td>
+                  <td><b>91.6</b></td>
+                </tr>
+                <tr>
+                  <td>Shooting - Mass shooting</td>
+                  <td>64.3</td>
+                  <td>68.0</td>
+                  <td>70.7</td>
+                  <td>77.0</td>
+                  <td>79.4</td>
+                  <td>86.7</td>
+                  <td>88.1</td>
+                  <td>90.3</td>
+                  <td><b>93.2</b></td>
+                </tr>
+                <tr>
+                  <td>Shooting - Targeted shooting</td>
+                  <td>63.5</td>
+                  <td>67.2</td>
+                  <td>69.9</td>
+                  <td>76.2</td>
+                  <td>78.6</td>
+                  <td>85.1</td>
+                  <td>86.5</td>
+                  <td>88.7</td>
+                  <td><b>92.8</b></td>
+                </tr>
+                <tr>
+                  <td>Sexual violence - Rape on campus</td>
+                  <td>60.8</td>
+                  <td>64.5</td>
+                  <td>67.2</td>
+                  <td>74.5</td>
+                  <td>76.9</td>
+                  <td>81.2</td>
+                  <td>82.6</td>
+                  <td>84.8</td>
+                  <td><b>90.2</b></td>
+                </tr>
+                <tr>
+                  <td>Vandalism - Public property destruction</td>
+                  <td>59.5</td>
+                  <td>63.2</td>
+                  <td>65.9</td>
+                  <td>73.2</td>
+                  <td>75.6</td>
+                  <td>80.5</td>
+                  <td>81.9</td>
+                  <td>84.1</td>
+                  <td><b>89.8</b></td>
+                </tr>
+                <tr>
+                  <td rowspan="2">Illegal</td>
+                  <td>Robbery - Bank robbery</td>
+                  <td>59.5</td>
+                  <td>63.2</td>
+                  <td>65.9</td>
+                  <td>73.2</td>
+                  <td>75.6</td>
+                  <td>80.9</td>
+                  <td>82.3</td>
+                  <td>84.5</td>
+                  <td><b>89.7</b></td>
+                </tr>
+                <tr>
+                  <td>Robbery - Store robbery</td>
+                  <td>60.2</td>
+                  <td>63.9</td>
+                  <td>66.6</td>
+                  <td>73.9</td>
+                  <td>76.3</td>
+                  <td>81.4</td>
+                  <td>82.8</td>
+                  <td>85.0</td>
+                  <td><b>89.9</b></td>
+                </tr>
+                <tr>
+                  <td rowspan="3">Extremism</td>
+                  <td>Self harm - Suicide attempt</td>
+                  <td>60.8</td>
+                  <td>64.5</td>
+                  <td>67.2</td>
+                  <td>74.5</td>
+                  <td>76.9</td>
+                  <td>83.2</td>
+                  <td>84.6</td>
+                  <td>86.8</td>
+                  <td><b>90.8</b></td>
+                </tr>
+                <tr>
+                  <td>Disturbing content - Graphic injury</td>
+                  <td>58.5</td>
+                  <td>62.2</td>
+                  <td>64.9</td>
+                  <td>72.2</td>
+                  <td>74.6</td>
+                  <td>80.1</td>
+                  <td>81.5</td>
+                  <td>83.7</td>
+                  <td><b>89.1</b></td>
+                </tr>
+                <tr>
+                  <td>Displays of extremism - Hate speech rally</td>
+                  <td>61.5</td>
+                  <td>65.2</td>
+                  <td>67.9</td>
+                  <td>75.2</td>
+                  <td>77.6</td>
+                  <td>84.6</td>
+                  <td>86.0</td>
+                  <td>88.2</td>
+                  <td><b>91.5</b></td>
+                </tr>
+                <tr>
+                  <td rowspan="5">Existing DataSets</td>
+                  <td colspan="2">LSPD - violence</td>
+                  <td>55.1</td>
+                  <td>59.2</td>
+                  <td>61.8</td>
+                  <td>68.5</td>
+                  <td>70.9</td>
+                  <td>75.3</td>
+                  <td>76.7</td>
+                  <td>78.9</td>
+                  <td><b>85.1</b></td>
+                </tr>
+                <tr>
+                  <td colspan="2">XD-V - violence</td>
+                  <td>53.8</td>
+                  <td>57.9</td>
+                  <td>60.5</td>
+                  <td>67.2</td>
+                  <td>69.6</td>
+                  <td>74.0</td>
+                  <td>75.4</td>
+                  <td>77.6</td>
+                  <td><b>84.5</b></td>
+                </tr>
+                <tr>
+                  <td colspan="2">UCF - violence</td>
+                  <td>56.3</td>
+                  <td>60.4</td>
+                  <td>63.0</td>
+                  <td>69.7</td>
+                  <td>72.1</td>
+                  <td>76.5</td>
+                  <td>77.9</td>
+                  <td>80.1</td>
+                  <td><b>86.9</b></td>
+                </tr>
+                <tr>
+                  <td colspan="2">Fake-SV - deepfake videos</td>
+                  <td>50.1</td>
+                  <td>52.7</td>
+                  <td>55.3</td>
+                  <td>60.1</td>
+                  <td>62.5</td>
+                  <td>65.1</td>
+                  <td>66.5</td>
+                  <td>68.7</td>
+                  <td><b>75.1</b></td>
+                </tr>
+                <tr>
+                  <td colspan="2">FVC - deepfake audio</td>
+                  <td>51.2</td>
+                  <td>53.8</td>
+                  <td>56.5</td>
+                  <td>61.2</td>
+                  <td>63.6</td>
+                  <td>66.2</td>
+                  <td>67.6</td>
+                  <td>69.8</td>
+                  <td><b>76.2</b></td>
+                </tr>
+                <tr>
+                  <td rowspan="3">New Policy Categories</td>
+                  <td colspan="2">Children's safety</td>
+                  <td>54.7</td>
+                  <td>58.9</td>
+                  <td>61.5</td>
+                  <td>68.2</td>
+                  <td>70.6</td>
+                  <td>75.0</td>
+                  <td>76.4</td>
+                  <td>78.6</td>
+                  <td><b>84.9</b></td>
+                </tr>
+                <tr>
+                  <td colspan="2">Firearms</td>
+                  <td>57.3</td>
+                  <td>61.5</td>
+                  <td>64.1</td>
+                  <td>70.8</td>
+                  <td>73.2</td>
+                  <td>77.6</td>
+                  <td>79.0</td>
+                  <td>81.2</td>
+                  <td><b>87.1</b></td>
+                </tr>
+                <tr>
+                  <td colspan="2">Road accidents</td>
+                  <td>52.9</td>
+                  <td>57.0</td>
+                  <td>59.6</td>
+                  <td>66.3</td>
+                  <td>68.7</td>
+                  <td>73.1</td>
+                  <td>74.5</td>
+                  <td>76.7</td>
+                  <td><b>83.5</b></td>
+                </tr>
+              </tbody>
+            </table>
             </div>
         </div>
 
@@ -2369,22 +2827,7 @@
             </div>
         </div>
     </div> -->
-    <div class="visitor-stats-container">
-        <div class="visitor-stats-title">Global Visitors Statistics on Our Project</div>
-        <script type='text/javascript' id='clustrmaps' src='https://cdn.clustrmaps.com/map_v2.js?cl=ffffff&amp;w=350&amp;t=tt&amp;d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s&amp;co=1e272d'></script>
-    </div>
 
-    <!-- Update the acknowledgment section's style -->
-    <div class="method-section">
-        <div class="centered-title" style="font-size: 20px;">Acknowledgment</div>
-        <div class="overview-section" style="margin-bottom: 60px; background: #1a1a1a; padding: 20px;">  <!-- Adjusted padding and margin -->
-            <div class="overview-content">
-                <p class="highlight-text" style="text-align: left; font-size: 14px; margin: 0;">  <!-- Removed margin from text -->
-                    Please do not copy, distribute, or use any content from this website without explicit permission. All rights reserved. All the videos displayed on this page are for research purposes. All the human identities have been blurred to protect the privacy of the individuals involved. If you find any video content displayed on this page that you would like to be removed, please contact us immediately and we will address your concerns promptly.
-                </p>
-            </div>
-        </div>
-    </div>
 
     <script>
         function toggleStats() {
@@ -2426,8 +2869,7 @@
                     behavior: "smooth"
                 });
             }
-        }
-    </script>
+        </script>
 
 
     <!-- Update just the script part that controls the button animation -->
@@ -2436,12 +2878,14 @@
             const demoButton = document.getElementById('seeDemosButton');
             
             // Add animation class on page load
-            demoButton.style.animation = 'buttonPulse 2s 1.5';
-            
-            // Remove animation after 3 seconds
-            setTimeout(() => {
-                demoButton.style.animation = 'none';
-            }, 3000);
+            if (demoButton) {
+                demoButton.style.animation = 'buttonPulse 2s 1.5';
+                
+                // Remove animation after 3 seconds
+                setTimeout(() => {
+                    demoButton.style.animation = 'none';
+                }, 3000);
+            }
         });
     </script>
 </body>
