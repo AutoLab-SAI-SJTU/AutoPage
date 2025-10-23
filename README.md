@@ -3,7 +3,7 @@
 <p align="center">
   <a href="https://arxiv.org/abs/2510.19600" target="_blank"><img src="https://img.shields.io/badge/arXiv-2510.19600-red"></a>
   <a href='https://mqleet.github.io/AutoPage_ProjectPage/'><img src='https://img.shields.io/badge/Project-Page-blue'></a>
-  <a href="https://huggingface.co/spaces/AutoLab-SJTU/AutoPage" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Space-red%22"></a>
+  <a href="https://huggingface.co/spaces/Mqleet/AutoPage" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Space-red%22"></a>
 
 </p >
 
@@ -16,7 +16,7 @@
 - [x] Code Release
 - [x] Paper Release
 - [ ] Datasets
-- [ ] Huggingface Demo
+- [x] Huggingface Demo
 
 ## 📋 Table of Contents
 
