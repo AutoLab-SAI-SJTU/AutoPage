@@ -27,4 +27,3 @@ templates/**/*.pdf
 
 
 run_gradio_*
-app.py
