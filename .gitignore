@@ -27,3 +27,5 @@ templates/**/*.pdf
 
 
 run_gradio_*
+
+.DS_Store
