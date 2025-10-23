@@ -1,7 +1,7 @@
 # AutoPage: Human-Agent Collaborative Paper-to-Page Crafting for Under $0.1
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2510.xxxxx" target="_blank"><img src="https://img.shields.io/badge/arXiv-2510.xxxxx-red"></a>
+  <a href="https://arxiv.org/abs/2510.19600" target="_blank"><img src="https://img.shields.io/badge/arXiv-2510.19600-red"></a>
   <a href='https://mqleet.github.io/AutoPage_ProjectPage/'><img src='https://img.shields.io/badge/Project-Page-blue'></a>
   <a href="https://huggingface.co/spaces/AutoLab-SJTU/AutoPage" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Space-red%22"></a>
 
@@ -60,6 +60,11 @@ conda create -n autopage python=3.10
 conda activate autopage
 pip install -r requirements.txt
 conda install -c conda-forge poppler
+```
+
+And install the Playwright
+```bash
+playwright install
 ```
 
 
@@ -198,14 +203,22 @@ If you need to add a new model, please follow the steps below：
 
 
 
-<!-- ## ✒️ Citation
+## ✒️ Citation
 
 If you find AutoPage useful for your research and applications, please kindly cite our paper using this BibTeX:
 
 ```bibtex
+@misc{ma2025paper2page,
+      title={Human-Agent Collaborative Paper-to-Page Crafting for Under $0.1}, 
+      author={Qianli Ma and Siyu Wang and Yilin Chen and Yinhao Tang and Yixiang Yang and Chang Guo and Bingjie Gao and Zhening Xing and Yanan Sun and Zhipeng Zhang},
+      year={2025},
+      eprint={2510.19600},
+      archivePrefix={arXiv},
+      primaryClass={cs.SE},
+      url={https://arxiv.org/abs/2510.19600}, 
+}
 
-
-``` -->
+```
 
 ## ❤️ Acknowledgement
 
