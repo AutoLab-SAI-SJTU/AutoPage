@@ -7,6 +7,10 @@
 
 </p >
 
+<p align="center">
+<strong><big>If you find our work useful, please consider giving us a star🌟</big></strong>
+</p>
+
 ## 🔥 News
 - [2025.10.20] We release the paper, code and [project pages](https://mqleet.github.io/AutoPage_ProjectPage/) (Refresh the page to see a new version each time).
 
@@ -135,10 +139,8 @@ python app.py
 ### 📹 Demo Video
 We provide a complete Gradio demo video that demonstrates how to use AutoPage to generate project webpages from academic papers:
 
-<video width="100%" controls>
-  <source src="assets/demo_video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://github.com/AutoLab-SAI-SJTU/AutoPage/assets/demo_video.mp4
+
 
 *You can watch this video to understand the complete usage workflow and interface operations.*
 
