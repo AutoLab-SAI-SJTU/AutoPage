@@ -139,7 +139,8 @@ python app.py
 ### 📹 Demo Video
 We provide a complete Gradio demo video that demonstrates how to use AutoPage to generate project webpages from academic papers:
 
-https://github.com/AutoLab-SAI-SJTU/AutoPage/assets/demo_video.mp4
+
+https://github.com/user-attachments/assets/47cba420-253e-45ce-b232-8e174c8f85fa
 
 
 *You can watch this video to understand the complete usage workflow and interface operations.*
