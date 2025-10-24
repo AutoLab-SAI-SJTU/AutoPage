@@ -4,6 +4,7 @@
   <a href="https://arxiv.org/abs/2510.19600" target="_blank"><img src="https://img.shields.io/badge/arXiv-2510.19600-red"></a>
   <a href='https://mqleet.github.io/AutoPage_ProjectPage/'><img src='https://img.shields.io/badge/Project-Page-blue'></a>
   <a href="https://huggingface.co/spaces/Mqleet/AutoPage" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Space-red%22"></a>
+  <a href="https://huggingface.co/papers/2510.19600" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Daily Papers-red"></a>
 
 </p >
 
@@ -236,3 +237,28 @@ Order is based on the time joining the project:
 This project wouldn't be possible without the following open-sourced repositories: [CAMEL](https://github.com/camel-ai/camel), [Docling](https://github.com/docling-project/docling), and [Paper2Poster](https://github.com/Paper2Poster/Paper2Poster). 
 
 Thanks to all the contributors for their great work!
+
+## Paper2Anything Family
+
+AutoPage represents a crucial component of the **Paper2Anything** ecosystem, which is dedicated to the automated transformation of academic papers into diverse presentation formats. This rapidly evolving field has witnessed the emergence of numerous innovative works from the research community, collectively advancing the frontiers of academic content automation:
+
+### 🎯 Related Projects
+
+#### 🪧 **Poster**
+- **[Paper2Poster](https://github.com/Paper2Poster/Paper2Poster)** - Automated generation of academic posters from research papers, featuring multiple template designs and layout configurations
+- **[P2P](https://github.com/multimodal-art-projection/P2P)** - An AI-powered tool that automatically converts academic research papers into professional conference posters.
+
+#### 📽 **Video**
+- **[Paper2Video](https://github.com/showlab/Paper2Video)** - Automatic Video Generation from Scientific Papers
+- **[Preacher](https://github.com/Gen-Verse/Paper2Video)** - An intelligent agent system that automatically transforms scientific papers into video abstracts.
+- **[PresentAgent](https://github.com/AIGeeksGroup/PresentAgent)** - A multimodal agent that transforms long-form documents into narrated presentation videos.
+
+#### 📝 **Promotional Post**
+- **[AutoPR](https://github.com/LightChen233/AutoPR)** - Automated generation of press releases and media materials from academic papers, suitable for public communication and science outreach
+
+#### 📑 **Slides**
+- **[PPTAgent](https://github.com/icip-cas/PPTAgent)** - An innovative system that automatically generates presentations from documents.
+
+
+#### 🤖 **AI Agents**
+- **[Paper2Agent](https://github.com/jmiao24/Paper2Agent)** - A multi-agent AI system that automatically transforms research papers into interactive AI agents with minimal human input
