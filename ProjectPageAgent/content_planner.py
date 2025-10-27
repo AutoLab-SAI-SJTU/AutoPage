@@ -17,6 +17,7 @@ from rich.pretty import Pretty
 import base64
 from camel.messages import BaseMessage
 from camel.models import ModelFactory
+from .domain_detector import detect_domain
 
 def filter_references(md_content: str) -> str:
   
@@ -288,50 +289,62 @@ class ProjectPageContentPlanner:
         print(f"  - Final content: {final_path}")
 
         return current_output, total_in_tok, total_out_tok
-
+    
+    
     def section_generation(self, paper_content, figures):
         """
         Plan the content structure for the project page.
-        
+    
         Args:
             paper_content: Parsed paper content
-            
-        Returns:
-            dict: project page content
+        
+            Returns:
+        dict: project page content
         """
-        
+    
+        # Detect document domain for template selection
+        domain = detect_domain(paper_content)
+        print(f"🎯 Detected domain: {domain}")
+    
+        # Choose template based on domain
+        if domain == "technical":
+            template_file = 'utils/prompt_templates/page_templates/adaptive_sections.yaml'
+        else:
+            template_file = 'utils/prompt_templates/page_templates/section_generation.yaml'
+    
         # Load planning prompt template
-        
-        with open('utils/prompt_templates/page_templates/section_generation.yaml', 'r') as f:
+        with open(template_file, 'r') as f:
             planner_config = yaml.safe_load(f)
-        
+    
         jinja_env = Environment(undefined=StrictUndefined)
         template = jinja_env.from_string(planner_config["template"])
 
         json_format_example = """
 ```json
-{{
+{
     "Introduction": "Brief overview of the paper's main topic and objectives.",
     "Methodology": "Description of the methods used in the research.",
     "Results": "Summary of the key findings and results."
-}}
-```
-"""
+}
         
         # Prepare template arguments
         jinja_args = {
             'paper_content': paper_content,
             'json_format_example': json.dumps(paper_content, indent=2)
         }
-        
+
+        # Add domain to template args if using adaptive template
+        if domain == "technical":
+            jinja_args['domain'] = domain
+
         prompt = template.render(**jinja_args)
-        
+
         # Generate content plan
         self.planner_agent.reset()
         response = self.planner_agent.step(prompt)
         input_token, output_token = account_token(response)
         generated_section = get_json_from_response(response.msgs[0].content)
-        
+
         if self.args.human_input == '1':
             print('-'*50)
             print(Pretty(generated_section, expand_all=True))
@@ -367,13 +380,12 @@ class ProjectPageContentPlanner:
         generated_section = create_dynamic_page_dict(generated_section)
 
         # Save generated content
-        # print(self.agent_config)
         generated_path = f'project_contents/{self.args.paper_name}_generated_section.json'
         with open(generated_path, 'w') as f:
             json.dump(generated_section, f, indent=4)
-        
+
         print(f"  - Generated section plan: {generated_path}")
-        
+
         return generated_section, input_token, output_token
 
     def text_content_generation(self, paper_content, figures, generated_section):

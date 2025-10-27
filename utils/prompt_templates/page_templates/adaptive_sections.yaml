@@ -1,0 +1,17 @@
+template: |
+  Analyze this {{ domain }} document and create appropriate sections:
+  
+  {% if domain == "technical" %}
+  # For technical docs - practical sections
+  Focus on: installation, usage, examples, troubleshooting
+  Example sections: "Overview", "Getting Started", "API Reference", "Code Examples"
+  
+  {% else %}
+  # For academic papers - research sections  
+  Focus on: methodology, results, contributions
+  Example sections: "Introduction", "Methodology", "Results", "Discussion"
+  {% endif %}
+  
+  Content: {{ paper_content }}
+  
+  Output JSON with 4-5 sections.
