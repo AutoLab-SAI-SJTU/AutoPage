@@ -34,3 +34,7 @@ template: |
   output:
   ```json
   <Your generated section json content>
+
+jinja_args:
+  - paper_content
+  - json_format_example

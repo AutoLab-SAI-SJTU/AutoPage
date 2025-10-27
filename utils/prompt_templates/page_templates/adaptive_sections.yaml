@@ -12,6 +12,12 @@ template: |
   Example sections: "Introduction", "Methodology", "Results", "Discussion"
   {% endif %}
   
+  Format example: {{json_format_example}}
+
   Content: {{ paper_content }}
   
   Output JSON with 4-5 sections.
+
+jinja_args:
+  - paper_content
+  - json_format_example

@@ -322,11 +322,11 @@ class ProjectPageContentPlanner:
         json_format_example = """
 ```json
 {
-    "Introduction": "Brief overview of the paper's main topic and objectives.",
-    "Methodology": "Description of the methods used in the research.",
-    "Results": "Summary of the key findings and results."
+    "section1_name": "What should be a brief description of the content of this section?",
+    "section2_name": "What should be a brief description of the content of this section?",
+    "section1_name": "What should be a brief description of the content of this section?"
 }
-        
+"""      
         # Prepare template arguments
         jinja_args = {
             'paper_content': paper_content,
