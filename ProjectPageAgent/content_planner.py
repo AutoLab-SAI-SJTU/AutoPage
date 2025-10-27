@@ -302,7 +302,7 @@ class ProjectPageContentPlanner:
         dict: project page content
         """
     
-        # DOMAIN DETECTION ADD KARO - YE 2 LINES
+        # Detect document domain for template selection
         domain = detect_domain(paper_content)
         print(f"🎯 Detected domain: {domain}")
     
