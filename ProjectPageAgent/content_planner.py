@@ -17,7 +17,7 @@ from rich.pretty import Pretty
 import base64
 from camel.messages import BaseMessage
 from camel.models import ModelFactory
-from domain_detector import detect_domain
+from .domain_detector import detect_domain
 
 def filter_references(md_content: str) -> str:
   
