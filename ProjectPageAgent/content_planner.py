@@ -325,7 +325,7 @@ class ProjectPageContentPlanner:
     "Introduction": "Brief overview of the paper's main topic and objectives.",
     "Methodology": "Description of the methods used in the research.",
     "Results": "Summary of the key findings and results."
-}"""
+}
         
         # Prepare template arguments
         jinja_args = {
