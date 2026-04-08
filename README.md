@@ -1,4 +1,7 @@
-# AutoPage: Human-Agent Collaborative Paper-to-Page Crafting for Under $0.1
+<div align="center">
+
+<h2><span style="color:#FFFFFF;">AutoPage: Human-Agent Collaborative Paper-to-Page Crafting</span></h2>
+
 
 <p align="center">
   <a href="https://arxiv.org/abs/2510.19600" target="_blank"><img src="https://img.shields.io/badge/arXiv-2510.19600-red"></a>
@@ -8,11 +11,21 @@
 
 </p >
 
+<strong><big>Accepted by ACL 2026</big></strong>
+
+
 <p align="center">
 <strong><big>If you find our work useful, please consider giving us a star🌟</big></strong>
 </p>
 
+
+
+</div>
+
+
 ## 🔥 News
+- [2026.04.06] 🎉 AutoPage has been accepted by ACL 2026 findings!
+
 - [2025.10.20] We release the paper, code and [project pages](https://mqleet.github.io/AutoPage_ProjectPage/) (Refresh the page to see a new version each time).
 
 
@@ -25,7 +38,7 @@
 
 ## 📋 Table of Contents
 
-- [AutoPage: Human-Agent Collaborative Paper-to-Page Crafting for Under $0.1](#autopage-human-agent-collaborative-paper-to-page-crafting-for-under-01)
+- [AutoPage: Human-Agent Collaborative Paper-to-Page Crafting](#autopage-human-agent-collaborative-paper-to-page-crafting-for-under-01)
   - [🔎 Overview](#-overview)
   - [📚 Pipeline](#-pipeline)
   - [🛠️ Installation](#-installation)
