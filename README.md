@@ -225,16 +225,13 @@ If you need to add a new model, please follow the steps below：
 If you find AutoPage useful for your research and applications, please kindly cite our paper using this BibTeX:
 
 ```bibtex
-@misc{ma2025paper2page,
-      title={Human-Agent Collaborative Paper-to-Page Crafting for Under $0.1}, 
-      author={Qianli Ma and Siyu Wang and Yilin Chen and Yinhao Tang and Yixiang Yang and Chang Guo and Bingjie Gao and Zhening Xing and Yanan Sun and Zhipeng Zhang},
-      year={2025},
-      eprint={2510.19600},
-      archivePrefix={arXiv},
-      primaryClass={cs.SE},
-      url={https://arxiv.org/abs/2510.19600}, 
+@inproceedings{ma2026human,
+  title={Human-Agent Collaborative Paper-to-Page Crafting},
+  author={Ma, Qianli and Wang, Siyu and Yilin, Chen and Tang, Yinhao and Yang, Yixiang and Guo, Chang and Gao, Bingjie and Xing, Zhening and Sun, Yanan and Zhang, Zhipeng},
+  booktitle={Findings of the Association for Computational Linguistics: ACL 2026},
+  pages={39963--39999},
+  year={2026}
 }
-
 ```
 
 ## ❤️ Acknowledgement
