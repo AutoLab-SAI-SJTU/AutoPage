@@ -266,7 +266,7 @@ nest-asyncio==1.6.0
 networkx==3.4.2
 newspaper3k==0.2.8
 ninja==1.11.1.3
-nltk==3.9.1
+nltk==3.10.3
 notebook==7.3.2
 notebook_shim==0.2.4
 notion-client==2.3.0
